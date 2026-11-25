@@ -11,7 +11,9 @@
 - **Root `package.json`** เหลือเฉพาะ peer bridge กับ Code Connect (ถอด MUI/Emotion/Storybook 8/Vite/React ออก)
 - อัปเดต `CLAUDE.md`, `AGENTS.md`, `README.md`, `rules/skill-routing.md`, `.claude/launch.json`, hook `guard-ds-usage.py` และ skill ที่อ่าน DESIGN.md/tokens ให้ชี้ `shadcn/`; skill `crv-component-code` ติดป้าย legacy
 - Canvas (`sync/canvas`) แสดงใน Storybook ของ shadcn ที่ `Workspace/Canvas`
-- ยังไม่มี dev export ของ shadcn; Code Connect ที่เผยแพร่ใน Figma ยังไม่ได้ unpublish
+- ยังไม่มี dev export ของ shadcn
+- ลบ Code Connect ของ MUI: ไฟล์ map 53 ไฟล์, `code-connect/`, `figma.config.json` และสคริปต์ `code-connect:*` ใน package.json ราก ลอง unpublish ใน Figma 90 รายการ Figma ตอบว่าไม่มี mapping ให้ลบ (ลบสำเร็จ 0) Code Connect ของ shadcn ยังไม่ได้สร้าง
+- Button (Figma ↔ shadcn): เปลี่ยนชื่อค่า 120 variants ใน Figma, เพิ่ม prop `color` และปรับขนาด sm/lg ในโค้ด, ธีมออกตัวแปร `--cds-*` ครบจาก tokens.json ยังไม่มี `elevated` (รอ shadow token)
 - ผู้ใช้ล้าง Ready for dev ใน Figma "Cariva Core Design System" ครบ 53 โหนด และเปลี่ยนต้นทาง Figma จาก "[Shadcn] Cariva Core Design System" เป็นไฟล์นี้
 - `shadcn/tokens.json` ตาม Figma สด: `content/secondary` เป็น Slate 500 และเพิ่ม `on-fill` 7 ตัว (ทุกตัวสีขาว)
 - นำ `workflow-map.md` (flow S/U/C/F/D/V/H) เข้า `shadcn/rules/` โดยรักษากฎเดิม เพิ่มตารางชื่อ component `docs/components/FIGMA-NAMING.md` และลำดับอ้างอิงเมื่อไม่มี component (Core → shadcn/ui → ReUI)

@@ -1,6 +1,6 @@
 # Button — Figma specification
 
-ตรวจจาก Figma วันที่ 26 พฤศจิกายน 2026: [Button](https://www.figma.com/design/e9ypItGZbm2poUZLUQxu66?node-id=3646-28000)
+ตรวจจาก Figma วันที่ 26 พฤศจิกายน 2026: [Button](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt?node-id=3646-28000) (ไฟล์ Cariva Core Design System; ตอนแรกอ่านจากไฟล์ "[Shadcn]" เดิม ค่าที่ใช้เทียบเหมือนกัน)
 
 ขอบเขต: `crv-button-standard` จำนวน 120 variants; ไม่รวม icon/loading/link/decorative/mic/split ที่เป็น component set แยกกัน เอกสารนี้บันทึก Figma ที่อ่านจริง ไม่รับรองว่าโค้ด sync แล้ว
 
@@ -10,12 +10,14 @@ Label (`children`), startIcon และ endIcon แบบ instance swap พร�
 
 | Property | ตัวเลือกที่พบ |
 |---|---|
-| variant | contained, outlined, text, elevated |
-| color | primary, error, neutral |
+| variant | default (เดิม contained), outline (เดิม outlined), ghost (เดิม text), elevated |
+| color | primary, destructive (เดิม error), secondary (เดิม neutral) |
 | state | default, hover, pressed, disabled |
-| size | small, medium, large |
+| size | sm (เดิม small), default (เดิม medium), lg (เดิม large) |
 
 ค่าข้างต้นไม่ใช่ทุก combination ที่มีจริง: 120 variants จาก 144 combinations ที่เป็นไปได้ ใช้ variant ที่มีอยู่ ไม่สร้าง prop เพิ่มเพียงเพื่อทำ mapping
+
+เปลี่ยนชื่อค่าใน Figma เมื่อ 26 พฤศจิกายน 2026 (120 variants, ชุดเปลี่ยนชื่อเป็น `button`, instance 313 ตัวยังเชื่อมครบ) ชื่อเดิมสำรองไว้ใน plugin data ของ component set (`oldNames_2026-11-26`) หน้าตาไม่เปลี่ยน
 
 ## ขนาด
 
@@ -41,20 +43,22 @@ IBM Plex Sans Thai Medium; radius 9999 (pill); opacity ของ node 100% ท�
 
 สีต้องแยกตาม variant/color/state; ห้ามใช้ primary กับ neutral แทนกันเพราะเห็นว่าเป็น outline เหมือนกัน
 
-## โค้ดปัจจุบันและข้อแตกต่าง
+## โค้ดปัจจุบันและข้อแตกต่าง (อัปเดต 26 พฤศจิกายน 2026 หลังแก้โค้ด)
 
-แหล่ง implementation: `src/lib/app/components/ui/button.tsx`; เอกสารโค้ดปัจจุบัน: `ButtonSource.mdx`
+แหล่ง implementation: `src/lib/app/components/ui/button.tsx`; เอกสารโค้ด: `ButtonSource.mdx`; ตารางชื่อ: `FIGMA-NAMING.md`
 
-| เรื่อง | Figma | โค้ดที่ตรวจ |
-|---|---|---|
-| Small typography/padding | 12/16, py8 | 14/24, py4 |
-| Small gap | 4 | 8 |
-| Large gap | 12 | 8 |
-| Disabled | semantic colors, opacity100% | opacity50% |
-| Properties | variant + color + state แยก | variant แบบ default/outline/secondary/ghost/destructive/link/decorative |
-| Radius | pill ใน set นี้ | ตาม Product theme |
+| เรื่อง | Figma | โค้ด | สถานะ |
+|---|---|---|---|
+| ขนาด sm / default / lg | สูง 32 / 40 / 48, font 12/16 / 16/24 / 16/24, padding 8/12 / 8/16 / 12/24, gap 4 / 8 / 12 | วัดใน Storybook ได้ค่าเดียวกันทุกตัว | ตรง (วัดแล้ว) |
+| variant × color | default, outline, ghost × primary, destructive, secondary | prop `variant` และ `color` ชื่อเดียวกัน | ตรง ยกเว้น elevated |
+| สี contained primary/destructive, outline ring ทั้ง 3 color, ghost text, disabled | ผูก semantic variables | ผูก `--cds-*` ที่ generate จาก tokens.json วัดสี default แล้วตรง และ hover ของ contained primary ตรง (#0F70E6) | ตรง (วัดเท่าที่ระบุ) |
+| Disabled | semantic colors, opacity 100% | ใช้สีตาม Figma และ opacity 1 สำหรับ default/outline/ghost | ตรง |
+| Radius | pill | `--button-radius` = full ในธีม carivaApp วัดได้ 9999px | ตรง ใน carivaApp |
+| elevated | มี พร้อมเงา `shadow/sm`, `shadow/md`, `shadow/xl` | ยังไม่มี | **ช่องว่าง:** รอตัดสินใจเพิ่ม shadow token |
+| contained + neutral | ไม่มีใน Figma | ใช้ลุค `secondary` ของ shadcn | ส่วนเกินที่ไม่มาจาก Figma |
+| loading, icon, link, decorative, mic, split | component set แยก | `loading` ใช้ Spinner ประกอบ, `size=icon*`, `variant=link` | ยังไม่ได้ตรวจ |
 
-Medium geometry ตรงกันที่ 40px, 16/24, py8 px16 gap8 แต่ไม่ได้แปลว่าสีและทุก state ตรงกัน ไม่มี mapping แบบหนึ่งต่อหนึ่งที่รับรองแล้ว ห้ามแก้ public API โดยเดา
+ที่ยังไม่ได้วัด: hover/pressed ของ outline และ ghost ทุก color, pressed ทุกแบบ, ขนาดไอคอนของชุด icon ผลกระทบต่อ component อื่น: เส้นขอบ outline เปลี่ยนจากเทาเป็นสีตาม color และขนาด sm เปลี่ยน ใช้ใน dialog, toast, calendar, combobox, sheet, sidebar ส่วน ghost ที่ใช้เป็นปุ่มทั่วไปตั้ง `color="secondary"` ไว้เพื่อคงสีตัวหนังสือเป็นกลาง
 
 ## สิ่งที่ยังต้องตรวจ
 

@@ -20,4 +20,4 @@ Active stack: React19, Vite8, Tailwind4, shadcn Base UI, Storybook10 และ C
 
 Core ครบ 38 ตัว: [Storybook coverage](docs/architecture/CORE-STORYBOOK-COVERAGE.md). ใช้ `npm run storybook:coverage` ตรวจ story files.
 
-Code Connect เดิมของ MUI ยังอยู่ที่รากของ repo (`code-connect/`, `figma.config.json`) และ **ยังไม่ได้ unpublish ใน Figma** ไม่ใช่ mapping ของ shadcn ปัจจุบัน. Build outputs `dist/` และ `storybook-static/` สร้างใหม่ได้ด้วย build scripts.
+Code Connect เดิมของ MUI ถูกลบแล้วเมื่อ 26 พฤศจิกายน 2026 (ไฟล์ map 53 ไฟล์, `code-connect/`, `figma.config.json`) Figma ตอบว่าไม่มี mapping ที่ผูกไว้ให้ unpublish (ลอง 90 รายการ ไม่พบทั้งหมด) Code Connect ของ shadcn ยังไม่ได้สร้าง จะทำเป็นขั้นต่อจาก F5 ของแต่ละ component ที่ `shadcn/code-connect/`. Build outputs `dist/` และ `storybook-static/` สร้างใหม่ได้ด้วย build scripts.

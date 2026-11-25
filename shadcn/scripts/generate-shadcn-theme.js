@@ -48,6 +48,16 @@ for (const [name, path] of Object.entries(roles)) {
   if (!value) throw Error("Missing semantic token: " + path);
   css += `  --${name}: ${value};\n`;
 }
+// Every semantic token is also exposed as --cds-<path> so components can bind to
+// roles shadcn has no variable for (hover/pressed surfaces, error, neutral, disabled).
+const seen = new Set();
+for (const [key, token] of Object.entries(tokens.semantic)) {
+  if (!key.startsWith("color/") || !token.value) continue;
+  const name = "cds-" + key.slice("color/".length).replaceAll("/", "-");
+  if (seen.has(name)) throw Error("Duplicate generated variable: --" + name);
+  seen.add(name);
+  css += `  --${name}: ${token.value};\n`;
+}
 css += `  --decorative-gradient: linear-gradient(135deg, ${tokens.semantic["color/brand/decorative/gradient/from"].value}, ${tokens.semantic["color/brand/decorative/gradient/via"].value}, ${tokens.semantic["color/brand/decorative/gradient/to"].value});\n`;
 css += "}\n";
 const file = "src/lib/core/design-system/themes/semantic.generated.css";

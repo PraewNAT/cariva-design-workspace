@@ -29,7 +29,7 @@ function ToastViewport({ className, ...props }: ToastPrimitive.Viewport.Props) {
       data-slot="toast-viewport"
       className={cn(
         "pointer-events-none fixed inset-x-4 bottom-4 z-50 mx-auto w-auto max-w-sm outline-none sm:right-4 sm:left-auto sm:mx-0 sm:w-full",
-        className,
+        className
       )}
       {...props}
     />
@@ -56,7 +56,7 @@ function Toast({ className, ...props }: ToastPrimitive.Root.Props) {
         "data-expanded:data-ending-style:data-[swipe-direction=left]:[transform:translateX(calc(var(--toast-swipe-movement-x)-150%))_translateY(var(--offset-y))]",
         "data-expanded:data-ending-style:data-[swipe-direction=right]:[transform:translateX(calc(var(--toast-swipe-movement-x)+150%))_translateY(var(--offset-y))]",
         "data-expanded:data-ending-style:data-[swipe-direction=up]:[transform:translateY(calc(var(--toast-swipe-movement-y)-150%))]",
-        className,
+        className
       )}
       {...props}
     />
@@ -69,7 +69,7 @@ function ToastContent({ className, ...props }: ToastPrimitive.Content.Props) {
       data-slot="toast-content"
       className={cn(
         "flex h-full items-center gap-3 overflow-hidden p-4 transition-opacity duration-250 ease-[cubic-bezier(0.22,1,0.36,1)] data-behind:opacity-0 data-expanded:opacity-100",
-        className,
+        className
       )}
       {...props}
     />
@@ -117,7 +117,7 @@ function ToastAction({
 function ToastClose({
   className,
   children,
-  render = <Button variant="ghost" size="icon-sm" />,
+  render = <Button variant="ghost" color="secondary" size="icon-sm" />,
   ...props
 }: ToastPrimitive.Close.Props) {
   return (
@@ -127,7 +127,7 @@ function ToastClose({
       render={render}
       className={cn(
         "relative shrink-0 text-muted-foreground after:absolute after:-inset-2 after:content-[''] hover:text-foreground",
-        className,
+        className
       )}
       {...props}
     >
@@ -242,11 +242,17 @@ const createToastManager = ToastPrimitive.createToastManager;
 const useToastManager = ToastPrimitive.useToastManager;
 
 export {
-  createToastManager, Toast, toast, ToastAction,
+  createToastManager,
+  Toast,
+  toast,
+  ToastAction,
   ToastClose,
   ToastContent,
-  ToastDescription, Toaster, ToastPortal,
+  ToastDescription,
+  Toaster,
+  ToastPortal,
   ToastProvider,
   ToastTitle,
-  ToastViewport, useToastManager
+  ToastViewport,
+  useToastManager,
 };

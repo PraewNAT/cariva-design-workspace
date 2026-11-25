@@ -49,6 +49,47 @@ export const Variants: Story = {
     </div>
   ),
 };
+export const Colors: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Figma: variant (contained → default, outlined → outline, text → ghost) × color (primary, error → destructive, neutral → secondary) ไม่มี elevated ในโค้ดเพราะยังไม่มี shadow token และ Figma ไม่มี contained + neutral จึงใช้ลุค secondary ของ shadcn",
+      },
+    },
+  },
+  render: () => (
+    <div className="grid gap-4">
+      {(["default", "outline", "ghost"] as const).map((v) => (
+        <div key={v} className="flex flex-wrap items-center gap-4">
+          {(["primary", "destructive", "secondary"] as const).map((c) => (
+            <Button key={c} variant={v} color={c}>
+              {v} / {c}
+            </Button>
+          ))}
+          <Button variant={v} disabled>
+            {v} / disabled
+          </Button>
+        </div>
+      ))}
+    </div>
+  ),
+  play: async ({ canvas }) => {
+    const bg = (name: string) =>
+      getComputedStyle(canvas.getByRole("button", { name })).backgroundColor;
+    await expect(bg("default / primary")).toBe("rgb(23, 137, 250)");
+    await expect(bg("default / destructive")).not.toBe(bg("default / primary"));
+    await expect(bg("default / disabled")).not.toBe(bg("default / primary"));
+    await expect(
+      canvas.getByRole("button", { name: "outline / primary" })
+    ).toHaveAttribute("data-color", "primary");
+    await expect(
+      getComputedStyle(
+        canvas.getByRole("button", { name: "default / disabled" })
+      ).opacity
+    ).toBe("1");
+  },
+};
 export const Sizes: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-4">
@@ -77,9 +118,26 @@ export const Sizes: Story = {
     ] as const)
       await waitFor(() =>
         expect(
-          canvas.getByRole("button", { name }).getBoundingClientRect().height,
-        ).toBe(height),
+          canvas.getByRole("button", { name }).getBoundingClientRect().height
+        ).toBe(height)
       );
+    // Figma small is 12/16 with padding 8/12; large has padding 12/24
+    const small = getComputedStyle(
+      canvas.getByRole("button", { name: "Small" })
+    );
+    await expect([
+      small.fontSize,
+      small.lineHeight,
+      small.paddingTop,
+      small.paddingLeft,
+    ]).toEqual(["12px", "16px", "8px", "12px"]);
+    const large = getComputedStyle(
+      canvas.getByRole("button", { name: "Large" })
+    );
+    await expect([large.paddingTop, large.paddingLeft]).toEqual([
+      "12px",
+      "24px",
+    ]);
   },
 };
 export const WithIcon: Story = {
@@ -94,7 +152,7 @@ export const WithIcon: Story = {
   play: async ({ canvas }) => {
     const b = canvas.getByRole("button");
     await expect(getComputedStyle(b.querySelector("svg")!).color).toBe(
-      getComputedStyle(b).color,
+      getComputedStyle(b).color
     );
   },
 };

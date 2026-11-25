@@ -73,3 +73,29 @@
 | Section 1 (หน้า Date/Time) | 4947:7100 | `date-time-picker` | pattern: `calendar` + `popover` + `input` |
 
 ที่มา: ตารางทดแทน `src/lib/core/design-system/catalog/migration-map.json` (47 รายการ) เทียบกับ 53 โหนดที่เคยเป็น Ready for dev
+
+## Button: ชื่อ property ที่ตกลงแล้ว (26 พฤศจิกายน 2026)
+
+ผู้ใช้เลือกให้ **โค้ดตาม Figma** ในเรื่องโครงสร้าง (เพิ่มแกน `color`) และให้ชื่อ property ตรงกับ shadcn เท่าที่ shadcn มีชื่อให้ **สถานะ:** ผู้ใช้ยืนยันแล้ว เปลี่ยนชื่อค่าใน Figma และแก้โค้ดแล้ว (26 พฤศจิกายน 2026) ยกเว้น `elevated` ในโค้ดที่ยังไม่ทำ เพราะยังไม่มี shadow token
+
+ชุด `crv-button-standard` → `button` (node `3646:28000`, เปลี่ยนชื่อแล้ว)
+
+| property | Figma ตอนนี้ | ชื่อใหม่ | โค้ด |
+|---|---|---|---|
+| `variant` | contained | `default` | มีแล้ว |
+| `variant` | outlined | `outline` | มีแล้ว ต้องปรับสีเส้นขอบเป็น `brand/primary/border/strong` |
+| `variant` | text | `ghost` | มีแล้ว (ผู้ใช้ยืนยันว่าตรงกัน) |
+| `variant` | elevated | `elevated` | **เพิ่มใหม่** shadcn ไม่มี |
+| `color` | primary | `primary` | **เพิ่มแกนใหม่** shadcn ไม่มี |
+| `color` | error | `destructive` | ใช้ชื่อตาม shadcn |
+| `color` | neutral | `secondary` | ผู้ใช้ยืนยันว่าตรงกับ `secondary` |
+| `size` | small | `sm` | แก้ gap เป็น 4 และฟอนต์ 12/16 ให้ตรง Figma |
+| `size` | medium | `default` | ตรงแล้ว (ความสูง 40) |
+| `size` | large | `lg` | แก้ gap เป็น 12 ให้ตรง Figma |
+| `state` | default / hover / pressed / disabled | `state` (เฉพาะ Figma) | ในโค้ดเป็น CSS hover, active และ prop `disabled` |
+| `startIconVisible`, `endIconVisible`, `startIcon`, `endIcon` | มี | ใช้ชื่อเดิม (เฉพาะ Figma) | shadcn วางไอคอนเป็น children |
+| `children` | ข้อความบนปุ่ม | `children` | มีแล้ว |
+
+ชุดอื่นในหน้า Button: `crv-button-icon` → `size=icon / icon-sm / icon-lg`, `crv-link` → `variant=link`, `crv-button-loading` → ใช้ Spinner ประกอบ (ไม่เพิ่ม prop `loading`) ยังไม่ได้ทำตารางละเอียด
+
+**ยังไม่ได้ตรวจ:** สี hover/pressed/disabled ของแต่ละ color, ขนาดไอคอน, เงาของ `elevated`
