@@ -1,0 +1,37 @@
+{
+  "storybook": "http://localhost:6006",
+  "view": {
+    "x": 330.34445378709677,
+    "y": 130.63995846343843,
+    "zoom": 0.31548985382349576
+  },
+  "frames": [
+    {
+      "id": "login",
+      "title": "Login / Default",
+      "story": "screens-auth-loginscreen--default",
+      "x": 0,
+      "y": 0,
+      "w": 800,
+      "h": 700
+    },
+    {
+      "id": "login-error",
+      "title": "Login / Error",
+      "story": "screens-auth-loginscreen--error",
+      "x": 880,
+      "y": 0,
+      "w": 800,
+      "h": 700
+    },
+    {
+      "id": "login-compact",
+      "title": "Login / Compact",
+      "story": "screens-auth-loginscreen--compact",
+      "x": 1760,
+      "y": 0,
+      "w": 390,
+      "h": 700
+    }
+  ]
+}

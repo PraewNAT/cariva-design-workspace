@@ -1,0 +1,64 @@
+{
+  "storybook": "http://localhost:6007",
+  "view": {
+    "x": 40,
+    "y": 40,
+    "zoom": 0.5
+  },
+  "frames": [
+    {
+      "id": "button",
+      "title": "Button",
+      "story": "core-button--default",
+      "x": 0,
+      "y": 0,
+      "w": 480,
+      "h": 300
+    },
+    {
+      "id": "input",
+      "title": "Input",
+      "story": "core-components-input--default",
+      "x": 560,
+      "y": 0,
+      "w": 480,
+      "h": 300
+    },
+    {
+      "id": "field",
+      "title": "Field",
+      "story": "core-components-field--default",
+      "x": 1120,
+      "y": 0,
+      "w": 480,
+      "h": 300
+    },
+    {
+      "id": "checkbox",
+      "title": "Checkbox",
+      "story": "core-components-checkbox--default",
+      "x": 0,
+      "y": 380,
+      "w": 480,
+      "h": 300
+    },
+    {
+      "id": "card",
+      "title": "Card",
+      "story": "core-components-card--default",
+      "x": 560,
+      "y": 380,
+      "w": 480,
+      "h": 300
+    },
+    {
+      "id": "dialog",
+      "title": "Dialog",
+      "story": "core-components-dialog--default",
+      "x": 1120,
+      "y": 380,
+      "w": 480,
+      "h": 300
+    }
+  ]
+}

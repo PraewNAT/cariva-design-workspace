@@ -1,12 +1,14 @@
 # Figma Workflow
 
-ครอบทั้ง 2 งาน — **Figma authoring** (สร้าง/แก้ component ใน Figma) และ **Figma → Code** (implement React จาก Figma)
+> **หมายเหตุ (26 พ.ย. 2026):** เอกสารนี้เขียนในยุค MUI ส่วนที่พูดถึง `Crv*`, MUI props และ `.ai.md` ใช้กับ `legacy/mui/` เท่านั้น ส่วนขั้นตอนฝั่ง Figma ใช้ได้ทั่วไป DS ปัจจุบันคือ shadcn ใน `shadcn/` (กฎใน `shadcn/rules/`)
+
+ครอบคลุมงาน — **Figma authoring** (สร้าง/แก้ component ใน Figma) และ **Figma → Code** (implement React จาก Figma) รวมถึง **Code → Figma ระดับหน้าจอ** (Part C)
 
 **Related docs**
-- Screens / templates: `rules/pixel-perfect-ui.md`
-- Component contracts: `rules/components/{name}.md`
-- Code conventions: `code/CLAUDE.md`
-- Per-component AI rules: `code/core/components/{Component}/{Component}.ai.md`
+- Screens / templates: `legacy/mui/rules/pixel-perfect-ui.md`
+- Component contracts: `shadcn/rules/components/{name}.md`
+- Code conventions: `legacy/mui/code/CLAUDE.md`
+- Per-component AI rules: `legacy/mui/code/core/components/{Component}/{Component}.ai.md`
 
 ---
 
@@ -137,9 +139,9 @@ Fix เฉพาะเมื่อ user สั่งชัดเจน:
 
 ## Part B — Figma → Code (implement React จาก Figma)
 
-### Principle: Figma wins on conflict
+### Principle: Figma wins on conflict (สำหรับ Figma → Code)
 
-`rules/components/*.md` คือ checklist และ contract ไม่ใช่ substitute สำหรับการอ่าน Figma
+`shadcn/rules/components/*.md` คือ checklist และ contract ไม่ใช่ substitute สำหรับการอ่าน Figma
 
 ถ้า rule ขัดกับ Figma node จริง → **trust Figma** → implement จาก Figma → **update rule ในงานเดียวกัน**
 
@@ -164,9 +166,9 @@ crv-example
 
 ### B2 — Read docs as checklist
 
-1. `rules/components/{name}.md` — props, slots, token table
-2. `code/core/components/{Component}/{Component}.ai.md` — exports, AI rules
-3. `code/CLAUDE.md` — tokens, imports, MUI wrapper rules
+1. `shadcn/rules/components/{name}.md` — props, slots, token table
+2. `legacy/mui/code/core/components/{Component}/{Component}.ai.md` — exports, AI rules
+3. `legacy/mui/code/CLAUDE.md` — tokens, imports, MUI wrapper rules
 
 Note gaps ระหว่าง doc กับ Figma แล้ว plan fix หลัง implement
 
@@ -199,9 +201,9 @@ Story title pattern: `{Category}/Crv{Component}`
 
 | File | Update เมื่อ |
 |---|---|
-| `rules/components/{name}.md` | anatomy, tokens, layout, prop mapping เปลี่ยน |
-| `code/core/components/{Component}/{Component}.ai.md` | props, slots, implementation rules ใหม่ |
-| `code/CLAUDE.md` | global pattern ใหม่ที่ใช้ได้กว้าง |
+| `shadcn/rules/components/{name}.md` | anatomy, tokens, layout, prop mapping เปลี่ยน |
+| `legacy/mui/code/core/components/{Component}/{Component}.ai.md` | props, slots, implementation rules ใหม่ |
+| `legacy/mui/code/CLAUDE.md` | global pattern ใหม่ที่ใช้ได้กว้าง |
 
 ### Common failure modes
 
@@ -218,7 +220,7 @@ Story title pattern: `{Category}/Crv{Component}`
 
 ```
 [ ] Figma node inspected — structure, variants, per-layer tokens
-[ ] rules/components/*.md อ่านแล้ว; conflicts noted
+[ ] shadcn/rules/components/*.md อ่านแล้ว; conflicts noted
 [ ] JSX mirrors top-level Figma frames
 [ ] Tokens only — no hardcoded hex/px
 [ ] index.ts exports + stories import from index
@@ -226,3 +228,27 @@ Story title pattern: `{Category}/Crv{Component}`
 [ ] Visual compare Storybook vs Figma
 [ ] rules + .ai.md updated ถ้า Figma ต่างจาก doc
 ```
+
+
+---
+
+## Part C — Selected Code → Figma
+
+Latest policy: `AGENTS.md` and `DESIGN-SYSTEM-PLAN.md`. Parts A/B above remain legacy authoring/Figma-first procedures, not a global requirement that all new UI start in Figma or use MUI. Keep token binding/API safeguards for the target DS; resolve conflicts with the approved source rather than automatically rounding imported designs or changing anatomy.
+
+### Source and destination
+
+Code defines implemented API/behavior and the selected screen composition/content. Approved tokens/specifications and current Product typography decisions define visual authority. Existing target Figma components retain their radius, variable bindings and property API; broader preview preferences do not authorize replacing those rules. Surface drift as a conflict rather than silently choosing one side.
+
+Resolve Product from the task and retain it. Discover an existing mapping; at first setup request both its DS file and Design file together and save the real pair in an explicit repository mapping. Never invent file keys, mappings or baseline support. DS files hold shared components/variables; Design files hold screens built from instances. Source-only work and board cases do not require Figma copies.
+
+### Workflow
+
+1. Inspect only selected source/dependencies and the actual rendered state/viewport. Record path, route/story, commit and dirty status. If runtime cannot run, distinguish static reconstruction from verified visual parity.
+2. Read existing mappings, destination nodes, DS components/styles/variables and relevant Code Connect files. Verify real tool capabilities and cross-file library permissions before writing.
+3. For selected screen output use code-to-figma → installed figma-generate-design/figma-use. For state-by-state prototype output use prototype-to-figma instead, with this same policy. Do not run both pipelines on the same deliverable.
+4. Reuse existing nodes and instances. Keep editable text/vectors, Auto Layout and variable/style bindings; no complete-UI raster as deliverable. Create/update shared DS assets only when the task explicitly includes that scope. Missing DS matches are gaps to resolve, not permission for fallback primitives. Product-local components require agreed scope.
+5. Update mapped nodes rather than duplicating. Inspect designer edits and preserve baseline/source evidence where available. If both sides changed the same contract/layout, show the conflict before overwriting. No automatic reverse sync; Figma → Code requires that direction in the user's task.
+6. Compare rendered source and result at matching states/viewports; read back node structure, real instances, props and bound variables/styles. Report unsupported variants, visual deviations and checks that could not run. Update actual source/node mapping and provenance within authorized scope; do not claim a parity engine or background watcher exists.
+
+Do not publish a library, change source/tokens, write Code Connect mappings or create files merely as a side effect of screen export. When task scope includes such work, perform the necessary preparation and verify real capability/permissions. Keep shared-DS impacts distinct from local screen overrides. Draft changes do not start numbered releases.

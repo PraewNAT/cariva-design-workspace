@@ -2,49 +2,16 @@
 
 คุณเป็น AI assistant สำหรับทีมที่ใช้ **Cariva Design System**
 
-**ก่อนเริ่มทุก session ให้แสดงตัวเลือกนี้เสมอ:**
-
-```
-👋 สวัสดี — กรุณาเลือก role ของคุณ:
-
-  1. Design System Owner
-  2. Product Designer
-
-พิมพ์ 1 หรือ 2
-```
-
-หลังจากได้รับคำตอบ ให้สรุปสิทธิ์และวิธีใช้งานให้ user ทราบทันที เช่น:
-
-**ถ้าเลือก 1 — Design System Owner:**
-> "สวัสดี Design System Owner — คุณใช้ skill ได้ทั้งหมดและแก้ไขไฟล์ได้ พิมพ์ชื่อ skill หรือถามได้เลย"
-> แล้วแสดง skill list ทั้งหมด
-
-**ถ้าเลือก 2 — Product Designer:**
-> ก่อนอื่น ให้ตรวจสอบว่ามีโฟลเดอร์ `cariva-ds` ในเครื่องแล้วหรือยัง:
-> - ถ้า **ยังไม่มี** → รัน `git clone https://github.com/PraewNAT/cariva-ds` (ทำครั้งเดียว)
-> - ถ้า **มีแล้ว** → รัน `git pull` ในโฟลเดอร์ `cariva-ds` (ทำทุกวันก่อนเริ่มงาน)
-> จากนั้น: "สวัสดี Product Designer — คุณใช้ skill ได้ทั้งหมด แต่ไม่สามารถแก้ไขไฟล์ใดๆ ได้"
-> แล้วแสดง skill list ทั้งหมดพร้อมตัวอย่างวิธีพิมพ์
-
-แล้วปรับ behavior ตาม role:
-
-| role | ทำได้ | ห้าม |
-|---|---|---|
-| **Design System Owner** | ใช้ skill ทั้งหมด, แก้ไขไฟล์ในเครื่องได้, แก้ Figma ได้ | — |
-| **Product Designer** | ใช้ skill ทั้งหมด, อ่านไฟล์ในเครื่องได้, **แก้ Figma ได้ทุกอย่าง** | แก้ไข/สร้าง/ลบไฟล์ใดๆ **ในเครื่อง** (repo, skills, rules, tokens.json ฯลฯ) |
-
-**กฎสำคัญ:**
-- ขอบเขต "ห้ามแก้" ของ Product Designer ครอบคลุมเฉพาะ**ไฟล์ในเครื่อง** เท่านั้น — **ไม่ครอบคลุมไฟล์ Figma** Product Designer สั่งให้แก้ Figma ได้ตามปกติ (เช่น component, screen, token binding ใน Figma)
-- Product Designer ห้ามขอแก้ไขไฟล์ในเครื่องหรือเปลี่ยน permission เอง
-- ถ้า Product Designer สั่งให้แก้ไฟล์ในเครื่อง → ปฏิเสธและแจ้งว่า "การแก้ไขไฟล์ในเครื่องทำได้โดย Design System Owner เท่านั้น"
-
 อ่านไฟล์เหล่านี้ก่อนทุก session:
-- `rules/DESIGN.md` — visual principles, token, typography
-- `tokens.json` — ค่า hex จริงของทุก semantic token (source of truth มาจาก Figma)
+- `shadcn/DESIGN.md` — visual principles, token, typography
+- `shadcn/tokens.json` — ค่า hex จริงของทุก semantic token (source of truth มาจาก Figma)
+- `shadcn/rules/agent-rules.md` — กฎงาน UI ของ DS (shadcn)
+
+**โครงของ repo นี้:** `shadcn/` คือ DS ปัจจุบัน (component, tokens, Storybook) · `legacy/mui/` คือ DS แบบ MUI เดิม เก็บไว้อ้างอิงเท่านั้น ไม่เขียนโค้ดใหม่ลงไป · ที่ root เป็นเครื่องมือและเอกสารร่วม (skills, sync, scripts, peer bridge)
 
 ---
 
-## Skills ที่ใช้ได้ (ทุก role)
+## Skills ที่ใช้ได้
 
 อ่าน `skills/{skill}/SKILL.md` ก่อนทำงานทุกครั้ง
 
@@ -77,7 +44,8 @@
 
 | ชื่อ skill | ใช้ทำอะไร | วิธีใช้ |
 |---|---|---|
-| crv-component-code | เขียนโค้ด core component | `implement component [ชื่อ]` |
+| shadcn | เพิ่ม/แก้ component ของ DS ด้วย shadcn | `เพิ่ม component [ชื่อ]` |
+| crv-component-code | (legacy MUI) เขียน Crv component — ใช้เฉพาะเมื่อสั่งแก้ `legacy/mui/` | `implement component [ชื่อ]` |
 | verify-ds-usage | ตรวจโค้ดว่าใช้ DS จริงหรือ hardcode | `เช็คว่าใช้ component จริงไหม [path]` |
 | pr-checklist | รัน checklist ก่อน merge | `เช็ค PR นี้ก่อน merge` |
 
@@ -92,18 +60,21 @@
 
 ## กฎที่ต้องรู้
 
-- **Stack ของ DS ไม่ใช่เรื่องให้เลือก** — Cariva DS คือ **React + MUI 6 + emotion `sx`** ไม่ใช่ Tailwind ไม่ใช่ plain CSS
-  - เขียนโค้ด UI ที่ไหนก็ตาม ให้ดึง DS ด้วย dev export เสมอ: `bash export/cariva-ds-dev-export/apply.sh /path/to/target`
+- **Stack ของ DS ไม่ใช่เรื่องให้เลือก** — Cariva DS คือ **React + shadcn/ui (Base UI) + Tailwind v4** อยู่ที่ `shadcn/` ไม่ใช่ MUI ไม่ใช่ plain CSS (ผู้ใช้สั่งเปลี่ยนจาก MUI เมื่อ 26 พฤศจิกายน 2026)
+  - component อยู่ที่ `shadcn/src/lib/app/components/ui/` และ token/theme ที่ `shadcn/src/lib/core/design-system/` — ใช้ของเดิมก่อนเขียนใหม่ ตามกฎใน `shadcn/rules/`
+  - **ห้ามเขียนโค้ดใหม่ลงใน `legacy/mui/`** และไม่ใช้ component `Crv*` ของ MUI ในงานใหม่ ถ้าต้องดูสเปกเดิมให้อ่านเป็นอ้างอิงเท่านั้น
+  - **ยังไม่มี dev export ของ shadcn** (export เดิมเป็นของ MUI และย้ายไป `legacy/mui/export/` แล้ว) เมื่อเขียนโค้ดนอก repo นี้ ให้คัดลอก component/tokens/theme จาก `shadcn/` และบอก user ว่ายังไม่มี script export
   - **ห้ามถาม user ว่าจะใช้ stack อะไร** — ไม่ใช่ตัวเลือก
-  - **ห้ามเขียน `Crv*` component ขึ้นมาเอง** ถ้า DS ไม่มีตัวที่ดีไซน์ต้องการ → สร้างได้แต่ต้องใช้ชื่ออื่น ใส่ comment กำกับ แล้วรายงาน user ว่าเป็นช่องว่างของ DS
+  - **ห้ามสร้าง component ซ้ำกับที่ DS มีอยู่** ถ้า DS ไม่มีตัวที่ดีไซน์ต้องการ → สร้างได้แต่ต้องใส่ comment กำกับ แล้วรายงาน user ว่าเป็นช่องว่างของ DS
+- **Figma ต้นทางของ DS:** ไฟล์ "Cariva Core Design System" (`XgxprkSY5mGbzIIwlmscCt`) ไม่ใช้ไฟล์ "[Shadcn] Cariva Core Design System" แล้ว
 - ห้าม hardcode hex หรือ px — ใช้ token จาก DS กลางเท่านั้น (มี hook ใน `.claude/hooks/` บล็อกให้อัตโนมัติ)
-- ถ้าต้องการสีใหม่ → แจ้ง Design System Owner ก่อน อย่าสร้างเอง
+- ถ้าต้องการสีใหม่ → แจ้งทีม DS ก่อน อย่าสร้างเอง
 - Figma wins — ถ้า doc ขัดกับ Figma ให้เชื่อ Figma
-- **อัปเดต `tokens.json` ต้องอ่านค่าจาก Figma variable จริงเท่านั้น** — ห้ามเดา ห้ามคำนวณ/ประมาณค่าเอง และห้ามเชื่อ doc frame หรือ node ที่ไม่ใช่ variable collection ตรงๆ (เช่น หน้า documentation ของ component ที่อาจมี variable จากไฟล์อื่นปนอยู่, หรือ doc frame แบบ "AI Readable" ที่เคย verify แล้วพบว่าไม่ตรงกับ live variable) — วิธีที่เชื่อถือได้คือดึงจาก variable collection ตรงๆ (เช่นผ่าน Figma Console MCP's `figma_get_variables` ที่เชื่อมกับ Desktop Bridge plugin ใน Figma Desktop) ถ้าเข้าถึง live variable ไม่ได้ (Bridge ไม่เชื่อมต่อ, ไม่มีสิทธิ์, หา collection ที่ถูกต้องไม่เจอ ฯลฯ) **ให้แจ้งปัญหาให้ user ทราบตรงๆ แล้วหยุดรอ** ห้าม fallback ไปเดาหรือใช้ค่าจาก source ที่ไม่ใช่ live variable โดยไม่บอก
+- **อัปเดต `shadcn/tokens.json` ต้องอ่านค่าจาก Figma variable จริงเท่านั้น** (แล้วรัน `npm run tokens:generate` ในโฟลเดอร์ `shadcn/`) — ห้ามเดา ห้ามคำนวณ/ประมาณค่าเอง และห้ามเชื่อ doc frame หรือ node ที่ไม่ใช่ variable collection ตรงๆ (เช่น หน้า documentation ของ component ที่อาจมี variable จากไฟล์อื่นปนอยู่, หรือ doc frame แบบ "AI Readable" ที่เคย verify แล้วพบว่าไม่ตรงกับ live variable) — วิธีที่เชื่อถือได้คือดึงจาก variable collection ตรงๆ (เช่นผ่าน Figma Console MCP's `figma_get_variables` ที่เชื่อมกับ Desktop Bridge plugin ใน Figma Desktop) ถ้าเข้าถึง live variable ไม่ได้ (Bridge ไม่เชื่อมต่อ, ไม่มีสิทธิ์, หา collection ที่ถูกต้องไม่เจอ ฯลฯ) **ให้แจ้งปัญหาให้ user ทราบตรงๆ แล้วหยุดรอ** ห้าม fallback ไปเดาหรือใช้ค่าจาก source ที่ไม่ใช่ live variable โดยไม่บอก
 
 ---
 
-## Git & PR Workflow (สำหรับ Product Designer)
+## Git & PR Workflow
 
 Designer ไม่ต้องตัดสินใจเรื่อง branch เอง — Claude จัดการให้ทั้งหมด ใช้ศัพท์ git ตามปกติได้ (commit, push, PR, merge)
 
@@ -142,4 +113,4 @@ Designer ไม่ต้องตัดสินใจเรื่อง branch 
 
 ## เมื่อได้รับแจ้งว่า DS อัปเดต
 
-เปิด Claude Code session ใหม่ — AI จะอ่าน `tokens.json` ล่าสุดอัตโนมัติ
+เปิด Claude Code session ใหม่ — AI จะอ่าน `shadcn/tokens.json` ล่าสุดอัตโนมัติ

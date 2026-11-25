@@ -40,6 +40,10 @@ HEX_EXEMPT = (
     "/src/ds/",
     "/code/core/theme/",
     "/code/core/tokens",
+    "/shadcn/src/lib/core/",
+    "/shadcn/src/app/globals.css",
+    "/shadcn/design-references/",
+    "/legacy/",
     "/export/",
     "/node_modules/",
     "/.claude/",
@@ -53,7 +57,7 @@ HEX_EXEMPT = (
 )
 
 # Only the DS itself may define `Crv*` components.
-CRV_EXEMPT = ("/src/ds/", "/code/core/components/", "/export/", "/node_modules/")
+CRV_EXEMPT = ("/src/ds/", "/code/core/components/", "/export/", "/node_modules/", "/legacy/")
 
 
 def exempt(path: str, rules: tuple) -> bool:

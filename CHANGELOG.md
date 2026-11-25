@@ -2,6 +2,20 @@
 
 ---
 
+## Unreleased — 2026-11-26
+
+### 🔀 เปลี่ยน DS จาก MUI เป็น shadcn
+
+- **`shadcn/`** เป็น DS ปัจจุบัน: component 79 ไฟล์ (shadcn + Base UI), tokens/theme (`tokens.json` → generated), Storybook 10, Core catalog + Foundations, DESIGN.md และกฎใน `shadcn/rules/` ไม่รวมหน้าตัวอย่าง (Lab, Dashboard, Login) ตามที่ผู้ใช้สั่ง
+- **`legacy/mui/`** เก็บ MUI/Crv เดิมครบ ไม่แก้เนื้อหา: `code/`, Storybook เดิม, test, `tokens.json`, `tokens/`, `rules/` ยุค MUI, `export/` และสคริปต์ generator/export กับ `package.json` ของตัวเอง
+- **Root `package.json`** เหลือเฉพาะ peer bridge กับ Code Connect (ถอด MUI/Emotion/Storybook 8/Vite/React ออก)
+- อัปเดต `CLAUDE.md`, `AGENTS.md`, `README.md`, `rules/skill-routing.md`, `.claude/launch.json`, hook `guard-ds-usage.py` และ skill ที่อ่าน DESIGN.md/tokens ให้ชี้ `shadcn/`; skill `crv-component-code` ติดป้าย legacy
+- Canvas (`sync/canvas`) แสดงใน Storybook ของ shadcn ที่ `Workspace/Canvas`
+- ยังไม่มี dev export ของ shadcn; Code Connect ที่เผยแพร่ใน Figma ยังไม่ได้ unpublish
+- ผู้ใช้ล้าง Ready for dev ใน Figma "Cariva Core Design System" ครบ 53 โหนด และเปลี่ยนต้นทาง Figma จาก "[Shadcn] Cariva Core Design System" เป็นไฟล์นี้
+
+---
+
 ## v1.4.1 — 2026-10-26
 
 ### 🐛 `CrvTextArea` — ลากตัวชี้หดต่ำกว่า `minRows` ไม่ได้อีกต่อไป

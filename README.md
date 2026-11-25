@@ -17,12 +17,12 @@ https://github.com/PraewNAT/cariva-ds
 โดย:
 1. ถามฉันก่อนว่าอยากติดตั้งไว้ที่ path ไหน
 2. clone repo ไปไว้ที่ path นั้น
-3. รัน npm install
+3. รัน npm install ในโฟลเดอร์ `shadcn/` (DS ปัจจุบัน)
 4. เปิด Claude Code ในโฟลเดอร์นั้น
 5. อ่าน CLAUDE.md และบอกฉันว่าต้องทำอะไรต่อ
 ```
 
-เปิด Claude Code ในโฟลเดอร์ที่ clone มา — ระบบจะถาม role ให้เลือกอัตโนมัติ
+เปิด Claude Code ในโฟลเดอร์ที่ clone มา แล้วอ่าน `CLAUDE.md` ได้เลย
 
 ## สร้าง prototype จากหน้าจอใน Figma
 
@@ -46,35 +46,19 @@ Figma: [วาง link ที่มี node-id]
 
 ถ้าเป็น**เวอร์ชันใหม่ของโปรเจกต์เดิม** ไม่ต้องใช้เทมเพลตนี้ — เปิด Claude Code ในโฟลเดอร์โปรเจกต์นั้นแล้วสั่งงานได้เลย ระบบจะถามเรื่องแท็บเวอร์ชันให้เองตอน commit
 
-### โครงสร้าง sidebar ของโปรเจกต์ที่ scaffold ออกมา
-
-เป็น 2 ชั้นแบบเดียวกับ sidebar ของ Claude — **กลุ่ม = โปรเจกต์** ข้างในเป็น **เวอร์ชัน** ของแต่ละครั้ง:
-
-```
-▾ MIRA                      2
-    Overview
-    26 Aug 14:02            [ℹ️]
-▾ MIRA — Recording flow     1
-    Overview
-```
-
-**1 repo เก็บได้หลายโปรเจกต์** — ถ้าอยากลอง prototype แนวใหม่ที่ไม่ได้ทำต่อจากของเดิม ไม่ต้องเปิด repo ใหม่ AI จะถามให้เองว่าจะขึ้นเป็น**กลุ่มโปรเจกต์ใหม่ใน repo เดิม** (ใช้ deploy ลิงก์เดิม เห็นของเก่าได้ด้วย) หรือ**แยก repo ใหม่** ไอคอน `ℹ️` ท้ายแถวคือสรุปสิ่งที่เปลี่ยนของเวอร์ชันนั้น (AI เขียนให้ตอน commit) เวอร์ชันแรกของแต่ละกลุ่มไม่มีไอคอนนี้เพราะไม่มีอะไรให้เทียบ
-
-## โครงสร้าง
+### โครงสร้าง
 
 ```
 cariva-ds/
+├── shadcn/        # DS ปัจจุบัน: component, tokens, theme, Storybook (React + shadcn/ui + Tailwind)
+├── legacy/mui/    # DS แบบ MUI เดิม เก็บไว้อ้างอิง ไม่พัฒนาต่อ (code, tokens, rules, export)
 ├── skills/        # AI skills สำหรับ design workflow
-├── rules/         # Design principles และ guidelines
-├── tokens.json    # Semantic tokens (source of truth จาก Figma)
-├── CLAUDE.md      # Role system และ skill definitions
+├── sync/          # Canvas (กระดาน frame แบบ Figma) และสคริปต์เทียบ Figma กับโค้ด
+├── scripts/       # สคริปต์ของ peer bridge และ Code Connect
+├── src/           # peer bridge (เครื่องมือสื่อสารระหว่างเครื่อง ไม่เกี่ยวกับ DS)
+├── CLAUDE.md      # กฎและ skill definitions
 ├── CHANGELOG.md   # บันทึกการเปลี่ยนแปลง
-└── index.html     # Documentation website
+└── index.html     # Documentation website (เนื้อหาเดิมของ MUI ยังไม่ได้อัปเดต)
 ```
 
-## Roles
-
-| Role | สิทธิ์ |
-|---|---|
-| **Design System Owner** | ใช้ skill ทั้งหมด + แก้ไขไฟล์ได้ |
-| **UX/UI Designer** | ใช้ skill ทั้งหมด + อ่านไฟล์อย่างเดียว |
+รัน Storybook ของ DS: `cd shadcn && npm ci && npm run storybook`

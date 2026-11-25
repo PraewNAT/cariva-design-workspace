@@ -1,0 +1,415 @@
+{
+  "generatedAt": "2026-11-24T09:00:29.419Z",
+  "figmaExtractedAt": "2026-11-24T08:54:13.373Z",
+  "components": [
+    {
+      "name": "CrvButton",
+      "nodeId": "3646:28000",
+      "source": "figma",
+      "status": "differs",
+      "variantsCompared": 60,
+      "variantsTotal": 120,
+      "unmapped": [],
+      "diffs": [
+        {
+          "part": "label",
+          "prop": "ff",
+          "figma": "IBM Plex Sans Thai",
+          "code": "Aktiv Grotesk Thai",
+          "variants": [
+            "variant=contained,color=primary,state=default,size=medium",
+            "variant=contained,color=error,state=default,size=medium",
+            "variant=outlined,color=primary,state=default,size=medium",
+            "variant=text,color=primary,state=default,size=medium",
+            "variant=contained,color=primary,state=disabled,size=medium",
+            "variant=contained,color=error,state=disabled,size=medium",
+            "variant=outlined,color=primary,state=disabled,size=medium",
+            "variant=text,color=primary,state=disabled,size=medium",
+            "variant=contained,color=primary,state=default,size=large",
+            "variant=contained,color=error,state=default,size=large",
+            "variant=outlined,color=primary,state=default,size=large",
+            "variant=text,color=primary,state=default,size=large",
+            "variant=contained,color=primary,state=disabled,size=large",
+            "variant=contained,color=error,state=disabled,size=large",
+            "variant=outlined,color=primary,state=disabled,size=large",
+            "variant=text,color=primary,state=disabled,size=large",
+            "variant=contained,color=primary,state=default,size=small",
+            "variant=contained,color=error,state=default,size=small",
+            "variant=outlined,color=primary,state=default,size=small",
+            "variant=text,color=primary,state=default,size=small",
+            "variant=contained,color=primary,state=disabled,size=small",
+            "variant=contained,color=error,state=disabled,size=small",
+            "variant=outlined,color=primary,state=disabled,size=small",
+            "variant=text,color=primary,state=disabled,size=small",
+            "variant=outlined,color=error,state=default,size=small",
+            "variant=text,color=error,state=default,size=small",
+            "variant=outlined,color=error,state=disabled,size=small",
+            "variant=text,color=error,state=disabled,size=small",
+            "variant=outlined,color=error,state=default,size=medium",
+            "variant=text,color=error,state=default,size=medium",
+            "variant=outlined,color=error,state=disabled,size=medium",
+            "variant=text,color=error,state=disabled,size=medium",
+            "variant=outlined,color=error,state=default,size=large",
+            "variant=text,color=error,state=default,size=large",
+            "variant=outlined,color=error,state=disabled,size=large",
+            "variant=text,color=error,state=disabled,size=large",
+            "variant=elevated,color=primary,state=default,size=small",
+            "variant=elevated,color=primary,state=default,size=medium",
+            "variant=elevated,color=primary,state=default,size=large",
+            "variant=elevated,color=primary,state=disabled,size=small",
+            "variant=elevated,color=primary,state=disabled,size=medium",
+            "variant=elevated,color=primary,state=disabled,size=large",
+            "variant=outlined,color=neutral,state=default,size=small",
+            "variant=outlined,color=neutral,state=default,size=medium",
+            "variant=outlined,color=neutral,state=default,size=large",
+            "variant=outlined,color=neutral,state=disabled,size=small",
+            "variant=outlined,color=neutral,state=disabled,size=medium",
+            "variant=outlined,color=neutral,state=disabled,size=large",
+            "variant=text,color=neutral,state=default,size=small",
+            "variant=text,color=neutral,state=default,size=medium",
+            "variant=text,color=neutral,state=default,size=large",
+            "variant=text,color=neutral,state=disabled,size=small",
+            "variant=text,color=neutral,state=disabled,size=medium",
+            "variant=text,color=neutral,state=disabled,size=large",
+            "variant=elevated,color=neutral,state=default,size=small",
+            "variant=elevated,color=neutral,state=default,size=medium",
+            "variant=elevated,color=neutral,state=default,size=large",
+            "variant=elevated,color=neutral,state=disabled,size=small",
+            "variant=elevated,color=neutral,state=disabled,size=medium",
+            "variant=elevated,color=neutral,state=disabled,size=large"
+          ]
+        },
+        {
+          "part": "box",
+          "prop": "h",
+          "figma": 40,
+          "code": 36,
+          "variants": [
+            "variant=contained,color=primary,state=default,size=medium",
+            "variant=contained,color=error,state=default,size=medium",
+            "variant=outlined,color=primary,state=default,size=medium",
+            "variant=text,color=primary,state=default,size=medium",
+            "variant=contained,color=primary,state=disabled,size=medium",
+            "variant=contained,color=error,state=disabled,size=medium",
+            "variant=outlined,color=primary,state=disabled,size=medium",
+            "variant=text,color=primary,state=disabled,size=medium",
+            "variant=outlined,color=error,state=default,size=medium",
+            "variant=text,color=error,state=default,size=medium",
+            "variant=outlined,color=error,state=disabled,size=medium",
+            "variant=text,color=error,state=disabled,size=medium",
+            "variant=elevated,color=primary,state=default,size=medium",
+            "variant=elevated,color=primary,state=disabled,size=medium",
+            "variant=outlined,color=neutral,state=default,size=medium",
+            "variant=outlined,color=neutral,state=disabled,size=medium",
+            "variant=text,color=neutral,state=default,size=medium",
+            "variant=text,color=neutral,state=disabled,size=medium",
+            "variant=elevated,color=neutral,state=default,size=medium",
+            "variant=elevated,color=neutral,state=disabled,size=medium"
+          ]
+        },
+        {
+          "part": "label",
+          "prop": "fs",
+          "figma": 16,
+          "code": 14,
+          "variants": [
+            "variant=contained,color=primary,state=default,size=medium",
+            "variant=contained,color=error,state=default,size=medium",
+            "variant=outlined,color=primary,state=default,size=medium",
+            "variant=text,color=primary,state=default,size=medium",
+            "variant=contained,color=primary,state=disabled,size=medium",
+            "variant=contained,color=error,state=disabled,size=medium",
+            "variant=outlined,color=primary,state=disabled,size=medium",
+            "variant=text,color=primary,state=disabled,size=medium",
+            "variant=outlined,color=error,state=default,size=medium",
+            "variant=text,color=error,state=default,size=medium",
+            "variant=outlined,color=error,state=disabled,size=medium",
+            "variant=text,color=error,state=disabled,size=medium",
+            "variant=elevated,color=primary,state=default,size=medium",
+            "variant=elevated,color=primary,state=disabled,size=medium",
+            "variant=outlined,color=neutral,state=default,size=medium",
+            "variant=outlined,color=neutral,state=disabled,size=medium",
+            "variant=text,color=neutral,state=default,size=medium",
+            "variant=text,color=neutral,state=disabled,size=medium",
+            "variant=elevated,color=neutral,state=default,size=medium",
+            "variant=elevated,color=neutral,state=disabled,size=medium"
+          ]
+        },
+        {
+          "part": "label",
+          "prop": "lh",
+          "figma": 24,
+          "code": 20,
+          "variants": [
+            "variant=contained,color=primary,state=default,size=medium",
+            "variant=contained,color=error,state=default,size=medium",
+            "variant=outlined,color=primary,state=default,size=medium",
+            "variant=text,color=primary,state=default,size=medium",
+            "variant=contained,color=primary,state=disabled,size=medium",
+            "variant=contained,color=error,state=disabled,size=medium",
+            "variant=outlined,color=primary,state=disabled,size=medium",
+            "variant=text,color=primary,state=disabled,size=medium",
+            "variant=outlined,color=error,state=default,size=medium",
+            "variant=text,color=error,state=default,size=medium",
+            "variant=outlined,color=error,state=disabled,size=medium",
+            "variant=text,color=error,state=disabled,size=medium",
+            "variant=elevated,color=primary,state=default,size=medium",
+            "variant=elevated,color=primary,state=disabled,size=medium",
+            "variant=outlined,color=neutral,state=default,size=medium",
+            "variant=outlined,color=neutral,state=disabled,size=medium",
+            "variant=text,color=neutral,state=default,size=medium",
+            "variant=text,color=neutral,state=disabled,size=medium",
+            "variant=elevated,color=neutral,state=default,size=medium",
+            "variant=elevated,color=neutral,state=disabled,size=medium"
+          ]
+        },
+        {
+          "part": "box",
+          "prop": "stroke",
+          "figma": "#2da4ff",
+          "code": "#8bd8ff",
+          "variants": [
+            "variant=outlined,color=primary,state=default,size=medium",
+            "variant=outlined,color=primary,state=default,size=large",
+            "variant=outlined,color=primary,state=default,size=small"
+          ]
+        },
+        {
+          "part": "box",
+          "prop": "pad",
+          "figma": [
+            8,
+            16,
+            8,
+            16
+          ],
+          "code": [
+            8,
+            15,
+            8,
+            15
+          ],
+          "variants": [
+            "variant=outlined,color=primary,state=disabled,size=medium",
+            "variant=outlined,color=error,state=disabled,size=medium",
+            "variant=outlined,color=neutral,state=disabled,size=medium"
+          ]
+        },
+        {
+          "part": "box",
+          "prop": "pad",
+          "figma": [
+            12,
+            24,
+            12,
+            24
+          ],
+          "code": [
+            12,
+            23,
+            12,
+            23
+          ],
+          "variants": [
+            "variant=outlined,color=primary,state=disabled,size=large",
+            "variant=outlined,color=error,state=disabled,size=large",
+            "variant=outlined,color=neutral,state=disabled,size=large"
+          ]
+        },
+        {
+          "part": "box",
+          "prop": "pad",
+          "figma": [
+            8,
+            12,
+            8,
+            12
+          ],
+          "code": [
+            8,
+            11,
+            8,
+            11
+          ],
+          "variants": [
+            "variant=outlined,color=primary,state=disabled,size=small",
+            "variant=outlined,color=error,state=disabled,size=small",
+            "variant=outlined,color=neutral,state=disabled,size=small"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "CrvInput",
+      "nodeId": "3760:6623",
+      "source": "figma",
+      "status": "differs",
+      "variantsCompared": 10,
+      "variantsTotal": 18,
+      "unmapped": [],
+      "diffs": [
+        {
+          "part": "value",
+          "prop": "ff",
+          "figma": "IBM Plex Sans Thai",
+          "code": "Aktiv Grotesk Thai",
+          "variants": [
+            "size=medium,state=default,filled=false,disabled=false,error=false",
+            "size=medium,state=default,filled=true,disabled=false,error=false",
+            "size=medium,state=default,filled=true,disabled=false,error=true",
+            "size=small,state=default,filled=false,disabled=false,error=false",
+            "size=small,state=default,filled=true,disabled=false,error=false",
+            "size=small,state=default,filled=true,disabled=false,error=true",
+            "size=medium,state=default,filled=false,disabled=false,error=true",
+            "size=medium,state=default,filled=false,disabled=true,error=false",
+            "size=small,state=default,filled=false,disabled=false,error=true",
+            "size=small,state=default,filled=false,disabled=true,error=false"
+          ]
+        },
+        {
+          "part": "label",
+          "prop": "ff",
+          "figma": "IBM Plex Sans Thai",
+          "code": "Aktiv Grotesk Thai",
+          "variants": [
+            "size=medium,state=default,filled=false,disabled=false,error=false",
+            "size=medium,state=default,filled=true,disabled=false,error=false",
+            "size=medium,state=default,filled=true,disabled=false,error=true",
+            "size=small,state=default,filled=false,disabled=false,error=false",
+            "size=small,state=default,filled=true,disabled=false,error=false",
+            "size=small,state=default,filled=true,disabled=false,error=true",
+            "size=medium,state=default,filled=false,disabled=false,error=true",
+            "size=medium,state=default,filled=false,disabled=true,error=false",
+            "size=small,state=default,filled=false,disabled=false,error=true",
+            "size=small,state=default,filled=false,disabled=true,error=false"
+          ]
+        },
+        {
+          "part": "field",
+          "prop": "h",
+          "figma": 36,
+          "code": 39,
+          "variants": [
+            "size=small,state=default,filled=false,disabled=false,error=false",
+            "size=small,state=default,filled=true,disabled=false,error=false",
+            "size=small,state=default,filled=true,disabled=false,error=true",
+            "size=small,state=default,filled=false,disabled=false,error=true",
+            "size=small,state=default,filled=false,disabled=true,error=false"
+          ]
+        },
+        {
+          "part": "value",
+          "prop": "fs",
+          "figma": 14,
+          "code": 16,
+          "variants": [
+            "size=small,state=default,filled=false,disabled=false,error=false",
+            "size=small,state=default,filled=true,disabled=false,error=false",
+            "size=small,state=default,filled=true,disabled=false,error=true",
+            "size=small,state=default,filled=false,disabled=false,error=true",
+            "size=small,state=default,filled=false,disabled=true,error=false"
+          ]
+        },
+        {
+          "part": "value",
+          "prop": "lh",
+          "figma": 20,
+          "code": 24,
+          "variants": [
+            "size=small,state=default,filled=true,disabled=false,error=false",
+            "size=small,state=default,filled=true,disabled=false,error=true"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "CrvDropdown",
+      "nodeId": "3875:3909",
+      "source": "figma",
+      "status": "differs",
+      "variantsCompared": 10,
+      "variantsTotal": 18,
+      "unmapped": [],
+      "diffs": [
+        {
+          "part": "value",
+          "prop": "ff",
+          "figma": "IBM Plex Sans Thai",
+          "code": "Aktiv Grotesk Thai",
+          "variants": [
+            "size=medium,state=default,filled=false,disabled=false,error=false",
+            "size=small,state=default,filled=false,disabled=false,error=false",
+            "size=medium,state=default,filled=false,disabled=false,error=true",
+            "size=small,state=default,filled=false,disabled=false,error=true",
+            "size=medium,state=default,filled=true,disabled=false,error=false",
+            "size=small,state=default,filled=true,disabled=false,error=false",
+            "size=medium,state=default,filled=true,disabled=false,error=true",
+            "size=small,state=default,filled=true,disabled=false,error=true",
+            "size=medium,state=default,filled=false,disabled=true,error=false",
+            "size=small,state=default,filled=false,disabled=true,error=false"
+          ]
+        },
+        {
+          "part": "label",
+          "prop": "ff",
+          "figma": "IBM Plex Sans Thai",
+          "code": "Aktiv Grotesk Thai",
+          "variants": [
+            "size=medium,state=default,filled=false,disabled=false,error=false",
+            "size=small,state=default,filled=false,disabled=false,error=false",
+            "size=medium,state=default,filled=false,disabled=false,error=true",
+            "size=small,state=default,filled=false,disabled=false,error=true",
+            "size=medium,state=default,filled=true,disabled=false,error=false",
+            "size=small,state=default,filled=true,disabled=false,error=false",
+            "size=medium,state=default,filled=true,disabled=false,error=true",
+            "size=small,state=default,filled=true,disabled=false,error=true",
+            "size=medium,state=default,filled=false,disabled=true,error=false",
+            "size=small,state=default,filled=false,disabled=true,error=false"
+          ]
+        },
+        {
+          "part": "field",
+          "prop": "h",
+          "figma": 36,
+          "code": 38,
+          "variants": [
+            "size=small,state=default,filled=false,disabled=false,error=false",
+            "size=small,state=default,filled=false,disabled=false,error=true",
+            "size=small,state=default,filled=true,disabled=false,error=false",
+            "size=small,state=default,filled=true,disabled=false,error=true",
+            "size=small,state=default,filled=false,disabled=true,error=false"
+          ]
+        },
+        {
+          "part": "label",
+          "prop": "color",
+          "figma": "#dc2626",
+          "code": "#0f172a",
+          "variants": [
+            "size=medium,state=default,filled=false,disabled=false,error=true",
+            "size=small,state=default,filled=false,disabled=false,error=true",
+            "size=medium,state=default,filled=true,disabled=false,error=true",
+            "size=small,state=default,filled=true,disabled=false,error=true"
+          ]
+        },
+        {
+          "part": "label",
+          "prop": "color",
+          "figma": "#94a3b8",
+          "code": "#0f172a",
+          "variants": [
+            "size=medium,state=default,filled=false,disabled=true,error=false",
+            "size=small,state=default,filled=false,disabled=true,error=false"
+          ]
+        }
+      ]
+    }
+  ],
+  "systemic": [
+    {
+      "prop": "ff",
+      "figma": "IBM Plex Sans Thai",
+      "code": "Aktiv Grotesk Thai"
+    }
+  ]
+}

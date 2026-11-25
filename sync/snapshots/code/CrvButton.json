@@ -1,0 +1,1987 @@
+{
+  "name": "CrvButton",
+  "storyId": "buttons-crvbutton--default",
+  "measuredAt": "2026-11-24T14:47:01.807Z",
+  "rows": [
+    {
+      "key": "variant=contained,color=primary,state=default,size=medium",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "contained",
+        "color": "primary",
+        "disabled": false,
+        "size": "medium"
+      },
+      "parts": {
+        "box": {
+          "h": 36,
+          "pad": [
+            8,
+            16,
+            8,
+            16
+          ],
+          "gap": 8,
+          "r": 9999,
+          "fill": "#1789fa",
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 14,
+          "lh": 20,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#ffffff"
+        }
+      }
+    },
+    {
+      "key": "variant=contained,color=error,state=default,size=medium",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "contained",
+        "color": "error",
+        "disabled": false,
+        "size": "medium"
+      },
+      "parts": {
+        "box": {
+          "h": 36,
+          "pad": [
+            8,
+            16,
+            8,
+            16
+          ],
+          "gap": 8,
+          "r": 9999,
+          "fill": "#dc2626",
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 14,
+          "lh": 20,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#ffffff"
+        }
+      }
+    },
+    {
+      "key": "variant=outlined,color=primary,state=default,size=medium",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "outlined",
+        "color": "primary",
+        "disabled": false,
+        "size": "medium"
+      },
+      "parts": {
+        "box": {
+          "h": 36,
+          "pad": [
+            8,
+            15,
+            8,
+            15
+          ],
+          "gap": 8,
+          "r": 9999,
+          "fill": null,
+          "stroke": "#8bd8ff",
+          "sw": 1
+        },
+        "label": {
+          "fs": 14,
+          "lh": 20,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#1789fa"
+        }
+      }
+    },
+    {
+      "key": "variant=text,color=primary,state=default,size=medium",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "text",
+        "color": "primary",
+        "disabled": false,
+        "size": "medium"
+      },
+      "parts": {
+        "box": {
+          "h": 36,
+          "pad": [
+            8,
+            16,
+            8,
+            16
+          ],
+          "gap": 8,
+          "r": 9999,
+          "fill": null,
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 14,
+          "lh": 20,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#1789fa"
+        }
+      }
+    },
+    {
+      "key": "variant=contained,color=primary,state=disabled,size=medium",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "contained",
+        "color": "primary",
+        "disabled": true,
+        "size": "medium"
+      },
+      "parts": {
+        "box": {
+          "h": 36,
+          "pad": [
+            8,
+            16,
+            8,
+            16
+          ],
+          "gap": 8,
+          "r": 9999,
+          "fill": "#f1f5f9",
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 14,
+          "lh": 20,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#94a3b8"
+        }
+      }
+    },
+    {
+      "key": "variant=contained,color=error,state=disabled,size=medium",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "contained",
+        "color": "error",
+        "disabled": true,
+        "size": "medium"
+      },
+      "parts": {
+        "box": {
+          "h": 36,
+          "pad": [
+            8,
+            16,
+            8,
+            16
+          ],
+          "gap": 8,
+          "r": 9999,
+          "fill": "#f1f5f9",
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 14,
+          "lh": 20,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#94a3b8"
+        }
+      }
+    },
+    {
+      "key": "variant=outlined,color=primary,state=disabled,size=medium",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "outlined",
+        "color": "primary",
+        "disabled": true,
+        "size": "medium"
+      },
+      "parts": {
+        "box": {
+          "h": 36,
+          "pad": [
+            8,
+            15,
+            8,
+            15
+          ],
+          "gap": 8,
+          "r": 9999,
+          "fill": "#f1f5f9",
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 14,
+          "lh": 20,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#94a3b8"
+        }
+      }
+    },
+    {
+      "key": "variant=text,color=primary,state=disabled,size=medium",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "text",
+        "color": "primary",
+        "disabled": true,
+        "size": "medium"
+      },
+      "parts": {
+        "box": {
+          "h": 36,
+          "pad": [
+            8,
+            16,
+            8,
+            16
+          ],
+          "gap": 8,
+          "r": 9999,
+          "fill": null,
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 14,
+          "lh": 20,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#94a3b8"
+        }
+      }
+    },
+    {
+      "key": "variant=contained,color=primary,state=default,size=large",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "contained",
+        "color": "primary",
+        "disabled": false,
+        "size": "large"
+      },
+      "parts": {
+        "box": {
+          "h": 48,
+          "pad": [
+            12,
+            24,
+            12,
+            24
+          ],
+          "gap": 12,
+          "r": 9999,
+          "fill": "#1789fa",
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 16,
+          "lh": 24,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#ffffff"
+        }
+      }
+    },
+    {
+      "key": "variant=contained,color=error,state=default,size=large",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "contained",
+        "color": "error",
+        "disabled": false,
+        "size": "large"
+      },
+      "parts": {
+        "box": {
+          "h": 48,
+          "pad": [
+            12,
+            24,
+            12,
+            24
+          ],
+          "gap": 12,
+          "r": 9999,
+          "fill": "#dc2626",
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 16,
+          "lh": 24,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#ffffff"
+        }
+      }
+    },
+    {
+      "key": "variant=outlined,color=primary,state=default,size=large",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "outlined",
+        "color": "primary",
+        "disabled": false,
+        "size": "large"
+      },
+      "parts": {
+        "box": {
+          "h": 48,
+          "pad": [
+            12,
+            23,
+            12,
+            23
+          ],
+          "gap": 12,
+          "r": 9999,
+          "fill": null,
+          "stroke": "#8bd8ff",
+          "sw": 1
+        },
+        "label": {
+          "fs": 16,
+          "lh": 24,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#1789fa"
+        }
+      }
+    },
+    {
+      "key": "variant=text,color=primary,state=default,size=large",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "text",
+        "color": "primary",
+        "disabled": false,
+        "size": "large"
+      },
+      "parts": {
+        "box": {
+          "h": 48,
+          "pad": [
+            12,
+            24,
+            12,
+            24
+          ],
+          "gap": 12,
+          "r": 9999,
+          "fill": null,
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 16,
+          "lh": 24,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#1789fa"
+        }
+      }
+    },
+    {
+      "key": "variant=contained,color=primary,state=disabled,size=large",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "contained",
+        "color": "primary",
+        "disabled": true,
+        "size": "large"
+      },
+      "parts": {
+        "box": {
+          "h": 48,
+          "pad": [
+            12,
+            24,
+            12,
+            24
+          ],
+          "gap": 12,
+          "r": 9999,
+          "fill": "#f1f5f9",
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 16,
+          "lh": 24,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#94a3b8"
+        }
+      }
+    },
+    {
+      "key": "variant=contained,color=error,state=disabled,size=large",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "contained",
+        "color": "error",
+        "disabled": true,
+        "size": "large"
+      },
+      "parts": {
+        "box": {
+          "h": 48,
+          "pad": [
+            12,
+            24,
+            12,
+            24
+          ],
+          "gap": 12,
+          "r": 9999,
+          "fill": "#f1f5f9",
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 16,
+          "lh": 24,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#94a3b8"
+        }
+      }
+    },
+    {
+      "key": "variant=outlined,color=primary,state=disabled,size=large",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "outlined",
+        "color": "primary",
+        "disabled": true,
+        "size": "large"
+      },
+      "parts": {
+        "box": {
+          "h": 48,
+          "pad": [
+            12,
+            23,
+            12,
+            23
+          ],
+          "gap": 12,
+          "r": 9999,
+          "fill": "#f1f5f9",
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 16,
+          "lh": 24,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#94a3b8"
+        }
+      }
+    },
+    {
+      "key": "variant=text,color=primary,state=disabled,size=large",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "text",
+        "color": "primary",
+        "disabled": true,
+        "size": "large"
+      },
+      "parts": {
+        "box": {
+          "h": 48,
+          "pad": [
+            12,
+            24,
+            12,
+            24
+          ],
+          "gap": 12,
+          "r": 9999,
+          "fill": null,
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 16,
+          "lh": 24,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#94a3b8"
+        }
+      }
+    },
+    {
+      "key": "variant=contained,color=primary,state=default,size=small",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "contained",
+        "color": "primary",
+        "disabled": false,
+        "size": "small"
+      },
+      "parts": {
+        "box": {
+          "h": 32,
+          "pad": [
+            8,
+            12,
+            8,
+            12
+          ],
+          "gap": 4,
+          "r": 9999,
+          "fill": "#1789fa",
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 12,
+          "lh": 16,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#ffffff"
+        }
+      }
+    },
+    {
+      "key": "variant=contained,color=error,state=default,size=small",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "contained",
+        "color": "error",
+        "disabled": false,
+        "size": "small"
+      },
+      "parts": {
+        "box": {
+          "h": 32,
+          "pad": [
+            8,
+            12,
+            8,
+            12
+          ],
+          "gap": 4,
+          "r": 9999,
+          "fill": "#dc2626",
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 12,
+          "lh": 16,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#ffffff"
+        }
+      }
+    },
+    {
+      "key": "variant=outlined,color=primary,state=default,size=small",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "outlined",
+        "color": "primary",
+        "disabled": false,
+        "size": "small"
+      },
+      "parts": {
+        "box": {
+          "h": 32,
+          "pad": [
+            8,
+            11,
+            8,
+            11
+          ],
+          "gap": 4,
+          "r": 9999,
+          "fill": null,
+          "stroke": "#8bd8ff",
+          "sw": 1
+        },
+        "label": {
+          "fs": 12,
+          "lh": 16,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#1789fa"
+        }
+      }
+    },
+    {
+      "key": "variant=text,color=primary,state=default,size=small",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "text",
+        "color": "primary",
+        "disabled": false,
+        "size": "small"
+      },
+      "parts": {
+        "box": {
+          "h": 32,
+          "pad": [
+            8,
+            12,
+            8,
+            12
+          ],
+          "gap": 4,
+          "r": 9999,
+          "fill": null,
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 12,
+          "lh": 16,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#1789fa"
+        }
+      }
+    },
+    {
+      "key": "variant=contained,color=primary,state=disabled,size=small",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "contained",
+        "color": "primary",
+        "disabled": true,
+        "size": "small"
+      },
+      "parts": {
+        "box": {
+          "h": 32,
+          "pad": [
+            8,
+            12,
+            8,
+            12
+          ],
+          "gap": 4,
+          "r": 9999,
+          "fill": "#f1f5f9",
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 12,
+          "lh": 16,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#94a3b8"
+        }
+      }
+    },
+    {
+      "key": "variant=contained,color=error,state=disabled,size=small",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "contained",
+        "color": "error",
+        "disabled": true,
+        "size": "small"
+      },
+      "parts": {
+        "box": {
+          "h": 32,
+          "pad": [
+            8,
+            12,
+            8,
+            12
+          ],
+          "gap": 4,
+          "r": 9999,
+          "fill": "#f1f5f9",
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 12,
+          "lh": 16,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#94a3b8"
+        }
+      }
+    },
+    {
+      "key": "variant=outlined,color=primary,state=disabled,size=small",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "outlined",
+        "color": "primary",
+        "disabled": true,
+        "size": "small"
+      },
+      "parts": {
+        "box": {
+          "h": 32,
+          "pad": [
+            8,
+            11,
+            8,
+            11
+          ],
+          "gap": 4,
+          "r": 9999,
+          "fill": "#f1f5f9",
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 12,
+          "lh": 16,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#94a3b8"
+        }
+      }
+    },
+    {
+      "key": "variant=text,color=primary,state=disabled,size=small",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "text",
+        "color": "primary",
+        "disabled": true,
+        "size": "small"
+      },
+      "parts": {
+        "box": {
+          "h": 32,
+          "pad": [
+            8,
+            12,
+            8,
+            12
+          ],
+          "gap": 4,
+          "r": 9999,
+          "fill": null,
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 12,
+          "lh": 16,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#94a3b8"
+        }
+      }
+    },
+    {
+      "key": "variant=outlined,color=error,state=default,size=small",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "outlined",
+        "color": "error",
+        "disabled": false,
+        "size": "small"
+      },
+      "parts": {
+        "box": {
+          "h": 32,
+          "pad": [
+            8,
+            11,
+            8,
+            11
+          ],
+          "gap": 4,
+          "r": 9999,
+          "fill": null,
+          "stroke": "#dc2626",
+          "sw": 1
+        },
+        "label": {
+          "fs": 12,
+          "lh": 16,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#dc2626"
+        }
+      }
+    },
+    {
+      "key": "variant=text,color=error,state=default,size=small",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "text",
+        "color": "error",
+        "disabled": false,
+        "size": "small"
+      },
+      "parts": {
+        "box": {
+          "h": 32,
+          "pad": [
+            8,
+            12,
+            8,
+            12
+          ],
+          "gap": 4,
+          "r": 9999,
+          "fill": null,
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 12,
+          "lh": 16,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#dc2626"
+        }
+      }
+    },
+    {
+      "key": "variant=outlined,color=error,state=disabled,size=small",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "outlined",
+        "color": "error",
+        "disabled": true,
+        "size": "small"
+      },
+      "parts": {
+        "box": {
+          "h": 32,
+          "pad": [
+            8,
+            11,
+            8,
+            11
+          ],
+          "gap": 4,
+          "r": 9999,
+          "fill": "#f1f5f9",
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 12,
+          "lh": 16,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#94a3b8"
+        }
+      }
+    },
+    {
+      "key": "variant=text,color=error,state=disabled,size=small",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "text",
+        "color": "error",
+        "disabled": true,
+        "size": "small"
+      },
+      "parts": {
+        "box": {
+          "h": 32,
+          "pad": [
+            8,
+            12,
+            8,
+            12
+          ],
+          "gap": 4,
+          "r": 9999,
+          "fill": null,
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 12,
+          "lh": 16,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#94a3b8"
+        }
+      }
+    },
+    {
+      "key": "variant=outlined,color=error,state=default,size=medium",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "outlined",
+        "color": "error",
+        "disabled": false,
+        "size": "medium"
+      },
+      "parts": {
+        "box": {
+          "h": 36,
+          "pad": [
+            8,
+            15,
+            8,
+            15
+          ],
+          "gap": 8,
+          "r": 9999,
+          "fill": null,
+          "stroke": "#dc2626",
+          "sw": 1
+        },
+        "label": {
+          "fs": 14,
+          "lh": 20,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#dc2626"
+        }
+      }
+    },
+    {
+      "key": "variant=text,color=error,state=default,size=medium",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "text",
+        "color": "error",
+        "disabled": false,
+        "size": "medium"
+      },
+      "parts": {
+        "box": {
+          "h": 36,
+          "pad": [
+            8,
+            16,
+            8,
+            16
+          ],
+          "gap": 8,
+          "r": 9999,
+          "fill": null,
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 14,
+          "lh": 20,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#dc2626"
+        }
+      }
+    },
+    {
+      "key": "variant=outlined,color=error,state=disabled,size=medium",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "outlined",
+        "color": "error",
+        "disabled": true,
+        "size": "medium"
+      },
+      "parts": {
+        "box": {
+          "h": 36,
+          "pad": [
+            8,
+            15,
+            8,
+            15
+          ],
+          "gap": 8,
+          "r": 9999,
+          "fill": "#f1f5f9",
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 14,
+          "lh": 20,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#94a3b8"
+        }
+      }
+    },
+    {
+      "key": "variant=text,color=error,state=disabled,size=medium",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "text",
+        "color": "error",
+        "disabled": true,
+        "size": "medium"
+      },
+      "parts": {
+        "box": {
+          "h": 36,
+          "pad": [
+            8,
+            16,
+            8,
+            16
+          ],
+          "gap": 8,
+          "r": 9999,
+          "fill": null,
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 14,
+          "lh": 20,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#94a3b8"
+        }
+      }
+    },
+    {
+      "key": "variant=outlined,color=error,state=default,size=large",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "outlined",
+        "color": "error",
+        "disabled": false,
+        "size": "large"
+      },
+      "parts": {
+        "box": {
+          "h": 48,
+          "pad": [
+            12,
+            23,
+            12,
+            23
+          ],
+          "gap": 12,
+          "r": 9999,
+          "fill": null,
+          "stroke": "#dc2626",
+          "sw": 1
+        },
+        "label": {
+          "fs": 16,
+          "lh": 24,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#dc2626"
+        }
+      }
+    },
+    {
+      "key": "variant=text,color=error,state=default,size=large",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "text",
+        "color": "error",
+        "disabled": false,
+        "size": "large"
+      },
+      "parts": {
+        "box": {
+          "h": 48,
+          "pad": [
+            12,
+            24,
+            12,
+            24
+          ],
+          "gap": 12,
+          "r": 9999,
+          "fill": null,
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 16,
+          "lh": 24,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#dc2626"
+        }
+      }
+    },
+    {
+      "key": "variant=outlined,color=error,state=disabled,size=large",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "outlined",
+        "color": "error",
+        "disabled": true,
+        "size": "large"
+      },
+      "parts": {
+        "box": {
+          "h": 48,
+          "pad": [
+            12,
+            23,
+            12,
+            23
+          ],
+          "gap": 12,
+          "r": 9999,
+          "fill": "#f1f5f9",
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 16,
+          "lh": 24,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#94a3b8"
+        }
+      }
+    },
+    {
+      "key": "variant=text,color=error,state=disabled,size=large",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "text",
+        "color": "error",
+        "disabled": true,
+        "size": "large"
+      },
+      "parts": {
+        "box": {
+          "h": 48,
+          "pad": [
+            12,
+            24,
+            12,
+            24
+          ],
+          "gap": 12,
+          "r": 9999,
+          "fill": null,
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 16,
+          "lh": 24,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#94a3b8"
+        }
+      }
+    },
+    {
+      "key": "variant=elevated,color=primary,state=default,size=small",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "elevated",
+        "color": "primary",
+        "disabled": false,
+        "size": "small"
+      },
+      "parts": {
+        "box": {
+          "h": 32,
+          "pad": [
+            8,
+            12,
+            8,
+            12
+          ],
+          "gap": 4,
+          "r": 9999,
+          "fill": "#ffffff",
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 12,
+          "lh": 16,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#1789fa"
+        }
+      }
+    },
+    {
+      "key": "variant=elevated,color=primary,state=default,size=medium",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "elevated",
+        "color": "primary",
+        "disabled": false,
+        "size": "medium"
+      },
+      "parts": {
+        "box": {
+          "h": 36,
+          "pad": [
+            8,
+            16,
+            8,
+            16
+          ],
+          "gap": 8,
+          "r": 9999,
+          "fill": "#ffffff",
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 14,
+          "lh": 20,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#1789fa"
+        }
+      }
+    },
+    {
+      "key": "variant=elevated,color=primary,state=default,size=large",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "elevated",
+        "color": "primary",
+        "disabled": false,
+        "size": "large"
+      },
+      "parts": {
+        "box": {
+          "h": 48,
+          "pad": [
+            12,
+            24,
+            12,
+            24
+          ],
+          "gap": 12,
+          "r": 9999,
+          "fill": "#ffffff",
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 16,
+          "lh": 24,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#1789fa"
+        }
+      }
+    },
+    {
+      "key": "variant=elevated,color=primary,state=disabled,size=small",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "elevated",
+        "color": "primary",
+        "disabled": true,
+        "size": "small"
+      },
+      "parts": {
+        "box": {
+          "h": 32,
+          "pad": [
+            8,
+            12,
+            8,
+            12
+          ],
+          "gap": 4,
+          "r": 9999,
+          "fill": "#f1f5f9",
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 12,
+          "lh": 16,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#94a3b8"
+        }
+      }
+    },
+    {
+      "key": "variant=elevated,color=primary,state=disabled,size=medium",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "elevated",
+        "color": "primary",
+        "disabled": true,
+        "size": "medium"
+      },
+      "parts": {
+        "box": {
+          "h": 36,
+          "pad": [
+            8,
+            16,
+            8,
+            16
+          ],
+          "gap": 8,
+          "r": 9999,
+          "fill": "#f1f5f9",
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 14,
+          "lh": 20,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#94a3b8"
+        }
+      }
+    },
+    {
+      "key": "variant=elevated,color=primary,state=disabled,size=large",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "elevated",
+        "color": "primary",
+        "disabled": true,
+        "size": "large"
+      },
+      "parts": {
+        "box": {
+          "h": 48,
+          "pad": [
+            12,
+            24,
+            12,
+            24
+          ],
+          "gap": 12,
+          "r": 9999,
+          "fill": "#f1f5f9",
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 16,
+          "lh": 24,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#94a3b8"
+        }
+      }
+    },
+    {
+      "key": "variant=outlined,color=neutral,state=default,size=small",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "outlined",
+        "color": "neutral",
+        "disabled": false,
+        "size": "small"
+      },
+      "parts": {
+        "box": {
+          "h": 32,
+          "pad": [
+            8,
+            11,
+            8,
+            11
+          ],
+          "gap": 4,
+          "r": 9999,
+          "fill": null,
+          "stroke": "#cbd5e1",
+          "sw": 1
+        },
+        "label": {
+          "fs": 12,
+          "lh": 16,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#0f172a"
+        }
+      }
+    },
+    {
+      "key": "variant=outlined,color=neutral,state=default,size=medium",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "outlined",
+        "color": "neutral",
+        "disabled": false,
+        "size": "medium"
+      },
+      "parts": {
+        "box": {
+          "h": 36,
+          "pad": [
+            8,
+            15,
+            8,
+            15
+          ],
+          "gap": 8,
+          "r": 9999,
+          "fill": null,
+          "stroke": "#cbd5e1",
+          "sw": 1
+        },
+        "label": {
+          "fs": 14,
+          "lh": 20,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#0f172a"
+        }
+      }
+    },
+    {
+      "key": "variant=outlined,color=neutral,state=default,size=large",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "outlined",
+        "color": "neutral",
+        "disabled": false,
+        "size": "large"
+      },
+      "parts": {
+        "box": {
+          "h": 48,
+          "pad": [
+            12,
+            23,
+            12,
+            23
+          ],
+          "gap": 12,
+          "r": 9999,
+          "fill": null,
+          "stroke": "#cbd5e1",
+          "sw": 1
+        },
+        "label": {
+          "fs": 16,
+          "lh": 24,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#0f172a"
+        }
+      }
+    },
+    {
+      "key": "variant=outlined,color=neutral,state=disabled,size=small",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "outlined",
+        "color": "neutral",
+        "disabled": true,
+        "size": "small"
+      },
+      "parts": {
+        "box": {
+          "h": 32,
+          "pad": [
+            8,
+            11,
+            8,
+            11
+          ],
+          "gap": 4,
+          "r": 9999,
+          "fill": "#f1f5f9",
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 12,
+          "lh": 16,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#94a3b8"
+        }
+      }
+    },
+    {
+      "key": "variant=outlined,color=neutral,state=disabled,size=medium",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "outlined",
+        "color": "neutral",
+        "disabled": true,
+        "size": "medium"
+      },
+      "parts": {
+        "box": {
+          "h": 36,
+          "pad": [
+            8,
+            15,
+            8,
+            15
+          ],
+          "gap": 8,
+          "r": 9999,
+          "fill": "#f1f5f9",
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 14,
+          "lh": 20,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#94a3b8"
+        }
+      }
+    },
+    {
+      "key": "variant=outlined,color=neutral,state=disabled,size=large",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "outlined",
+        "color": "neutral",
+        "disabled": true,
+        "size": "large"
+      },
+      "parts": {
+        "box": {
+          "h": 48,
+          "pad": [
+            12,
+            23,
+            12,
+            23
+          ],
+          "gap": 12,
+          "r": 9999,
+          "fill": "#f1f5f9",
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 16,
+          "lh": 24,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#94a3b8"
+        }
+      }
+    },
+    {
+      "key": "variant=text,color=neutral,state=default,size=small",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "text",
+        "color": "neutral",
+        "disabled": false,
+        "size": "small"
+      },
+      "parts": {
+        "box": {
+          "h": 32,
+          "pad": [
+            8,
+            12,
+            8,
+            12
+          ],
+          "gap": 4,
+          "r": 9999,
+          "fill": null,
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 12,
+          "lh": 16,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#0f172a"
+        }
+      }
+    },
+    {
+      "key": "variant=text,color=neutral,state=default,size=medium",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "text",
+        "color": "neutral",
+        "disabled": false,
+        "size": "medium"
+      },
+      "parts": {
+        "box": {
+          "h": 36,
+          "pad": [
+            8,
+            16,
+            8,
+            16
+          ],
+          "gap": 8,
+          "r": 9999,
+          "fill": null,
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 14,
+          "lh": 20,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#0f172a"
+        }
+      }
+    },
+    {
+      "key": "variant=text,color=neutral,state=default,size=large",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "text",
+        "color": "neutral",
+        "disabled": false,
+        "size": "large"
+      },
+      "parts": {
+        "box": {
+          "h": 48,
+          "pad": [
+            12,
+            24,
+            12,
+            24
+          ],
+          "gap": 12,
+          "r": 9999,
+          "fill": null,
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 16,
+          "lh": 24,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#0f172a"
+        }
+      }
+    },
+    {
+      "key": "variant=text,color=neutral,state=disabled,size=small",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "text",
+        "color": "neutral",
+        "disabled": true,
+        "size": "small"
+      },
+      "parts": {
+        "box": {
+          "h": 32,
+          "pad": [
+            8,
+            12,
+            8,
+            12
+          ],
+          "gap": 4,
+          "r": 9999,
+          "fill": null,
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 12,
+          "lh": 16,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#94a3b8"
+        }
+      }
+    },
+    {
+      "key": "variant=text,color=neutral,state=disabled,size=medium",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "text",
+        "color": "neutral",
+        "disabled": true,
+        "size": "medium"
+      },
+      "parts": {
+        "box": {
+          "h": 36,
+          "pad": [
+            8,
+            16,
+            8,
+            16
+          ],
+          "gap": 8,
+          "r": 9999,
+          "fill": null,
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 14,
+          "lh": 20,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#94a3b8"
+        }
+      }
+    },
+    {
+      "key": "variant=text,color=neutral,state=disabled,size=large",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "text",
+        "color": "neutral",
+        "disabled": true,
+        "size": "large"
+      },
+      "parts": {
+        "box": {
+          "h": 48,
+          "pad": [
+            12,
+            24,
+            12,
+            24
+          ],
+          "gap": 12,
+          "r": 9999,
+          "fill": null,
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 16,
+          "lh": 24,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#94a3b8"
+        }
+      }
+    },
+    {
+      "key": "variant=elevated,color=neutral,state=default,size=small",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "elevated",
+        "color": "neutral",
+        "disabled": false,
+        "size": "small"
+      },
+      "parts": {
+        "box": {
+          "h": 32,
+          "pad": [
+            8,
+            12,
+            8,
+            12
+          ],
+          "gap": 4,
+          "r": 9999,
+          "fill": "#ffffff",
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 12,
+          "lh": 16,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#0f172a"
+        }
+      }
+    },
+    {
+      "key": "variant=elevated,color=neutral,state=default,size=medium",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "elevated",
+        "color": "neutral",
+        "disabled": false,
+        "size": "medium"
+      },
+      "parts": {
+        "box": {
+          "h": 36,
+          "pad": [
+            8,
+            16,
+            8,
+            16
+          ],
+          "gap": 8,
+          "r": 9999,
+          "fill": "#ffffff",
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 14,
+          "lh": 20,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#0f172a"
+        }
+      }
+    },
+    {
+      "key": "variant=elevated,color=neutral,state=default,size=large",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "elevated",
+        "color": "neutral",
+        "disabled": false,
+        "size": "large"
+      },
+      "parts": {
+        "box": {
+          "h": 48,
+          "pad": [
+            12,
+            24,
+            12,
+            24
+          ],
+          "gap": 12,
+          "r": 9999,
+          "fill": "#ffffff",
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 16,
+          "lh": 24,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#0f172a"
+        }
+      }
+    },
+    {
+      "key": "variant=elevated,color=neutral,state=disabled,size=small",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "elevated",
+        "color": "neutral",
+        "disabled": true,
+        "size": "small"
+      },
+      "parts": {
+        "box": {
+          "h": 32,
+          "pad": [
+            8,
+            12,
+            8,
+            12
+          ],
+          "gap": 4,
+          "r": 9999,
+          "fill": "#f1f5f9",
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 12,
+          "lh": 16,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#94a3b8"
+        }
+      }
+    },
+    {
+      "key": "variant=elevated,color=neutral,state=disabled,size=medium",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "elevated",
+        "color": "neutral",
+        "disabled": true,
+        "size": "medium"
+      },
+      "parts": {
+        "box": {
+          "h": 36,
+          "pad": [
+            8,
+            16,
+            8,
+            16
+          ],
+          "gap": 8,
+          "r": 9999,
+          "fill": "#f1f5f9",
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 14,
+          "lh": 20,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#94a3b8"
+        }
+      }
+    },
+    {
+      "key": "variant=elevated,color=neutral,state=disabled,size=large",
+      "story": "buttons-crvbutton--default",
+      "args": {
+        "variant": "elevated",
+        "color": "neutral",
+        "disabled": true,
+        "size": "large"
+      },
+      "parts": {
+        "box": {
+          "h": 48,
+          "pad": [
+            12,
+            24,
+            12,
+            24
+          ],
+          "gap": 12,
+          "r": 9999,
+          "fill": "#f1f5f9",
+          "stroke": null,
+          "sw": 0
+        },
+        "label": {
+          "fs": 16,
+          "lh": 24,
+          "fw": 500,
+          "ff": "Aktiv Grotesk Thai",
+          "color": "#94a3b8"
+        }
+      }
+    }
+  ]
+}
