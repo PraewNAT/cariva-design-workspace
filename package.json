@@ -9,8 +9,6 @@
     "check-env": "npx tsx src/check-env.ts",
     "probe": "npx tsx src/agent-probe.ts",
     "typecheck": "tsc --noEmit",
-    "code-connect:dry-run": "bash scripts/code-connect.sh publish --dry-run",
-    "code-connect:publish": "bash scripts/code-connect.sh publish",
     "peer:wizard": "node scripts/peer-wizard.mjs"
   },
   "dependencies": {
