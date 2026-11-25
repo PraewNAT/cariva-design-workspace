@@ -1,0 +1,25 @@
+import { Meta, Source } from "@storybook/addon-docs/blocks";
+import * as Stories from "./CoreCatalog.stories";
+import sources from "./coreSources";
+
+<Meta of={Stories} name="Source code" />
+
+# Core source
+
+โค้ดจริงของ primitives จาก `src/lib/app/components/ui` ใช้ shadcn Base UI ไม่ใช่ MUI ต้องนำ theme, fonts และ dependency ที่ source ใช้ไปด้วย ดูวิธีเริ่มใน `docs/handoff/SHADCN-START.md`
+
+{sources.map(source => <details key={source.name}><summary>{source.name}</summary><Source code={source.code} language="tsx" /></details>)}
+
+## Semantic roles / 25 November 2026
+
+Placeholder ใช้ `content/placeholder` (Slate 500) แยกจากข้อความรอง Slate 700. Textarea, OTP, Combobox และ Badge outline ใช้ component surface ไม่ใช้สี border ผสม opacity เป็นพื้น. ขอบ Card คงเดิมตามคำสั่งล่าสุด; Dialog/Popover/menu ใช้ `on-surface/elevated`. HealthRadar ใช้ accent blue สำหรับ dataset และ legend. API, Product radius และ control sizes คงเดิม.
+
+## Section source
+
+export const sections = import.meta.glob("./components/*.tsx", { query: "?raw", import: "default", eager: true });
+
+{Object.entries(sections).map(([path, code]) => <details key={path}><summary>{path}</summary><Source code={String(code)} language="tsx" /></details>)}
+
+## รายการ Core แยกรายตัว
+
+Core/Components แสดง 37 modules แยกกัน; Core/Button เป็นรายการเดิมพร้อม variants/sizes/states. แต่ละตัวมี source code ของตัวอย่างและ prop table จาก component จริง. ตัวอย่าง composition แบบคงที่ปิด Controls เพื่อไม่แสดงปุ่มปรับที่ไม่มีผล. ดู docs/architecture/CORE-STORYBOOK-COVERAGE.md สำหรับรายการครบ 38 ตัว.

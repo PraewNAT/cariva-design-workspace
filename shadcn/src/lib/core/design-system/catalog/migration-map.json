@@ -1,0 +1,237 @@
+[
+  {
+    "legacy": "CrvAccordion",
+    "replacement": "src/lib/app/components/ui/accordion.tsx",
+    "note": "ใช้ API ของ shadcn โดยตรง ไม่รับรอง props เดิม 1:1"
+  },
+  {
+    "legacy": "CrvAutocomplete",
+    "replacement": "src/lib/app/components/ui/combobox.tsx",
+    "note": "ใช้ API ของ shadcn โดยตรง ไม่รับรอง props เดิม 1:1"
+  },
+  {
+    "legacy": "CrvAvatar",
+    "replacement": "src/lib/app/components/ui/avatar.tsx",
+    "note": "ใช้ API ของ shadcn โดยตรง ไม่รับรอง props เดิม 1:1"
+  },
+  {
+    "legacy": "CrvAvatarGroup",
+    "replacement": "src/lib/app/components/ui/avatar.tsx",
+    "note": "ใช้ API ของ shadcn โดยตรง ไม่รับรอง props เดิม 1:1"
+  },
+  {
+    "legacy": "CrvBadge",
+    "replacement": "src/lib/app/components/ui/badge.tsx",
+    "note": "Badge / AvatarBadge; notification count เป็น Product composition"
+  },
+  {
+    "legacy": "CrvBottomSheet",
+    "replacement": "src/lib/app/components/ui/sheet.tsx",
+    "note": "SheetContent side=\"bottom\""
+  },
+  {
+    "legacy": "CrvBreadcrumb",
+    "replacement": "src/lib/app/components/ui/breadcrumb.tsx",
+    "note": "ใช้ API ของ shadcn โดยตรง ไม่รับรอง props เดิม 1:1"
+  },
+  {
+    "legacy": "CrvBreadcrumbBase",
+    "replacement": "src/lib/app/components/ui/breadcrumb.tsx",
+    "note": "ใช้ API ของ shadcn โดยตรง ไม่รับรอง props เดิม 1:1"
+  },
+  {
+    "legacy": "CrvButton",
+    "replacement": "src/lib/app/components/ui/button.tsx",
+    "note": "ใช้ API ของ shadcn โดยตรง ไม่รับรอง props เดิม 1:1"
+  },
+  {
+    "legacy": "CrvButtonDecorative",
+    "replacement": "src/lib/app/components/ui/button.tsx",
+    "note": "variant=\"decorative\" สีจาก Figma gradient"
+  },
+  {
+    "legacy": "CrvButtonIcon",
+    "replacement": "src/lib/app/components/ui/button.tsx",
+    "note": "size=\"icon-sm/icon/icon-lg\" พร้อม aria-label"
+  },
+  {
+    "legacy": "CrvButtonMic",
+    "replacement": "src/lib/app/components/ui/button.tsx",
+    "note": "Button + aria-pressed: UI toggle เท่านั้น ไม่เชื่อม microphone service"
+  },
+  {
+    "legacy": "CrvButtonSplit",
+    "replacement": "src/lib/app/components/ui/dropdown-menu.tsx",
+    "note": "Button + DropdownMenuTrigger/MenuGroup"
+  },
+  {
+    "legacy": "CrvCard",
+    "replacement": "src/lib/app/components/ui/card.tsx",
+    "note": "ใช้ API ของ shadcn โดยตรง ไม่รับรอง props เดิม 1:1"
+  },
+  {
+    "legacy": "CrvCheckbox",
+    "replacement": "src/lib/app/components/ui/checkbox.tsx",
+    "note": "ใช้ API ของ shadcn โดยตรง ไม่รับรอง props เดิม 1:1"
+  },
+  {
+    "legacy": "CrvCheckboxBase",
+    "replacement": "src/lib/app/components/ui/checkbox.tsx",
+    "note": "ใช้ API ของ shadcn โดยตรง ไม่รับรอง props เดิม 1:1"
+  },
+  {
+    "legacy": "CrvCheckboxGroup",
+    "replacement": "src/lib/app/components/ui/field.tsx",
+    "note": "FieldGroup/FieldSet + Checkbox"
+  },
+  {
+    "legacy": "CrvChipAction",
+    "replacement": "src/lib/app/components/ui/toggle.tsx",
+    "note": "Toggle สำหรับ selection; Button สำหรับ remove action"
+  },
+  {
+    "legacy": "CrvCircularProgress",
+    "replacement": "src/lib/app/components/ui/spinner.tsx",
+    "note": "ใช้ API ของ shadcn โดยตรง ไม่รับรอง props เดิม 1:1"
+  },
+  {
+    "legacy": "CrvDateTimePicker",
+    "replacement": "src/lib/app/components/ui/calendar.tsx",
+    "note": "composed DateTimePicker ใน app/patterns.tsx: Calendar/Popover + Input time"
+  },
+  {
+    "legacy": "CrvDrawer",
+    "replacement": "src/lib/app/components/ui/sheet.tsx",
+    "note": "ใช้ API ของ shadcn โดยตรง ไม่รับรอง props เดิม 1:1"
+  },
+  {
+    "legacy": "CrvDropdown",
+    "replacement": "src/lib/app/components/ui/select.tsx",
+    "note": "ใช้ API ของ shadcn โดยตรง ไม่รับรอง props เดิม 1:1"
+  },
+  {
+    "legacy": "CrvFab",
+    "replacement": "src/lib/app/components/ui/button.tsx",
+    "note": "Button size=icon-lg; วาง fixed ที่ Product เมื่อจำเป็น"
+  },
+  {
+    "legacy": "CrvFileUpload",
+    "replacement": "src/lib/app/components/ui/input.tsx",
+    "note": "composed FileUpload: เลือกไฟล์ในเครื่อง ยังไม่ส่ง API"
+  },
+  {
+    "legacy": "CrvInput",
+    "replacement": "src/lib/app/components/ui/input.tsx",
+    "note": "ใช้ API ของ shadcn โดยตรง ไม่รับรอง props เดิม 1:1"
+  },
+  {
+    "legacy": "CrvInputHorizontal",
+    "replacement": "src/lib/app/components/ui/field.tsx",
+    "note": "Field orientation=horizontal + Input"
+  },
+  {
+    "legacy": "CrvInputOtp",
+    "replacement": "src/lib/app/components/ui/input-otp.tsx",
+    "note": "ใช้ API ของ shadcn โดยตรง ไม่รับรอง props เดิม 1:1"
+  },
+  {
+    "legacy": "CrvInputOtpBase",
+    "replacement": "src/lib/app/components/ui/input-otp.tsx",
+    "note": "ใช้ API ของ shadcn โดยตรง ไม่รับรอง props เดิม 1:1"
+  },
+  {
+    "legacy": "CrvLinearProgress",
+    "replacement": "src/lib/app/components/ui/progress.tsx",
+    "note": "ใช้ API ของ shadcn โดยตรง ไม่รับรอง props เดิม 1:1"
+  },
+  {
+    "legacy": "CrvLink",
+    "replacement": "src/lib/app/components/ui/button.tsx",
+    "note": "Button variant=link / anchor ใช้ buttonVariants"
+  },
+  {
+    "legacy": "CrvMenuItem",
+    "replacement": "src/lib/app/components/ui/dropdown-menu.tsx",
+    "note": "ใช้ API ของ shadcn โดยตรง ไม่รับรอง props เดิม 1:1"
+  },
+  {
+    "legacy": "CrvModal",
+    "replacement": "src/lib/app/components/ui/dialog.tsx",
+    "note": "ใช้ API ของ shadcn โดยตรง ไม่รับรอง props เดิม 1:1"
+  },
+  {
+    "legacy": "CrvPagination",
+    "replacement": "src/lib/app/components/ui/pagination.tsx",
+    "note": "ใช้ API ของ shadcn โดยตรง ไม่รับรอง props เดิม 1:1"
+  },
+  {
+    "legacy": "CrvRadio",
+    "replacement": "src/lib/app/components/ui/radio-group.tsx",
+    "note": "ใช้ API ของ shadcn โดยตรง ไม่รับรอง props เดิม 1:1"
+  },
+  {
+    "legacy": "CrvRadioBase",
+    "replacement": "src/lib/app/components/ui/radio-group.tsx",
+    "note": "ใช้ API ของ shadcn โดยตรง ไม่รับรอง props เดิม 1:1"
+  },
+  {
+    "legacy": "CrvRadioGroup",
+    "replacement": "src/lib/app/components/ui/radio-group.tsx",
+    "note": "ใช้ API ของ shadcn โดยตรง ไม่รับรอง props เดิม 1:1"
+  },
+  {
+    "legacy": "CrvRating",
+    "replacement": "src/lib/app/components/ui/radio-group.tsx",
+    "note": "composed Rating: RadioGroup 1–5 ยังไม่คัดลอก visual ดาวแบบเก่า"
+  },
+  {
+    "legacy": "CrvSidebar",
+    "replacement": "src/lib/app/components/ui/sidebar.tsx",
+    "note": "ใช้ API ของ shadcn โดยตรง ไม่รับรอง props เดิม 1:1"
+  },
+  {
+    "legacy": "CrvStepper",
+    "replacement": "src/lib/app/components/ui/progress.tsx",
+    "note": "composed Stepper: current step + Progress"
+  },
+  {
+    "legacy": "CrvSwitch",
+    "replacement": "src/lib/app/components/ui/switch.tsx",
+    "note": "ใช้ API ของ shadcn โดยตรง ไม่รับรอง props เดิม 1:1"
+  },
+  {
+    "legacy": "CrvSwitchBase",
+    "replacement": "src/lib/app/components/ui/switch.tsx",
+    "note": "ใช้ API ของ shadcn โดยตรง ไม่รับรอง props เดิม 1:1"
+  },
+  {
+    "legacy": "CrvTable",
+    "replacement": "src/lib/app/components/ui/table.tsx",
+    "note": "ใช้ API ของ shadcn โดยตรง ไม่รับรอง props เดิม 1:1"
+  },
+  {
+    "legacy": "CrvTabs",
+    "replacement": "src/lib/app/components/ui/tabs.tsx",
+    "note": "ใช้ API ของ shadcn โดยตรง ไม่รับรอง props เดิม 1:1"
+  },
+  {
+    "legacy": "CrvTag",
+    "replacement": "src/lib/app/components/ui/badge.tsx",
+    "note": "ใช้ API ของ shadcn โดยตรง ไม่รับรอง props เดิม 1:1"
+  },
+  {
+    "legacy": "CrvTextArea",
+    "replacement": "src/lib/app/components/ui/textarea.tsx",
+    "note": "ใช้ API ของ shadcn โดยตรง ไม่รับรอง props เดิม 1:1"
+  },
+  {
+    "legacy": "CrvToast",
+    "replacement": "src/lib/app/components/ui/toast.tsx",
+    "note": "ใช้ API ของ shadcn โดยตรง ไม่รับรอง props เดิม 1:1"
+  },
+  {
+    "legacy": "CrvTooltip",
+    "replacement": "src/lib/app/components/ui/tooltip.tsx",
+    "note": "ใช้ API ของ shadcn โดยตรง ไม่รับรอง props เดิม 1:1"
+  }
+]

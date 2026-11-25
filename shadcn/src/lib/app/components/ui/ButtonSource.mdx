@@ -1,0 +1,22 @@
+import { Meta, Source } from "@storybook/addon-docs/blocks";
+import * as Stories from "./button.stories";
+import source from "./button.tsx?raw";
+
+<Meta of={Stories} name="Source code" /># Button / shadcn
+
+ใช้ recipe เดียวกันบนหน้า, DialogTrigger และ DialogClose (Base UI ใช้ `render={<Button/>}`)
+
+| size                     | ขนาด           | text / line-height | padding แนวตั้ง |
+| ------------------------ | -------------- | ------------------ | ------------- |
+| sm                       | 32px           | 14 / 24            | 4px           |
+| default                  | 40px           | 16 / 24            | 8px           |
+| lg                       | 48px           | 16 / 24            | 12px          |
+| icon-sm / icon / icon-lg | 32 / 40 / 48px | icon 24            | 4 / 8 / 12px  |
+
+ความสูงเกิดจาก padding + line-height ไม่ใช่ height; outline ใช้ inset ring ไม่กินพื้นที่เพิ่ม Radius ตาม Product: carivaApp pill และ backOffice 12px ใช้ tokens เดิม ห้ามแก้ per-screen
+
+Variants: default, outline, secondary, ghost, destructive, link, decorative (สี gradient จาก Figma). Loading ใช้ disabled + aria-busy + Spinner ไม่เพิ่ม loading prop ให้ primitive; bridge หน้าเก่าแปลง loading ให้เอง
+
+Icon ใช้ currentColor และ data-icon เมื่อต้องระบุทิศทาง สี primary จาก Figma ยังมีข้อจำกัด contrast กับตัวอักษรขาว ไม่อ้างว่า AA ผ่านทั้งหมด
+
+<Source code={source} language="tsx" />

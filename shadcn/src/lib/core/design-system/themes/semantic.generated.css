@@ -1,0 +1,42 @@
+/* Generated from tokens.json. Run npm run tokens:generate. Light Theme only. */
+:root {
+  --status-warning: #b45309;
+  --status-warning-bg: #fffbeb;
+  --status-success: #047857;
+  --status-success-bg: #ecfdf5;
+  --background: #ffffff;
+  --foreground: #0f172a;
+  --placeholder: #64748b;
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+  --popover: #ffffff;
+  --popover-foreground: #0f172a;
+  --primary: #1789fa;
+  --primary-hover: #0f70e6;
+  --primary-pressed: #135aba;
+  --primary-foreground: #ffffff;
+  --secondary: #f8fafc;
+  --secondary-foreground: #64748b;
+  --muted: #f8fafc;
+  --muted-foreground: #64748b;
+  --accent: #eef9ff;
+  --accent-foreground: #0f70e6;
+  --destructive: #dc2626;
+  --border: #e2e8f0;
+  --input: #cbd5e1;
+  --ring: #2563eb;
+  --chart-1: #1789fa;
+  --chart-2: #0f766e;
+  --chart-3: #047857;
+  --chart-4: #b45309;
+  --chart-5: #a855f7;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #0f172a;
+  --sidebar-primary: #1789fa;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #eef9ff;
+  --sidebar-accent-foreground: #0f70e6;
+  --sidebar-border: #e2e8f0;
+  --sidebar-ring: #2563eb;
+  --decorative-gradient: linear-gradient(135deg, #192450, #1789fa, #55ebff);
+}
