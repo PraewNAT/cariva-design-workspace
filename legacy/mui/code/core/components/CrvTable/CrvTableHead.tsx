@@ -1,0 +1,73 @@
+'use client';
+
+import { forwardRef } from 'react';
+import Box from '@mui/material/Box';
+import TableCell from '@mui/material/TableCell';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import { getTableHeadSx } from './crvTableStyles';
+import type { CrvTableHeadProps } from './CrvTable.types';
+
+/** Defaults for every look prop of `CrvTableHead` — the DS counterpart of a `cva` map's `defaultVariants`. */
+export const crvTableHeadVariants = {
+  defaultVariants: {
+    size: 'small',
+  },
+} as const;
+
+// Ground truth: Figma crv-table-head 4582:11202
+export const CrvTableHead = forwardRef<HTMLTableCellElement, CrvTableHeadProps>(
+  function CrvTableHead(
+    {
+      size = crvTableHeadVariants.defaultVariants.size,
+      compact = false,
+      label,
+      checkbox,
+      leftSort = false,
+      rightSort = false,
+      onSort,
+      sx,
+      ...rest
+    },
+    ref,
+  ) {
+    const sortIcon = (
+      <ArrowDownwardIcon
+        className="crv-table-head__sort"
+        role={onSort ? 'button' : undefined}
+        aria-hidden={onSort ? false : undefined}
+        tabIndex={onSort ? 0 : undefined}
+        onClick={onSort}
+        sx={onSort ? { cursor: 'pointer' } : undefined}
+      />
+    );
+
+    return (
+      <TableCell
+        ref={ref}
+        data-slot="table-head"
+        data-size={size}
+        component="th"
+        scope="col"
+        sx={[
+          getTableHeadSx(size, compact),
+          ...(Array.isArray(sx) ? sx : sx ? [sx] : []),
+        ]}
+        {...rest}
+      >
+        <Box className="crv-table-head__inner">
+          {checkbox}
+          {/*
+            Figma's compact variants (4582:11202) hold nothing but the checkbox
+            slot — no sort icon, no label — so compact wins over both sort props
+            instead of rendering a square cell with an arrow crammed into it.
+          */}
+          {!compact && leftSort ? sortIcon : null}
+          {!compact && label != null ? (
+            <span className="crv-table-head__label">{label}</span>
+          ) : null}
+          {!compact && rightSort ? sortIcon : null}
+        </Box>
+      </TableCell>
+    );
+  },
+);

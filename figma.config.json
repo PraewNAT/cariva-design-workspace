@@ -2,13 +2,13 @@
   "codeConnect": {
     "parser": "react",
     "importPaths": {
-      "code/core/components/*": "@/components/*",
-      "code/core/icons/*": "@/icons/*"
+      "legacy/mui/code/core/components/*": "@/components/*",
+      "legacy/mui/code/core/icons/*": "@/icons/*"
     },
     "include": [
-      "code/core/components/**/*.figma.tsx",
-      "code/core/components/**/*.tsx",
-      "code/core/icons/**/*.tsx",
+      "legacy/mui/code/core/components/**/*.figma.tsx",
+      "legacy/mui/code/core/components/**/*.tsx",
+      "legacy/mui/code/core/icons/**/*.tsx",
       "code-connect/**/*.figma.tsx"
     ],
     "exclude": [
