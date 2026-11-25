@@ -1,5 +1,7 @@
 # แผนสร้าง Design System จาก Code ไป Figma
 
+> **สถานะ 26 พฤศจิกายน 2026:** แผนนี้เขียนก่อนตัดสินใจเปลี่ยนเป็น shadcn (ตอนนี้ DS อยู่ที่ `shadcn/` และ MUI ที่ `legacy/mui/`) ส่วน Playground/panel แบบ Figma ถูกยกเลิกแล้ว ลำดับขั้นปัจจุบันอยู่ที่ `shadcn/rules/workflow-map.md`
+
 บันทึกวันที่ 21 พฤศจิกายน 2026 สำหรับทีม Design 2–3 คน เป้าหมายคือใช้ Design System ร่วมกันระหว่าง Design และ Dev โดยเริ่มจากโค้ด การตัดสินใจล่าสุด: ให้ AI สร้างหน้าจอเป็นโค้ด พร้อมหน้า board รวมทุกเคสเพื่อดูภาพรวม ไม่ต้องนำดีไซน์หน้าจอทุกเคสไปทำซ้ำใน Figma ส่วนแนวคิดสร้าง component library ใน Figma ยังเก็บไว้พิจารณาแยกต่างหาก สถานะล่าสุด 22 พฤศจิกายน 2026: ตั้ง React + TypeScript และ Storybook starter แล้ว มี shadcn, Impeccable และ Prototype → Figma ระดับโปรเจกต์ และสร้าง skills เฉพาะ component-reuse-check, case-planning, component-audit แล้ว ส่วน board/canvas และ playground ตามแผนยังไม่ได้พัฒนา
 
 # แนวทางที่ต้องการ

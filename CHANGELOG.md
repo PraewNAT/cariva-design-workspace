@@ -13,6 +13,10 @@
 - Canvas (`sync/canvas`) แสดงใน Storybook ของ shadcn ที่ `Workspace/Canvas`
 - ยังไม่มี dev export ของ shadcn; Code Connect ที่เผยแพร่ใน Figma ยังไม่ได้ unpublish
 - ผู้ใช้ล้าง Ready for dev ใน Figma "Cariva Core Design System" ครบ 53 โหนด และเปลี่ยนต้นทาง Figma จาก "[Shadcn] Cariva Core Design System" เป็นไฟล์นี้
+- `shadcn/tokens.json` ตาม Figma สด: `content/secondary` เป็น Slate 500 และเพิ่ม `on-fill` 7 ตัว (ทุกตัวสีขาว)
+- นำ `workflow-map.md` (flow S/U/C/F/D/V/H) เข้า `shadcn/rules/` โดยรักษากฎเดิม เพิ่มตารางชื่อ component `docs/components/FIGMA-NAMING.md` และลำดับอ้างอิงเมื่อไม่มี component (Core → shadcn/ui → ReUI)
+- ติดตั้ง skill `mermaid-diagrams` และ `unslop` ใน `.agents/skills/` (เฉพาะคำสั่งและเอกสารอ้างอิง ไม่เอา scripts) และเพิ่มกฎวาด flow ด้วย `artifact-diagramming`
+- แก้ `agent-rules.md` ที่ล้าสมัย (path, หน้าที่ลบแล้ว, ข้อความรอง Slate 500, กฎ branch)
 
 ---
 

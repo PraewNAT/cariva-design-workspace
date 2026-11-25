@@ -4,7 +4,8 @@
 
 | Flow ที่คุยไว้ | อ่านที่ไหน |
 |---|---|
-| เริ่มโปรเจกต์ใหม่ ให้ AI ไกด์ทีละขั้น พร้อมโครงคัดลอก | [New project guide](../rules/new-project-guide.md) / [Portable template](../templates/design-prototype-project/README.md) |
+| ภาพรวมทุก flow พร้อมรหัสขั้นและจุดตัดสินใจ | [Workflow map](../rules/workflow-map.md) |
+| เริ่มโปรเจกต์ใหม่ ให้ AI ไกด์ทีละขั้น พร้อมโครงคัดลอก | [New project guide](../rules/new-project-guide.md) / [Portable template](../deliverables/design-prototype-project/README.md) |
 | Setup Product ด้วยข้อมูล 4 ช่อง บันทึกแยกและใช้ต่อโดยไม่ถามซ้ำ | [Product setup](../rules/product-setup-flow.md) / [รายการ Product](products/README.md) |
 | รับงาน เลือก workspace/Product และเริ่มงาน | [UI workflow](../rules/ui-workflow.md#คู่มือปฏิบัติ-เลือกงานและโปรเจกต์) |
 | สร้าง UI ใหม่: เคส → reuse → implement → docs → test → audit | [ขั้น 1–7](../rules/ui-workflow.md) |

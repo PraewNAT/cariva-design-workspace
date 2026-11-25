@@ -1,5 +1,7 @@
 # Shadcn migration / Draft 24 พฤศจิกายน 2026
 
+> **สถานะ 26 พฤศจิกายน 2026:** เอกสารนี้เป็นบันทึกตามวันที่ที่เขียน ไม่ได้อัปเดตตามทุกการตัดสินใจหลังจากนั้น หน้า Lab, Dashboard และ Login ที่กล่าวถึงถูกนำออกจาก `shadcn/` แล้ว Canvas ใช้ตัวของ `sync/canvas` โค้ด MUI อยู่ที่ `legacy/mui/` ลำดับขั้นและจุดตัดสินใจปัจจุบันอยู่ที่ `rules/workflow-map.md` ของ `shadcn/`
+
 ผู้ใช้สั่ง “เปลี่ยนเลย” จึงเริ่มย้ายจริงใน workspace นี้ โดยคง React 19 / Vite / Storybook 10 และใช้ shadcn `base-maia` / Base UI ที่ติดตั้งอยู่ ไม่ยก Next.js หรือ Radix จาก reference มาอัตโนมัติ
 
 ## โครงสร้างที่ใช้จริง

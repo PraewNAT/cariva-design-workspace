@@ -7,14 +7,17 @@ Active stack: React19, Vite8, Tailwind4, shadcn Base UI, Storybook10 และ C
 - กฎดีไซน์: [DESIGN.md](DESIGN.md)
 - กฎ AI กลาง: [Shared agent rules](rules/agent-rules.md) โดย [AGENTS.md](AGENTS.md) สำหรับ Codex และ [CLAUDE.md](CLAUDE.md) สำหรับ Claude Code อ่านกฎชุดเดียวกัน
 - ลำดับงานสร้าง/แก้ UI: [UI workflow](rules/ui-workflow.md)
+- ลำดับขั้นและจุดตัดสินใจของทุก flow: [Workflow map](rules/workflow-map.md)
+- ชื่อ component และ property: Figma ↔ โค้ด: [FIGMA-NAMING](docs/components/FIGMA-NAMING.md)
+- Canvas (กระดาน frame แบบ Figma): [sync/README](../sync/README.md)
 - แผนระยะถัดไป: DESIGN-SYSTEM-PLAN.md
-- source ที่รัน: src/lib; code/core และ legacy เป็น reference เดิม ไม่ import เข้างานใหม่
+- source ที่รัน: src/lib; โค้ด MUI เดิมอยู่ที่ `legacy/mui/` ที่รากของ repo เป็น reference ไม่ import เข้างานใหม่
 
-`npm run dev` เปิด Lab mock UI; `npm run storybook -- --port 6008` เปิด catalog, Foundations และเคสทดสอบ พร้อม source code
+`npm run dev` เปิดหน้าว่างสั้นๆ (ไม่มีหน้า Lab/Dashboard แล้ว); `npm run storybook` (พอร์ต 6006) เปิด catalog, Foundations, component และ Canvas (Workspace/Canvas) พร้อม source code
 
 `npm run tokens:generate` หลังแก้ token source; `npm run tokens:check`, `npm run build`, `npm run build-storybook` และ Storybook test-run ก่อนส่งต่องาน
 
 
 Core ครบ 38 ตัว: [Storybook coverage](docs/architecture/CORE-STORYBOOK-COVERAGE.md). ใช้ `npm run storybook:coverage` ตรวจ story files.
 
-Code Connect config/mappings ของ MUI เก่าย้ายไป `legacy/retired-code-connect/` แล้ว ไม่ใช่ mapping ของ shadcn ปัจจุบัน. Build outputs `dist/` และ `storybook-static/` สร้างใหม่ได้ด้วย build scripts.
+Code Connect เดิมของ MUI ยังอยู่ที่รากของ repo (`code-connect/`, `figma.config.json`) และ **ยังไม่ได้ unpublish ใน Figma** ไม่ใช่ mapping ของ shadcn ปัจจุบัน. Build outputs `dist/` และ `storybook-static/` สร้างใหม่ได้ด้วย build scripts.

@@ -26,6 +26,8 @@ https://github.com/PraewNAT/cariva-ds
 
 ## สร้าง prototype จากหน้าจอใน Figma
 
+> **หมายเหตุ (26 พ.ย. 2026):** ขั้นตอนนี้ยังใช้ชุด export ของ MUI (`legacy/mui/export/`) เพราะยังไม่มีชุด export ของ shadcn ถ้าต้องการสร้างโปรเจกต์ใหม่ด้วย shadcn ให้ปรึกษาก่อน
+
 สำหรับโปรเจกต์ vibe-code ใหม่ที่ **ไม่ใช่งานของ Cariva DS เอง** (เช่น MIRA) — เติม 3 ช่องแล้ววางใน Claude Code:
 
 ```
@@ -62,3 +64,9 @@ cariva-ds/
 ```
 
 รัน Storybook ของ DS: `cd shadcn && npm ci && npm run storybook`
+
+## ลำดับงานและกฎ
+
+- ลำดับขั้นและจุดตัดสินใจ: `shadcn/rules/workflow-map.md`
+- กฎ AI กลาง: `shadcn/rules/agent-rules.md`
+- ชื่อ component Figma ↔ โค้ด: `shadcn/docs/components/FIGMA-NAMING.md`

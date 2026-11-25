@@ -6,6 +6,7 @@
 - `shadcn/DESIGN.md` — visual principles, token, typography
 - `shadcn/tokens.json` — ค่า hex จริงของทุก semantic token (source of truth มาจาก Figma)
 - `shadcn/rules/agent-rules.md` — กฎงาน UI ของ DS (shadcn)
+- `shadcn/rules/workflow-map.md` — ลำดับขั้นและจุดตัดสินใจของทุก flow (ระบุชื่อ flow และรหัสขั้นก่อนเริ่มงาน)
 
 **โครงของ repo นี้:** `shadcn/` คือ DS ปัจจุบัน (component, tokens, Storybook) · `legacy/mui/` คือ DS แบบ MUI เดิม เก็บไว้อ้างอิงเท่านั้น ไม่เขียนโค้ดใหม่ลงไป · ที่ root เป็นเครื่องมือและเอกสารร่วม (skills, sync, scripts, peer bridge)
 
@@ -46,6 +47,8 @@
 |---|---|---|
 | shadcn | เพิ่ม/แก้ component ของ DS ด้วย shadcn | `เพิ่ม component [ชื่อ]` |
 | crv-component-code | (legacy MUI) เขียน Crv component — ใช้เฉพาะเมื่อสั่งแก้ `legacy/mui/` | `implement component [ชื่อ]` |
+| unslop | ขัดหน้าตา UI (ใช้อัตโนมัติกับงานสร้าง/ปรับ UI ภายใต้กฎของ DS เรา) | สั่งงาน UI ได้เลย ไม่ต้องเรียกเอง |
+| mermaid-diagrams | เขียนและตรวจ Mermaid เป็นข้อความใน repo | `เขียน flowchart เป็น Mermaid` |
 | verify-ds-usage | ตรวจโค้ดว่าใช้ DS จริงหรือ hardcode | `เช็คว่าใช้ component จริงไหม [path]` |
 | pr-checklist | รัน checklist ก่อน merge | `เช็ค PR นี้ก่อน merge` |
 
@@ -70,6 +73,9 @@
 - ห้าม hardcode hex หรือ px — ใช้ token จาก DS กลางเท่านั้น (มี hook ใน `.claude/hooks/` บล็อกให้อัตโนมัติ)
 - ถ้าต้องการสีใหม่ → แจ้งทีม DS ก่อน อย่าสร้างเอง
 - Figma wins — ถ้า doc ขัดกับ Figma ให้เชื่อ Figma
+- **ลำดับงานและจุดตัดสินใจ** อยู่ที่ `shadcn/rules/workflow-map.md` ระบุชื่อ flow และรหัสขั้นปัจจุบันก่อนทำงาน ห้ามข้ามขั้นโดยไม่มีหลักฐาน
+- **ไม่มี component ที่ต้องการ** → ค้น Core/Product ของเรา → shadcn/ui ทางการ → ReUI (reui.io/components) เป็นตัวอย่างอ้างอิง แล้วปรับเป็น recipe ของเรา **ถามก่อนรัน `npx shadcn add`** เพราะเพิ่ม dependency
+- **เมื่อต้องวาด flow ให้ดีไซเนอร์** → ใช้ skill `artifact-diagramming` วาด swimlane (เลนคุณ/Claude) ดูรายละเอียดใน `shadcn/rules/agent-rules.md` ส่วน Mermaid ใช้เมื่อต้องเก็บเป็นข้อความใน repo
 - **อัปเดต `shadcn/tokens.json` ต้องอ่านค่าจาก Figma variable จริงเท่านั้น** (แล้วรัน `npm run tokens:generate` ในโฟลเดอร์ `shadcn/`) — ห้ามเดา ห้ามคำนวณ/ประมาณค่าเอง และห้ามเชื่อ doc frame หรือ node ที่ไม่ใช่ variable collection ตรงๆ (เช่น หน้า documentation ของ component ที่อาจมี variable จากไฟล์อื่นปนอยู่, หรือ doc frame แบบ "AI Readable" ที่เคย verify แล้วพบว่าไม่ตรงกับ live variable) — วิธีที่เชื่อถือได้คือดึงจาก variable collection ตรงๆ (เช่นผ่าน Figma Console MCP's `figma_get_variables` ที่เชื่อมกับ Desktop Bridge plugin ใน Figma Desktop) ถ้าเข้าถึง live variable ไม่ได้ (Bridge ไม่เชื่อมต่อ, ไม่มีสิทธิ์, หา collection ที่ถูกต้องไม่เจอ ฯลฯ) **ให้แจ้งปัญหาให้ user ทราบตรงๆ แล้วหยุดรอ** ห้าม fallback ไปเดาหรือใช้ค่าจาก source ที่ไม่ใช่ live variable โดยไม่บอก
 
 ---

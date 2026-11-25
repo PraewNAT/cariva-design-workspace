@@ -1,5 +1,7 @@
 # Prepare the selected company's DS
 
+อ่าน [Workflow map](workflow-map.md) ก่อนเริ่ม: แผนภาพและตารางในไฟล์นั้นกำหนดลำดับ จุดถาม และเกณฑ์จบงาน รายละเอียดในไฟล์นี้ใช้ประกอบขั้นที่เกี่ยวข้อง ไม่ใช่ flow อีกชุด
+
 Read project-guide.md first. This file owns DS discovery and incremental implementation, not a fixed brand or library.
 
 ## Distinguish design authority and implementation base

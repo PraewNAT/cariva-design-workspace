@@ -1,5 +1,7 @@
 # Create and revise UI
 
+อ่าน [Workflow map](workflow-map.md) ก่อนเริ่ม: แผนภาพและตารางในไฟล์นั้นกำหนดลำดับ จุดถาม และเกณฑ์จบงาน รายละเอียดในไฟล์นี้ใช้ประกอบขั้นที่เกี่ยวข้อง ไม่ใช่ flow อีกชุด
+
 Use project-guide.md and ds-foundation.md. Preserve current company/Product rules; do not import another company's palette, fonts, control sizes or framework assumptions.
 
 1. Read selected Product record and current task/source. Confirm scope/output/constraints from context; ask only for genuinely missing decisions. Read available mandatory UI/story skills before changes.

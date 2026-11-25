@@ -23,3 +23,7 @@ Setup order: four Product fields → inspect DS/code → confirm code base → p
 Start with `START-HERE.md` for the message to send to another AI, required project inputs and setup order. Use `TASK-HANDOFF.md` for an active task transfer. Include the entire folder so linked rules and the Product index stay together. Do not send historical project plans as current instructions; they can contain cancelled features.
 
 This kit covers read-only multi-frame Storybook Canvas/flows, conditional Figma writes, two representative frame sizes, Core/Product component placement, documentation destinations, audit and case evidence. Company visual rules always come from the destination project. Merge existing entry files rather than replacing them.
+
+## Visual workflow
+
+เริ่มอ่าน [Workflow map](rules/workflow-map.md) มี Mermaid 7 flows พร้อมรหัสขั้น กติกา จุดถาม ทางย้อนแก้ และเกณฑ์จบ ตารางใต้แต่ละภาพเป็น text fallback สำหรับ AI/renderer ที่ไม่แสดง Mermaid ไม่ต้องติดตั้ง Mermaid runtime ลงแอปเพื่ออ่านกฎ

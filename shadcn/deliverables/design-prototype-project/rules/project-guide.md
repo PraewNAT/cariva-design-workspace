@@ -1,5 +1,7 @@
 # Shared project bootstrap
 
+อ่าน [Workflow map](workflow-map.md) ก่อนเริ่ม: แผนภาพและตารางในไฟล์นั้นกำหนดลำดับ จุดถาม และเกณฑ์จบงาน รายละเอียดในไฟล์นี้ใช้ประกอบขั้นที่เกี่ยวข้อง ไม่ใช่ flow อีกชุด
+
 This is a portable starting point for Codex and Claude, not a preinstalled app, DS or collection of skills. Guide the designer step by step. Do not invent project facts or require a full technical brief at setup.
 
 ## Objective

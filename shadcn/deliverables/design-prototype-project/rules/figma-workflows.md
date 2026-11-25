@@ -1,5 +1,7 @@
 # Figma and code directions
 
+อ่าน [Workflow map](workflow-map.md) ก่อนเริ่ม: แผนภาพและตารางในไฟล์นั้นกำหนดลำดับ จุดถาม และเกณฑ์จบงาน รายละเอียดในไฟล์นี้ใช้ประกอบขั้นที่เกี่ยวข้อง ไม่ใช่ flow อีกชุด
+
 Use project-guide.md, ds-foundation.md and ui-workflow.md. Inspect installed Figma skills/tools and their mandatory prerequisites before calls. A request to document a flow does not authorize Figma writes.
 
 ## Figma → Code

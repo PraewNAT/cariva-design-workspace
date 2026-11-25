@@ -26,6 +26,9 @@ One task uses one workflow per concern. The latest plan is `DESIGN-SYSTEM-PLAN.m
 | Figma frame renaming | rename-frame | preserve existing custom workflow |
 | Legacy project scaffold / version tabs | create-project / add-version-tab | explicit legacy request only; no automatic deploy/push/versioning |
 | UX writing | ux-writing | preserved, deferred until requested |
+| Flow for a designer (who does what) | artifact-diagramming (+ artifact-design) | swimlane SVG artifact; fall back to mermaid-diagrams if the agent has no such skill |
+| Diagram as text in the repo | mermaid-diagrams | do not run its upstream scripts; validate with awaited `mermaid.parse()` |
+| UI visual craft | unslop | after reuse check; our tokens, fonts and geometry win over its recipes |
 
 Board Maintenance, Apply Playground Changes, Catalog Maintenance and Design–Code Parity & Sync are planned, not implemented by this consolidation. Do not rename existing audits to imply these capabilities exist.
 

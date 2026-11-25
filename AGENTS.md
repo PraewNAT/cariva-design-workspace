@@ -8,6 +8,8 @@ Canonical project skills are in `.agents/skills/`. `skills/` is a compatibility 
 
 The active design system is the shadcn one in `shadcn/` (React + shadcn/ui on Base UI + Tailwind v4; the user switched from MUI on 2026-11-26). Read its `shadcn/DESIGN.md`, `shadcn/tokens.json` and `shadcn/rules/agent-rules.md`; shared rules for this checkout stay in `rules/`. The old MUI/Crv system is frozen under `legacy/mui/` as a reference: do not add code there and do not apply its stack, specs or tokens to new work. There is no shadcn dev export yet (the old one moved to `legacy/mui/export/`). Never apply one folder's stack or experimental styling silently to the other.
 
+Order of steps and decision gates: `shadcn/rules/workflow-map.md` (name the flow and the current step code before working). Community skills installed on 2026-11-26 in `.agents/skills/`: `mermaid-diagrams` (instructions only, upstream scripts not installed) and `unslop` (instructions and references only; the upstream video and snapshot scripts and sample images were not installed); how they are used and limited is in `shadcn/rules/agent-rules.md`. Flows for designers are drawn with the `artifact-diagramming` skill as swimlanes. When a needed component is missing: our DS, then official shadcn/ui, then ReUI as a reference only; ask before `npx shadcn add`.
+
 This is a Draft. Do not number or publish design-system releases until the user explicitly requests it. Starter examples under src/stories are Storybook examples, not approved Cariva Core components.
 
 ## Installed skills
