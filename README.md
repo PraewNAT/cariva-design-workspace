@@ -1,72 +1,49 @@
-# Cariva Design System
+# Cariva Design Workspace
 
-Design system สำหรับทีม Cariva — ประกอบด้วย tokens, skills, และ rules สำหรับใช้งานร่วมกับ Claude Code
+Workspace เดียวสำหรับ Design System และ prototype ของแต่ละ Product แยก source และเครื่องมือให้ค้นงานง่าย โดยไม่ปนโค้ดทดลองกับ shared components
 
-[![Documentation](https://img.shields.io/badge/Documentation-cariva--ds.vercel.app-blue?style=for-the-badge)](https://cariva-ds.vercel.app/)
+## โครงสร้าง
 
----
-
-## เริ่มต้นใช้งาน
-
-วาง prompt นี้ใน Claude Code เพื่อติดตั้ง:
-
-```
-ช่วยติดตั้ง Cariva Design System จาก repo นี้ให้หน่อย:
-https://github.com/PraewNAT/cariva-ds
-
-โดย:
-1. ถามฉันก่อนว่าอยากติดตั้งไว้ที่ path ไหน
-2. clone repo ไปไว้ที่ path นั้น
-3. รัน npm install ในโฟลเดอร์ `shadcn/` (DS ปัจจุบัน)
-4. เปิด Claude Code ในโฟลเดอร์นั้น
-5. อ่าน CLAUDE.md และบอกฉันว่าต้องทำอะไรต่อ
+```text
+cariva-design/                    # ชื่อ workspace; checkout บนเครื่องยังใช้ชื่อเดิมได้
+├── design-system/                # React/shadcn Core, Product DS, tokens, docs, Storybook
+├── products/<product-id>/
+│   └── prototypes/<prototype-id>/ # หน้าจอ, cases, fixtures และ app ของ prototype
+├── workspace/
+│   └── canvas/                   # board และ frame catalogs
+├── .agents/skills/               # canonical skills; skills/ เป็น compatibility link
+├── rules/                        # กฎและ routing กลาง
+├── legacy/mui/                   # frozen reference
+├── sync/                         # sync tooling; canvas เป็น compatibility link
+└── scripts/                      # peer bridge / Code Connect tooling
 ```
 
-เปิด Claude Code ในโฟลเดอร์ที่ clone มา แล้วอ่าน `CLAUDE.md` ได้เลย
+`shadcn/` เป็น compatibility link ไป `design-system/` ไม่ใช่ DS อีกชุดหนึ่ง และ `sync/canvas/` ชี้ไป `workspace/canvas/` เพื่อรักษา scripts/ลิงก์เดิม ไม่เปลี่ยนชื่อ Git remote หรือ checkout บนเครื่องโดยอัตโนมัติ
 
-## สร้าง prototype จากหน้าจอใน Figma
+## เริ่มใช้งาน
 
-> **หมายเหตุ (26 พ.ย. 2026):** ขั้นตอนนี้ยังใช้ชุด export ของ MUI (`legacy/mui/export/`) เพราะยังไม่มีชุด export ของ shadcn ถ้าต้องการสร้างโปรเจกต์ใหม่ด้วย shadcn ให้ปรึกษาก่อน
+- DS Storybook: `cd design-system && npm ci && npm run storybook` (ปัจจุบัน port 6006)
+- ตัวอย่าง prototype ของ DS: `cd design-system && npm run prototype` (port 5173) ใช้ renderer ร่วมกับ Workspace/Prototype ใน Storybook ตัวอย่างนี้ไม่ใช่ Product prototype
+- ดู [สารบัญ prototype](products/README.md) สำหรับงานจริง แยกคำสั่ง run, port, Figma และสถานะราย prototype
+- อ่าน [create-project](.agents/skills/create-project/SKILL.md) ก่อนสร้างงานใหม่ และ [ขอบเขต workspace](rules/workspace-structure.md) ก่อนเลือกตำแหน่ง
 
-สำหรับโปรเจกต์ vibe-code ใหม่ที่ **ไม่ใช่งานของ Cariva DS เอง** (เช่น MIRA) — เติม 3 ช่องแล้ววางใน Claude Code:
+## สั่งสร้าง prototype
 
-```
-อ่าน skills/create-project/SKILL.md ให้จบก่อน แล้วค่อยเปิด Figma link นี้
-
-Figma: [วาง link ที่มี node-id]
-ชื่อโปรเจกต์: [ชื่อ]
-โฟลเดอร์ปลายทาง: [ชื่อโฟลเดอร์ว่างที่แนบไว้ในเซสชันนี้]
-```
-
-**เช็ค 3 ข้อนี้ก่อนพิมพ์** ไม่งั้น AI จะหยุดถามกลางทาง:
-
-1. **แนบโฟลเดอร์ว่างเข้าเซสชันด้วย** (กด `+`) แยกจากโฟลเดอร์ `cariva-ds` — AI ห้ามเขียนโปรเจกต์ใหม่ลงในโฟลเดอร์ DS เด็ดขาด ถ้าไม่แนบมาจะหยุดรอทันที
-2. **node-id ต้องเป็น frame หน้าจอเต็ม** (เช่น 1440 หรือ 375px) ไม่ใช่ component เดี่ยว — ถ้าเป็น component เดี่ยว AI จะตีความว่าเป็นงานแก้ DS ไม่ใช่โปรเจกต์ใหม่
-3. **เปิดไฟล์นั้นค้างไว้ใน Figma Desktop** และติดตั้ง `gh` พร้อม login แล้ว (`brew install gh` + `gh auth login`)
-
-> 💡 AI จะถามยืนยันก่อนสร้าง repo จริงเสมอ ถ้าอยากดูหน้าตาก่อนค่อยตัดสินใจ ให้ตอบว่า **"เดี๋ยวค่อยสร้าง ขอดูผลลัพธ์ก่อน"** — AI จะ scaffold ในเครื่องแล้วเปิด preview ให้ดูโดยยังไม่แตะ git
-
-ถ้าเป็น**เวอร์ชันใหม่ของโปรเจกต์เดิม** ไม่ต้องใช้เทมเพลตนี้ — เปิด Claude Code ในโฟลเดอร์โปรเจกต์นั้นแล้วสั่งงานได้เลย ระบบจะถามเรื่องแท็บเวอร์ชันให้เองตอน commit
-
-### โครงสร้าง
-
-```
-cariva-ds/
-├── shadcn/        # DS ปัจจุบัน: component, tokens, theme, Storybook (React + shadcn/ui + Tailwind)
-├── legacy/mui/    # DS แบบ MUI เดิม เก็บไว้อ้างอิง ไม่พัฒนาต่อ (code, tokens, rules, export)
-├── skills/        # AI skills สำหรับ design workflow
-├── sync/          # Canvas (กระดาน frame แบบ Figma) และสคริปต์เทียบ Figma กับโค้ด
-├── scripts/       # สคริปต์ของ peer bridge และ Code Connect
-├── src/           # peer bridge (เครื่องมือสื่อสารระหว่างเครื่อง ไม่เกี่ยวกับ DS)
-├── CLAUDE.md      # กฎและ skill definitions
-├── CHANGELOG.md   # บันทึกการเปลี่ยนแปลง
-└── index.html     # Documentation website (เนื้อหาเดิมของ MUI ยังไม่ได้อัปเดต)
+```text
+สร้าง prototype [ชื่อ] ของ Product [ชื่อ Product]
+ใช้ workspace นี้ เก็บใน products/<product-id>/prototypes/<prototype-id>/
+Figma: [ลิงก์ ถ้ามี — หรือให้ออกแบบจาก requirements]
 ```
 
-รัน Storybook ของ DS: `cd shadcn && npm ci && npm run storybook`
+ไม่ต้องแนบโฟลเดอร์ว่างแยกเสมอไป หากมีแอปอยู่แล้วให้ตรวจและ reuse ไม่ scaffold ทับ ยึดเจตนาผู้ใช้ร่วมกับ node ไม่ตัดสินจาก frame/component อย่างเดียว ต้องเข้าถึงดีไซน์ผ่านเครื่องมือที่ใช้ได้ แต่ไม่บังคับ Figma Desktop หรือ gh/login สำหรับงาน local การสร้าง remote repo, publish, push, deploy และเขียน Figma ต้องอยู่ในคำขอแยก
 
-## ลำดับงานและกฎ
+prototype ใหม่ทุก Product ใช้ React/shadcn, dev host แยก และเปิดใน Storybook ได้ พร้อม Canvas / Preview / เต็มหน้าโดยใช้ renderer และ cases ชุดเดียวกัน ไม่ติดตั้ง dependencies ของ Product ลง DS เพียงเพื่อรวม workspace
 
-- ลำดับขั้นและจุดตัดสินใจ: `shadcn/rules/workflow-map.md`
-- กฎ AI กลาง: `shadcn/rules/agent-rules.md`
-- ชื่อ component Figma ↔ โค้ด: `shadcn/docs/components/FIGMA-NAMING.md`
+## กฎอ้างอิง
+
+- [Workflow](design-system/rules/workflow-map.md)
+- [Agent rules](design-system/rules/agent-rules.md)
+- [Product setup](design-system/rules/product-setup-flow.md)
+- [Figma component naming](design-system/docs/components/FIGMA-NAMING.md)
+
+การจัด workspace นี้ไม่เริ่มเลข release และไม่ย้ายหรือ publish Git repository

@@ -1,4 +1,4 @@
-# Cariva DS — unified workspace guide
+# Cariva Design Workspace — unified workspace guide
 
 ## Latest plan and one skill source
 
@@ -6,7 +6,7 @@ Read `DESIGN-SYSTEM-PLAN.md` for the latest intended workflow: requirements → 
 
 Canonical project skills are in `.agents/skills/`. `skills/` is a compatibility link to the same directory. Read the selected skill before work; use `rules/skill-routing.md` to choose one owner per concern. Plugins/global skills remain dependencies rather than copied implementations.
 
-The active design system is the shadcn one in `shadcn/` (React + shadcn/ui on Base UI + Tailwind v4; the user switched from MUI on 2026-11-26). Read its `shadcn/DESIGN.md`, `shadcn/tokens.json` and `shadcn/rules/agent-rules.md`; shared rules for this checkout stay in `rules/`. The old MUI/Crv system is frozen under `legacy/mui/` as a reference: do not add code there and do not apply its stack, specs or tokens to new work. There is no shadcn dev export yet (the old one moved to `legacy/mui/export/`). Never apply one folder's stack or experimental styling silently to the other.
+The active design system is the shadcn one in `design-system/` (`shadcn/` is a compatibility link) (React + shadcn/ui on Base UI + Tailwind v4; the user switched from MUI on 2026-11-26). Read its `shadcn/DESIGN.md`, `shadcn/tokens.json` and `shadcn/rules/agent-rules.md`; shared rules for this checkout stay in `rules/`. The old MUI/Crv system is frozen under `legacy/mui/` as a reference: do not add code there and do not apply its stack, specs or tokens to new work. There is no shadcn dev export yet (the old one moved to `legacy/mui/export/`). Never apply one folder's stack or experimental styling silently to the other.
 
 Order of steps and decision gates: `shadcn/rules/workflow-map.md` (name the flow and the current step code before working). Community skills installed on 2026-11-26 in `.agents/skills/`: `mermaid-diagrams` (instructions only, upstream scripts not installed) and `unslop` (instructions and references only; the upstream video and snapshot scripts and sample images were not installed); how they are used and limited is in `shadcn/rules/agent-rules.md`. Flows for designers are drawn with the `artifact-diagramming` skill as swimlanes. When a needed component is missing: our DS, then official shadcn/ui, then ReUI as a reference only; ask before `npx shadcn add`.
 
@@ -51,7 +51,7 @@ After every component change, check the related documentation against the actual
 
 Provisional typography decision: follow the current Figma font-family variables for the relevant Product Style mode until the user confirms the team's final choice. Read the actual UI/prose/display role and mode instead of assuming one font applies to every Product. Record observed font values and any code-preview drift in DESIGN.md; do not claim the code has been synchronized when only Figma was read. This font-specific direction overrides the earlier Inter Tight/Anuphan preference for future typography alignment, but does not authorize unrelated component changes or make the choice permanent.
 
-Keep visual values in DESIGN.md/tokens and detailed procedures in the relevant skills. For the current BWC experiment, use design-references/bwc/DESIGN.md and src/previews/bwc/tokens.ts plus its imported-token adapter. The original exports under design-references/bwc/source are preserved references. Do not treat preview components as approved Core.
+Keep visual values in DESIGN.md/tokens and detailed procedures in the relevant skills.
 
 Use shared primitive recipes and named variants/sizes instead of per-page CSS overrides for radius, typography or control geometry. Validate affected page and modal/portal consumers, including composed triggers and close buttons. Cover relevant long Thai content, mobile layout and keyboard/focus behavior; report unverified checks honestly.
 
@@ -74,3 +74,8 @@ The default sync direction is Code to Figma. A user request to implement their F
 ## Portable handoff
 
 Keep core logic, tokens, catalog and mappings independent of GitHub-specific APIs so migration to GitLab remains practical. When handing work to developers, include the actual repository/branch or commit, relevant board or Storybook preview and verified setup/import instructions. Do not invent unavailable board links, packages or release numbers, or send invitations/messages without authorization.
+
+
+## Cariva Design Workspace — user decision 2026-11-27
+
+Use [workspace structure rules](rules/workspace-structure.md) for new work. Canonical DS path is `design-system/`; `shadcn/` is a compatibility symlink. Product prototypes belong in `products/<product-id>/prototypes/<prototype-id>/` in this same workspace; do not require a separate empty folder or forbid all Product work inside this repository. Never scaffold into DS or overwrite an existing app. Canvas tooling is `workspace/canvas/`, with `sync/canvas/` retained as a compatibility symlink. Maintain `products/README.md` with actual paths, run commands, local ports, Storybook and Figma references/status. Every new prototype uses React/shadcn with its own dev host plus shared-renderer Storybook Canvas / Preview / full-page access. Existing DS examples are not Product screens. Older absolute bans/legacy setup instructions conflicting with this decision are superseded; no automatic repo creation, commit, push, deployment or Figma writes.

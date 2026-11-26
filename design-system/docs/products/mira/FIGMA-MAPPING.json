@@ -1,0 +1,32 @@
+{
+  "product": "Mira",
+  "dsFileKey": "XgxprkSY5mGbzIIwlmscCt",
+  "dsPageNode": "4167:286",
+  "productSectionNode": "7286:103997",
+  "designFile": null,
+  "designFileStatus": "Not supplied; this task implements Product DS components only",
+  "components": [
+    {
+      "source": "src/lib/products/mira/components/credit-tooltip.tsx",
+      "figmaSet": "7118:777",
+      "documentationNode": "7292:35",
+      "storybookTitle": "Products/Mira/Components/Credit Tooltip"
+    },
+    {
+      "source": "src/lib/products/mira/components/credit-badge.tsx",
+      "figmaSets": [
+        "7089:1151",
+        "7094:365"
+      ],
+      "documentationNode": "7296:35",
+      "sourcePageNode": "4456:16544",
+      "storybookTitle": "Products/Mira/Components/Credit Badge"
+    }
+  ],
+  "ownershipAudit": {
+    "date": "2026-11-26",
+    "report": "docs/products/mira/OWNERSHIP-AUDIT.md",
+    "scope": "12 previously implemented Figma pages; 36 sets and 4 standalone components",
+    "additionalMiraComponentsFound": 0
+  }
+}

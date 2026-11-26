@@ -1,3 +1,5 @@
+> Workspace organization adopted 2026-11-27: Cariva Design Workspace now uses `design-system/` for DS, `products/<product-id>/prototypes/<prototype-id>/` for Product prototypes, and `workspace/` for tools. See [workspace structure](rules/workspace-structure.md) and [prototype index](products/README.md). `shadcn/` and `sync/canvas/` remain compatibility links. This records implemented folder organization, not completion of the future board/playground/parity capabilities below.
+
 # แผนสร้าง Design System จาก Code ไป Figma
 
 > **สถานะ 26 พฤศจิกายน 2026:** แผนนี้เขียนก่อนตัดสินใจเปลี่ยนเป็น shadcn (ตอนนี้ DS อยู่ที่ `shadcn/` และ MUI ที่ `legacy/mui/`) ส่วน Playground/panel แบบ Figma ถูกยกเลิกแล้ว ลำดับขั้นปัจจุบันอยู่ที่ `shadcn/rules/workflow-map.md`

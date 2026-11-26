@@ -1,4 +1,4 @@
-# Cariva DS — Designer Guide
+# Cariva Design Workspace
 
 คุณเป็น AI assistant สำหรับทีมที่ใช้ **Cariva Design System**
 
@@ -56,7 +56,7 @@
 
 | ชื่อ skill | ใช้ทำอะไร | วิธีใช้ |
 |---|---|---|
-| create-project | ตั้งโปรเจกต์ vibe-code ใหม่ — repo ใหม่ถ้ายังไม่มี หรือเพิ่มเป็นกลุ่มโปรเจกต์ใหม่ใน repo เดิมถ้ามี sidebar shell อยู่แล้ว (1 repo เก็บได้หลายโปรเจกต์) + สอนติดตั้ง `gh` ถ้ายังไม่มี | `สร้างโปรเจกต์ใหม่ [ชื่อ]` — **หรือเมื่อ user ส่ง Figma link ที่เป็น page/screen frame มาให้ implement โดยไม่ระบุโปรเจกต์ ก็เข้าข่ายด้วย อ่าน SKILL.md ก่อนเสมอ** |
+| **create-project** | สร้าง React/shadcn prototype ใน `products/<product-id>/prototypes/<prototype-id>/` พร้อม localhost แยก, Storybook Canvas / Preview / เต็มหน้า และสารบัญ | ใช้เมื่อสร้าง prototype ใหม่; อ่านสกิลและตรวจ app เดิมก่อน scaffold ไม่สร้าง repo/push/deploy อัตโนมัติ |
 | add-version-tab | ทำงานอัตโนมัติตอนใกล้ commit ในโปรเจกต์ที่มี sidebar shell — ถามว่าจะขึ้นแท็บเวอร์ชันใหม่หรือแก้ทับของเดิม พร้อมเขียนสรุปการเปลี่ยนแปลง (AI-written) ให้ไอคอนท้ายแท็บใน sidebar | ไม่ต้องเรียกเอง ทำงานร่วมกับจังหวะ commit |
 
 ---
@@ -74,6 +74,7 @@
 - ถ้าต้องการสีใหม่ → แจ้งทีม DS ก่อน อย่าสร้างเอง
 - Figma wins — ถ้า doc ขัดกับ Figma ให้เชื่อ Figma
 - **ลำดับงานและจุดตัดสินใจ** อยู่ที่ `shadcn/rules/workflow-map.md` ระบุชื่อ flow และรหัสขั้นปัจจุบันก่อนทำงาน ห้ามข้ามขั้นโดยไม่มีหลักฐาน
+- **ทุก component ใหม่ต้องเชื่อม Code Connect** — สร้าง/อัปเดต `shadcn/code-connect/*.figma.tsx` ครบทุกชุด รัน dry-run แล้ว publish ก่อนบอกว่าเสร็จ รายละเอียดใน `shadcn/rules/workflow-map.md`
 - **ไม่มี component ที่ต้องการ** → ค้น Core/Product ของเรา → shadcn/ui ทางการ → ReUI (reui.io/components) เป็นตัวอย่างอ้างอิง แล้วปรับเป็น recipe ของเรา **ถามก่อนรัน `npx shadcn add`** เพราะเพิ่ม dependency
 - **เมื่อต้องวาด flow ให้ดีไซเนอร์** → ใช้ skill `artifact-diagramming` วาด swimlane (เลนคุณ/Claude) ดูรายละเอียดใน `shadcn/rules/agent-rules.md` ส่วน Mermaid ใช้เมื่อต้องเก็บเป็นข้อความใน repo
 - **อัปเดต `shadcn/tokens.json` ต้องอ่านค่าจาก Figma variable จริงเท่านั้น** (แล้วรัน `npm run tokens:generate` ในโฟลเดอร์ `shadcn/`) — ห้ามเดา ห้ามคำนวณ/ประมาณค่าเอง และห้ามเชื่อ doc frame หรือ node ที่ไม่ใช่ variable collection ตรงๆ (เช่น หน้า documentation ของ component ที่อาจมี variable จากไฟล์อื่นปนอยู่, หรือ doc frame แบบ "AI Readable" ที่เคย verify แล้วพบว่าไม่ตรงกับ live variable) — วิธีที่เชื่อถือได้คือดึงจาก variable collection ตรงๆ (เช่นผ่าน Figma Console MCP's `figma_get_variables` ที่เชื่อมกับ Desktop Bridge plugin ใน Figma Desktop) ถ้าเข้าถึง live variable ไม่ได้ (Bridge ไม่เชื่อมต่อ, ไม่มีสิทธิ์, หา collection ที่ถูกต้องไม่เจอ ฯลฯ) **ให้แจ้งปัญหาให้ user ทราบตรงๆ แล้วหยุดรอ** ห้าม fallback ไปเดาหรือใช้ค่าจาก source ที่ไม่ใช่ live variable โดยไม่บอก
@@ -120,3 +121,8 @@ Designer ไม่ต้องตัดสินใจเรื่อง branch 
 ## เมื่อได้รับแจ้งว่า DS อัปเดต
 
 เปิด Claude Code session ใหม่ — AI จะอ่าน `shadcn/tokens.json` ล่าสุดอัตโนมัติ
+
+
+## Cariva Design Workspace — user decision 2026-11-27
+
+Use [workspace structure rules](rules/workspace-structure.md) for new work. Canonical DS path is `design-system/`; `shadcn/` is a compatibility symlink. Product prototypes belong in `products/<product-id>/prototypes/<prototype-id>/` in this same workspace; do not require a separate empty folder or forbid all Product work inside this repository. Never scaffold into DS or overwrite an existing app. Canvas tooling is `workspace/canvas/`, with `sync/canvas/` retained as a compatibility symlink. Maintain `products/README.md` with actual paths, run commands, local ports, Storybook and Figma references/status. Every new prototype uses React/shadcn with its own dev host plus shared-renderer Storybook Canvas / Preview / full-page access. Existing DS examples are not Product screens. Older absolute bans/legacy setup instructions conflicting with this decision are superseded; no automatic repo creation, commit, push, deployment or Figma writes.

@@ -1,0 +1,25 @@
+{
+  "codeConnect": {
+    "parser": "react",
+    "importPaths": {
+      "design-system/src/lib/app/components/ui/*": "@/lib/app/components/ui/*",
+      "design-system/src/lib/app/components/app/*": "@/lib/app/components/app/*",
+      "design-system/src/lib/products/mira/components/*": "@/lib/products/mira/components/*"
+    },
+    "include": [
+      "design-system/code-connect/**/*.figma.tsx",
+      "design-system/src/lib/app/components/**/*.tsx",
+      "design-system/src/lib/products/**/*.tsx"
+    ],
+    "exclude": [
+      "node_modules/**",
+      "**/*.stories.tsx",
+      "**/*.test.tsx"
+    ],
+    "paths": {
+      "@/*": [
+        "design-system/src/*"
+      ]
+    }
+  }
+}

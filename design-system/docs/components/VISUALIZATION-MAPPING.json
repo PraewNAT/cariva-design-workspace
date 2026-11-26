@@ -1,0 +1,543 @@
+{
+  "fileKey": "XgxprkSY5mGbzIIwlmscCt",
+  "pageNode": "7204:64878",
+  "documentationNode": "7303:35",
+  "owner": "Core",
+  "source": "src/lib/app/components/app/visualization-chart.tsx",
+  "component": "VisualizationChart",
+  "storybook": "Core/Components/Chart",
+  "codeConnect": {
+    "status": "published",
+    "file": "shadcn/code-connect/visualization.figma.tsx",
+    "templatesCreated": true,
+    "published": true,
+    "evidence": "26 พ.ย. 2026: dry-run ผ่าน, publish 50 mapping (25 การ์ด + 25 plot), get_code_connect_map ตรวจ node 7204:64901 และ 7204:73603"
+  },
+  "components": [
+    {
+      "node": "7204:64900",
+      "name": "crv-chart-01 / Basic bar",
+      "variant": "basic-bar",
+      "titleProp": "title#8667:0",
+      "viewportVariants": [
+        {
+          "id": "7204:64901",
+          "name": "viewport=desktop",
+          "width": 560,
+          "height": 350
+        },
+        {
+          "id": "7204:64916",
+          "name": "viewport=mobile",
+          "width": 320,
+          "height": 350
+        }
+      ],
+      "viewportHandling": "Responsive container; no viewport prop emitted"
+    },
+    {
+      "node": "7204:64946",
+      "name": "crv-chart-02 / Multi-series bar",
+      "variant": "multi-series-bar",
+      "titleProp": "title#8667:3",
+      "viewportVariants": [
+        {
+          "id": "7204:64947",
+          "name": "viewport=desktop",
+          "width": 560,
+          "height": 350
+        },
+        {
+          "id": "7204:64965",
+          "name": "viewport=mobile",
+          "width": 320,
+          "height": 350
+        }
+      ],
+      "viewportHandling": "Responsive container; no viewport prop emitted"
+    },
+    {
+      "node": "7204:65461",
+      "name": "crv-chart-03 / Striped bar",
+      "variant": "striped-bar",
+      "titleProp": "title#8667:6",
+      "viewportVariants": [
+        {
+          "id": "7204:65462",
+          "name": "viewport=desktop",
+          "width": 560,
+          "height": 350
+        },
+        {
+          "id": "7204:65477",
+          "name": "viewport=mobile",
+          "width": 320,
+          "height": 350
+        }
+      ],
+      "viewportHandling": "Responsive container; no viewport prop emitted"
+    },
+    {
+      "node": "7204:68406",
+      "name": "crv-chart-04 / Dotted bar",
+      "variant": "dotted-bar",
+      "titleProp": "title#8667:9",
+      "viewportVariants": [
+        {
+          "id": "7204:68407",
+          "name": "viewport=desktop",
+          "width": 560,
+          "height": 350
+        },
+        {
+          "id": "7204:68422",
+          "name": "viewport=mobile",
+          "width": 320,
+          "height": 350
+        }
+      ],
+      "viewportHandling": "Responsive container; no viewport prop emitted"
+    },
+    {
+      "node": "7204:68921",
+      "name": "crv-chart-05 / Striped + solid bar",
+      "variant": "striped-solid-bar",
+      "titleProp": "title#8667:12",
+      "viewportVariants": [
+        {
+          "id": "7204:68922",
+          "name": "viewport=desktop",
+          "width": 560,
+          "height": 350
+        },
+        {
+          "id": "7204:68940",
+          "name": "viewport=mobile",
+          "width": 320,
+          "height": 350
+        }
+      ],
+      "viewportHandling": "Responsive container; no viewport prop emitted"
+    },
+    {
+      "node": "7204:68979",
+      "name": "crv-chart-06 / 3D gradient bar",
+      "variant": "gradient-3d-bar",
+      "titleProp": "title#8667:15",
+      "viewportVariants": [
+        {
+          "id": "7204:68980",
+          "name": "viewport=desktop",
+          "width": 560,
+          "height": 350
+        },
+        {
+          "id": "7204:68995",
+          "name": "viewport=mobile",
+          "width": 320,
+          "height": 350
+        }
+      ],
+      "viewportHandling": "Responsive container; no viewport prop emitted"
+    },
+    {
+      "node": "7204:69019",
+      "name": "crv-chart-07 / Gradient bar",
+      "variant": "gradient-bar",
+      "titleProp": "title#8667:18",
+      "viewportVariants": [
+        {
+          "id": "7204:69020",
+          "name": "viewport=desktop",
+          "width": 560,
+          "height": 350
+        },
+        {
+          "id": "7204:69035",
+          "name": "viewport=mobile",
+          "width": 320,
+          "height": 350
+        }
+      ],
+      "viewportHandling": "Responsive container; no viewport prop emitted"
+    },
+    {
+      "node": "7204:69071",
+      "name": "crv-chart-08 / Isometric bar",
+      "variant": "isometric-bar",
+      "titleProp": "title#8667:21",
+      "viewportVariants": [
+        {
+          "id": "7204:69072",
+          "name": "viewport=desktop",
+          "width": 560,
+          "height": 350
+        },
+        {
+          "id": "7204:69087",
+          "name": "viewport=mobile",
+          "width": 320,
+          "height": 350
+        }
+      ],
+      "viewportHandling": "Responsive container; no viewport prop emitted"
+    },
+    {
+      "node": "7204:72022",
+      "name": "crv-chart-09 / Dotted + solid bar",
+      "variant": "dotted-solid-bar",
+      "titleProp": "title#8667:24",
+      "viewportVariants": [
+        {
+          "id": "7204:72023",
+          "name": "viewport=desktop",
+          "width": 560,
+          "height": 350
+        },
+        {
+          "id": "7204:72041",
+          "name": "viewport=mobile",
+          "width": 320,
+          "height": 350
+        }
+      ],
+      "viewportHandling": "Responsive container; no viewport prop emitted"
+    },
+    {
+      "node": "7204:72068",
+      "name": "crv-chart-10 / Duotone bar",
+      "variant": "duotone-bar",
+      "titleProp": "title#8667:27",
+      "viewportVariants": [
+        {
+          "id": "7204:72069",
+          "name": "viewport=desktop",
+          "width": 560,
+          "height": 350
+        },
+        {
+          "id": "7204:72084",
+          "name": "viewport=mobile",
+          "width": 320,
+          "height": 350
+        }
+      ],
+      "viewportHandling": "Responsive container; no viewport prop emitted"
+    },
+    {
+      "node": "7204:72108",
+      "name": "crv-chart-11 / Monochrome bar",
+      "variant": "monochrome-bar",
+      "titleProp": "title#8667:30",
+      "viewportVariants": [
+        {
+          "id": "7204:72109",
+          "name": "viewport=desktop",
+          "width": 560,
+          "height": 350
+        },
+        {
+          "id": "7204:72124",
+          "name": "viewport=mobile",
+          "width": 320,
+          "height": 350
+        }
+      ],
+      "viewportHandling": "Responsive container; no viewport prop emitted"
+    },
+    {
+      "node": "7204:72148",
+      "name": "crv-chart-12 / Horizontal bar",
+      "variant": "horizontal-bar",
+      "titleProp": "title#8667:33",
+      "viewportVariants": [
+        {
+          "id": "7204:72149",
+          "name": "viewport=desktop",
+          "width": 560,
+          "height": 350
+        },
+        {
+          "id": "7204:72164",
+          "name": "viewport=mobile",
+          "width": 320,
+          "height": 350
+        }
+      ],
+      "viewportHandling": "Responsive container; no viewport prop emitted"
+    },
+    {
+      "node": "7204:72264",
+      "name": "crv-chart-13 / Striped gradient area",
+      "variant": "striped-gradient-area",
+      "titleProp": "title#8667:36",
+      "viewportVariants": [
+        {
+          "id": "7204:72265",
+          "name": "viewport=desktop",
+          "width": 560,
+          "height": 350
+        },
+        {
+          "id": "7204:72280",
+          "name": "viewport=mobile",
+          "width": 320,
+          "height": 350
+        }
+      ],
+      "viewportHandling": "Responsive container; no viewport prop emitted"
+    },
+    {
+      "node": "7204:72301",
+      "name": "crv-chart-14 / Stacked dashed area",
+      "variant": "stacked-dashed-area",
+      "titleProp": "title#8667:39",
+      "viewportVariants": [
+        {
+          "id": "7204:72302",
+          "name": "viewport=desktop",
+          "width": 560,
+          "height": 350
+        },
+        {
+          "id": "7204:72320",
+          "name": "viewport=mobile",
+          "width": 320,
+          "height": 350
+        }
+      ],
+      "viewportHandling": "Responsive container; no viewport prop emitted"
+    },
+    {
+      "node": "7204:72828",
+      "name": "crv-chart-15 / Dotted step area",
+      "variant": "dotted-step-area",
+      "titleProp": "title#8667:42",
+      "viewportVariants": [
+        {
+          "id": "7204:72829",
+          "name": "viewport=desktop",
+          "width": 560,
+          "height": 350
+        },
+        {
+          "id": "7204:72844",
+          "name": "viewport=mobile",
+          "width": 320,
+          "height": 350
+        }
+      ],
+      "viewportHandling": "Responsive container; no viewport prop emitted"
+    },
+    {
+      "node": "7204:72878",
+      "name": "crv-chart-16 / Area + markers",
+      "variant": "area-markers",
+      "titleProp": "title#8667:45",
+      "viewportVariants": [
+        {
+          "id": "7204:72879",
+          "name": "viewport=desktop",
+          "width": 560,
+          "height": 350
+        },
+        {
+          "id": "7204:72894",
+          "name": "viewport=mobile",
+          "width": 320,
+          "height": 350
+        }
+      ],
+      "viewportHandling": "Responsive container; no viewport prop emitted"
+    },
+    {
+      "node": "7204:72994",
+      "name": "crv-chart-17 / Forecast line",
+      "variant": "forecast-line",
+      "titleProp": "title#8667:48",
+      "viewportVariants": [
+        {
+          "id": "7204:72995",
+          "name": "viewport=desktop",
+          "width": 560,
+          "height": 350
+        },
+        {
+          "id": "7204:73010",
+          "name": "viewport=mobile",
+          "width": 320,
+          "height": 350
+        }
+      ],
+      "viewportHandling": "Responsive container; no viewport prop emitted"
+    },
+    {
+      "node": "7204:73184",
+      "name": "crv-chart-18 / Crosshatch stacked area",
+      "variant": "crosshatch-stacked-area",
+      "titleProp": "title#8667:51",
+      "viewportVariants": [
+        {
+          "id": "7204:73185",
+          "name": "viewport=desktop",
+          "width": 560,
+          "height": 350
+        },
+        {
+          "id": "7204:73203",
+          "name": "viewport=mobile",
+          "width": 320,
+          "height": 350
+        }
+      ],
+      "viewportHandling": "Responsive container; no viewport prop emitted"
+    },
+    {
+      "node": "7204:73227",
+      "name": "crv-chart-19 / Donut total",
+      "variant": "donut-total",
+      "titleProp": "title#8667:54",
+      "viewportVariants": [
+        {
+          "id": "7204:73228",
+          "name": "viewport=desktop",
+          "width": 560,
+          "height": 350
+        },
+        {
+          "id": "7204:73250",
+          "name": "viewport=mobile",
+          "width": 320,
+          "height": 378
+        }
+      ],
+      "viewportHandling": "Responsive container; no viewport prop emitted"
+    },
+    {
+      "node": "7204:73280",
+      "name": "crv-chart-20 / Donut stats",
+      "variant": "donut-stats",
+      "titleProp": "title#8667:57",
+      "viewportVariants": [
+        {
+          "id": "7204:73281",
+          "name": "viewport=desktop",
+          "width": 560,
+          "height": 350
+        },
+        {
+          "id": "7204:73303",
+          "name": "viewport=mobile",
+          "width": 320,
+          "height": 378
+        }
+      ],
+      "viewportHandling": "Responsive container; no viewport prop emitted"
+    },
+    {
+      "node": "7204:73409",
+      "name": "crv-chart-21 / Pattern pie",
+      "variant": "pattern-pie",
+      "titleProp": "title#8667:60",
+      "viewportVariants": [
+        {
+          "id": "7204:73410",
+          "name": "viewport=desktop",
+          "width": 560,
+          "height": 350
+        },
+        {
+          "id": "7204:73432",
+          "name": "viewport=mobile",
+          "width": 320,
+          "height": 378
+        }
+      ],
+      "viewportHandling": "Responsive container; no viewport prop emitted"
+    },
+    {
+      "node": "7204:73462",
+      "name": "crv-chart-22 / Active donut",
+      "variant": "active-donut",
+      "titleProp": "title#8667:63",
+      "viewportVariants": [
+        {
+          "id": "7204:73463",
+          "name": "viewport=desktop",
+          "width": 560,
+          "height": 350
+        },
+        {
+          "id": "7204:73485",
+          "name": "viewport=mobile",
+          "width": 320,
+          "height": 378
+        }
+      ],
+      "viewportHandling": "Responsive container; no viewport prop emitted"
+    },
+    {
+      "node": "7204:73520",
+      "name": "crv-chart-23 / Gradient radar",
+      "variant": "gradient-radar",
+      "titleProp": "title#8667:66",
+      "viewportVariants": [
+        {
+          "id": "7204:73521",
+          "name": "viewport=desktop",
+          "width": 560,
+          "height": 350
+        },
+        {
+          "id": "7204:73536",
+          "name": "viewport=mobile",
+          "width": 320,
+          "height": 350
+        }
+      ],
+      "viewportHandling": "Responsive container; no viewport prop emitted"
+    },
+    {
+      "node": "7204:73563",
+      "name": "crv-chart-24 / Filled radar",
+      "variant": "filled-radar",
+      "titleProp": "title#8667:69",
+      "viewportVariants": [
+        {
+          "id": "7204:73564",
+          "name": "viewport=desktop",
+          "width": 560,
+          "height": 350
+        },
+        {
+          "id": "7204:73579",
+          "name": "viewport=mobile",
+          "width": 320,
+          "height": 350
+        }
+      ],
+      "viewportHandling": "Responsive container; no viewport prop emitted"
+    },
+    {
+      "node": "7204:73602",
+      "name": "crv-chart-25 / Score radial",
+      "variant": "score-radial",
+      "titleProp": "title#8667:72",
+      "viewportVariants": [
+        {
+          "id": "7204:73603",
+          "name": "viewport=desktop",
+          "width": 560,
+          "height": 350
+        },
+        {
+          "id": "7204:73621",
+          "name": "viewport=mobile",
+          "width": 320,
+          "height": 350
+        }
+      ],
+      "viewportHandling": "Responsive container; no viewport prop emitted"
+    }
+  ]
+}

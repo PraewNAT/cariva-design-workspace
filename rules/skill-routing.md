@@ -24,7 +24,8 @@ One task uses one workflow per concern. The latest plan is `DESIGN-SYSTEM-PLAN.m
 | Change history | changelog | Draft date/commit entries; no release number without explicit request |
 | Figma localization export | localization-export | preserve existing custom workflow |
 | Figma frame renaming | rename-frame | preserve existing custom workflow |
-| Legacy project scaffold / version tabs | create-project / add-version-tab | explicit legacy request only; no automatic deploy/push/versioning |
+| New prototype project | create-project | React/shadcn + Storybook Canvas / Preview / full-page; no automatic deploy/push/versioning |
+| Legacy version tabs | add-version-tab | explicit legacy request only |
 | UX writing | ux-writing | preserved, deferred until requested |
 | Flow for a designer (who does what) | artifact-diagramming (+ artifact-design) | swimlane SVG artifact; fall back to mermaid-diagrams if the agent has no such skill |
 | Diagram as text in the repo | mermaid-diagrams | do not run its upstream scripts; validate with awaited `mermaid.parse()` |
@@ -45,3 +46,9 @@ Board Maintenance, Apply Playground Changes, Catalog Maintenance and Design–Co
 - The user switched the design system from MUI to shadcn. `shadcn/` is the active DS (components, tokens, theme, Storybook, Canvas stories); the old MUI system, its tokens, rules, export bundle and generator scripts moved to `legacy/mui/` unchanged.
 - Skills that read DESIGN.md, tokens or component specs now point at `shadcn/`. `crv-component-code`, `verify-ds-usage` and the create-project export step stay legacy and point into `legacy/mui/`. There is no shadcn dev export yet.
 - Root `package.json` now holds only the peer bridge and Code Connect tooling; the MUI dependencies and scripts live in `legacy/mui/package.json`.
+
+## Prototype setup update — 2026-11-27
+
+`create-project` now owns new React/shadcn prototype setup with Storybook Canvas / Preview switching and full-page preview for every Product. This supersedes the historical legacy create-project routing/export note above. The skill defines required delivery behavior; it does not imply a generator or completed mode switch exists in this checkout.
+
+Workspace placement and prototype index follow [workspace-structure.md](workspace-structure.md) (2026-11-27). New prototypes can live in this repo under products/<product-id>/prototypes; design-system is canonical and shadcn is its compatibility link.

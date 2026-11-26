@@ -9,7 +9,10 @@
     "check-env": "npx tsx src/check-env.ts",
     "probe": "npx tsx src/agent-probe.ts",
     "typecheck": "tsc --noEmit",
-    "peer:wizard": "node scripts/peer-wizard.mjs"
+    "peer:wizard": "node scripts/peer-wizard.mjs",
+    "code-connect:dry-run": "bash scripts/code-connect.sh publish --dry-run",
+    "code-connect:publish": "bash scripts/code-connect.sh publish",
+    "code-connect:parse": "npx figma connect parse --skip-update-check"
   },
   "dependencies": {
     "@connectrpc/connect-node": "^1.6.1",

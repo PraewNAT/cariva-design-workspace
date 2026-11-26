@@ -1,155 +1,73 @@
 ---
 name: create-project
-description: ตั้งโปรเจกต์แบบเดิม Crv/MUI เฉพาะเมื่อผู้ใช้ขอ scaffold legacy ชัดเจน ไม่ใช้กับแผน React/shadcn ล่าสุด
+description: สร้าง prototype ใหม่ด้วย React/shadcn พร้อม Storybook ที่สลับ Canvas / Preview และเปิดเต็มหน้าได้ ใช้กับทุก Product โดยไม่ scaffold ทับโปรเจกต์เดิม
 ---
 
-## ขอบเขตตามแพลนล่าสุด
+# Create Project — Cariva prototype
 
-อ่าน AGENTS.md และ rules/skill-routing.md ก่อนใช้ กฎล่าสุดมีผลเหนือขั้นตอนเก่าที่ขัดกัน สกิลนี้ไม่อนุญาตให้ publish, push, deploy หรือเริ่มเลขเวอร์ชันโดยอัตโนมัติ ดำเนินการภายนอกเฉพาะที่ผู้ใช้มอบหมายจริง
+ผู้ใช้ยืนยัน 27 พฤศจิกายน 2026: prototype ใหม่ทุกโปรเจกต์ใช้ React + TypeScript + design-system/ui บน Base UI + Tailwind และ Storybook ที่สลับ Canvas / Preview และเปิดเต็มหน้าได้ แทน workflow MUI/Crv เดิม นี่เป็นข้อกำหนดส่งมอบ ไม่ใช่ generator ที่ติดตั้งหรือ feature ที่ implement แล้ว
+
+## เริ่มงานและหาเป้าหมาย
+
+1. อ่าน AGENTS.md, DESIGN-SYSTEM-PLAN.md และ rules/skill-routing.md ระบุ flow Setup และขั้น S1–S5 ตาม design-system/rules/workflow-map.md ก่อนทำงาน; งานหน้าจอต่อด้วย U1–U6
+2. ตรวจ working directory, branch, remote, working changes และ package จริง ห้าม scaffold ทับแอปเดิมหรือเขียน Product app ลง design-system/ ใช้ products/<product-id>/prototypes/<prototype-id>/ ใน workspace เดียวกันเป็นค่าเริ่มต้น ไม่ต้องแนบโฟลเดอร์ว่างแยก หาก Product หรือ prototype id ยังระบุไม่ได้ ให้ถามเฉพาะข้อมูลนั้น หากมีโปรเจกต์อยู่แล้ว ให้ reuse และรักษา stack เดิม ไม่ migrate อัตโนมัติ
+3. ใช้ Product record ตาม design-system/rules/product-setup-flow.md และ onboarding ตาม design-system/rules/new-project-guide.md ขอเฉพาะข้อมูลที่ขาด ไม่เดา Product จากชื่อผู้ทำงาน ไม่บังคับสร้าง remote repo หรือ login ก่อนเริ่มงาน local
+
+## Foundation ของ prototype ใหม่
+
+- อ่าน design-system/DESIGN.md, design-system/tokens.json, design-system/rules/agent-rules.md และสกิล shadcn ของโปรเจกต์ ใช้ React + TypeScript + Vite สำหรับเป้าหมายว่าง เว้นแต่มี app framework ที่ตกลงไว้แล้ว ไม่ใช้ legacy/mui หรือ MUI dev export
+- ใช้ component-reuse-check ก่อน implement และหลังเปลี่ยน ใช้ Core/token จริง ไม่ทำ component เลียนแบบ ตรวจวิธีนำ DS เข้าเป้าหมายที่มีจริง ปัจจุบันไม่มี shadcn dev export สำเร็จรูป อย่าอ้างว่ามี package ให้ติดตั้ง หากต้อง vendor ให้ระบุ component dependencies, theme, fonts, styles และ licenses ให้ครบ บันทึก source commit/imports ที่ตรวจจริง ไม่คัดลอก credentials, node_modules หรือทั้ง config จากอีกโปรเจกต์
+- Core ไม่ขึ้นกับ routing/API/editor; screens, fixtures, cases และ business logic อยู่ใน Product; Canvas/preview tooling แยกจาก production components
+- ทุก Product แยก component เฉพาะไว้ในพื้นที่ Product และ Storybook กลุ่ม Products/<ProductName>/Components/<Component> พร้อม docs/mapping ตรงกัน ไม่ใส่ของ Product ใน Core
+- ใช้ Product font role/mode และ semantic tokens ที่ตรวจแล้ว ทุกข้อความที่ render ขั้นต่ำ 12px
+
+## Storybook: Canvas / Preview / เต็มหน้า
+
+อ่านสกิล stories ก่อนแก้ UI/stories ตรวจ version และ CLI help ของ package เป้าหมาย ใช้ scripts ของจริงและ reuse server ที่ถูกต้อง ไม่ใช้ CLI รุ่นใหม่กับรุ่นเก่า ไม่ upgrade/install dependency อัตโนมัติเพื่อให้ตรงสกิล ขออนุมัติการติดตั้งหรือ npx shadcn add ตามกฎที่ใช้จริงเมื่อจำเป็น
+
+ทุก prototype ใหม่ต้องมีทางเข้า Storybook และตัวสลับมุมมองที่เห็นชัด:
+
+| มุมมอง | พฤติกรรมส่งมอบ |
+|---|---|
+| Canvas | Board ของหลายหน้า/เคสที่ตกลงไว้ มีชื่อ frame และ zoom/pan แต่ละ frame render screen component จริง ไม่ใช่ภาพหรือ UI ที่เขียนซ้ำ |
+| Preview | ทดลองกดหน้า/flow ที่เลือกได้ ใช้ screens, fixtures และ state logic ชุดเดียวกับ Canvas ไม่ใช่ docs/code snippet |
+| เต็มหน้า | เปิด Preview เคสที่เลือกในแท็บใหม่โดยไม่มี Storybook/board chrome; มี fullscreen ภายในเมื่อ browser รองรับ พร้อมทางออกตาม keyboard/browser ปกติ |
+
+- Canvas หมายถึง board หลาย frames ไม่ใช่แค่ชื่อ Canvas tab มาตรฐานของ Storybook
+- สลับ Canvas / Preview แล้วคง screen/case ที่เลือก เก็บ selection/view ใน URL หรือกลไกที่ reload และ share local preview ได้ ตรวจ direct link จริง ไม่แต่ง public URL
+- ใช้ catalog/metadata ของ screens/cases ร่วมกันระหว่าง board, Preview, stories และ docs; fixtures deterministic ระบุวิธี reset state เมื่อสลับเคส ไม่อ้างว่า state ของหลาย frames sync กันโดยยังไม่ได้ทำ
+- แยก pan/drag ของ board จาก interaction ของ prototype ไม่ขวางปุ่ม/form และ keyboard; ตรวจ portals/dialog ไม่ถูก clip หรือวางตำแหน่งผิดเพราะ iframe
+- ค้น board เดิมก่อนสร้างใหม่ ใน DS checkout นี้มี workspace/canvas และ Workspace/Canvas ให้ตรวจ reuse แต่การมี iframe ไม่ได้แปลว่ามี mode switch/เต็มหน้าครบ ไม่ดึง catalog ทั้ง DS เข้า prototype อัตโนมัติ
+- stories จัดตาม Product/flow จริง Workspace tooling แยกจาก Core ใช้ layout fullscreen สำหรับ screen stories ที่ต้องการ ไม่สร้าง sidebar shell/version tabs แบบ legacy เป็นค่าเริ่มต้น
+- ปุ่มเปิดแท็บใหม่มีชื่อบอกปลายทาง ใช้ rel="noopener noreferrer"; fullscreen ที่ไม่รองรับให้ใช้ standalone Preview แทน
+
+## ทำ UI เอกสาร และตรวจรับ
+
+ใช้ case-planning สำหรับ agreed cases แยก confirmed/proposed/unresolved ไม่แต่ง business rules เพื่อเติม board อัปเดต stories/docs/mappings ตามสิ่งที่ implement จริง แล้วทำ component-audit บนผลสุดท้ายและ consumers ที่กระทบ
+
+เกณฑ์ก่อนส่งมอบแต่ละ prototype:
+
+- Storybook เปิดได้จริง สลับ Canvas / Preview ได้ด้วยเมาส์และ keyboard และคง selection
+- เปิดเต็มหน้า/แท็บใหม่ตรงเคสที่เลือก ไม่มี board chrome ใน standalone Preview เปิด direct URL/reload และออก fullscreen ได้
+- ตรวจ desktop/mobile ที่ตกลง ข้อความไทยยาว overflow และ computed text ขั้นต่ำ 12px
+- ตรวจ flow สำคัญ focus/form/overlays ทั้งสอง mode และ reduced motion ถ้ามี animation
+- รัน build/focused checks ตาม tooling ของจริง รายงานสิ่งที่ไม่ได้ตรวจและ blockers ตรงไปตรงมา ไม่เรียกการแก้สกิลอย่างเดียวว่า UI implement แล้ว
+- ส่งคำสั่ง setup/run, source/import instructions, ลิงก์ Storybook/Canvas/Preview ที่เปิดตรวจจริง และ cases/gaps ไม่เริ่ม release numbering หรือ version metadata เอง
+
+## ขอบเขตภายนอก
+
+การสร้าง prototype ไม่อนุญาตสร้าง remote repo, push, deploy, publish package/library หรือเขียน Figma อัตโนมัติ ทำเฉพาะเมื่อผู้ใช้สั่งและรู้ปลายทาง ไม่คัดลอก legacy Crv/MUI guard hooks มาใช้ใน shadcn ใหม่
 
 
-# Create Project — Cariva DS
+## Localhost แยกสำหรับ prototype — ผู้ใช้ยืนยัน 27 พฤศจิกายน 2026
 
-## ก่อนอื่น — หาโฟลเดอร์เป้าหมาย (ทำก่อนทุกอย่างในนี้)
+ทุก prototype ต้องมี dev host/คำสั่ง run ของตัวเองที่เปิดได้โดยไม่ต้องเปิด Storybook และยัง browse ผ่าน Storybook ได้ ใช้ renderer, screens และ case fixtures ชุดเดียวกัน ไม่ embed Storybook มาเป็น standalone app บันทึกพอร์ต/URL ที่ตรวจจริง ห้ามแย่งพอร์ตของโปรเจกต์อื่น ปุ่มเปิดเต็มหน้าใน Storybook ชี้ไป case เดียวกันบน prototype host; แจ้งว่าต้องเปิดทั้งสอง server เมื่อใช้งานร่วมกัน ไม่ผูกทุก Product เข้าพอร์ตเดียวกันหรือใช้ URL จากอีกโปรเจกต์เงียบ ๆ
 
-Session อาจแนบหลายโฟลเดอร์พร้อมกัน (เช่น `Cariva DS` + โฟลเดอร์เปล่าอีกอัน) — **ต้องหาให้เจอก่อนว่าอันไหนคือ DS อันไหนคือเป้าหมายที่จะ scaffold โปรเจกต์ใหม่ลงไป** ห้าม scaffold ลงในโฟลเดอร์ DS เด็ดขาด
 
-**วิธีแยก — เช็คจากเนื้อหา ไม่ใช่ชื่อโฟลเดอร์:**
-- โฟลเดอร์ที่มี `CLAUDE.md` (เขียนถึง "Cariva Design System") และมี `skills/create-project/SKILL.md` จริง → **นี่คือโฟลเดอร์ DS — อ่านอย่างเดียว ห้ามเขียนโปรเจกต์ใหม่ลงไปเด็ดขาด**
-- โฟลเดอร์อื่นที่แนบมาด้วย ที่ไม่มีไฟล์พวกนี้ (ว่างเปล่า หรือมีโปรเจกต์อื่นอยู่) → **นี่คือโฟลเดอร์เป้าหมาย** ที่จะ scaffold ลงไป
+## Cariva Design Workspace — 27 พฤศจิกายน 2026
 
-**ถ้าไม่ชัด** (แนบมาแค่โฟลเดอร์ DS อันเดียว ไม่มีโฟลเดอร์เป้าหมายเลย, หรือมีโฟลเดอร์ที่ไม่ใช่ DS มากกว่า 1 อัน) → **หยุดถามก่อนเสมอ** ห้ามเดา:
-> "ต้องมีโฟลเดอร์เป้าหมายสำหรับสร้างโปรเจกต์ใหม่ด้วยครับ กด `+` แนบโฟลเดอร์ว่างอีกอันเข้ามาในเซสชันนี้ก่อน (แยกจากโฟลเดอร์ Cariva DS) แล้วบอกผมอีกทีครับ"
+อ่าน rules/workspace-structure.md ก่อนเลือกตำแหน่ง DS อยู่ design-system/ ส่วน prototype ทุก Product อยู่ products/<product-id>/prototypes/<prototype-id>/ tooling อยู่ workspace/; shadcn และ sync/canvas เป็น compatibility links ไม่ใช่ source อีกชุด ไม่ rename checkout/remote จากการตั้งชื่อ workspace
 
-ใช้เมื่อ user พูดตรงๆ ว่า:
+หลังสร้างหรือย้ายงาน อัปเดต products/README.md ด้วย Product, ชื่อ/path, สถานะ, คำสั่ง run จาก root, local URL/port ที่ตรวจแล้ว, Storybook entry, Figma mapping/source และวันที่ตรวจจริง ช่องที่ยังไม่มีให้ระบุ ไม่สร้าง app หรือข้อมูลสมมติ การรวม workspace ไม่อนุญาตรวม dependencies ของทุก Product เข้า DS: เก็บ package/lockfile และ runtime แยกเมื่อจำเป็น ไม่เพิ่ม npm workspaces อัตโนมัติ
 
-```text
-สร้างโปรเจกต์ใหม่ [ชื่อ]
-create project [ชื่อ]
-เริ่มโปรเจกต์ใหม่ [ชื่อ]
-```
-
-## Trigger แบบอ้อม — เดาจาก Figma node type
-
-user อาจไม่พูดตรงๆ ว่า "สร้างโปรเจกต์" แต่ขอให้ "เขียนโค้ด/implement" จาก Figma link เฉยๆ (เช่น "เขียนโค้ดหน้านี้จากดีไซน์ [link] โดย clone DS จาก [repo]") — กรณีนี้ **ต้องเช็ค node type ของ Figma link ที่แปะมาก่อนเสมอ**:
-
-- **Node เป็น page/screen frame** (เช่น frame ขนาดเต็มจอ 1440/375px ที่ประกอบด้วยหลาย section — ไม่ใช่ component เดี่ยวๆ) → ให้ตีความว่า user หมายถึง "สร้างโปรเจกต์ใหม่" ได้เลย **ไม่ต้องรอ trigger phrase ตรงๆ**
-- **Node เป็น component เดี่ยว/instance** (เช่น กำลังทำ `crv-component-code` หรือแก้ component ใน DS) → ไม่ใช่ trigger ของ skill นี้ ปล่อยให้ทำงานตามปกติ
-- **ไม่แน่ใจว่า node เป็นแบบไหน หรือไม่ชัดว่ากำลังทำงานในโปรเจกต์เดิมอยู่แล้วหรือเปล่า** → **ห้ามเดาต่อ ต้องถามก่อนเสมอ**: "อันนี้จะให้เริ่มเป็นโปรเจกต์ใหม่เลยไหมครับ หรือทำงานในโปรเจกต์เดิมที่มีอยู่?"
-- ถ้าไม่มั่นใจว่า working directory ปัจจุบันมี git repo/โปรเจกต์อยู่แล้วหรือไม่ **ให้เช็คจริงก่อนเสมอ** (เช่น `git status`, `git remote -v`) ก่อนจะตัดสินใจ scaffold ใหม่ ห้าม assume — ที่ผ่านมาเคยพลาดเกือบ commit เข้า repo ผิดตัว (repo ของ Cariva DS เอง) เพราะไม่ได้เช็คก่อน
-
-## ก่อนเริ่ม — ยืนยันว่าเป็นโปรเจกต์ใหม่จริง
-
-ถ้า trigger เป็น phrase ตรงๆ หรือเดาจาก page/screen frame ได้ชัดเจนแล้ว (ดู Trigger แบบอ้อมด้านบน) **ข้ามคำถามนี้ไปได้เลย** ไปที่ Safety check ต่อ
-
-ถ้ายังไม่ชัด ถามก่อน 1 คำถาม:
-
-**"อันนี้เป็นโปรเจกต์ใหม่จริงๆ หรือเป็นเวอร์ชันใหม่ของโปรเจกต์ที่มีอยู่แล้วครับ?"**
-
-- ถ้าเป็นเวอร์ชันใหม่ของของเดิม → ไม่ต้องทำอะไรตาม skill นี้ แค่ทำงานต่อในโปรเจกต์นั้นตามปกติ (ระบบจะถามเรื่องแท็บใหม่ตอน commit เอง ผ่าน skill `add-version-tab`)
-- ถ้าเป็นโปรเจกต์ใหม่จริง → ทำต่อตาม step ด้านล่าง
-
-## Safety check ก่อน scaffold
-
-หลังจากหาโฟลเดอร์เป้าหมายเจอแล้ว (ขั้นตอนแรกสุดด้านบน) **เช็คโฟลเดอร์เป้าหมายนั้นก่อนเสมอ** ว่ามี sidebar shell (จาก `create-project` เดิม) อยู่แล้วหรือไม่:
-
-- ถ้าโฟลเดอร์เป้าหมายว่างหรือไม่มีโปรเจกต์เดิม → scaffold ใหม่ตาม Steps ด้านล่างได้ปกติ
-- ถ้าเจอว่ามี sidebar shell อยู่แล้ว → **ห้าม scaffold ทับเงียบๆ และห้ามสร้าง repo ใหม่ทันที** ให้หยุดถามก่อน:
-
-  > "โฟลเดอร์นี้มีโปรเจกต์อยู่แล้วนะครับ อยากให้อันใหม่นี้เป็น **โปรเจกต์ใหม่ใน repo เดิม** (ขึ้นเป็นกลุ่มใหม่ใน sidebar เห็นของเก่าได้ด้วย ใช้ deploy ลิงก์เดิม) หรือ **แยก repo ใหม่ไปเลย**?"
-
-  - **โปรเจกต์ใหม่ใน repo เดิม** (ค่าปกติที่ควรแนะนำ) → ข้าม step 1-4 ทั้งหมด ไม่ต้องสร้าง repo ไม่ต้อง scaffold ใหม่ ไม่ต้องลง DS ซ้ำ แค่:
-    1. เพิ่ม entry ใหม่ใน `projects[]` ของ `versions.json` พร้อมเวอร์ชันแรก 1 อัน
-    2. สร้าง route/page ของโปรเจกต์ใหม่ **โดยไม่แตะไฟล์ของโปรเจกต์เดิม**
-    3. commit ตาม Git workflow ปกติ
-  - **แยก repo ใหม่** → ต้องมีโฟลเดอร์เป้าหมายอีกอันที่ว่าง (ดู "ก่อนอื่น — หาโฟลเดอร์เป้าหมาย") แล้วทำตาม Steps เต็ม
-
-## Steps
-
-1. **เช็ค `gh` พร้อมใช้งานไหม**
-   - รัน `gh --version` — ถ้าไม่พบ ให้สอน:
-     ```bash
-     brew install gh
-     gh auth login
-     ```
-   - รัน `gh auth status` — ถ้ายังไม่ login ให้สอนแค่ `gh auth login`
-   - หยุดรอจนกว่า user จะติดตั้ง/login เสร็จก่อนไปขั้นต่อไป ห้ามข้ามขั้นนี้
-
-2. ถามชื่อโปรเจกต์ (ใช้ตั้งชื่อ repo — แปลงเป็น kebab-case)
-
-3. สร้าง repo ใหม่บน GitHub ของ user ปัจจุบัน — **ถามยืนยันก่อนสร้างจริงเสมอ**:
-   ```bash
-   gh repo create {project-name} --private
-   ```
-
-4. Scaffold โปรเจกต์ **ในโฟลเดอร์เป้าหมายที่หาเจอในขั้นตอนแรกเท่านั้น**:
-   - Next.js (App Router) + MUI
-   - ดึง Cariva DS เข้าโปรเจกต์ด้วย **dev export เท่านั้น** — รันจากโฟลเดอร์ DS:
-     ```bash
-     bash legacy/mui/export/cariva-ds-dev-export/apply.sh /path/to/target
-     ```
-     ได้ `carivaTheme` + `Crv*` + token ครบชุดที่ `src/ds/` **ห้ามเลือกคัดลอกเองทีละไฟล์** — เคยพลาดมาแล้วเพราะตัดสินใจเองว่าอะไร "จำเป็น" แล้วจบลงที่เขียน component ปลอมขึ้นมาแทน
-   - อ่านจากโฟลเดอร์ DS แล้วคัดลอกเข้าไปในโฟลเดอร์เป้าหมาย ไม่ใช่เขียนงานลงในโฟลเดอร์ DS
-   - **ห้าม publish DS เป็น npm package** และห้าม `npm install` จาก package ที่ยังไม่ได้ publish (ทีมเคยตัดสินใจเลิกทำ npm publish แล้ว)
-   - ต่อ `ThemeProvider` + `carivaTheme` + `import '@/ds/fonts'` ตาม `src/ds/INTEGRATION.md`
-
-5. สร้าง **sidebar shell** ด้วย `CrvSidebar` จริง (ไม่ใช่ mockup) พร้อม 1 แท็บเริ่มต้น — ตั้งชื่อแท็บว่า "Overview" หรือชื่อที่ user ระบุ
-
-   Sidebar ต้องมี **2 สถานะแยกกัน** ไม่ใช่ toggle เดียว:
-
-   - **ปุ่มย่อ (คลิก)** — ปุ่มไอคอนเล็กๆ อยู่ **ในหัว sidebar เอง** (ไม่ใช่ปุ่มลอยแยกนอก sidebar) กดแล้วย่อ sidebar เหลือแค่แถบไอคอนแคบๆ (ยังมองเห็นอยู่ ใช้ตอนทำงานปกติอยากได้พื้นที่เพิ่ม)
-   - **คีย์ลัดซ่อนทั้งหมด — `Cmd/Ctrl + \`** — ต้องเขียน keyboard listener นี้ไว้เสมอทุกโปรเจกต์ที่ scaffold กดแล้ว sidebar หายไปทั้งหมด **ไม่เหลือปุ่ม/ไอคอนค้างบนจอเลยแม้แต่อันเดียว** content area ขยายเต็มความกว้างหน้าจอทันที — มีไว้สำหรับตอน capture หน้าจอด้วยเครื่องมือภายนอก (เช่น extension แคปเว็บเป็น Figma frame) จะได้เห็นแค่ UI งานจริงเป๊ะๆ กดคีย์ลัดซ้ำเพื่อเรียก sidebar กลับมา
-   - Hint คีย์ลัด (ถ้าจะใส่) ให้อยู่ใน footer ของ sidebar เท่านั้น — ต้องหายไปด้วยเวลา sidebar ถูกย่อหรือถูกซ่อน ห้ามเป็น element ลอยแยกที่ยังค้างอยู่ตอน sidebar หายไป
-
-6. สร้าง **version metadata store** — ไฟล์เดียว (เช่น `versions.json` ที่ root) โครงสร้าง **2 ชั้น: โปรเจกต์ → เวอร์ชัน**
-   ```json
-   {
-     "projects": [
-       {
-         "id": "mira",
-         "label": "MIRA",
-         "versions": [
-           { "id": "overview", "label": "Overview", "date": "...", "summary": "เวอร์ชันแรกของโปรเจกต์" }
-         ]
-       }
-     ]
-   }
-   ```
-   สร้าง entry แรกไว้ให้โปรเจกต์เริ่มต้น 1 อัน พร้อมเวอร์ชันแรก 1 อัน (`summary` สั้นๆ เช่น "เวอร์ชันแรกของโปรเจกต์")
-
-7. Sidebar ต้องเรนเดอร์เป็น **2 ชั้นแบบเดียวกับ sidebar ของ Claude** — หัวกลุ่มคือชื่อโปรเจกต์ กดยุบ/กางได้ (chevron + จำนวนเวอร์ชัน) ข้างในเป็นแท็บเวอร์ชันย่อหน้าเข้าไป:
-   ```
-   ▾ MIRA                      2
-       Overview
-       26 Aug 14:02            [ℹ️]
-   ▾ MIRA — Recording flow     1
-       Overview
-   ```
-   - **ไอคอน "ดูสิ่งที่เปลี่ยนแปลง"** อยู่ท้ายแถวของแต่ละเวอร์ชันใน sidebar เอง (ไม่ใช่ปุ่มแยกในหน้า content) คลิกแล้วเปิด popover เล็กๆ ข้างแถวนั้น แสดง `summary` ของเวอร์ชันนั้นจาก metadata store (อ่านตาม `id`)
-   - **เวอร์ชันแรกของแต่ละโปรเจกต์ไม่ต้องมีไอคอนนี้** — ไม่มีเวอร์ชันก่อนหน้าให้เทียบ (นับแยกต่อโปรเจกต์ ไม่ใช่นับรวมทั้งไฟล์)
-   - ตอน sidebar ถูกย่อ ให้ซ่อนหัวกลุ่มแล้วแสดงเฉพาะแถวเวอร์ชันแบบสั้น
-   - ปุ่มนี้ทำงานร่วมกับ skill `add-version-tab` ที่เป็นคนเขียน summary ให้ตอนสร้างเวอร์ชันใหม่แต่ละครั้ง
-
-8. **Copy guard hook เข้าโปรเจกต์ใหม่** — คัดลอกจากโฟลเดอร์ DS:
-   ```bash
-   mkdir -p <target>/.claude
-   cp -R .claude/hooks <target>/.claude/
-   cp .claude/settings.json <target>/.claude/settings.json
-   ```
-   hook นี้บล็อกการ hardcode hex และการสร้างไฟล์ชื่อ `Crv*` ปลอม — ต้อง **commit ลง git ของโปรเจกต์ใหม่** ด้วย เพื่อให้ทุกคนที่ clone ได้ไปเอง ไม่ต้องตั้งค่าในเครื่องใคร
-
-9. Commit แรก + push
-
-10. แนะนำขั้นตอนต่อ Vercel (import repo ผ่าน vercel.com) — ช่วยรันให้ถ้าเป็นไปได้ ไม่งั้นแนะนำขั้นตอนให้ user ทำเอง
-
-11. สรุปให้ user: repo link, สถานะ deploy, ขั้นตอนที่เหลือ (ถ้ามี)
-
-## Rules
-
-- ไม่ทำถ้า user บอกว่าเป็นเวอร์ชันใหม่ของของเดิม — ส่งต่อให้ทำงานปกติแทน
-- ถามยืนยันก่อนสร้าง repo จริงเสมอ
-- **1 repo เก็บได้หลายโปรเจกต์** — โปรเจกต์ใหม่ไม่จำเป็นต้องมี repo ใหม่เสมอไป ถ้าโฟลเดอร์เป้าหมายมี shell อยู่แล้วให้ถามก่อนตาม Safety check แล้วค่อยตัดสินใจ ห้ามสร้าง repo ใหม่โดยอัตโนมัติ
-- ห้าม scaffold ทับโปรเจกต์ที่มีอยู่แล้วในนั้น (ดู Safety check ด้านบน)
-- ไม่ publish Cariva DS เป็น npm package — vendor โค้ดเข้าไปตรงๆ เท่านั้น
-- ก่อน commit/push ใดๆ ต้องเช็คเสมอว่ากำลังอยู่ใน repo/branch ของโปรเจกต์ใหม่จริง ไม่ใช่ repo ของ Cariva DS เอง (`git remote -v` เทียบกับ repo ที่เพิ่งสร้าง) — ห้าม push งานโปรเจกต์ designer เข้า repo ของ design system เด็ดขาด
-- ห้ามเขียนไฟล์ใดๆ ของโปรเจกต์ใหม่ลงในโฟลเดอร์ DS เด็ดขาด (แม้แต่ไฟล์ชั่วคราว) — ถ้าไม่มีโฟลเดอร์เป้าหมายให้ใช้ ต้องหยุดถามก่อน (ดู "ก่อนอื่น — หาโฟลเดอร์เป้าหมาย" ด้านบน) ห้ามใช้โฟลเดอร์ DS แทนแม้จะชั่วคราว
+ใช้เจตนาผู้ใช้กำหนดงานร่วมกับ Figma node ไม่บังคับ frame เต็มจอเท่านั้น และไม่บังคับ Figma Desktop หรือ gh login เมื่อเครื่องมืออื่นเข้าถึงได้หรืองานเป็น local ขั้น setup ไม่อนุญาต remote repo/push/deploy อัตโนมัติ

@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cariva Canvas</title>
+<style>
+  :root {
+    --bg: #eceff3; --dot: #c9d0d9; --ink: #0f172a; --muted: #475569;
+    --panel: #ffffff; --line: #cbd5e1; --accent: #0f70e6;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #14171c; --dot: #2a2f38; --ink: #e6e9ee; --muted: #8a93a1; --panel: #1d2128; --line: #343a45; }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; overflow: hidden; background: var(--bg); color: var(--ink);
+    font: 13px/1.4 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; }
+  #viewport { position: fixed; inset: 0; cursor: default; touch-action: none;
+    background-image: radial-gradient(var(--dot) 1px, transparent 1px); }
+  #viewport.panning { cursor: grabbing; }
+  #world { position: absolute; left: 0; top: 0; transform-origin: 0 0; }
+  .frame { position: absolute; }
+  .frame .title { position: absolute; left: 0; bottom: 100%; padding: 0 0 4px; white-space: nowrap;
+    color: var(--muted); cursor: grab; user-select: none; display: flex; gap: 8px; align-items: center; }
+  .frame.sel .title { color: var(--accent); }
+  .frame .title button { all: unset; cursor: pointer; opacity: 0; color: var(--muted); }
+  .frame:hover .title button, .frame.sel .title button { opacity: 1; }
+  .frame .box { width: 100%; height: 100%; background: #fff; box-shadow: 0 0 0 1px var(--line), 0 8px 24px rgba(0,0,0,.08); overflow: hidden; }
+  .frame.sel .box { box-shadow: 0 0 0 2px var(--accent); }
+  .frame iframe { width: 100%; height: 100%; border: 0; display: block; }
+  .dragging iframe { pointer-events: none; }
+  .grip { position: absolute; right: -6px; bottom: -6px; width: 14px; height: 14px; background: var(--accent);
+    border-radius: 3px; cursor: nwse-resize; opacity: 0; }
+  .frame.sel .grip { opacity: 1; }
+  #bar { position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); display: flex; gap: 8px; align-items: center;
+    background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 8px 10px; box-shadow: 0 4px 16px rgba(0,0,0,.12); }
+  #bar input { width: 260px; padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); color: var(--ink); font: inherit; }
+  #bar button { padding: 6px 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--panel); color: var(--ink); font: inherit; cursor: pointer; }
+  #bar button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  #zoom { min-width: 48px; text-align: center; color: var(--muted); }
+  #modes { position: fixed; top: 12px; right: 12px; left: 12px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 8px; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; }
+  #modes button, #modes select, #modes a { font: inherit; font-size: 14px; padding: 8px 12px; color: var(--ink); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; }
+  @media (max-width: 480px) { #modes select { order: 4; flex-basis: 100%; } #bar { max-width: calc(100% - 16px); flex-wrap: wrap; } #bar input { width: 100%; } #status { display: none; }  }
+  #modes select { min-width: 0; max-width: 100%; flex: 1; }
+  #modes button[aria-pressed="true"] { color: var(--accent); border-color: var(--accent); }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  #preview:fullscreen { inset: 0; width: 100%; height: 100%; }
+  #preview { position: fixed; inset: calc(var(--toolbar-height, 76px) + 24px) 0 0; width: 100%; height: calc(100% - var(--toolbar-height, 76px) - 24px); border: 0; background: var(--panel); }
+  body.preview #viewport, body.preview #bar, body.preview #status { display: none; }
+  #modes [hidden], #preview[hidden] { display: none; }
+  #status { position: fixed; top: 76px; left: 12px; color: var(--muted); }
+</style>
+</head>
+<body>
+<div id="viewport"><div id="world"></div></div>
+<iframe id="preview" title="Preview เคสที่เลือก" hidden></iframe>
+<nav id="modes" aria-label="มุมมอง prototype">
+  <button id="canvas-mode" aria-pressed="true">Canvas</button>
+  <button id="preview-mode" aria-pressed="false">Preview</button>
+  <select id="case" aria-label="เลือกหน้า / เคส"></select>
+  <button id="fullscreen" hidden>ขยายเต็มจอ</button>
+  <a id="open-preview" target="_blank" rel="noopener noreferrer">เปิดเต็มหน้า ↗</a>
+</nav>
+<div id="notice" role="status" style="position:fixed;bottom:16px;left:16px;background:var(--panel);color:var(--ink)"></div>
+<div id="status">Cariva Canvas · space/ลากพื้นหลัง = เลื่อน · ⌘/ctrl+ล้อ = ซูม</div>
+<div id="bar">
+  <input id="story" list="stories" placeholder="story id เช่น form-crvinput--default" autocomplete="off">
+  <datalist id="stories"></datalist>
+  <button id="add" class="primary">+ Frame</button>
+  <button id="out">−</button><span id="zoom">100%</span><button id="in">+</button>
+  <button id="fit">Fit</button>
+</div>
+<script>
+const $ = (s) => document.querySelector(s);
+const vp = $('#viewport'), world = $('#world');
+new ResizeObserver(([entry]) => document.documentElement.style.setProperty('--toolbar-height', entry.target.getBoundingClientRect().height + 'px')).observe($('#modes'));
+let doc = { storybook: 'http://localhost:6006', view: { x: 0, y: 0, zoom: 1 }, frames: [] };
+const params = new URLSearchParams(location.search);
+let sel = params.get('case'), saveTimer = null;
+let mode = params.get('mode') === 'preview' ? 'preview' : 'canvas';
+function storyUrl(story) {
+  const base = doc.storybook ? new URL(doc.storybook + '/') : new URL('../', location.href);
+  const url = new URL('iframe.html', base);
+  url.searchParams.set('id', story); url.searchParams.set('viewMode', 'story');
+  return url.href;
+}
+function selectCase(id) {
+  sel = id; updateMode();
+  document.querySelectorAll('.frame').forEach(el => el.classList.toggle('sel', el.dataset.id === sel));
+}
+function updateMode() {
+  const frame = doc.frames.find(f => f.id === sel) || doc.frames[0];
+  sel = frame?.id || null;
+  document.body.classList.toggle('preview', mode === 'preview');
+  $('#canvas-mode').setAttribute('aria-pressed', String(mode === 'canvas'));
+  $('#preview-mode').setAttribute('aria-pressed', String(mode === 'preview'));
+  $('#case').value = sel || '';
+  $('#preview').hidden = mode !== 'preview' || !frame;
+  $('#fullscreen').hidden = mode !== 'preview' || !frame || !document.fullscreenEnabled;
+  if (frame) {
+    const url = storyUrl(frame.story);
+    $('#open-preview').href = frame.previewUrl || url;
+    if (mode === 'preview' && $('#preview').src !== url) $('#preview').src = url;
+  }
+  $('#open-preview').hidden = !frame;
+  const url = new URL(location.href);
+  url.searchParams.set('mode', mode);
+  if (sel) url.searchParams.set('case', sel); else url.searchParams.delete('case');
+  history.replaceState(null, '', url);
+}
+$('#canvas-mode').onclick = () => { mode = 'canvas'; updateMode(); };
+$('#preview-mode').onclick = () => { mode = 'preview'; updateMode(); };
+$('#case').onchange = e => selectCase(e.target.value);
+$('#fullscreen').onclick = () => $('#preview').requestFullscreen().catch(() => { $('#notice').textContent = 'Browser ไม่อนุญาต fullscreen ใช้ปุ่มเปิดเต็มหน้าได้'; $('#fullscreen').hidden = true; });
+const FRAMES = (new URLSearchParams(location.search).get('frames') || 'frames').replace(/[^A-Za-z0-9_.-]/g, '');
+
+const save = () => { if (location.port !== '6019') return; clearTimeout(saveTimer); saveTimer = setTimeout(() =>
+  fetch('/canvas/frames?name=' + FRAMES, { method: 'POST', body: JSON.stringify(doc, null, 2) }).catch(() => {}), 300); };
+
+function applyView() {
+  const { x, y, zoom } = doc.view;
+  world.style.transform = `translate(${x}px,${y}px) scale(${zoom})`;
+  vp.style.backgroundSize = `${24 * zoom}px ${24 * zoom}px`;
+  vp.style.backgroundPosition = `${x}px ${y}px`;
+  $('#zoom').textContent = Math.round(zoom * 100) + '%';
+}
+function zoomAt(cx, cy, factor) {
+  const v = doc.view, z = Math.min(4, Math.max(0.1, v.zoom * factor)), k = z / v.zoom;
+  v.x = cx - (cx - v.x) * k; v.y = cy - (cy - v.y) * k; v.zoom = z; applyView(); save();
+}
+
+function render() {
+  world.innerHTML = '';
+  $('#case').replaceChildren(...doc.frames.map(f => { const option = document.createElement('option'); option.value = f.id; option.textContent = f.title; return option; }));
+  for (const f of doc.frames) {
+    const el = document.createElement('div');
+    el.dataset.id = f.id;
+    el.className = 'frame' + (f.id === sel ? ' sel' : '');
+    el.style.cssText = `left:${f.x}px;top:${f.y}px;width:${f.w}px;height:${f.h}px`;
+    el.innerHTML = `<div class="title"><span>${f.title}</span><button title="reload">↻</button><button title="ลบ">✕</button></div>
+      <div class="box"><iframe loading="lazy" title="${f.title}" src="${storyUrl(f.story)}"></iframe></div>
+      <div class="grip"></div>`;
+    const [reload, del] = el.querySelectorAll('.title button');
+    reload.onclick = () => { const i = el.querySelector('iframe'); i.src = i.src; };
+    del.onclick = () => { doc.frames = doc.frames.filter((x) => x !== f); render(); save(); };
+    el.querySelector('.title span').onpointerdown = (e) => startDrag(e, f, el, 'move');
+    el.querySelector('.grip').onpointerdown = (e) => startDrag(e, f, el, 'resize');
+    el.addEventListener('pointerdown', () => { if (sel !== f.id) { selectCase(f.id); } });
+    world.appendChild(el);
+  }
+  updateMode();
+}
+
+function startDrag(e, f, el, mode) {
+  e.preventDefault(); e.stopPropagation(); selectCase(f.id);
+  const sx = e.clientX, sy = e.clientY, ox = f.x, oy = f.y, ow = f.w, oh = f.h, z = doc.view.zoom;
+  world.classList.add('dragging'); e.target.setPointerCapture(e.pointerId);
+  const mv = (m) => {
+    const dx = (m.clientX - sx) / z, dy = (m.clientY - sy) / z;
+    if (mode === 'move') { f.x = Math.round(ox + dx); f.y = Math.round(oy + dy); el.style.left = f.x + 'px'; el.style.top = f.y + 'px'; }
+    else { f.w = Math.max(120, Math.round(ow + dx)); f.h = Math.max(120, Math.round(oh + dy)); el.style.width = f.w + 'px'; el.style.height = f.h + 'px'; }
+  };
+  const up = () => { world.classList.remove('dragging'); removeEventListener('pointermove', mv); removeEventListener('pointerup', up); save(); };
+  addEventListener('pointermove', mv); addEventListener('pointerup', up);
+}
+
+// pan: drag background or hold space
+let space = false;
+addEventListener('keydown', (e) => { if (e.code === 'Space' && !['INPUT', 'SELECT', 'BUTTON', 'TEXTAREA', 'A'].includes(e.target.tagName)) { space = true; e.preventDefault(); } });
+addEventListener('keyup', (e) => { if (e.code === 'Space') space = false; });
+vp.addEventListener('pointerdown', (e) => {
+  if (e.target !== vp && !space) return;
+  // Panning preserves the selected case for Preview.
+  const sx = e.clientX, sy = e.clientY, ox = doc.view.x, oy = doc.view.y;
+  vp.classList.add('panning'); world.classList.add('dragging');
+  const mv = (m) => { doc.view.x = ox + m.clientX - sx; doc.view.y = oy + m.clientY - sy; applyView(); };
+  const up = () => { vp.classList.remove('panning'); world.classList.remove('dragging'); removeEventListener('pointermove', mv); removeEventListener('pointerup', up); save(); };
+  addEventListener('pointermove', mv); addEventListener('pointerup', up);
+});
+vp.addEventListener('wheel', (e) => {
+  e.preventDefault();
+  if (e.ctrlKey || e.metaKey) zoomAt(e.clientX, e.clientY, Math.exp(-e.deltaY * 0.01));
+  else { doc.view.x -= e.deltaX; doc.view.y -= e.deltaY; applyView(); save(); }
+}, { passive: false });
+
+$('#in').onclick = () => zoomAt(innerWidth / 2, innerHeight / 2, 1.25);
+$('#out').onclick = () => zoomAt(innerWidth / 2, innerHeight / 2, 0.8);
+$('#fit').onclick = () => {
+  if (!doc.frames.length) return;
+  const x0 = Math.min(...doc.frames.map((f) => f.x)), y0 = Math.min(...doc.frames.map((f) => f.y - 24));
+  const x1 = Math.max(...doc.frames.map((f) => f.x + f.w)), y1 = Math.max(...doc.frames.map((f) => f.y + f.h));
+  const z = Math.min(2, Math.min((innerWidth - 80) / (x1 - x0), (innerHeight - 140) / (y1 - y0)));
+  doc.view = { zoom: z, x: (innerWidth - (x1 - x0) * z) / 2 - x0 * z, y: (innerHeight - 80 - (y1 - y0) * z) / 2 - y0 * z };
+  applyView(); save();
+};
+$('#add').onclick = () => {
+  const story = $('#story').value.trim(); if (!story) return;
+  const v = doc.view, right = Math.max(0, ...doc.frames.map((f) => f.x + f.w));
+  doc.frames.push({ id: 'f' + Date.now(), title: story, story, x: doc.frames.length ? right + 80 : Math.round(-v.x / v.zoom + 40), y: doc.frames.length ? doc.frames[0].y : Math.round(-v.y / v.zoom + 60), w: 480, h: 360 });
+  $('#story').value = ''; render(); save();
+};
+
+(async () => {
+  // On the sync server: absolute Storybook URL + saving. Inside Storybook (dev or static build): same origin, read-only.
+  const onSync = location.port === '6019';
+  try { doc = await (await fetch(onSync ? '/canvas/frames?name=' + FRAMES : './' + FRAMES + '.json')).json(); } catch {}
+  if (!onSync) { doc.storybook = ''; $('#status').textContent = 'Cariva Canvas · ดูอย่างเดียว (แก้เลย์เอาต์ใน sync/canvas/' + FRAMES + '.json)'; }
+  applyView();
+  try {
+    const idx = await (await fetch(new URL('index.json', doc.storybook ? doc.storybook + '/' : new URL('../', location.href)))).json();
+    // Resolve renamed catalog entries against the live index, never render missing stories.
+    doc.frames = doc.frames.map(f => ({ ...f, story: idx.entries[f.story] ? f.story : f.story.replace(/^core-/, 'core-components-') })).filter(f => idx.entries[f.story]?.type === 'story');
+    $('#stories').innerHTML = Object.values(idx.entries).filter((e) => e.type === 'story').map((e) => `<option value="${e.id}">${e.title} / ${e.name}</option>`).join('');
+  } catch { $('#status').textContent += ' · โหลดรายการ Storybook ไม่สำเร็จ'; }
+  render();
+})();
+</script>
+</body>
+</html>

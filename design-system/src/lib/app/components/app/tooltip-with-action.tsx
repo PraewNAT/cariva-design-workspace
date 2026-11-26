@@ -1,0 +1,11 @@
+import type {ReactElement,ReactNode} from 'react';
+import {Popover as PopoverPrimitive} from '@base-ui/react/popover';
+import {Popover,PopoverContent,PopoverTrigger,PopoverDescription} from '../ui/popover';
+import {Button} from '../ui/button';
+import {Badge} from '../ui/badge';
+import {ArrowBackRounded,ChevronRightRounded} from './icons';
+import '../ui/tooltip.css';
+type GuidePlacement='top'|'top-start'|'top-end'|'bottom'|'bottom-start'|'bottom-end'|'left'|'right';
+interface TooltipWithActionProps {trigger:ReactElement;children:ReactNode;step?:ReactNode;placement?:GuidePlacement;onBack?:()=>void;onNext?:()=>void;backDisabled?:boolean;nextDisabled?:boolean;open?:boolean;defaultOpen?:boolean;onOpenChange?:(open:boolean)=>void;label?:string;}
+function TooltipWithAction({trigger,children,step='1/7',placement='bottom-start',onBack,onNext,backDisabled,nextDisabled,open,defaultOpen,onOpenChange,label='App guide'}:TooltipWithActionProps){const[edge,alignment]=placement.split('-');const side=edge==='top'?'bottom':edge==='bottom'?'top':edge==='left'?'right':'left';return <Popover open={open} defaultOpen={defaultOpen} onOpenChange={onOpenChange}><PopoverTrigger render={trigger}/><PopoverContent aria-label={label} side={side as 'top'|'bottom'|'left'|'right'} align={(alignment||'center') as 'start'|'center'|'end'} sideOffset={8} className="cds-tooltip-guide w-[240px] max-w-[calc(100vw-32px)] gap-0 rounded-2xl p-0 font-sans shadow-none ring-0"><div className="flex min-h-28 flex-col items-start gap-2 px-4 py-3">{step!=null&&<Badge variant="standard" color="info" className="px-2 bg-[var(--cds-brand-primary-on-surface-muted)] text-[var(--cds-content-secondary)]">{step}</Badge>}<PopoverDescription className="text-sm leading-5 text-[var(--cds-content-primary)]">{children}</PopoverDescription></div><div className="flex min-h-14 items-center justify-between gap-2 rounded-b-2xl bg-[var(--cds-on-surface-sunken)] px-2 py-3"><Button size="sm" variant="ghost" onClick={onBack} disabled={backDisabled}><ArrowBackRounded/>Back</Button><Button size="sm" onClick={onNext} disabled={nextDisabled}>Next<ChevronRightRounded className="size-4"/></Button></div><PopoverPrimitive.Arrow className="cds-tooltip-arrow cds-tooltip-action-arrow"/></PopoverContent></Popover>;}
+export {TooltipWithAction};export type {TooltipWithActionProps,GuidePlacement};
