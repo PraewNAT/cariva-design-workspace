@@ -18,7 +18,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "Figma `button-mic`: 200×32 microphone picker. variant wave | dot, status active | inactive (Figma deactive). Caller supplies the device name and the status; no audio logic. See BUTTON-MIC-FIGMA.md.",
+          "Figma `button-mic`: 200×32 microphone picker. Active wave has gentle level motion; inactive wave has low-amplitude motion; disabled and reduced-motion are static. Caller supplies device/status; the animation is not real audio metering. See BUTTON-MIC-FIGMA.md.",
       },
     },
   },
@@ -46,6 +46,24 @@ export const VariantsAndStatus: Story = {
       ))}
     </div>
   ),
+};
+
+export const MotionStates: Story = {
+  render: () => <div className="grid gap-4">
+    <ButtonMic label="ไมค์พร้อมใช้งาน" />
+    <ButtonMic label="ไมค์ไม่พร้อมใช้งาน" status="inactive" />
+    <ButtonMic label="ปิดใช้งานปุ่มเลือกไมค์" disabled />
+    <ButtonMic label="สถานะแบบจุด" variant="dot" />
+  </div>,
+  play: async ({ canvas, canvasElement }) => {
+    const reduced = canvasElement.ownerDocument.defaultView!.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const firstBar = (name: string) => canvas.getByRole("button", { name }).querySelector('[data-slot="button-mic-wave"] > span')!;
+    await expect(getComputedStyle(firstBar("ไมค์พร้อมใช้งาน")).animationName).toBe(reduced ? "none" : "cds-mic-wave");
+    await expect(getComputedStyle(firstBar("ไมค์ไม่พร้อมใช้งาน")).animationName).toBe(reduced ? "none" : "cds-mic-quiet");
+    for (const name of ["ปิดใช้งานปุ่มเลือกไมค์"]) await expect(getComputedStyle(firstBar(name)).animationName).toBe("none");
+    await expect(canvas.getByRole("button", { name: "ปิดใช้งานปุ่มเลือกไมค์" })).toBeDisabled();
+    await expect(canvas.getByRole("button", { name: "สถานะแบบจุด" }).querySelector('[data-slot="button-mic-wave"]')).toBeNull();
+  },
 };
 
 export const FigmaSpecs: Story = {
@@ -95,6 +113,9 @@ export const FigmaSpecs: Story = {
     await expect(getComputedStyle(bars(items[1])[0]).backgroundColor).toBe(
       "rgb(220, 38, 38)"
     );
+    const reduced = canvasElement.ownerDocument.defaultView!.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    await expect(getComputedStyle(bars(items[0])[0]).animationName).toBe(reduced ? "none" : "cds-mic-wave");
+    await expect(getComputedStyle(bars(items[1])[0]).animationName).toBe(reduced ? "none" : "cds-mic-quiet");
     const wave = items[0].querySelector<HTMLElement>(
       '[data-slot="button-mic-wave"]'
     )!;

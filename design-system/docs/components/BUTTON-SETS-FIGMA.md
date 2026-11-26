@@ -53,3 +53,13 @@
 - `Spinner` เดิมไอคอนเส้น hugeicons ตอนนี้เป็นไอคอนวงแหวนจาก Figma ทุกที่ที่ใช้ Spinner
 
 **ยังไม่ได้วัด:** hover / pressed ของปุ่มไอคอนทุกแบบ (ตั้งตาม token ตรวจด้วยสายตาเทียบ Figma), pressed 85% และ glow ตอน hover ของ decorative, hover / pressed / ลูกศรของ link ตัวอื่นนอกจาก default size, ความกว้างของ loading / decorative เมื่อข้อความต่างจาก "Label" (ยอมให้คลาด 2px จากฟอนต์)
+
+## Requested code motion — 27 พฤศจิกายน 2026
+
+`Button variant="decorative"` preserves the original Figma radial gradient exactly. An edge-masked copy of that same gradient breathes inward/outward over 6s (scaleX 1.12–0.80, opacity .12–.95). The central 44% of the overlay is transparent, so the label region retains the original fill. Fine-pointer hover strengthens the outer glow over 240ms. No new colors, props or geometry. Disabled/aria-disabled omit the aura; reduced motion removes aura/glow/transitions. Figma remains unchanged; only code motion is added.
+
+Motion visibility refinement: increased side-layer travel and opacity after user feedback that the movement was no longer visible. Feathered outer mask edges avoid a hard moving seam; original base gradient remains unchanged.
+
+Smoothness correction: removed the masked duplicate layer that produced visible stripes. The original continuous Figma gradient now breathes via centered background-size 112%–100% over 6s. This repaints the small button background; no moving mask seams or label motion. Supersedes the overlay implementation above.
+
+Emil visibility refinement: continuous original gradient now breathes between 165% and 100% centered width over 5s, retaining a smooth ease-in-out loop. Wider travel makes both cyan edges visibly approach and retreat without layered seams.

@@ -1,6 +1,7 @@
 import { Button as ButtonPrimitive } from "@base-ui/react/button";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "cn";
+import "./button-motion.css";
 
 /**
  * Figma ↔ code (docs/components/FIGMA-NAMING.md):
@@ -17,7 +18,7 @@ const buttonVariants = cva(
         // Figma `button-decorative`: solid gradient-from base with a radial gradient on top
         // (--decorative-gradient), hover glow 0 0 4px primary at 36%, pressed opacity 85%.
         decorative:
-          "bg-[var(--cds-brand-decorative-gradient-from)] bg-[image:var(--decorative-gradient)] text-[var(--cds-brand-primary-content-on-fill)] hover:shadow-[var(--cds-glow-primary)] active:opacity-85 disabled:bg-[var(--cds-on-surface-action-disabled)] disabled:bg-none disabled:text-[var(--cds-content-disabled)]",
+          "cds-decorative-motion bg-[var(--cds-brand-decorative-gradient-from)] bg-[image:var(--decorative-gradient)] text-[var(--cds-brand-primary-content-on-fill)] hover:shadow-[var(--cds-glow-primary)] active:opacity-85 disabled:bg-[var(--cds-on-surface-action-disabled)] disabled:bg-none disabled:text-[var(--cds-content-disabled)]",
         // Figma "contained". Fill and label colours come from `color`.
         default:
           "disabled:bg-[var(--cds-on-surface-action-disabled)] disabled:text-[var(--cds-content-disabled)]",

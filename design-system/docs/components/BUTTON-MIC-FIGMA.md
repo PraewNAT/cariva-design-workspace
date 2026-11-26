@@ -45,3 +45,10 @@ prop อื่นคงเดิม: `variant` wave / dot, `state` default / hov
 **ผลกระทบ:** เป็น component ใหม่ ไม่กระทบโค้ดเดิม · instance 1 ตัวใน Figma ยังอยู่
 
 **ยังไม่ได้วัด:** สี pressed `#E2E8F0` (ตั้งตาม token), การแสดงเมื่อชื่ออุปกรณ์ยาวมากนอกจากตัดด้วย …, ปุ่มไม่มีเมนูของตัวเอง (เปิดรายการอุปกรณ์เป็นหน้าที่ผู้เรียก)
+
+## Requested code motion — 27 พฤศจิกายน 2026
+
+Supersedes the earlier static-wave decision: active wave bars now scale vertically in staggered 1.6–2s cycles. Layout heights/widths remain 8/12/16/12/8 and 4px; only their visual transform changes. Inactive, disabled, aria-disabled and prefers-reduced-motion stay static. Dot remains static. This remains a device picker; animation is illustrative status feedback, not live audio levels, capture or a recording indicator. All consumers of ButtonMic receive this behavior, including HosXP. API and Figma remain unchanged; Storybook MotionStates covers active/inactive/disabled/dot.
+
+### Quiet red wave motion
+User-requested refinement: inactive red wave now has gentle low-amplitude staggered motion (8px bars scaled .65–1), compared with the taller green active wave. Disabled/aria-disabled, dot and reduced-motion stay static. This is illustrative motion, not actual audio measurement; status API and device behavior are unchanged. Supersedes earlier inactive-static motion guidance.

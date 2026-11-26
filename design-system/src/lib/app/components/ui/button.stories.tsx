@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, fn, waitFor } from "storybook/test";
+import { expect, fn, waitFor, within } from "storybook/test";
+import { ButtonMic } from "../app/button-mic";
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "./dialog";
 import {
   AddRounded,
   ArrowBackRounded,
@@ -458,7 +460,7 @@ export const LinkButtons: Story = {
   },
 };
 
-/** Figma `button-decorative`: solid navy base + radial gradient, hover glow, pressed 85%, disabled surface. */
+/** Figma appearance plus requested slow AI light motion; disabled/reduced motion stay static. */
 export const DecorativeButtons: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-8">
@@ -508,5 +510,46 @@ export const DecorativeButtons: Story = {
     await expect(dis.backgroundColor).toBe(tok("on-surface-action-disabled"));
     await expect(dis.backgroundImage).toBe("none");
     await expect(dis.color).toBe(tok("content-disabled"));
+    const reduced = canvasElement.ownerDocument.defaultView!.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    await expect(getComputedStyle(q("deco|default")).animationName).toBe(reduced ? "none" : "cds-ai-aura");
+    await expect(getComputedStyle(q("deco|disabled")).animationName).toBe("none");
+    if (!reduced) {
+      const start = getComputedStyle(q("deco|default")).backgroundSize;
+      await waitFor(() => expect(getComputedStyle(q("deco|default")).backgroundSize).not.toBe(start));
+      await expect(getComputedStyle(q("deco|default")).filter).toContain("drop-shadow");
+    }
+    await expect(getComputedStyle(q("deco|disabled")).filter).toBe("none");
+  },
+};
+
+export const AiMotionPageAndDialog: Story = {
+  render: () => <div className="grid justify-items-start gap-6 p-6">
+    <Button variant="decorative">สร้างโน้ตด้วย AI</Button>
+    <ButtonMic label="ไมโครโฟนพร้อมใช้งาน" />
+    <Dialog>
+      <DialogTrigger render={<Button variant="outline" />}>เปิดตัวอย่างใน Dialog</DialogTrigger>
+      <DialogContent>
+        <DialogTitle>AI และไมโครโฟน</DialogTitle>
+        <Button variant="decorative">สร้างโน้ตด้วย AI</Button>
+        <ButtonMic label="ไมโครโฟนพร้อมใช้งาน" />
+      </DialogContent>
+    </Dialog>
+  </div>,
+  play: async ({ canvas, canvasElement, userEvent }) => {
+    const pageButton = canvas.getByRole("button", { name: "สร้างโน้ตด้วย AI" });
+    const pageMic = canvas.getByRole("button", { name: "ไมโครโฟนพร้อมใช้งาน" });
+    await userEvent.click(canvas.getByRole("button", { name: "เปิดตัวอย่างใน Dialog" }));
+    const dialog = await within(canvasElement.ownerDocument.body).findByRole("dialog");
+    const modal = within(dialog);
+    await waitFor(() => expect(modal.getByRole("button", { name: "สร้างโน้ตด้วย AI" })).toBeVisible());
+    const recipe = (el: HTMLElement) => {
+      const cs = getComputedStyle(el);
+      return [el.offsetHeight, cs.borderRadius, cs.fontSize, cs.lineHeight, cs.paddingLeft, cs.paddingRight];
+    };
+    await expect(recipe(modal.getByRole("button", { name: "สร้างโน้ตด้วย AI" }))).toEqual(recipe(pageButton));
+    await expect(recipe(modal.getByRole("button", { name: "ไมโครโฟนพร้อมใช้งาน" }))).toEqual(recipe(pageMic));
+    await expect(getComputedStyle(modal.getByRole("button", { name: "สร้างโน้ตด้วย AI" })).animationName).toBe(getComputedStyle(pageButton).animationName);
+    await userEvent.keyboard("{Escape}");
+    await waitFor(() => expect(dialog).not.toBeInTheDocument());
   },
 };
