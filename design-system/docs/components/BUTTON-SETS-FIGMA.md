@@ -63,3 +63,27 @@ Motion visibility refinement: increased side-layer travel and opacity after user
 Smoothness correction: removed the masked duplicate layer that produced visible stripes. The original continuous Figma gradient now breathes via centered background-size 112%–100% over 6s. This repaints the small button background; no moving mask seams or label motion. Supersedes the overlay implementation above.
 
 Emil visibility refinement: continuous original gradient now breathes between 165% and 100% centered width over 5s, retaining a smooth ease-in-out loop. Wider travel makes both cyan edges visibly approach and retreat without layered seams.
+
+Idle color refinement: added soft static cyan inset light on both sides using the existing gradient-to token. The 165%–100% / 5s animation remains unchanged. This is a requested code visual adjustment beyond the static Figma fill.
+
+Loop pacing refinement: 4s cycle with cubic-bezier(.37,0,.63,1), reducing perceived dwell at the turnarounds. Color and travel unchanged.
+
+Latest pacing: 3s, cubic-bezier(.25,0,.75,1), shortening the turnaround dwell further after user feedback. Color and travel unchanged.
+
+Clarified pacing: restore 5s cycle with linear interpolation. User wanted to remove turnaround dwell rather than accelerate the fade. Both halves connect immediately; fill, color and travel stay unchanged. Supersedes earlier speed refinements.
+
+Emil perceptual-dwell correction: cap background expansion at 125% instead of 165%, keeping cyan within the visible button throughout the 5s linear loop. Removes the visually inactive out-of-bounds part rather than accelerating the fade. Original gradient stops/colors and idle side light unchanged.
+
+| Before | After | Why |
+| --- | --- | --- |
+| 165% expansion pushes cyan beyond clipping | 125% expansion keeps light visible | Continuous perceived motion at the turnaround |
+
+Latest user-requested speed: 2.5s linear cycle (1.25s per direction); 125%–100% travel and colors unchanged.
+
+Color continuity correction: removed the added inset cyan shadows, which overlapped the original gradient and created an apparent extra color layer. Uses only the original continuous fill; 2.5s animation and outer hover glow unchanged. Supersedes idle inset-light refinement.
+
+Emil gradient refinement: replace transparent-to-blue alpha interpolation with opaque token-based stops at 0/25/50/75/100%. Intermediate navy/blue mixes soften the central transition. This is an explicitly requested code deviation from the original Figma gradient interpolation. Animation remains 2.5s linear, 125%–100%.
+
+| Before | After | Why |
+| --- | --- | --- |
+| Transparent navy blended over navy base | Opaque navy and gradual navy/blue mixes | Reduce visible transition bands without changing motion |

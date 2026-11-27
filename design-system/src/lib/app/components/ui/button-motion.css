@@ -11,12 +11,19 @@
 }
 /* Animate the original continuous fill, avoiding overlapping masked edges. */
 .cds-decorative-motion:not(:disabled):not([aria-disabled="true"]) {
+  /* Opaque stops avoid the uneven alpha blend over the navy base. */
+  background-image: radial-gradient(ellipse 50% 130% at 50% 50%,
+    var(--cds-brand-decorative-gradient-from) 0%,
+    color-mix(in srgb, var(--cds-brand-decorative-gradient-from) 78%, var(--cds-brand-decorative-gradient-via)) 25%,
+    color-mix(in srgb, var(--cds-brand-decorative-gradient-from) 42%, var(--cds-brand-decorative-gradient-via)) 50%,
+    var(--cds-brand-decorative-gradient-via) 75%,
+    var(--cds-brand-decorative-gradient-to) 100%);
   background-repeat: no-repeat;
   background-position: center;
-  animation: cds-ai-aura 5s cubic-bezier(.45, 0, .55, 1) infinite;
+  animation: cds-ai-aura 2.5s linear infinite;
 }
 @keyframes cds-ai-aura {
-  0%, 100% { background-size: 165% 100%; }
+  0%, 100% { background-size: 125% 100%; }
   50% { background-size: 100% 100%; }
 }
 @media (hover: hover) and (pointer: fine) {
