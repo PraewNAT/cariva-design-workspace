@@ -10,7 +10,7 @@ One task uses one workflow per concern. The latest plan is `DESIGN-SYSTEM-PLAN.m
 | Motion and feel (U3) | emil-design-eng | only when the task involves animation or polish |
 | Component docs (U4) | document | code contract + approved visuals; creates and updates |
 | Code quality, rendered consistency, accessibility (U5, F4) | component-audit | no duplicate discovery or Figma parity claims |
-| Check or fix a Figma component or screen (F1–F2, D5, flows 07, 09, 11) | audit | token binding, naming, screen QA before handoff and map/fix; Figma only; report first, ask before fixing |
+| Check or fix a Figma component or screen (F1–F2, D5, flows 07, 09, 11) | audit | token binding, naming, screen QA before handoff and map/fix; Figma only; verify actual bindings before findings; fix within existing authorization |
 | Selected screen code → Figma (D1–D6, flow 05) | code-to-figma → figma:figma-generate-design | Part C; also used for one-frame-per-state prototype output; no mandatory Figma copy of all board cases |
 | Figma → screen code (F1–F5, flow 06) | figma:figma-design-to-code | explicit direction; use installed plugin |
 | Before merge / PR (flow 14) | pr-checklist | includes the changelog entry; reuse results from reuse-check/component-audit; no release numbers without explicit request |
@@ -49,3 +49,19 @@ Board Maintenance, Apply Playground Changes, Catalog Maintenance and Design–Co
 `create-project` now owns new React/shadcn prototype setup with Storybook Canvas / Preview switching and full-page preview for every Product. This supersedes the historical legacy create-project routing/export note above. The skill defines required delivery behavior; it does not imply a generator or completed mode switch exists in this checkout.
 
 Workspace placement and prototype index follow [workspace-structure.md](workspace-structure.md) (2026-11-27). New prototypes can live in this repo under products/<product-id>/prototypes; design-system is canonical and shadcn is its compatibility link.
+
+## Plugin prerequisites and evidence gates
+
+Dependencies supplement the owner above, not a second audit pipeline. Verify installed skills and available tools.
+
+| Concern | Routing |
+|---|---|
+| UI/stories | Load installed stories first; follow ui-workflow.md and actual Storybook version. |
+| Figma → Code | Load figma:figma-design-to-code before design-context tools and implementation (F1–F3). |
+| Binding audit/fix | Follow audit's Binding evidence gate: current node/property/variable IDs; conflicting evidence remains unverified. |
+| Figma JavaScript inspection/mutation | Load figma:figma-use before use_figma; visible mutations also require figma:figma-generate-design per plugin instructions. |
+| Reusable Figma component/library construction | Also load figma:figma-generate-library. Preserve existing APIs/variables for scoped fixes; a binding fix does not imply a library rebuild. |
+| Code Connect | Load figma:figma-code-connect; prepare/validate mappings within scope, publish only with user authorization, report pending publication/Dev Mode verification. |
+| Requested UI critique | Use installed Impeccable when applicable under AGENTS.md; it does not replace binding evidence. |
+
+workflow-map.md owns order and gates; ui-workflow.md expands UI steps; this file owns skill selection. Route legacy names to their merged owners, not archived copies. Installation is not proof of access or successful execution.

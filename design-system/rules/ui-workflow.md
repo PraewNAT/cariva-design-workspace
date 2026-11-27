@@ -26,9 +26,9 @@ Read `rules/agent-rules.md` for the project rules, `DESIGN.md` for visual guidan
 
 ## 3. Find existing things before creating
 
-- Use `component-reuse-check` to search Core → current Product → other Products that are reachable according to ownership, including sub-parts such as sidebar, field, modal, pagination and icons
+- Use `component-reuse-check` to search Core → current Product → other Products that are reachable according to ownership, including sub-parts such as sidebar, field, modal, pagination and icons. Capture the planned control-to-DS map before implementation and recheck native interactive JSX afterward; a raw HTML control with no DS comparison is an incomplete reuse check.
 - Use the Storybook documentation tools to see real props/examples when available, and follow imports to the implementation to confirm that you are actually reusing the component, not one that merely looks the same
-- Choose existing component → composition → necessary extension → new component with a reason. Use the order of reference sources and the rules for adopting external components from `rules/agent-rules.md` and `rules/component-adoption-flow.md`
+- Choose existing component → composition → necessary extension → new component with a reason. Before writing, leave a compact control-to-DS map in the work plan: interactive role → actual DS candidate/import and contract, or a justified gap. After writing, compare native interactive JSX (`button`, `input`, `textarea`, `select`, `a`) against this map. Native elements are valid when no compatible DS component exists or native semantics are required; record the specific reason. Resolve unexplained equivalents before delivery. This is not a ban on semantic HTML. Use the order of reference sources and the rules for adopting external components from `rules/agent-rules.md` and `rules/component-adoption-flow.md`
 
 ## 4. Design and write code
 
@@ -83,7 +83,7 @@ If a skill or tool is not found, state what is missing, do the parts that can be
 
 ## Maintaining the rules going forward
 
-Fix project constraints in `rules/agent-rules.md`, the order of work in this file, the look in `DESIGN.md` and specialist-flow details in the file that owns them. Update by cross-referencing files; do not copy them as another set of rules in AGENTS.md or CLAUDE.md. This is an instruction for the AI to follow, not background automation, a hook, or evidence that both AIs have run and tested this workflow
+Fix project constraints in `rules/agent-rules.md`, order and decision gates in `rules/workflow-map.md`, UI step details in this file, the look in `DESIGN.md` and specialist-flow details in the file that owns them. Update by cross-referencing files; do not copy them as another set of rules in AGENTS.md or CLAUDE.md. This is an instruction for the AI to follow, not background automation, a hook, or evidence that both AIs have run and tested this workflow
 
 ## Practical guide: choosing work and projects
 

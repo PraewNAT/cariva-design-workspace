@@ -1,6 +1,6 @@
 ---
 name: audit
-description: "Checks Figma against the Cariva DS: token binding and naming of nodes (audit), QA of a screen or flow before handoff (formerly design-review), and mapping a Figma component to the DS and fixing it (formerly map-fix). Figma only; not the React component-audit or duplicate finding. Report first, then ask before fixing."
+description: "Checks Figma against the Cariva DS: token binding and naming of nodes (audit), QA of a screen or flow before handoff (formerly design-review), and mapping a Figma component to the DS and fixing it (formerly map-fix). Figma only; not the React component-audit or duplicate finding. Verify actual bindings before findings; fix within existing user authorization."
 ---
 
 ## Scope per the latest plan
@@ -27,11 +27,24 @@ check component [name]   (Thai: "เช็ค component [ชื่อ]")
 - Read `shadcn/rules/components/{name}.md` if it exists
 - Use Figma inspection tools for the target node/page.
 
+## Binding evidence gate
+
+Required before classifying any token defect:
+
+1. Confirm file key, node ID/type, main component versus instance, variant/state and exact property. Inspect relevant descendants; a set-level summary does not establish every variant.
+2. Read the actual property binding from the current node: paint boundVariables.color for fill/stroke, node boundVariables for scalar properties, and text ranges for mixed text. Record paint index/range where relevant. Screenshots, hex matches and get_variable_defs summaries alone cannot prove binding identity or absence.
+3. Resolve the observed variable ID to its current name, collection/type, applicable explicit or inherited mode, alias chain and resolved value. Inspect style references and instance overrides when relevant. Compare semantic role against the approved mapping; equal colors do not imply equal semantics and a different name alone is not a defect.
+4. If tools disagree, repeat a scoped read of the same file/node/property and establish whether both sources describe the same current state. Report both observations as conflicting evidence / unverified until reconciled. Do not count the item as a confirmed defect or pass, assume a cache/tool bug, or change a correct binding to match a summary. If direct inspection is unavailable, report unverified rather than wrong/missing.
+5. Each confirmed finding records file/node/property, variable ID/name, collection/mode, observed versus expected role and evidence source. Scope pass claims to inspected properties/states.
+6. Before an authorized fix, re-read the affected property for intervening edits. Reuse existing variables and preserve API/radius. Read back binding and resolved value after writing; verify visuals if appearance may change. Explicitly correct an earlier false finding and say whether an edit occurred.
+
+Load Figma plugin prerequisites from rules/skill-routing.md before tool use. Inspection does not authorize mutation.
+
 ## Audit Scope
 
 Check only:
 
-- **Naming convention** — does the component name match the format `crv[Component]/[variantName]` (camelCase)?
+- **Naming convention** — use the active `design-system/docs/components/FIGMA-NAMING.md` mapping and actual contract; never apply frozen MUI/Crv naming to shadcn.
 - Uses component base / shared component correctly
 - Colors are bound to current semantic color tokens — no hardcoded hex
 - Typography uses text styles / typography variables
@@ -67,11 +80,7 @@ Report results in this format:
 - [things that are correct]
 ```
 
-After the report is done, **ask immediately:** "Do you want me to fix the issues found?"
-- If **yes** → continue right away with the **map-fix** section of this skill (below), passing along the data already inspected so nothing is inspected again
-- If **no** → end with just the report
-
-If no issues are found, say the audit passed and mention any residual uncertainty. Then ask what the user wants to do next
+Continue into map-fix only when fixing is already authorized. For inspection-only requests, stop with findings and limitations. Ask only for a missing decision or new scope that blocks an authorized fix. No confirmed defect means no invented fix or mandatory closing question.
 
 ## Rules
 
@@ -119,13 +128,13 @@ Can it be handed off yet?  (Thai: "handoff ได้ยัง")
 
 #### Pre-flight (do this before every QA)
 
-0. **Ask the user first: "Does this file follow Cariva DS?"**
+0. **Resolve DS applicability from the request, Product mapping and context; ask only when still ambiguous and material to the review.**
    - If **yes** → QA every category
    - If **no** → skip the entire DS Integration category (token binding, font, component naming, the Token gate) — leave only the UX-level QA
 1. Automatically pull the children of the node you were given
 2. List the names of all frames/states found, e.g. Default, Loading, Error, Empty, Session Expired
 3. QA against this state list — do not flag a state that is already in the list as missing
-4. Flag only states that are not in the list and should exist for the real use case
+4. Flag missing states only against confirmed requirements or implemented behavior. Otherwise report proposed cases/unanswered rules. Component specimens are not complete Product flows.
 
 ---
 
@@ -171,11 +180,11 @@ Rapid repeated taps, submitting while loading, leaving the page midway, going ba
 - An error state has a message saying what happened, not just a color change
 - (Deeper accessibility such as contrast ratio and touch target is already checked at the component level — do not re-check at the screen level. If you happen to see a clearly wrong spot, you may note it as 🟢 Info, but it does not count toward the verdict)
 
-##### 9. Copy & Tone
+##### 9. Copy & Tone (only when requested or included in agreed acceptance criteria)
 - Direct and specific
 - Error messages say what happened and what to do next
 - Placeholder is a hint — not a substitute for a label
-- No placeholder content (Lorem ipsum, "Label", "Description")
+- Distinguish intentional specimens/mock text from missing production copy. Do not fail a component specimen for placeholder text. Mark copy not assessed when outside scope.
 
 ##### 10. Questions before dev picks up the work
 Anything still unclear that must be asked of the designer or PM before dev starts
@@ -209,7 +218,7 @@ Use the results from the QA Scope already analyzed — do not re-check
 | States | Every state for the use case is present (from the Pre-flight list) | ✅/❌ |
 | Edge cases | Empty / loading / error are covered | ✅/❌ |
 | Text overflow | Everywhere that shows user or system text, it is defined what happens when the text is too long (truncate / wrap to a new line / scroll) and the layout does not break with the longest text | ✅/❌ |
-| Copy | No placeholder content, error messages complete | ✅/❌ |
+| Copy | Agreed copy requirements met; otherwise not assessed / not applicable | ✅/❌ |
 | Info for dev | Behavior/conditions that Figma does not convey have been passed on (annotation in Figma, handoff doc, or the PO has been told to write them in the requirements) — if unsure, list the questions dev is likely to ask and have the user confirm they are covered | ✅/❌ |
 | Open questions | No questions waiting on a PM/designer to answer | ✅/❌ |
 
@@ -320,8 +329,8 @@ Map and fix:
 
 #### Notes
 
-- Work on one frame at a time only — if you are given a whole section or flow, list the frames found first, then ask which frame to start with
-- If continuing from an audit — you can use the data already inspected; no need to inspect again
+- Inventory requested frames and work through the authorized scope. Ask which frame only when the target is genuinely ambiguous.
+- Reuse unchanged audit evidence, but re-read the affected property before mutation under the binding evidence gate.
 
 #### Rules
 
@@ -330,7 +339,7 @@ Map and fix:
 - Do not create new tokens or components by default — if what is needed does not yet exist in the DS, tell the user first
 - Do not invent props or variants that the shadcn component in `shadcn/src/lib/app/components/ui/` does not have.
 - If a component base is missing, or a needed variant/state is incomplete, tell the user what should be created before creating it.
-- Always ask for confirmation before editing; never edit on your own without asking
+- Continue fixes already authorized by the user; ask only for missing decisions or scope expansion. Read-only requests do not authorize fixes.
 - Preserve visual intention unless the DS mapping requires a correction.
 
 #### Output

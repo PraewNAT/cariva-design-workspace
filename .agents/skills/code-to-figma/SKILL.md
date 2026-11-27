@@ -1,6 +1,6 @@
 ---
 name: code-to-figma
-description: Creates or updates Cariva screens in Figma from code or Storybook, anchored to the Figma DS; applies to the specified screen only and is not for breaking a prototype into a multi-state flow or building a DS library
+description: Creates or updates Cariva screens in Figma from code or Storybook, anchored to the Figma DS; covers selected screens and requested one-frame-per-state flows; reusable library construction uses the Figma library skill
 ---
 
 # Code to Figma — Cariva screens
