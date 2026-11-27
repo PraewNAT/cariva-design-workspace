@@ -223,8 +223,9 @@ Each flow table above has a **Skill** column: load that skill when the step star
 | F1–F2 / D5 / V2 Check or fix the Figma side | audit (token binding, naming, screen QA, map/fix) |
 | D1–D6 Code to Figma | code-to-figma, then the installed Figma plugin skills |
 | F1–F5 Figma to Code | figma:figma-design-to-code (plugin), then shadcn |
+| Map components to Code Connect (after F3/C4, rename, move) | figma:figma-code-connect (plugin; load before mapping, publish only with user authorization) |
 | Before merge / PR | pr-checklist (includes the changelog entry) |
-| Draw a flow for a designer | artifact-diagramming; mermaid-diagrams when it must stay as text in the repo |
+| Draw a flow for a designer | artifact-diagramming; plain Mermaid in Markdown when it must stay as text in the repo |
 
 Outside the main flows and used only when asked: rename-frame, localization-export.
 
@@ -236,6 +237,7 @@ Start by stating the flow name and the current step code (for example "Figma to 
 
 This section is not in the original bundle. It is this repo's own rules layered on top of the flows above, and it does not conflict with the step order:
 
+- **Prototype PRs:** when the diff touches a Product prototype, the PR description lists full-page Storybook links (`<storybook preview URL>/iframe.html?id=<story-id>&viewMode=story`, no sidebar) built from real story IDs; see `pr-checklist` (Full-page prototype links). The Vercel preview needs a Vercel team login; say so and do not claim a link was opened unless it was.
 - **Before opening or updating a PR, run `pr-checklist`** (it reuses the component-reuse-check and component-audit results for the same code revision and records the changelog entry), then report readiness; do not merge
 - **Always ask the user before committing** and do not push until told to (after F4/F5, U6, D6 or V5 finish, before entering the commit step). See CLAUDE.md at the root
 - **Figma to Code (F2 → F3):** make a "Figma name → code name" table following [FIGMA-NAMING.md](../docs/components/FIGMA-NAMING.md) and have the user confirm it before renaming any component or property in Figma, every time. Property names and values in Figma must equal the props and values in code. Writing to Figma requires an instruction, and the Desktop Bridge plugin must be open in the target file.

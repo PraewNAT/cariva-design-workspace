@@ -41,7 +41,6 @@ Read `skills/{skill}/SKILL.md` before every task.
 |---|---|---|
 | shadcn | Add/edit DS components with shadcn | `add component [name]` (Thai: "เพิ่ม component [ชื่อ]") |
 | unslop | Polish the UI's look (applied automatically to UI creation/adjustment work under our DS rules) | Just give UI task commands; no need to invoke it yourself |
-| mermaid-diagrams | Write and check Mermaid as text in the repo | `write a flowchart in Mermaid` (Thai: "เขียน flowchart เป็น Mermaid") |
 | component-reuse-check | Find existing Core/Product components before building, check code for duplicates, and plan/review UI cases (confirmed / proposed / unresolved) | `check whether components are really used [path]` (Thai: "เช็คว่าใช้ component จริงไหม [path]") |
 | pr-checklist | Run the checklist before merge and record the change in the changelog | `check this PR before merge` (Thai: "เช็ค PR นี้ก่อน merge") |
 
@@ -66,7 +65,7 @@ Read `skills/{skill}/SKILL.md` before every task.
 - If you need a new color → tell the DS team first; do not create it yourself
 - Figma wins — if a doc conflicts with Figma, trust Figma
 - **The order of work and decision points** are at `shadcn/rules/workflow-map.md`; state the flow name and the current step code before working; do not skip a step without evidence
-- **Every new component must be linked to Code Connect** — create/update `shadcn/code-connect/*.figma.tsx` for every set, run a dry-run, then publish before saying it is done; details in `shadcn/rules/workflow-map.md`
+- **Every new component must be linked to Code Connect** — create/update `shadcn/code-connect/*.figma.tsx` for every set, run a dry-run, then publish before saying it is done (publishing needs the user's authorization; ask once and reuse the answer, and load the `figma:figma-code-connect` plugin skill before mapping); details in `shadcn/rules/workflow-map.md`
 - **If the component you need does not exist** → search our Core/Product → official shadcn/ui → ReUI (reui.io/components) as a reference example, then adapt it into our recipe; **ask before running `npx shadcn add`** because it adds a dependency
 - **When you need to draw a flow for the designer** → use the skill `artifact-diagramming` to draw a swimlane (you/Claude lanes); see details in `shadcn/rules/agent-rules.md`; use Mermaid when it must be kept as text in the repo
 - **Updating `shadcn/tokens.json` must read values from the real Figma variables only** (then run `npm run tokens:generate` in the `shadcn/` folder) — do not guess, do not compute/estimate values yourself, and do not trust a doc frame or a node that is not directly a variable collection (for example a component's documentation page that may have variables from another file mixed in, or an "AI Readable" style doc frame that was verified before and found not to match the live variables) — the reliable method is to pull directly from the variable collection (for example via Figma Console MCP's `figma_get_variables` connected to the Desktop Bridge plugin in Figma Desktop); if the live variables cannot be accessed (Bridge not connected, no permission, the correct collection cannot be found, etc.) **tell the user about the problem directly and stop and wait**; do not fall back to guessing or using values from a source that is not the live variables without telling them

@@ -11,9 +11,19 @@ Resolve actual repo/branch/base from the task and Git configuration. Inspect the
 
 Reuse component-reuse-check and component-audit findings for the same final code revision. Run only missing checks or checks invalidated by new changes; do not duplicate reports. Check documentation/story updates and meaningful regression coverage proportional to the change. Do not require every component to have seven files, Code Connect or Figma output.
 
-Read package scripts before running required checks. For `shadcn/` code run its own scripts from that folder (`tokens:check`, `build`, `build-storybook`, `lint`); `legacy/mui/` is frozen, so run its tokens:check/export:check only if someone edits it. Never run another folder's scripts against this target. Report passed/failed/unavailable separately with evidence.
+Read package scripts before running required checks. For `shadcn/` code run its own scripts from that folder (`tokens:check`, `build`, `build-storybook`, `lint`, and `workflows:check` when the workflow map, Workflows pages or skills changed); `legacy/mui/` is frozen, so run its tokens:check/export:check only if someone edits it. Never run another folder's scripts against this target. Report passed/failed/unavailable separately with evidence.
 
 Keep Draft without DS release numbers. Summarize readiness and remaining actions; do not merge, push, publish, generate release tabs or alter test rules to obtain a pass.
+
+## Full-page prototype links in the PR description (user decided 2026-11-27)
+
+When a PR touches a Product prototype (anything under `products/<product>/prototypes/` or its Storybook stories), the PR description must include a "Full-page prototype links" section so reviewers can open the prototype without the Storybook sidebar:
+
+1. List the prototypes from `products/README.md` / `workspace/prototypes.json` that the diff affects. Skip DS examples; they are not Product screens.
+2. Get the real story IDs from the running Storybook `/index.json` (entries whose title starts with `Products/<ProductName>/Prototypes/`) or from the stories file; never invent an ID.
+3. Take the Storybook preview base URL from the Vercel bot comment on the PR (the `cariva-ds-storybook` URL) and build `<base>/iframe.html?id=<story-id>&viewMode=story`. One line per key state (for example the default state and the mobile state), each labelled with the story name.
+4. State plainly that the Vercel preview needs a Vercel team login and that a link was not opened by the AI if it was not. If the base URL is not available yet, write "preview not ready" instead of guessing.
+5. A standalone deployment of the prototype app is not part of this step; mention it only if the user asks.
 
 ---
 
