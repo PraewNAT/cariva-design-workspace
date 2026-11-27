@@ -2,7 +2,7 @@
 
 - Button size default = medium40: padding8 + label16/24 or icon24; sm32 / lg48; outline is an inset ring and takes no extra layout space; no fixed height is forced on medium
 - Input default40: text16/24 + padding8; the Lab page's medium48 size uses padding12; Select has the same geometry and does not use the MUI-style fieldset/legend
-- Radius follows the existing Product tokens: carivaApp pill / backOffice12, not edited per screen; font no smaller than 12
+- Radius follows the existing Product tokens: carivaApp pill, not edited per screen; font no smaller than 12
 - Accordion: **outdated** (the old lines about trigger py12 and the 48/50px box) replaced by separate cards with padding 16 per the new Figma of 26 November 2026; see `docs/components/ACCORDION-FIGMA.md`. The "Accordion" section further down in this file is MUI history
 - Buttons on pages and in Dialogs use the same Core Button recipe and do not override font/padding/radius in Product CSS; icons use currentColor
 - Keyboard/focus and geometry are checked in Core/Components/Button, the Core/Shadcn catalog and Lab stories; for mapping/API differences from MUI see SHADCN-MIGRATION.md

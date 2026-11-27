@@ -9,12 +9,3 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const AllVariables: Story = {};
-export const BackOfficeTheme: Story = {
-  decorators: [
-    (Story) => (
-      <div data-product="backOffice">
-        <Story />
-      </div>
-    ),
-  ],
-};

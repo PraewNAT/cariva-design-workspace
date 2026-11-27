@@ -1,6 +1,0 @@
-interface:
-  display_name: "Case Planning"
-  short_description: "Plan UI cases and track confirmed coverage"
-  default_prompt: "Use $case-planning for the current Product and return the standard concise report."
-policy:
-  allow_implicit_invocation: true

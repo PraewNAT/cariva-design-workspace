@@ -30,5 +30,7 @@ export type Flow = {
   notVerified: string[];
   /** กฎของโปรเจกต์ที่ต้องรู้สำหรับ flow นี้ */
   rules?: string[];
+  /** สกิลที่เรียกใช้ใน flow นี้ (ชื่อสกิล + ใช้ตอนไหน) */
+  skills?: string[];
   related?: string[];
 };

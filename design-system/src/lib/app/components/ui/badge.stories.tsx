@@ -97,7 +97,7 @@ export const PageAndDialog: Story = {
 
 export const MobileThai: Story = {
   globals: { viewport: { value: "mobile320", isRotated: false } },
-  render: () => <div data-product="backOffice" className="flex items-start gap-2"><p className="min-w-0 break-words text-sm">รายการแจ้งเตือนที่ยังไม่ได้อ่านสำหรับผู้ประสานงานและผู้ดูแลข้อมูลผู้รับบริการ</p><Badge variant="standard" color="success">9999</Badge></div>,
+  render: () => <div className="flex items-start gap-2"><p className="min-w-0 break-words text-sm">รายการแจ้งเตือนที่ยังไม่ได้อ่านสำหรับผู้ประสานงานและผู้ดูแลข้อมูลผู้รับบริการ</p><Badge variant="standard" color="success">9999</Badge></div>,
   play: async ({ canvasElement }) => {
     const doc = canvasElement.ownerDocument;
     await doc.fonts.ready;

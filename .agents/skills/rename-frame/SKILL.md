@@ -18,7 +18,7 @@ Name the frames correctly [page/section]  (Thai: "ตั้งชื่อ frame
 
 - Works with **screen/page frames only** — top-level frames that are screens, not components
 - Works as a **batch per page or section** only — does not accept a single node-id; if the user gives a single node-id, ask whether to scan the whole page/section that node is in
-- If a node found is a `COMPONENT`, `COMPONENT_SET`, or `INSTANCE` → skip it and do not touch it; say that the `audit`/`map-fix` skill must be used instead (a different naming convention: `crv-{name}` kebab-case)
+- If a node found is a `COMPONENT`, `COMPONENT_SET`, or `INSTANCE` → skip it and do not touch it; say that the `audit` skill (which includes map-fix) must be used instead (a different naming convention: `crv-{name}` kebab-case)
 
 ## Required Context
 

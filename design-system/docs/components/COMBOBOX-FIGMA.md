@@ -69,7 +69,7 @@ The SVGs at `src/lib/app/components/ui/assets/combobox/` come straight from Figm
 </Field>
 ```
 
-When used inside a Dialog, explicitly scope the Product of the controls in the portal according to the existing Product structure. The story examples use backOffice for both the main page and the Dialog content. It is not assumed that the portal receives CSS variables automatically from a DOM parent outside the portal.
+When used inside a Dialog, explicitly scope the Product of the controls in the portal according to the existing Product structure. The story examples use the default theme for both the main page and the Dialog content. It is not assumed that the portal receives CSS variables automatically from a DOM parent outside the portal.
 
 ## Stories and checks
 

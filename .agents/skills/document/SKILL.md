@@ -5,6 +5,8 @@ description: Create or update Cariva component documentation from the agreed cod
 
 # Component Documentation
 
+> Workflow fit: used at step(s) U4 and F4 (update the docs), C4 (build and check), V4 in `design-system/rules/workflow-map.md` (see the Skill column of each flow table). Load it when that step starts.
+
 Read AGENTS.md and the actual target component, related stories, approved theme/tokens and existing docs before writing. Locate existing documentation first; do not require a separate Markdown file or exactly seven source files per component.
 
 - Code defines implemented props, variants, states and behavior. Approved tokens/specifications define visual rules; user/team decisions define usage guidance. Do not invent Do/Don't or infer product rules from appearance.

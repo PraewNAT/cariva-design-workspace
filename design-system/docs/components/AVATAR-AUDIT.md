@@ -18,7 +18,7 @@ Next: no further action needed within the reuse scope
 
 **Component Audit — Core Avatar**
 Overall: recipe fixed and the real render checked; Avatar 6 stories pass test/a11y, while the catalog has pre-existing contrast findings outside the scope
-Scope: 24 Avatar combinations, broken/missing image, group/count, page/portal, carivaApp and backOffice-scoped mobile 320px; HosXP and external Products are not certified
+Scope: 24 Avatar combinations, broken/missing image, group/count, page/portal, carivaApp mobile 320px; HosXP and external Products are not certified
 
 | Level | Result | Item | Evidence | Next |
 |---|---|---|---|---|

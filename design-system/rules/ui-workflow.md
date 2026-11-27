@@ -19,16 +19,16 @@ Read `rules/agent-rules.md` for the project rules, `DESIGN.md` for visual guidan
 
 ## 2. Plan cases according to the size of the work
 
-- For a new screen/flow use `case-planning`: look at the happy path and only the relevant loading, empty, error/retry, validation, disabled, success, permissions and long/missing data cases. For a small spot fix, check the broken case and nearby consumers; do not expand it into a new flow
+- For a new screen/flow use the case-planning section of `component-reuse-check`: look at the happy path and only the relevant loading, empty, error/retry, validation, disabled, success, permissions and long/missing data cases. For a small spot fix, check the broken case and nearby consumers; do not expand it into a new flow
 - Separate **confirmed / proposed addition / must ask** based on evidence from the requirements and existing behavior. Do not invent business rules, user permissions or backend outcomes
 - Define an observable expected result and a way to open each case through stories/preview. Use existing IDs when they exist. Do not claim there is a board covering every case if one has not been built
 - If a business rule must be asked about, continue with the parts that do not depend on the answer, but do not guess the answer or treat silence as approval
 
 ## 3. Find existing things before creating
 
-- Use `component-reuse-check` to search Core → current Product → other Products that are reachable according to ownership, including sub-parts such as sidebar, field, modal, pagination and icons
+- Use `component-reuse-check` to search Core → current Product → other Products that are reachable according to ownership, including sub-parts such as sidebar, field, modal, pagination and icons. Capture the planned control-to-DS map before implementation and recheck native interactive JSX afterward; a raw HTML control with no DS comparison is an incomplete reuse check.
 - Use the Storybook documentation tools to see real props/examples when available, and follow imports to the implementation to confirm that you are actually reusing the component, not one that merely looks the same
-- Choose existing component → composition → necessary extension → new component with a reason. Use the order of reference sources and the rules for adopting external components from `rules/agent-rules.md` and `rules/component-adoption-flow.md`
+- Choose existing component → composition → necessary extension → new component with a reason. Before writing, leave a compact control-to-DS map in the work plan: interactive role → actual DS candidate/import and contract, or a justified gap. After writing, compare native interactive JSX (`button`, `input`, `textarea`, `select`, `a`) against this map. Native elements are valid when no compatible DS component exists or native semantics are required; record the specific reason. Resolve unexplained equivalents before delivery. This is not a ban on semantic HTML. Use the order of reference sources and the rules for adopting external components from `rules/agent-rules.md` and `rules/component-adoption-flow.md`
 
 ## 4. Design and write code
 
@@ -68,7 +68,7 @@ Read `rules/agent-rules.md` for the project rules, `DESIGN.md` for visual guidan
 | Topic | Skill/location | Call when |
 |---|---|---|
 | Storybook docs, stories, tests and review | `stories` from the skills installed in the session | First, before changing UI, and used again in the check step |
-| Case coverage | `.agents/skills/case-planning/SKILL.md` | Planning a new flow/cases or when requirements change |
+| Case coverage | `.agents/skills/component-reuse-check/SKILL.md` (case-planning section) | Planning a new flow/cases or when requirements change |
 | Flowchart/decision tree for the work | `skills/mermaid-diagrams/SKILL.md` | When a diagram is requested. Read the scope and limits from the central rules; do not draw one automatically for every task |
 | Reuse and duplicates | `.agents/skills/component-reuse-check/SKILL.md` | Before writing and checking after writing |
 | UI tidiness | `skills/unslop/SKILL.md` | Creating/adjusting UI within scope |
@@ -83,7 +83,7 @@ If a skill or tool is not found, state what is missing, do the parts that can be
 
 ## Maintaining the rules going forward
 
-Fix project constraints in `rules/agent-rules.md`, the order of work in this file, the look in `DESIGN.md` and specialist-flow details in the file that owns them. Update by cross-referencing files; do not copy them as another set of rules in AGENTS.md or CLAUDE.md. This is an instruction for the AI to follow, not background automation, a hook, or evidence that both AIs have run and tested this workflow
+Fix project constraints in `rules/agent-rules.md`, order and decision gates in `rules/workflow-map.md`, UI step details in this file, the look in `DESIGN.md` and specialist-flow details in the file that owns them. Update by cross-referencing files; do not copy them as another set of rules in AGENTS.md or CLAUDE.md. This is an instruction for the AI to follow, not background automation, a hook, or evidence that both AIs have run and tested this workflow
 
 ## Practical guide: choosing work and projects
 

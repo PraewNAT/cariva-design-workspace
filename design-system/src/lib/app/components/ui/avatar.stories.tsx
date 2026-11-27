@@ -146,7 +146,6 @@ export const PageAndDialog: Story = {
 export const MobileThai: Story = {
   ...PageAndDialog,
   globals: { viewport: { value: "mobile320", isRotated: false } },
-  decorators: [(Story) => <div data-product="backOffice"><Story /></div>],
   play: async context => {
     await PageAndDialog.play!(context);
     const doc = context.canvasElement.ownerDocument;

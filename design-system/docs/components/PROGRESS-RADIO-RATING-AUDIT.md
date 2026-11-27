@@ -4,7 +4,7 @@
 
 **Component Audit — Cariva Core**
 Overall: implemented and updated Storybook/Markdown/Figma docs fully; 35/35 story interactions pass, with accessibility limitations remaining from the source visuals
-Scope: Progress 6, Radio Group 6, Rating 8 stories; regression 15 File Upload/Stepper/Sheet/catalog. Checked carivaApp and backOffice, mobile 320px, page/Dialog, real keyboard. Excludes credit badges, backend, physical touch/OS preference and screen-reader certification
+Scope: Progress 6, Radio Group 6, Rating 8 stories; regression 15 File Upload/Stepper/Sheet/catalog. Checked carivaApp, mobile 320px, page/Dialog, real keyboard. Excludes credit badges, backend, physical touch/OS preference and screen-reader certification
 
 | Level | Result | Item | Evidence | Next |
 |---|---|---|---|---|

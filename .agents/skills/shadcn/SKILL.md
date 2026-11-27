@@ -7,6 +7,8 @@ allowed-tools: Bash(npx shadcn@latest *), Bash(pnpm dlx shadcn@latest *), Bash(b
 
 # shadcn/ui
 
+> Workflow fit: used at step(s) U3, C2, C4 and F3 (write or change the UI, search official shadcn components) in `design-system/rules/workflow-map.md` (see the Skill column of each flow table). Load it when that step starts.
+
 A framework for building ui, components and design systems. Components are added as source code to the user's project via the CLI.
 
 > **IMPORTANT:** Run all CLI commands using the project's package runner: `npx shadcn@latest`, `pnpm dlx shadcn@latest`, or `bunx --bun shadcn@latest` — based on the project's `packageManager`. Examples below use `npx shadcn@latest` but substitute the correct runner for the project.

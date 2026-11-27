@@ -75,11 +75,6 @@
   --font-ui: "IBM Plex Sans Thai", sans-serif;
   --font-prose: "IBM Plex Sans Thai Looped", sans-serif;
 }
-[data-product="backOffice"] {
-  --container-radius: 12px;
-  --control-radius: 12px;
-  --input-radius: 12px;
-}
 @layer base {
   body {
     margin: 0;
