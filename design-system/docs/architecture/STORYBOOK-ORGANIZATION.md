@@ -49,3 +49,18 @@ Next: open the Card Docs and review the regrouped sections
 ## Superseded prototype examples — 2026-11-27
 
 Workspace/Canvas Board/Mobile and Workspace/Prototype Catalog/Appointment/Form were deleted on request and are no longer used as project entries. Use Products/CarivaSpace HosXP/Prototypes/Home for real work, together with the Product's Canvas; local host 5174 and workspace/prototypes.json are the current selector entries. Port 5173 is a workspace launcher with no mock screen
+
+Sidebar order: Core/Components starts with Button → Button Mic → Button Split → Fab. Remaining component groups sort alphabetically. Story titles and IDs remain unchanged; Product components remain under Products. Configured in .storybook/preview.tsx.
+
+## Foundation and date/time grouping — 2026-11-27
+
+Core → Foundations is ordered before Core → Components. Date Picker, Time Picker and Date Time Picker share Core → Components → Date & Time, with each component's existing stories and interaction coverage preserved. This changes Storybook navigation only; component implementations and contracts are unchanged. Story IDs follow the new hierarchy.
+
+## Input grouping — 2026-11-27
+Field composition examples are nested under Core → Components → Input → Field, beside the Input stories. Input is the primary group name; the reusable Field wrapper remains visible as a child story group. This is a Storybook navigation change only; component contracts are unchanged.
+
+## Input family grouping — 2026-11-27
+Input-related stories are nested under Core → Components → Input: Field, Input Group, Input Otp, Label and the base Input stories. This keeps the sidebar from presenting the label/composition primitives as competing top-level controls. Storybook grouping only; code APIs remain separate.
+
+## Dropdown naming — 2026-11-27
+The Storybook group for the existing Select primitive is named Dropdown so the sidebar uses the user-facing term. The source component and imports remain `Select`; only the Storybook title and coverage index label change.

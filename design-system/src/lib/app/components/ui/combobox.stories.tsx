@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useId } from "react";
 import { expect, waitFor, within } from "storybook/test";
 import { Combobox, ComboboxContent, ComboboxEmpty, ComboboxInput, ComboboxItem, ComboboxList } from "./combobox";
-import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from "./field";
+import { Field, FieldError, FieldGroup, FieldLabel } from "./field";
 import { Button } from "./button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "./dialog";
 
@@ -18,7 +18,7 @@ function Example({ size = "default", label = "ค้นหากลุ่ม", d
     <Field size={size} data-disabled={disabled || undefined} data-invalid={invalid || undefined}>
       <FieldLabel htmlFor={id}>{label}</FieldLabel>
       <Combobox items={items} defaultValue={defaultValue} disabled={disabled}>
-        <ComboboxInput id={id} size={size} disabled={disabled} aria-invalid={invalid || undefined} aria-describedby={`${id}-message`} placeholder="Search or select..." />
+        <ComboboxInput id={id} size={size} disabled={disabled} aria-invalid={invalid || undefined} aria-describedby={invalid ? `${id}-message` : undefined} placeholder="Search or select..." />
         <ComboboxContent>
           <ComboboxEmpty>ไม่พบรายการ</ComboboxEmpty>
           <ComboboxList aria-label="กลุ่มการตรวจ">
@@ -26,12 +26,12 @@ function Example({ size = "default", label = "ค้นหากลุ่ม", d
           </ComboboxList>
         </ComboboxContent>
       </Combobox>
-      {invalid ? <FieldError id={`${id}-message`}>กรุณาเลือกกลุ่มการตรวจ</FieldError> : <FieldDescription id={`${id}-message`}>พิมพ์เพื่อค้นหาและเลือกจากรายการ</FieldDescription>}
+      {invalid && <FieldError id={`${id}-message`}>กรุณาเลือกกลุ่มการตรวจ</FieldError>}
     </Field>
   );
 }
 
-const source = `<Field>\n  <FieldLabel htmlFor="group">ค้นหากลุ่ม</FieldLabel>\n  <Combobox items={["ตับ", "ไต", "เลือด"]}>\n    <ComboboxInput id="group" size="default" aria-describedby="group-help" placeholder="Search or select..." />\n    <ComboboxContent>\n      <ComboboxEmpty>ไม่พบรายการ</ComboboxEmpty>\n      <ComboboxList aria-label="กลุ่มการตรวจ">{(item: string) => <ComboboxItem key={item} value={item}>{item}</ComboboxItem>}</ComboboxList>\n    </ComboboxContent>\n  </Combobox>\n  <FieldDescription id="group-help">พิมพ์เพื่อค้นหาและเลือกจากรายการ</FieldDescription>\n</Field>`;
+const source = `<Field>\n  <FieldLabel htmlFor="group">ค้นหากลุ่ม</FieldLabel>\n  <Combobox items={["ตับ", "ไต", "เลือด"]}>\n    <ComboboxInput id="group" size="default" placeholder="Search or select..." />\n    <ComboboxContent>\n      <ComboboxEmpty>ไม่พบรายการ</ComboboxEmpty>\n      <ComboboxList aria-label="กลุ่มการตรวจ">{(item: string) => <ComboboxItem key={item} value={item}>{item}</ComboboxItem>}</ComboboxList>\n    </ComboboxContent>\n  </Combobox>\n</Field>`;
 const meta = {
   title: "Core/Components/Combobox",
   component: ComboboxInput,
@@ -41,7 +41,7 @@ const meta = {
     controls: { disable: true },
     a11y: { test: "error" },
     docs: {
-      description: { component: "Combobox เดิมบน Base UI. ComboboxInput size=default/lg ใช้ช่อง 40/48px และลูกศร 20/24px จาก Figma; label/helper/error ประกอบจาก Field เดิม. รายละเอียดที่ docs/components/COMBOBOX-FIGMA.md. ไม่เพิ่ม prop state/filled/error ตามภาพ; ใช้ focus/open, value และ aria-invalid จริง." },
+      description: { component: "Combobox Input บน Base UI. ใช้ Input ขนาด default/lg ที่ 40/48px พร้อมลูกศร 20/24px ตาม Figma; label และ error ประกอบรอบ Input ด้วย Field เมื่อจำเป็น. รายละเอียดที่ docs/components/COMBOBOX-FIGMA.md. ไม่เพิ่ม prop state/filled/error ตามภาพ; ใช้ focus/open, value และ aria-invalid จริง." },
       source: { code: source, language: "tsx" },
     },
   },

@@ -3,7 +3,7 @@ import { expect } from "storybook/test";
 import { Field, FieldDescription, FieldError, FieldLabel } from "./field";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "./input-otp";
 const meta = {
-  title: "Core/Components/Input Otp",
+  title: "Core/Components/Input/Input Otp",
   tags: ["autodocs"],
   decorators: [
     (Story) => (

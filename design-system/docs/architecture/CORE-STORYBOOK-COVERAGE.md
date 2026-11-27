@@ -18,17 +18,17 @@
 | dialog | [Core/Components/Dialog](http://localhost:6006/?path=/story/core-components-dialog--default) | 1 |
 | dropdown-menu | [Core/Components/Dropdown Menu](http://localhost:6006/?path=/story/core-components-dropdown-menu--default) | 1 |
 | empty | [Core/Components/Empty](http://localhost:6006/?path=/story/core-components-empty--default) | 1 |
-| field | [Core/Components/Field](http://localhost:6006/?path=/story/core-components-field--default) | 1 |
-| input-group | [Core/Components/Input Group](http://localhost:6006/?path=/story/core-components-input-group--default) | 1 |
-| input-otp | [Core/Components/Input Otp](http://localhost:6006/?path=/story/core-components-input-otp--default) | 1 |
+| input field composition | [Core/Components/Input/Field](http://localhost:6006/?path=/story/core-components-input-field--default) | 1 |
+| input-group | [Core/Components/Input/Input Group](http://localhost:6006/?path=/story/core-components-input-input-group--default) | 1 |
+| input-otp | [Core/Components/Input/Input Otp](http://localhost:6006/?path=/story/core-components-input-input-otp--default) | 1 |
 | input | [Core/Components/Input](http://localhost:6006/?path=/story/core-components-input--default) | 3 |
-| label | [Core/Components/Label](http://localhost:6006/?path=/story/core-components-label--default) | 1 |
+| label | [Core/Components/Input/Label](http://localhost:6006/?path=/story/core-components-input-label--default) | 1 |
 | pagination | [Core/Components/Pagination](http://localhost:6006/?path=/story/core-components-pagination--default) | 1 |
 | popover | [Core/Components/Popover](http://localhost:6006/?path=/story/core-components-popover--default) | 1 |
 | progress | [Core/Components/Progress](http://localhost:6006/?path=/story/core-components-progress--default) | 1 |
 | radio-group | [Core/Components/Radio Group](http://localhost:6006/?path=/story/core-components-radio-group--default) | 1 |
 | scroll-area | [Core/Components/Scroll Area](http://localhost:6006/?path=/story/core-components-scroll-area--default) | 1 |
-| select | [Core/Components/Select](http://localhost:6006/?path=/story/core-components-select--default) | 1 |
+| dropdown (Select primitive) | [Core/Components/Dropdown](http://localhost:6006/?path=/story/core-components-dropdown--default) | 1 |
 | separator | [Core/Components/Separator](http://localhost:6006/?path=/story/core-components-separator--default) | 1 |
 | sheet | [Core/Components/Sheet](http://localhost:6006/?path=/story/core-components-sheet--default) | 7 |
 | sidebar | [Core/Components/Sidebar](http://localhost:6006/?path=/story/core-components-sidebar--default) | 1 |
@@ -44,4 +44,4 @@
 | toggle | [Core/Components/Toggle](http://localhost:6006/?path=/story/core-components-toggle--default) | 1 |
 | tooltip | [Core/Components/Tooltip](http://localhost:6006/?path=/story/core-components-tooltip--default) | 1 |
 
-Component examples now share one `Core/Components/<name>` entry, including compositions. Card has10stories, Checkbox5 and Chart10. Stepper, Rating, File Upload and Date Time Picker each have their own component entry. There are43component groups:39UI modules plus4composed components. The39/39script measures UI module file coverage only. See STORYBOOK-ORGANIZATION.md.
+Component examples now share one `Core/Components/<name>` entry, including compositions. Card has10stories, Checkbox5 and Chart10. Stepper, Rating, File Upload and Date Time Picker each have their own component entry. The Date Picker, Time Picker and Date Time Picker groups are nested under `Core/Components/Date & Time`. There are43component groups:39UI modules plus4composed components. The39/39script measures UI module file coverage only. See STORYBOOK-ORGANIZATION.md.

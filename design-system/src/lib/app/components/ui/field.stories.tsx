@@ -9,7 +9,7 @@ import {
 } from "./field";
 import { Input } from "./input";
 const meta = {
-  title: "Core/Components/Field",
+  title: "Core/Components/Input/Field",
   tags: ["autodocs"],
   decorators: [
     (Story) => (

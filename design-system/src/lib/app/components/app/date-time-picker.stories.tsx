@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, waitFor, within } from "storybook/test";
 import { DateTimePicker } from "./patterns";
-const meta = { title: "Core/Components/Date Time Picker", component: DateTimePicker, tags: ["autodocs"], decorators: [(Story) => <div className="max-w-lg p-6"><Story /></div>] } satisfies Meta<typeof DateTimePicker>;
+const meta = { title: "Core/Components/Date & Time/Date Time Picker", component: DateTimePicker, tags: ["autodocs"], decorators: [(Story) => <div className="max-w-lg p-6"><Story /></div>] } satisfies Meta<typeof DateTimePicker>;
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Appointment: Story = {

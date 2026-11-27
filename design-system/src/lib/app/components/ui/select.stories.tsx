@@ -10,7 +10,7 @@ import {
   SelectValue,
 } from "./select";
 const meta = {
-  title: "Core/Components/Select",
+  title: "Core/Components/Dropdown",
   tags: ["autodocs"],
   decorators: [
     (Story) => (

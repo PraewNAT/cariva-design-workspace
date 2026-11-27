@@ -9,12 +9,12 @@ Design source: [Date/Time](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt/C
 
 | Figma | Code / Storybook |
 |---|---|
-| Date Picker 7204:61101 | `DatePicker` in `app/date-time-pickers.tsx`; Core/Components/Date Picker |
+| Date Picker 7204:61101 | `DatePicker` in `app/date-time-pickers.tsx`; Core/Components/Date & Time/Date Picker |
 | crv-calendar 7204:61134 | the existing `Calendar` in `ui/calendar.tsx`; Core/Components/Calendar |
 | crv-calendar-day 7204:61116 | the existing `CalendarDayButton`; no new date engine created |
-| crv-time-picker 7204:61359 | `TimePicker`; Core/Components/Time Picker |
+| crv-time-picker 7204:61359 | `TimePicker`; Core/Components/Date & Time/Time Picker |
 | time-popup 7204:61352 (previously crv-time-popup), time-column 7204:61334, time-option 7204:61376, time-actions 7204:61348 (previously crv-time-actions) | inside TimePicker; the existing Button/Popover/Field and shared Input recipe |
-| existing appointment example | `DateTimePicker` in `patterns.tsx`; Core/Components/Date Time Picker |
+| existing appointment example | `DateTimePicker` in `patterns.tsx`; Core/Components/Date & Time/Date Time Picker |
 
 ## Behaviour the user confirmed
 

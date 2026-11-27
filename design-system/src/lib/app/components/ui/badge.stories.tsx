@@ -13,7 +13,7 @@ const meta = {
   parameters: {
     controls: { disable: true },
     docs: {
-      description: { component: "Badge เดิมเพิ่ม variant=dot (8px) และ standard (สูง/กว้างขั้นต่ำ20px, ข้อความ12/16px) พร้อม color ทั้ง6ตาม Figma4518:82967. สีแกนใหม่มีผลเฉพาะ dot/standard; คง default/secondary/destructive/outline/ghost/link เดิม. ตัวนับใช้ children ไม่ตัด99+หรือซ่อน0ให้อัตโนมัติ. glowพักไว้. คู่สี contrast ที่ยังไม่ผ่านรายงานใน docs/components/BADGE-FIGMA.md และ BADGE-AUDIT.md." },
+      description: { component: "Badge เดิมเพิ่ม variant=dot (8px) และ standard (สูง/กว้างขั้นต่ำ20px, ข้อความ12/16px) พร้อม color ทั้ง6ตาม Figma4518:82967. สีแกนใหม่มีผลเฉพาะ dot/standard; คง default/secondary/destructive/outline/ghost/link เดิม. ข้อความและตัวนับใช้ children ไม่ตัด99+หรือซ่อน0ให้อัตโนมัติ. glowพักไว้. คู่สี contrast ที่ยังไม่ผ่านรายงานใน docs/components/BADGE-FIGMA.md และ BADGE-AUDIT.md." },
       source: { code: '<Badge variant="standard" color="success">1</Badge>\n<Badge variant="dot" color="error" role="img" aria-label="มีการแจ้งเตือนผิดพลาด" />', language: "tsx" },
     },
   },

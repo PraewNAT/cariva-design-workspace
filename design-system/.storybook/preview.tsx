@@ -11,6 +11,12 @@ const preview: Preview = {
     ),
   ],
   parameters: {
+    options: {
+      storySort: {
+        method: "alphabetical",
+        order: ["Core", ["Foundations", "Components", ["Button", "Button Mic", "Button Split", "Fab", "*"]], "Products", "*"],
+      },
+    },
     viewport: {
       options: {
         mobile390: {

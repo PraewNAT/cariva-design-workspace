@@ -12,9 +12,9 @@ Visual source: [Autocomplete page](https://www.figma.com/design/XgxprkSY5mGbzIIw
 | Figma | Code | Usage |
 |---|---|---|
 | `combobox` (`4454:12745`, 18 variants) | `src/lib/app/components/ui/combobox.tsx` | Uses the existing implementation on Base UI |
-| `size=default / lg` | `ComboboxInput size="default" / "lg"` | Pass the same size to `Field` so the label matches |
-| `label`, `labelVisible` | `FieldLabel` | With/without children, and links `htmlFor` to the input `id` |
-| `helperText`, `errorMessage` | `FieldDescription`, `FieldError` | Binds `aria-describedby` to the text actually shown |
+| `size=default / lg` | `ComboboxInput size="default" / "lg"` | Pass the same size to the Input wrapper so its label matches |
+| `label`, `labelVisible` | Input label (`FieldLabel`) | With/without children, and links `htmlFor` to the input `id` |
+| `helperText`, `errorMessage` | optional Input helper/error (`FieldDescription`, `FieldError`) | Binds `aria-describedby` to the text actually shown |
 | `error` | `aria-invalid` on `ComboboxInput`, `data-invalid` on Field | Validation is the caller's responsibility; no business rule is invented |
 | `filled`, `value` | `defaultValue` or controlled `value` on `Combobox` | No filled prop added |
 | `state=hover / focused` | browser hover/focus and the Base UI open state | No state prop added to force the visual |
@@ -22,7 +22,7 @@ Visual source: [Autocomplete page](https://www.figma.com/design/XgxprkSY5mGbzIIw
 | up/down arrow | existing `ComboboxTrigger` + local SVG assets | Up when the popup is open, down when closed; disabled uses the disabled-colour asset |
 | items | `ComboboxContent`, `ComboboxList`, `ComboboxItem`, `ComboboxEmpty` | Uses the existing Base UI filtering/selection |
 
-The root `Combobox` remains a Base UI Root alias. `ComboboxInput` adds a named size, kept separate from the native HTML `size`. Keeps `showTrigger`, `showClear`, children and the existing input props; no label/error/value wrapper is added that duplicates Field. The existing multiselect/chips and input-inside-popup patterns were not redesigned in this work.
+The root `Combobox` remains a Base UI Root alias. `ComboboxInput` adds a named size, kept separate from the native HTML `size`. Keeps `showTrigger`, `showClear`, children and the existing input props; no label/error/value wrapper is added that duplicates the Input composition. The existing multiselect/chips and input-inside-popup patterns were not redesigned in this work.
 
 ## Recipe
 
@@ -45,7 +45,7 @@ Field colour, radius and border use the existing InputGroup recipe: normal `bord
 ## Additional scope the user confirmed
 
 - Popup `sideOffset` 6→4px; item gap 10→8px; group heading padding 14/10→16/8px. Chips, which are outside the visual target, were not changed.
-- The shared `FieldLabel`: disabled changed from opacity 50% to `content/disabled` and opacity 100%; checked both an explicit `Field data-disabled="true"` and a disabled input within a Field. This also affects the labels of Input/Field consumers, so Field/InputGroup/Input regression was checked.
+- The shared Input label (`FieldLabel`): disabled changed from opacity 50% to `content/disabled` and opacity 100%; checked both an explicit `Field data-disabled="true"` and a disabled input within a Field. This also affects the labels of Input/Field consumers, so Field/InputGroup/Input regression was checked.
 - Combobox container typography is set on the component after the audit found a difference between page/portal; the shared InputGroup is not changed further.
 
 ## Local assets
@@ -58,7 +58,7 @@ The SVGs at `src/lib/app/components/ui/assets/combobox/` come straight from Figm
 <Field size="lg">
   <FieldLabel htmlFor="group">ค้นหากลุ่ม</FieldLabel>
   <Combobox items={["ตับ", "ไต", "เลือด"]}>
-    <ComboboxInput id="group" size="lg" aria-describedby="group-help" />
+    <ComboboxInput id="group" size="lg" />
     <ComboboxContent>
       <ComboboxEmpty>ไม่พบรายการ</ComboboxEmpty>
       <ComboboxList aria-label="กลุ่มการตรวจ">
@@ -66,7 +66,6 @@ The SVGs at `src/lib/app/components/ui/assets/combobox/` come straight from Figm
       </ComboboxList>
     </ComboboxContent>
   </Combobox>
-  <FieldDescription id="group-help">พิมพ์เพื่อค้นหาและเลือกจากรายการ</FieldDescription>
 </Field>
 ```
 
