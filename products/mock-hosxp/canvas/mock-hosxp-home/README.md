@@ -50,3 +50,5 @@ Focused Storybook results: Board, Interaction and Happy Path interaction asserti
 Canvas overview shows Desktop + Mobile by default: 32px within each pair and 640px between state groups. The Mobile toggle can hide/show the mobile frames. Mobile supports scrolling while controls remain inactive in Canvas.
 
 Validation for action anchors and Mobile scrolling: browser checks confirmed the Start Record line starts at the actual button bounds, recovers after a delayed accessible-name change, Mobile scrolls 328px with a wheel gesture, and Ctrl + wheel changes Canvas zoom from 60% to 73%.
+
+The **เปิดเต็มหน้า** button opens the selected Storybook prototype story using the current Storybook host. It does not use the local standalone `previewUrl`, so deployed Canvas links stay on the deployed Storybook domain.
