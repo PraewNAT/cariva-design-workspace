@@ -137,3 +137,5 @@ When the user asks to create a new project or prototype, whether by typing the s
 ## Delivery links — user decision 2026-11-27
 
 Every delivery summary and PR description must include verified links to (1) the main Storybook, (2) the relevant Product prototype, and (3) its Canvas. If the full set is not available, include only item 1, the main Storybook. Do not invent missing destinations or include unrelated Product links. Label local URLs as local and deployed previews as previews; do not imply a new commit is deployed before verification. Discover actual story IDs from source/catalog. The main Storybook is https://cariva-ds-storybook.vercel.app.
+
+Always include [Storybook หลัก](https://cariva-ds-storybook.vercel.app/) in replies that share a PR link, including short PR-link-only requests and commit/push completion replies. This applies even when Prototype and Canvas links are unavailable.
