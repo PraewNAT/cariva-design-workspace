@@ -1,0 +1,6 @@
+interface:
+  display_name: "Component Audit"
+  short_description: "Audit component quality, states and accessibility"
+  default_prompt: "Use $component-audit for the current Product and return the standard concise report."
+policy:
+  allow_implicit_invocation: true

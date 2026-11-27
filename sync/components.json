@@ -1,0 +1,60 @@
+{
+  "$comment": "Figma ↔ code drift check. One entry per Figma component set. See sync/README.md.",
+  "figmaFile": "XgxprkSY5mGbzIIwlmscCt",
+  "storybook": "http://localhost:6006",
+  "components": [
+    {
+      "name": "CrvButton",
+      "source": "figma",
+      "nodeId": "3646:28000",
+      "storyId": "buttons-crvbutton--default",
+      "skip": { "state": ["hover", "pressed"] },
+      "propMap": {
+        "variant": "variant",
+        "color": "color",
+        "size": "size",
+        "state": { "default": { "disabled": false }, "disabled": { "disabled": true } }
+      },
+      "parts": [
+        { "key": "box", "figma": ".", "dom": "button" },
+        { "key": "label", "figma": "label", "dom": "button", "text": true }
+      ]
+    },
+    {
+      "name": "CrvInput",
+      "source": "figma",
+      "nodeId": "3760:6623",
+      "storyId": "form-crvinput--default",
+      "skip": { "state": ["hover", "focused"] },
+      "propMap": {
+        "size": "size",
+        "filled": { "false": { "value": "" }, "true": { "value": "Text" } },
+        "disabled": { "false": { "disabled": false }, "true": { "disabled": true } },
+        "error": { "false": { "error": false }, "true": { "error": true } }
+      },
+      "parts": [
+        { "key": "field", "figma": "Field", "dom": ".MuiInputBase-root", "domStroke": "fieldset" },
+        { "key": "value", "figma": "content", "dom": "input", "text": true, "placeholderWhen": { "filled": "false" } },
+        { "key": "label", "figma": "label", "dom": "label span", "text": true }
+      ]
+    },
+    {
+      "name": "CrvDropdown",
+      "source": "figma",
+      "nodeId": "3875:3909",
+      "storyId": "form-crvdropdown--default",
+      "skip": { "state": ["hover", "focused"] },
+      "propMap": {
+        "size": "size",
+        "filled": { "false": {}, "true": { "$story": "form-crvdropdown--filled" } },
+        "disabled": { "false": { "disabled": false }, "true": { "disabled": true } },
+        "error": { "false": { "error": false }, "true": { "error": true } }
+      },
+      "parts": [
+        { "key": "field", "figma": "Field", "dom": ".MuiInputBase-root", "domStroke": "fieldset", "ignore": ["gap"] },
+        { "key": "value", "figma": "content", "dom": ".MuiSelect-select", "text": true },
+        { "key": "label", "figma": "Label", "dom": "label", "text": true }
+      ]
+    }
+  ]
+}

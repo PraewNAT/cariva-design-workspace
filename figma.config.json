@@ -2,19 +2,24 @@
   "codeConnect": {
     "parser": "react",
     "importPaths": {
-      "code/core/components/*": "@/components/*",
-      "code/core/icons/*": "@/icons/*"
+      "design-system/src/lib/app/components/ui/*": "@/lib/app/components/ui/*",
+      "design-system/src/lib/app/components/app/*": "@/lib/app/components/app/*",
+      "design-system/src/lib/products/mira/components/*": "@/lib/products/mira/components/*"
     },
     "include": [
-      "code/core/components/**/*.figma.tsx",
-      "code/core/components/**/*.tsx",
-      "code/core/icons/**/*.tsx",
-      "code-connect/**/*.figma.tsx"
+      "design-system/code-connect/**/*.figma.tsx",
+      "design-system/src/lib/app/components/**/*.tsx",
+      "design-system/src/lib/products/**/*.tsx"
     ],
     "exclude": [
       "node_modules/**",
       "**/*.stories.tsx",
       "**/*.test.tsx"
-    ]
+    ],
+    "paths": {
+      "@/*": [
+        "design-system/src/*"
+      ]
+    }
   }
 }

@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "resolveJsonModule": true,
+    
+    "typeRoots": ["./node_modules/@types", "./node_modules"],
+    "paths": { "react": ["./node_modules/@types/react"], "react/*": ["./node_modules/@types/react/*"], "react-dom/*": ["./node_modules/@types/react-dom/*"], "@/*": ["./src/*"], "lucide-react": ["./node_modules/lucide-react"], "storybook/test": ["./node_modules/storybook/dist/test/index.d.ts"], "@storybook/react-vite": ["./node_modules/@storybook/react-vite/dist/index.d.ts"], "@storybook/react": ["./node_modules/@storybook/react/dist/index.d.ts"] },
+    "ignoreDeprecations": "6.0",
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+    "target": "es2023",
+    "lib": ["ES2023", "DOM"],
+    "module": "esnext",
+    "types": ["vite/client"],
+    "allowArbitraryExtensions": true,
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    /* Linting */
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "erasableSyntaxOnly": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": ["src"]
+}

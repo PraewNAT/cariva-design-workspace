@@ -1,0 +1,9 @@
+.mira-credit-tooltip { display:flex; flex-direction:column; gap:2px; width:200px; max-width:calc(100vw - 32px); padding:4px 8px; }
+.mira-credit-tooltip[data-placement=top-end],.mira-credit-tooltip[data-placement=none] { width:208px; }
+.mira-credit-tooltip[data-status=low],.mira-credit-tooltip[data-status=depleted] { padding-top:8px; }
+.mira-credit-row { display:flex; justify-content:space-between; gap:8px; }
+.mira-credit-row > :last-child { text-align:right; overflow-wrap:anywhere; }
+.mira-credit-message { display:flex; align-items:center; gap:2px; color:var(--cds-status-warning-content-default); }
+.mira-credit-tooltip[data-status=depleted] .mira-credit-message { color:var(--cds-status-error-content-default); }
+.mira-credit-alert { flex-shrink:0; width:16px; height:16px; background:currentColor; mask:url('./assets/credit-alert.svg') center/13.3333px 13.3333px no-repeat; }
+.mira-credit-hint { margin:0; font-size:10px; line-height:16px; font-weight:400; color:var(--cds-content-disabled); }

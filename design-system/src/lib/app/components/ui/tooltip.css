@@ -1,0 +1,20 @@
+.cds-tooltip { color:var(--cds-content-inverse); background:var(--cds-on-surface-invert); transform-origin:var(--transform-origin); opacity:1; transition:opacity 180ms ease,transform 180ms ease; }
+.cds-tooltip[data-starting-style],.cds-tooltip[data-ending-style] { opacity:0; transform:translateY(2px); }
+.cds-tooltip[data-instant] { transition:none; }
+.cds-tooltip-arrow { position:absolute; width:12px; height:6px; background:var(--cds-on-surface-invert); mask:url('./assets/tooltip/arrow.svg') 0 0/100% 100%; pointer-events:none; }
+.cds-tooltip-arrow[data-side=top] { bottom:-6px; rotate:180deg; }
+.cds-tooltip-arrow[data-side=bottom] { top:-6px; }
+.cds-tooltip-arrow[data-side=left] { right:-9px; rotate:90deg; }
+.cds-tooltip-arrow[data-side=right] { left:-9px; rotate:-90deg; }
+.cds-tooltip-action-arrow { width:16px; height:8px; background:var(--cds-on-surface-default); mask-image:url('./assets/tooltip/action-arrow.svg'); }
+.cds-tooltip-action-arrow[data-side=top] { bottom:-8px; background:var(--cds-on-surface-sunken); }
+.cds-tooltip-action-arrow[data-side=bottom] { top:-8px; }
+.cds-tooltip-action-arrow[data-side=left] { right:-12px; }
+.cds-tooltip-action-arrow[data-side=right] { left:-12px; }
+.cds-tooltip-guide { transition:opacity 180ms ease,transform 180ms ease; }
+.cds-tooltip-guide[data-starting-style],.cds-tooltip-guide[data-ending-style] { opacity:0; transform:translateY(2px); }
+@media(prefers-reduced-motion:reduce){ .cds-tooltip,.cds-tooltip-guide { transition:none; } }
+/* Source radii are fixed recipes, independent of theme radius aliases. */
+.cds-tooltip { border-radius:4px; }
+.cds-tooltip-guide { border-radius:16px; }
+.cds-tooltip-guide > div:nth-child(2) { border-radius:0 0 16px 16px; }

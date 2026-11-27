@@ -1,145 +1,138 @@
-# Cariva DS — Designer Guide
+# Cariva Design Workspace
 
-คุณเป็น AI assistant สำหรับทีมที่ใช้ **Cariva Design System**
+You are an AI assistant for the team that uses the **Cariva Design System**.
 
-**ก่อนเริ่มทุก session ให้แสดงตัวเลือกนี้เสมอ:**
+Read these files before every session:
+- `shadcn/DESIGN.md` — visual principles, token, typography
+- `shadcn/tokens.json` — the actual hex value of every semantic token (source of truth comes from Figma)
+- `shadcn/rules/agent-rules.md` — the DS's (shadcn) UI work rules
+- `shadcn/rules/workflow-map.md` — the order of steps and decision points of every flow (state the flow name and step code before starting work)
 
-```
-👋 สวัสดี — กรุณาเลือก role ของคุณ:
-
-  1. Design System Owner
-  2. Product Designer
-
-พิมพ์ 1 หรือ 2
-```
-
-หลังจากได้รับคำตอบ ให้สรุปสิทธิ์และวิธีใช้งานให้ user ทราบทันที เช่น:
-
-**ถ้าเลือก 1 — Design System Owner:**
-> "สวัสดี Design System Owner — คุณใช้ skill ได้ทั้งหมดและแก้ไขไฟล์ได้ พิมพ์ชื่อ skill หรือถามได้เลย"
-> แล้วแสดง skill list ทั้งหมด
-
-**ถ้าเลือก 2 — Product Designer:**
-> ก่อนอื่น ให้ตรวจสอบว่ามีโฟลเดอร์ `cariva-ds` ในเครื่องแล้วหรือยัง:
-> - ถ้า **ยังไม่มี** → รัน `git clone https://github.com/PraewNAT/cariva-ds` (ทำครั้งเดียว)
-> - ถ้า **มีแล้ว** → รัน `git pull` ในโฟลเดอร์ `cariva-ds` (ทำทุกวันก่อนเริ่มงาน)
-> จากนั้น: "สวัสดี Product Designer — คุณใช้ skill ได้ทั้งหมด แต่ไม่สามารถแก้ไขไฟล์ใดๆ ได้"
-> แล้วแสดง skill list ทั้งหมดพร้อมตัวอย่างวิธีพิมพ์
-
-แล้วปรับ behavior ตาม role:
-
-| role | ทำได้ | ห้าม |
-|---|---|---|
-| **Design System Owner** | ใช้ skill ทั้งหมด, แก้ไขไฟล์ในเครื่องได้, แก้ Figma ได้ | — |
-| **Product Designer** | ใช้ skill ทั้งหมด, อ่านไฟล์ในเครื่องได้, **แก้ Figma ได้ทุกอย่าง** | แก้ไข/สร้าง/ลบไฟล์ใดๆ **ในเครื่อง** (repo, skills, rules, tokens.json ฯลฯ) |
-
-**กฎสำคัญ:**
-- ขอบเขต "ห้ามแก้" ของ Product Designer ครอบคลุมเฉพาะ**ไฟล์ในเครื่อง** เท่านั้น — **ไม่ครอบคลุมไฟล์ Figma** Product Designer สั่งให้แก้ Figma ได้ตามปกติ (เช่น component, screen, token binding ใน Figma)
-- Product Designer ห้ามขอแก้ไขไฟล์ในเครื่องหรือเปลี่ยน permission เอง
-- ถ้า Product Designer สั่งให้แก้ไฟล์ในเครื่อง → ปฏิเสธและแจ้งว่า "การแก้ไขไฟล์ในเครื่องทำได้โดย Design System Owner เท่านั้น"
-
-อ่านไฟล์เหล่านี้ก่อนทุก session:
-- `rules/DESIGN.md` — visual principles, token, typography
-- `tokens.json` — ค่า hex จริงของทุก semantic token (source of truth มาจาก Figma)
+**Structure of this repo:** `shadcn/` is the current DS (component, tokens, Storybook) · `legacy/mui/` is the old MUI-style DS, kept for reference only; do not write new code into it · the root holds shared tools and docs (skills, sync, scripts, peer bridge)
 
 ---
 
-## Skills ที่ใช้ได้ (ทุก role)
+## Available skills
 
-อ่าน `skills/{skill}/SKILL.md` ก่อนทำงานทุกครั้ง
+Read `skills/{skill}/SKILL.md` before every task.
 
 **🎨 Design System**
 
-| ชื่อ skill | ใช้ทำอะไร | วิธีใช้ |
+| Skill name | What it does | How to use |
 |---|---|---|
-| audit | ตรวจ token binding และ naming ของ component หรือ screen — report ก่อน แล้วถามว่าจะแก้ต่อไหม | `audit [ชื่อ] node-id=[id]` |
-| changelog | บันทึกการเปลี่ยนแปลง component หรือ token | `changelog` หรือ `อัปเดต changelog [ชื่อ]` |
-| rename-frame | Batch rename screen/page frame ให้ตรง naming convention (`{Flow}/{Screen Name}`) — ยืนยันทั้ง batch ก่อนแก้ | `rename frame [page/section name]` |
+| audit | Check token binding and naming of a component or screen — report first, then ask whether to continue with fixes | `audit [name] node-id=[id]` |
+| changelog | Record changes to a component or token | `changelog` or `update changelog [name]` (Thai: "อัปเดต changelog [ชื่อ]") |
+| rename-frame | Batch rename screen/page frames to match the naming convention (`{Flow}/{Screen Name}`) — confirm the whole batch before changing | `rename frame [page/section name]` |
 
 **📋 UI Flow & Review**
 
-| ชื่อ skill | ใช้ทำอะไร | วิธีใช้ |
+| Skill name | What it does | How to use |
 |---|---|---|
-| design-review | QA + UI Analysis screen ก่อน handoff dev | `QA screen [ชื่อ] node-id=[id]` |
-| map-fix | map Figma component เข้ากับ DS และแก้ให้ตรง | `map [ชื่อ] node-id=[id]` หรือ `แก้ [ชื่อ] node-id=[id]` |
-| ux-writing | เช็ค copy, แนะนำ tone, rewrite | `เช็ค copy [node-id]` หรือ `แนะนำ tone` |
-| localization-export | ดึงข้อความจาก Figma จัดหมวดหมู่ export/update เป็น Excel สำหรับทีม localization | `export ข้อความ [ชื่อ] node-id=[id]` หรือ `อัปเดต localization [ชื่อ] node-id=[id]` |
+| design-review | QA + UI Analysis of a screen before dev handoff | `QA screen [name] node-id=[id]` |
+| map-fix | Map a Figma component to the DS and fix it to match | `map [name] node-id=[id]` or `fix [name] node-id=[id]` (Thai: "แก้ [ชื่อ] node-id=[id]") |
+| ux-writing | Check copy, suggest tone, rewrite | `check copy [node-id]` (Thai: "เช็ค copy [node-id]") or `suggest tone` (Thai: "แนะนำ tone") |
+| localization-export | Extract text from Figma, categorize it, and export/update it as Excel for the localization team | `export text [name] node-id=[id]` (Thai: "export ข้อความ [ชื่อ] node-id=[id]") or `update localization [name] node-id=[id]` (Thai: "อัปเดต localization [ชื่อ] node-id=[id]") |
 
 **📝 Documentation**
 
-| ชื่อ skill | ใช้ทำอะไร | วิธีใช้ |
+| Skill name | What it does | How to use |
 |---|---|---|
-| document | สร้าง doc สำหรับ component | `สร้าง doc component [ชื่อ] node-id=[id]` |
-| document-update | อัปเดต doc เมื่อ component เปลี่ยน | `อัปเดต doc component [ชื่อ] node-id=[id]` |
-| doc-coverage | เช็ค coverage ของ DS | `เช็ค doc coverage` |
+| document | Create a doc for a component | `create component doc [name] node-id=[id]` (Thai: "สร้าง doc component [ชื่อ] node-id=[id]") |
+| document-update | Update the doc when a component changes | `update component doc [name] node-id=[id]` (Thai: "อัปเดต doc component [ชื่อ] node-id=[id]") |
+| doc-coverage | Check DS coverage | `check doc coverage` (Thai: "เช็ค doc coverage") |
 
 **💻 Code**
 
-| ชื่อ skill | ใช้ทำอะไร | วิธีใช้ |
+| Skill name | What it does | How to use |
 |---|---|---|
-| crv-component-code | เขียนโค้ด core component | `implement component [ชื่อ]` |
-| verify-ds-usage | ตรวจโค้ดว่าใช้ DS จริงหรือ hardcode | `เช็คว่าใช้ component จริงไหม [path]` |
-| pr-checklist | รัน checklist ก่อน merge | `เช็ค PR นี้ก่อน merge` |
+| shadcn | Add/edit DS components with shadcn | `add component [name]` (Thai: "เพิ่ม component [ชื่อ]") |
+| crv-component-code | (legacy MUI) Write a Crv component — use only when asked to edit `legacy/mui/` | `implement component [name]` |
+| unslop | Polish the UI's look (applied automatically to UI creation/adjustment work under our DS rules) | Just give UI task commands; no need to invoke it yourself |
+| mermaid-diagrams | Write and check Mermaid as text in the repo | `write a flowchart in Mermaid` (Thai: "เขียน flowchart เป็น Mermaid") |
+| verify-ds-usage | Check whether code really uses the DS or hardcodes | `check whether components are really used [path]` (Thai: "เช็คว่าใช้ component จริงไหม [path]") |
+| pr-checklist | Run the checklist before merge | `check this PR before merge` (Thai: "เช็ค PR นี้ก่อน merge") |
 
 **🚀 Project Setup**
 
-| ชื่อ skill | ใช้ทำอะไร | วิธีใช้ |
+| Skill name | What it does | How to use |
 |---|---|---|
-| create-project | ตั้งโปรเจกต์ vibe-code ใหม่ — repo ใหม่ถ้ายังไม่มี หรือเพิ่มเป็นกลุ่มโปรเจกต์ใหม่ใน repo เดิมถ้ามี sidebar shell อยู่แล้ว (1 repo เก็บได้หลายโปรเจกต์) + สอนติดตั้ง `gh` ถ้ายังไม่มี | `สร้างโปรเจกต์ใหม่ [ชื่อ]` — **หรือเมื่อ user ส่ง Figma link ที่เป็น page/screen frame มาให้ implement โดยไม่ระบุโปรเจกต์ ก็เข้าข่ายด้วย อ่าน SKILL.md ก่อนเสมอ** |
-| add-version-tab | ทำงานอัตโนมัติตอนใกล้ commit ในโปรเจกต์ที่มี sidebar shell — ถามว่าจะขึ้นแท็บเวอร์ชันใหม่หรือแก้ทับของเดิม พร้อมเขียนสรุปการเปลี่ยนแปลง (AI-written) ให้ไอคอนท้ายแท็บใน sidebar | ไม่ต้องเรียกเอง ทำงานร่วมกับจังหวะ commit |
+| **create-project** | Create a React/shadcn prototype in `products/<product-id>/prototypes/<prototype-id>/` with its own localhost, Storybook Canvas / Preview / full-page views, and an index | Use when creating a new prototype; read the skill and inspect any existing app before scaffolding; never creates a repo, pushes or deploys automatically |
+| add-version-tab | Runs automatically near commit time in projects that have a sidebar shell — asks whether to add a new version tab or overwrite the existing one, and writes a change summary (AI-written) for the icon at the end of the tab in the sidebar | No need to invoke it yourself; works together with the commit step |
 
 ---
 
-## กฎที่ต้องรู้
+## Rules to know
 
-- **Stack ของ DS ไม่ใช่เรื่องให้เลือก** — Cariva DS คือ **React + MUI 6 + emotion `sx`** ไม่ใช่ Tailwind ไม่ใช่ plain CSS
-  - เขียนโค้ด UI ที่ไหนก็ตาม ให้ดึง DS ด้วย dev export เสมอ: `bash export/cariva-ds-dev-export/apply.sh /path/to/target`
-  - **ห้ามถาม user ว่าจะใช้ stack อะไร** — ไม่ใช่ตัวเลือก
-  - **ห้ามเขียน `Crv*` component ขึ้นมาเอง** ถ้า DS ไม่มีตัวที่ดีไซน์ต้องการ → สร้างได้แต่ต้องใช้ชื่ออื่น ใส่ comment กำกับ แล้วรายงาน user ว่าเป็นช่องว่างของ DS
-- ห้าม hardcode hex หรือ px — ใช้ token จาก DS กลางเท่านั้น (มี hook ใน `.claude/hooks/` บล็อกให้อัตโนมัติ)
-- ถ้าต้องการสีใหม่ → แจ้ง Design System Owner ก่อน อย่าสร้างเอง
-- Figma wins — ถ้า doc ขัดกับ Figma ให้เชื่อ Figma
-- **อัปเดต `tokens.json` ต้องอ่านค่าจาก Figma variable จริงเท่านั้น** — ห้ามเดา ห้ามคำนวณ/ประมาณค่าเอง และห้ามเชื่อ doc frame หรือ node ที่ไม่ใช่ variable collection ตรงๆ (เช่น หน้า documentation ของ component ที่อาจมี variable จากไฟล์อื่นปนอยู่, หรือ doc frame แบบ "AI Readable" ที่เคย verify แล้วพบว่าไม่ตรงกับ live variable) — วิธีที่เชื่อถือได้คือดึงจาก variable collection ตรงๆ (เช่นผ่าน Figma Console MCP's `figma_get_variables` ที่เชื่อมกับ Desktop Bridge plugin ใน Figma Desktop) ถ้าเข้าถึง live variable ไม่ได้ (Bridge ไม่เชื่อมต่อ, ไม่มีสิทธิ์, หา collection ที่ถูกต้องไม่เจอ ฯลฯ) **ให้แจ้งปัญหาให้ user ทราบตรงๆ แล้วหยุดรอ** ห้าม fallback ไปเดาหรือใช้ค่าจาก source ที่ไม่ใช่ live variable โดยไม่บอก
-
----
-
-## Git & PR Workflow (สำหรับ Product Designer)
-
-Designer ไม่ต้องตัดสินใจเรื่อง branch เอง — Claude จัดการให้ทั้งหมด ใช้ศัพท์ git ตามปกติได้ (commit, push, PR, merge)
-
-**ระหว่างทำงาน:**
-- แต่ละคนมี branch ของตัวเองอัตโนมัติ ไม่ต้องถามว่าจะตั้งชื่อ branch อะไร หรือจะเปิด/ลบ branch เมื่อไหร่
-- Flow นี้ใช้กับ**การแก้ไฟล์ทุกชนิดในโปรเจกต์** ไม่ใช่แค่ component — รวมถึง skill (`skills/**`), `CLAUDE.md`, `rules/**`, `tokens.json`, `index.html`, หรือไฟล์อื่นใดก็ตามที่อยู่ในเครื่อง
-- พูดอีกแบบ: **ทุกครั้งที่มีการแก้ไฟล์ ไม่ว่าจะเล็กแค่ไหนหรือเป็นไฟล์ประเภทไหน ให้ทำงานบน branch เสมอ** ห้ามแก้ไฟล์ตรงบน `main` โดยตรง
-
-**ทุกครั้งที่ทำ task เสร็จ 1 ชิ้น (ไม่ว่างานเล็กหรือใหญ่):**
-- หยุดถามก่อนเสมอ: **"งานนี้เสร็จแล้วครับ อยาก commit + push เลยไหม?"**
-- ห้าม commit/push เองโดยไม่ถาม แม้จะดูเป็นงานเล็กก็ตาม
-- ถ้า push แล้วยังไม่มี PR ค้างอยู่ ให้ถามต่อว่าจะเปิด PR เลยไหม หรือรอสะสมงานอื่นก่อน
-- ถ้ามี PR ค้างอยู่แล้ว push เข้า branch เดิมจะอัพเดท PR เดิมอัตโนมัติ (ไม่ต้องเปิดใหม่)
-
-**ตอนเปิด/อัพเดท PR:**
-- แจ้ง PR link ให้เสมอ
-- แปะ preview link (เช่น Vercel) พร้อมสรุปสั้นๆ ว่าทำอะไรไป — นี่คือสิ่งเดียวที่ designer ต้องดูก่อน merge ไม่จำเป็นต้องอ่าน diff/โค้ด
-
-**ทุกครั้งที่กลับมาคุย (ไม่ว่าจะเรื่องอะไร):**
-- เช็คสถานะ PR ที่ค้างอยู่ก่อนแบบไม่ต้องรอให้ designer ถาม แล้วแจ้งถ้ามี merge แล้ว
-- ถ้า merge แล้ว → sync branch ของ designer กับ main ให้อัตโนมัติ ไม่ต้องถามเรื่องลบ/สร้าง branch ใหม่
-
-**ถ้าเจอ merge conflict:**
-- แจ้งตรงๆ ว่ามีคนแก้ไฟล์เดียวกันพร้อมกัน แล้วแก้ให้ ไม่ต้องให้ designer ลงมือแก้เอง
-
-**เช็ค update จาก main ทุกครั้งที่เริ่ม session ใหม่:**
-- ทุกครั้งที่เปิด session ใหม่ (ไม่ว่าจะคุยเรื่องอะไรก็ตาม) ให้เช็คว่า `main` มี commit ใหม่ที่ branch ปัจจุบันยังไม่มีหรือไม่ ก่อนเริ่มตอบหรือทำงานอื่น — ไม่ใช่แค่บางจังหวะ (เช่นก่อนเริ่ม task ใหม่ หรือเมื่อ user ถามว่า "มีอัพเดทไหม")
-- ถ้ามี → merge `main` เข้า branch ปัจจุบันให้อัตโนมัติ ไม่ต้องถามก่อน (เป็นการอัพเดทให้ทันข้อมูลล่าสุด ไม่ใช่การส่งงาน)
-- ถ้าเจอ conflict ระหว่าง merge → แก้ให้เอง แล้วสรุปให้ designer ฟังเป็นภาษาง่ายๆ ว่าแก้อะไรไป ไม่ต้องให้ designer ลงมือแก้เอง
-- ถ้า conflict ซับซ้อนจนไม่มั่นใจว่าแก้ถูกต้อง (เช่น เนื้อหาขัดแย้งกันเชิงความหมาย ไม่ใช่แค่โครงสร้างไฟล์) ให้หยุดและถาม designer ก่อนตัดสินใจเอง
-- **ไม่ต้องอธิบายกลไก sync/merge/branch ให้ designer ฟัง** — แจ้งแค่ผลลัพธ์สั้นๆ เช่น "อัพเดทงานให้เป็นเวอร์ชันล่าสุดแล้วครับ" หรือถ้าไม่มีอะไรใหม่ก็ไม่ต้องแจ้งเลย ยกเว้นเจอ conflict ที่ต้องถามจริงๆ ค่อยอธิบายด้วยภาษาง่ายๆ ไม่ใช้ศัพท์ merge/branch
-
-**หลักการรวม:** designer มีหน้าที่แค่ 2 อย่าง — (1) ตอบใช่/ไม่ใช่เวลาถูกถามว่าจะ commit/push/เปิด PR ไหม (2) ดู preview แล้วกด merge — ที่เหลือ Claude จัดการให้ทั้งหมด
+- **The DS stack is not a choice** — Cariva DS is **React + shadcn/ui (Base UI) + Tailwind v4**, located at `shadcn/`; not MUI, not plain CSS (the user ordered the change from MUI on 26 November 2026)
+  - Components live at `shadcn/src/lib/app/components/ui/` and token/theme at `shadcn/src/lib/core/design-system/` — use what exists before writing new, following the rules in `shadcn/rules/`
+  - **Do not write new code into `legacy/mui/`** and do not use MUI `Crv*` components in new work; if you need to look at the old spec, read it for reference only
+  - **There is no shadcn dev export yet** (the old export belonged to MUI and has moved to `legacy/mui/export/`); when writing code outside this repo, copy the component/tokens/theme from `shadcn/` and tell the user that there is no export script yet
+  - **Do not ask the user which stack to use** — it is not a choice
+  - **Do not create components that duplicate what the DS already has.** If the DS does not have what the design needs → you may create it, but you must add a comment marking it and report to the user that it is a DS gap
+- **The DS's Figma source:** the file "Cariva Core Design System" (`XgxprkSY5mGbzIIwlmscCt`); the file "[Shadcn] Cariva Core Design System" is no longer used
+- Do not hardcode hex or px — use tokens from the central DS only (a hook in `.claude/hooks/` blocks it automatically)
+- If you need a new color → tell the DS team first; do not create it yourself
+- Figma wins — if a doc conflicts with Figma, trust Figma
+- **The order of work and decision points** are at `shadcn/rules/workflow-map.md`; state the flow name and the current step code before working; do not skip a step without evidence
+- **Every new component must be linked to Code Connect** — create/update `shadcn/code-connect/*.figma.tsx` for every set, run a dry-run, then publish before saying it is done; details in `shadcn/rules/workflow-map.md`
+- **If the component you need does not exist** → search our Core/Product → official shadcn/ui → ReUI (reui.io/components) as a reference example, then adapt it into our recipe; **ask before running `npx shadcn add`** because it adds a dependency
+- **When you need to draw a flow for the designer** → use the skill `artifact-diagramming` to draw a swimlane (you/Claude lanes); see details in `shadcn/rules/agent-rules.md`; use Mermaid when it must be kept as text in the repo
+- **Updating `shadcn/tokens.json` must read values from the real Figma variables only** (then run `npm run tokens:generate` in the `shadcn/` folder) — do not guess, do not compute/estimate values yourself, and do not trust a doc frame or a node that is not directly a variable collection (for example a component's documentation page that may have variables from another file mixed in, or an "AI Readable" style doc frame that was verified before and found not to match the live variables) — the reliable method is to pull directly from the variable collection (for example via Figma Console MCP's `figma_get_variables` connected to the Desktop Bridge plugin in Figma Desktop); if the live variables cannot be accessed (Bridge not connected, no permission, the correct collection cannot be found, etc.) **tell the user about the problem directly and stop and wait**; do not fall back to guessing or using values from a source that is not the live variables without telling them
 
 ---
 
-## เมื่อได้รับแจ้งว่า DS อัปเดต
+## Git & PR Workflow
 
-เปิด Claude Code session ใหม่ — AI จะอ่าน `tokens.json` ล่าสุดอัตโนมัติ
+The designer does not need to decide anything about branches — Claude handles it all; you may use normal git terms (commit, push, PR, merge)
+
+**While working:**
+- Everyone automatically has their own branch; do not ask what to name the branch or when to open/delete a branch
+- This flow applies to **editing every kind of file in the project**, not just components — including skills (`skills/**`), `CLAUDE.md`, `rules/**`, `tokens.json`, `index.html`, or any other file on the machine
+- Put another way: **every time a file is edited, however small or whatever type of file, always work on a branch**; never edit files directly on `main`
+
+**Every time one task is finished (small or large):**
+- Always stop and ask first: **"This task is done. Want to commit + push now?"** (Thai: "งานนี้เสร็จแล้วครับ อยาก commit + push เลยไหม?")
+- Do not commit/push on your own without asking, even if it looks like a small task
+- If it has been pushed and there is no open PR yet, ask next whether to open a PR now or wait to accumulate other work first
+- If a PR is already open, pushing to the same branch automatically updates the existing PR (no need to open a new one)
+
+**When opening/updating a PR:**
+- Always give the PR link
+- Attach a preview link (e.g. Vercel) with a short summary of what was done — this is the only thing the designer needs to look at before merging; there is no need to read the diff/code
+
+**Every time you come back to chat (no matter the topic):**
+- Check the status of any open PR first, without waiting for the designer to ask, and report if it has been merged
+- If it has been merged → sync the designer's branch with main automatically; do not ask about deleting/creating a new branch
+
+**If you hit a merge conflict:**
+- Say plainly that someone edited the same file at the same time, then fix it; the designer does not need to fix it themselves
+
+**Check for updates from main every time a new session starts:**
+- Every time a new session is opened (no matter what the topic), check whether `main` has new commits that the current branch does not have yet, before starting to answer or doing other work — not just at certain moments (such as before starting a new task or when the user asks "is there an update?" (Thai: "มีอัพเดทไหม"))
+- If there are → merge `main` into the current branch automatically without asking first (it is bringing things up to date with the latest information, not submitting work)
+- If you hit a conflict during the merge → fix it yourself, then summarize for the designer in plain language what was fixed; the designer does not need to fix it themselves
+- If the conflict is so complex that you are not sure the fix is right (for example content that conflicts in meaning, not just in file structure), stop and ask the designer before deciding yourself
+- **Do not explain the sync/merge/branch mechanics to the designer** — report only a short result such as "Your work has been updated to the latest version" (Thai: "อัพเดทงานให้เป็นเวอร์ชันล่าสุดแล้วครับ"), or if there is nothing new, do not report at all; only when you hit a conflict that really has to be asked about, explain it in plain language without using the terms merge/branch
+
+**Overall principle:** the designer has only 2 jobs — (1) answer yes/no when asked whether to commit/push/open a PR (2) look at the preview and press merge — Claude handles everything else
+
+---
+
+## When notified that the DS has been updated
+
+Open a new Claude Code session — the AI will read the latest `shadcn/tokens.json` automatically
+
+
+## Cariva Design Workspace — user decision 2026-11-27
+
+Use [workspace structure rules](rules/workspace-structure.md) for new work. Canonical DS path is `design-system/`; `shadcn/` is a compatibility symlink. Product prototypes belong in `products/<product-id>/prototypes/<prototype-id>/` in this same workspace; do not require a separate empty folder or forbid all Product work inside this repository. Never scaffold into DS or overwrite an existing app. Canvas tooling is `workspace/canvas/`, with `sync/canvas/` retained as a compatibility symlink. Maintain `products/README.md` with actual paths, run commands, local ports, Storybook and Figma references/status. Every new prototype uses React/shadcn with its own dev host plus shared-renderer Storybook Canvas / Preview / full-page access. Existing DS examples are not Product screens. Older absolute bans/legacy setup instructions conflicting with this decision are superseded; no automatic repo creation, commit, push, deployment or Figma writes.
+
+
+## Daily repository update — 2026-11-27
+
+Before starting work for the first time each day, check the branch/upstream and run `git fetch` to look for updates. If there are incoming commits and the working tree is clean, run `git pull --ff-only` from the existing upstream. Do not stash/reset/clean or merge/rebase on your own when there is unfinished work or the branch has diverged; report first instead. If there is no upstream or the remote is unreachable, state the limitation and do not claim the repo has been updated. Details and conditions are in the [workspace rules](rules/workspace-structure.md). This rule is not background automation and does not permit pushing.
+
+
+## Always read create-project before starting any project — 27 November 2026
+
+When the user asks to create a new project or prototype, whether by typing the skill name or by asking to implement a Figma screen as a new project, you must open and read this workspace's canonical `.agents/skills/create-project/SKILL.md` before scaffolding or writing any file, every time. Use the current version in the file; do not rely on memory from earlier work. Having read it, you may proceed under the existing authorization; this is not a step to request approval again, and editing a single component is not automatically treated as a new project.

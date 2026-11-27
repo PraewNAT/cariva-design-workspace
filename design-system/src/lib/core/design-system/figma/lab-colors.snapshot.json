@@ -1,0 +1,1003 @@
+{
+  "fileKey": "e9ypItGZbm2poUZLUQxu66",
+  "collection": "Semantic",
+  "mode": "Light Theme",
+  "checkedOn": "2026-11-24",
+  "colors": [
+    {
+      "name": "color/brand/primary/on-surface/default",
+      "id": "VariableID:3714:2",
+      "value": "#1789fa"
+    },
+    {
+      "name": "color/brand/primary/on-surface/hover",
+      "id": "VariableID:3714:3",
+      "value": "#0f70e6"
+    },
+    {
+      "name": "color/brand/primary/on-surface/pressed",
+      "id": "VariableID:3714:4",
+      "value": "#135aba"
+    },
+    {
+      "name": "color/brand/primary/on-surface/subtle",
+      "id": "VariableID:3714:5",
+      "value": "#eef9ff"
+    },
+    {
+      "name": "color/brand/primary/on-surface/muted",
+      "id": "VariableID:3714:6",
+      "value": "#d8f0ff"
+    },
+    {
+      "name": "color/brand/primary/content/default",
+      "id": "VariableID:3714:8",
+      "value": "#1789fa"
+    },
+    {
+      "name": "color/brand/primary/border/default",
+      "id": "VariableID:3714:10",
+      "value": "#8bd8ff"
+    },
+    {
+      "name": "color/brand/primary/border/strong",
+      "id": "VariableID:3714:11",
+      "value": "#2da4ff"
+    },
+    {
+      "name": "color/brand/secondary/on-surface/default",
+      "id": "VariableID:3714:13",
+      "value": "#0f766e"
+    },
+    {
+      "name": "color/brand/secondary/on-surface/hover",
+      "id": "VariableID:3714:14",
+      "value": "#115e59"
+    },
+    {
+      "name": "color/brand/secondary/on-surface/pressed",
+      "id": "VariableID:3714:15",
+      "value": "#134e4a"
+    },
+    {
+      "name": "color/brand/secondary/on-surface/subtle",
+      "id": "VariableID:3714:16",
+      "value": "#f0fdfa"
+    },
+    {
+      "name": "color/brand/secondary/on-surface/muted",
+      "id": "VariableID:3714:17",
+      "value": "#ccfbf1"
+    },
+    {
+      "name": "color/brand/secondary/content/default",
+      "id": "VariableID:3714:19",
+      "value": "#0d9488"
+    },
+    {
+      "name": "color/brand/secondary/border/default",
+      "id": "VariableID:3714:21",
+      "value": "#5eead4"
+    },
+    {
+      "name": "color/brand/secondary/border/strong",
+      "id": "VariableID:3714:22",
+      "value": "#14b8a6"
+    },
+    {
+      "name": "color/content/primary",
+      "id": "VariableID:3714:24",
+      "value": "#0f172a"
+    },
+    {
+      "name": "color/content/secondary",
+      "id": "VariableID:3714:25",
+      "value": "#334155"
+    },
+    {
+      "name": "color/content/placeholder",
+      "id": "VariableID:3714:27",
+      "value": "#64748b"
+    },
+    {
+      "name": "color/content/disabled",
+      "id": "VariableID:3714:28",
+      "value": "#94a3b8"
+    },
+    {
+      "name": "color/content/inverse",
+      "id": "VariableID:3714:29",
+      "value": "#ffffff"
+    },
+    {
+      "name": "color/content/link/default",
+      "id": "VariableID:3714:30",
+      "value": "#2563eb"
+    },
+    {
+      "name": "color/content/link/hover",
+      "id": "VariableID:3714:31",
+      "value": "#1d4ed8"
+    },
+    {
+      "name": "color/content/link/pressed",
+      "id": "VariableID:3714:32",
+      "value": "#1e40af"
+    },
+    {
+      "name": "color/content/link/disabled",
+      "id": "VariableID:3714:33",
+      "value": "#475569"
+    },
+    {
+      "name": "color/bg/white",
+      "id": "VariableID:3714:34",
+      "value": "#ffffff"
+    },
+    {
+      "name": "color/bg/subtle",
+      "id": "VariableID:3714:35",
+      "value": "#f1f5f9"
+    },
+    {
+      "name": "color/bg/inverse",
+      "id": "VariableID:3714:36",
+      "value": "#0f172a"
+    },
+    {
+      "name": "color/on-surface/default",
+      "id": "VariableID:3714:37",
+      "value": "#ffffff"
+    },
+    {
+      "name": "color/on-surface/subtle",
+      "id": "VariableID:3714:38",
+      "value": "#f8fafc"
+    },
+    {
+      "name": "color/on-surface/elevated",
+      "id": "VariableID:3714:39",
+      "value": "#ffffff"
+    },
+    {
+      "name": "color/on-surface/sunken",
+      "id": "VariableID:3714:40",
+      "value": "#f1f5f9"
+    },
+    {
+      "name": "color/on-surface/overlay",
+      "id": "VariableID:3714:41",
+      "value": "#ffffff"
+    },
+    {
+      "name": "color/on-surface/action/hover",
+      "id": "VariableID:3714:42",
+      "value": "#f1f5f9"
+    },
+    {
+      "name": "color/on-surface/action/pressed",
+      "id": "VariableID:3714:43",
+      "value": "#e2e8f0"
+    },
+    {
+      "name": "color/on-surface/action/selected",
+      "id": "VariableID:3714:44",
+      "value": "#eef9ff"
+    },
+    {
+      "name": "color/on-surface/action/disabled",
+      "id": "VariableID:3714:46",
+      "value": "#f1f5f9"
+    },
+    {
+      "name": "color/border/default",
+      "id": "VariableID:3714:47",
+      "value": "#e2e8f0"
+    },
+    {
+      "name": "color/border/strong",
+      "id": "VariableID:3714:48",
+      "value": "#cbd5e1"
+    },
+    {
+      "name": "color/border/disabled",
+      "id": "VariableID:3714:49",
+      "value": "#f1f5f9"
+    },
+    {
+      "name": "color/status/success/on-surface/default",
+      "id": "VariableID:3714:62",
+      "value": "#047857"
+    },
+    {
+      "name": "color/status/success/on-surface/hover",
+      "id": "VariableID:3714:63",
+      "value": "#065f46"
+    },
+    {
+      "name": "color/status/success/on-surface/pressed",
+      "id": "VariableID:3714:64",
+      "value": "#064e3b"
+    },
+    {
+      "name": "color/status/success/on-surface/muted",
+      "id": "VariableID:3714:65",
+      "value": "#d1fae5"
+    },
+    {
+      "name": "color/status/success/content/default",
+      "id": "VariableID:3714:66",
+      "value": "#047857"
+    },
+    {
+      "name": "color/border/system",
+      "id": "VariableID:3714:90",
+      "value": "#2563eb"
+    },
+    {
+      "name": "color/border/error",
+      "id": "VariableID:3714:91",
+      "value": "#dc2626"
+    },
+    {
+      "name": "color/overlay/backdrop",
+      "id": "VariableID:3714:93",
+      "value": "#00000066"
+    },
+    {
+      "name": "color/overlay/backdrop/strong",
+      "id": "VariableID:3714:94",
+      "value": "#00000099"
+    },
+    {
+      "name": "color/brand/primary/content/strong",
+      "id": "VariableID:3718:2",
+      "value": "#0f70e6"
+    },
+    {
+      "name": "color/brand/secondary/content/strong",
+      "id": "VariableID:3718:3",
+      "value": "#0f766e"
+    },
+    {
+      "name": "color/status/success/content/strong",
+      "id": "VariableID:3729:1454",
+      "value": "#065f46"
+    },
+    {
+      "name": "color/status/success/on-surface/subtle",
+      "id": "VariableID:3730:5187",
+      "value": "#ecfdf5"
+    },
+    {
+      "name": "color/status/warning/on-surface/default",
+      "id": "VariableID:3730:5188",
+      "value": "#d97706"
+    },
+    {
+      "name": "color/status/warning/on-surface/hover",
+      "id": "VariableID:3730:5189",
+      "value": "#b45309"
+    },
+    {
+      "name": "color/status/warning/on-surface/pressed",
+      "id": "VariableID:3730:5190",
+      "value": "#92400e"
+    },
+    {
+      "name": "color/status/warning/on-surface/subtle",
+      "id": "VariableID:3730:5191",
+      "value": "#fffbeb"
+    },
+    {
+      "name": "color/status/warning/on-surface/muted",
+      "id": "VariableID:3730:5192",
+      "value": "#fef3c7"
+    },
+    {
+      "name": "color/status/warning/content/default",
+      "id": "VariableID:3730:5193",
+      "value": "#d97706"
+    },
+    {
+      "name": "color/status/warning/content/strong",
+      "id": "VariableID:3730:5196",
+      "value": "#b45309"
+    },
+    {
+      "name": "color/status/error/on-surface/default",
+      "id": "VariableID:3730:5197",
+      "value": "#dc2626"
+    },
+    {
+      "name": "color/status/error/on-surface/hover",
+      "id": "VariableID:3730:5198",
+      "value": "#b91c1c"
+    },
+    {
+      "name": "color/status/error/on-surface/pressed",
+      "id": "VariableID:3730:5199",
+      "value": "#991b1b"
+    },
+    {
+      "name": "color/status/error/on-surface/subtle",
+      "id": "VariableID:3730:5200",
+      "value": "#fef2f2"
+    },
+    {
+      "name": "color/status/error/on-surface/muted",
+      "id": "VariableID:3730:5201",
+      "value": "#fee2e2"
+    },
+    {
+      "name": "color/status/error/content/default",
+      "id": "VariableID:3730:5202",
+      "value": "#dc2626"
+    },
+    {
+      "name": "color/status/error/content/strong",
+      "id": "VariableID:3730:5203",
+      "value": "#b91c1c"
+    },
+    {
+      "name": "color/status/info/on-surface/default",
+      "id": "VariableID:3730:5206",
+      "value": "#0284c7"
+    },
+    {
+      "name": "color/status/info/on-surface/hover",
+      "id": "VariableID:3730:5207",
+      "value": "#0369a1"
+    },
+    {
+      "name": "color/status/info/on-surface/pressed",
+      "id": "VariableID:3730:5208",
+      "value": "#075985"
+    },
+    {
+      "name": "color/status/info/on-surface/subtle",
+      "id": "VariableID:3730:5209",
+      "value": "#f0f9ff"
+    },
+    {
+      "name": "color/status/info/on-surface/muted",
+      "id": "VariableID:3730:5210",
+      "value": "#e0f2fe"
+    },
+    {
+      "name": "color/status/info/content/default",
+      "id": "VariableID:3730:5211",
+      "value": "#0284c7"
+    },
+    {
+      "name": "color/status/info/content/strong",
+      "id": "VariableID:3730:5212",
+      "value": "#0369a1"
+    },
+    {
+      "name": "color/accent/red/A02",
+      "id": "VariableID:4016:70",
+      "value": "#fee2e2"
+    },
+    {
+      "name": "color/accent/red/A03",
+      "id": "VariableID:4016:71",
+      "value": "#fca5a5"
+    },
+    {
+      "name": "color/accent/red/A04",
+      "id": "VariableID:4016:72",
+      "value": "#ef4444"
+    },
+    {
+      "name": "color/accent/red/A05",
+      "id": "VariableID:4016:73",
+      "value": "#b91c1c"
+    },
+    {
+      "name": "color/accent/orange/A02",
+      "id": "VariableID:4016:74",
+      "value": "#ffedd5"
+    },
+    {
+      "name": "color/accent/orange/A03",
+      "id": "VariableID:4016:75",
+      "value": "#fdba74"
+    },
+    {
+      "name": "color/accent/orange/A04",
+      "id": "VariableID:4016:76",
+      "value": "#f97316"
+    },
+    {
+      "name": "color/accent/orange/A05",
+      "id": "VariableID:4016:77",
+      "value": "#c2410c"
+    },
+    {
+      "name": "color/accent/amber/A02",
+      "id": "VariableID:4016:78",
+      "value": "#fef3c7"
+    },
+    {
+      "name": "color/accent/amber/A03",
+      "id": "VariableID:4016:79",
+      "value": "#fcd34d"
+    },
+    {
+      "name": "color/accent/amber/A04",
+      "id": "VariableID:4016:80",
+      "value": "#f59e0b"
+    },
+    {
+      "name": "color/accent/amber/A05",
+      "id": "VariableID:4016:81",
+      "value": "#b45309"
+    },
+    {
+      "name": "color/accent/yellow/A02",
+      "id": "VariableID:4016:82",
+      "value": "#fef9c3"
+    },
+    {
+      "name": "color/accent/yellow/A03",
+      "id": "VariableID:4016:83",
+      "value": "#fde047"
+    },
+    {
+      "name": "color/accent/yellow/A04",
+      "id": "VariableID:4016:84",
+      "value": "#eab308"
+    },
+    {
+      "name": "color/accent/yellow/A05",
+      "id": "VariableID:4016:85",
+      "value": "#a16207"
+    },
+    {
+      "name": "color/accent/lime/A02",
+      "id": "VariableID:4016:86",
+      "value": "#ecfccb"
+    },
+    {
+      "name": "color/accent/lime/A03",
+      "id": "VariableID:4016:87",
+      "value": "#bef264"
+    },
+    {
+      "name": "color/accent/lime/A04",
+      "id": "VariableID:4016:88",
+      "value": "#84cc16"
+    },
+    {
+      "name": "color/accent/lime/A05",
+      "id": "VariableID:4016:89",
+      "value": "#4d7c0f"
+    },
+    {
+      "name": "color/accent/green/A02",
+      "id": "VariableID:4016:90",
+      "value": "#dcfce7"
+    },
+    {
+      "name": "color/accent/green/A03",
+      "id": "VariableID:4016:91",
+      "value": "#86efac"
+    },
+    {
+      "name": "color/accent/green/A04",
+      "id": "VariableID:4016:92",
+      "value": "#22c55e"
+    },
+    {
+      "name": "color/accent/green/A05",
+      "id": "VariableID:4016:93",
+      "value": "#15803d"
+    },
+    {
+      "name": "color/accent/emerald/A02",
+      "id": "VariableID:4016:94",
+      "value": "#d1fae5"
+    },
+    {
+      "name": "color/accent/emerald/A03",
+      "id": "VariableID:4016:95",
+      "value": "#6ee7b7"
+    },
+    {
+      "name": "color/accent/emerald/A04",
+      "id": "VariableID:4016:96",
+      "value": "#10b981"
+    },
+    {
+      "name": "color/accent/emerald/A05",
+      "id": "VariableID:4016:97",
+      "value": "#047857"
+    },
+    {
+      "name": "color/accent/teal/A02",
+      "id": "VariableID:4016:98",
+      "value": "#ccfbf1"
+    },
+    {
+      "name": "color/accent/teal/A03",
+      "id": "VariableID:4016:99",
+      "value": "#5eead4"
+    },
+    {
+      "name": "color/accent/teal/A04",
+      "id": "VariableID:4016:100",
+      "value": "#14b8a6"
+    },
+    {
+      "name": "color/accent/teal/A05",
+      "id": "VariableID:4016:101",
+      "value": "#0f766e"
+    },
+    {
+      "name": "color/accent/cyan/A02",
+      "id": "VariableID:4016:102",
+      "value": "#cffafe"
+    },
+    {
+      "name": "color/accent/cyan/A03",
+      "id": "VariableID:4016:103",
+      "value": "#67e8f9"
+    },
+    {
+      "name": "color/accent/cyan/A04",
+      "id": "VariableID:4016:104",
+      "value": "#06b6d4"
+    },
+    {
+      "name": "color/accent/cyan/A05",
+      "id": "VariableID:4016:105",
+      "value": "#0e7490"
+    },
+    {
+      "name": "color/accent/sky/A02",
+      "id": "VariableID:4016:106",
+      "value": "#e0f2fe"
+    },
+    {
+      "name": "color/accent/sky/A03",
+      "id": "VariableID:4016:107",
+      "value": "#7dd3fc"
+    },
+    {
+      "name": "color/accent/sky/A04",
+      "id": "VariableID:4016:108",
+      "value": "#0ea5e9"
+    },
+    {
+      "name": "color/accent/sky/A05",
+      "id": "VariableID:4016:109",
+      "value": "#0369a1"
+    },
+    {
+      "name": "color/accent/blue/A02",
+      "id": "VariableID:4016:110",
+      "value": "#dbeafe"
+    },
+    {
+      "name": "color/accent/blue/A03",
+      "id": "VariableID:4016:111",
+      "value": "#93c5fd"
+    },
+    {
+      "name": "color/accent/blue/A04",
+      "id": "VariableID:4016:112",
+      "value": "#3b82f6"
+    },
+    {
+      "name": "color/accent/blue/A05",
+      "id": "VariableID:4016:113",
+      "value": "#1d4ed8"
+    },
+    {
+      "name": "color/accent/indigo/A02",
+      "id": "VariableID:4016:114",
+      "value": "#e0e7ff"
+    },
+    {
+      "name": "color/accent/indigo/A03",
+      "id": "VariableID:4016:115",
+      "value": "#a5b4fc"
+    },
+    {
+      "name": "color/accent/indigo/A04",
+      "id": "VariableID:4016:116",
+      "value": "#6366f1"
+    },
+    {
+      "name": "color/accent/indigo/A05",
+      "id": "VariableID:4016:117",
+      "value": "#4338ca"
+    },
+    {
+      "name": "color/accent/violet/A02",
+      "id": "VariableID:4016:118",
+      "value": "#ede9fe"
+    },
+    {
+      "name": "color/accent/violet/A03",
+      "id": "VariableID:4016:119",
+      "value": "#c4b5fd"
+    },
+    {
+      "name": "color/accent/violet/A04",
+      "id": "VariableID:4016:120",
+      "value": "#8b5cf6"
+    },
+    {
+      "name": "color/accent/violet/A05",
+      "id": "VariableID:4016:121",
+      "value": "#6d28d9"
+    },
+    {
+      "name": "color/accent/purple/A02",
+      "id": "VariableID:4016:122",
+      "value": "#f3e8ff"
+    },
+    {
+      "name": "color/accent/purple/A03",
+      "id": "VariableID:4016:123",
+      "value": "#d8b4fe"
+    },
+    {
+      "name": "color/accent/purple/A04",
+      "id": "VariableID:4016:124",
+      "value": "#a855f7"
+    },
+    {
+      "name": "color/accent/purple/A05",
+      "id": "VariableID:4016:125",
+      "value": "#7e22ce"
+    },
+    {
+      "name": "color/accent/pink/A02",
+      "id": "VariableID:4016:130",
+      "value": "#fce7f3"
+    },
+    {
+      "name": "color/accent/pink/A03",
+      "id": "VariableID:4016:131",
+      "value": "#f9a8d4"
+    },
+    {
+      "name": "color/accent/pink/A04",
+      "id": "VariableID:4016:132",
+      "value": "#ec4899"
+    },
+    {
+      "name": "color/accent/pink/A05",
+      "id": "VariableID:4016:133",
+      "value": "#be185d"
+    },
+    {
+      "name": "color/on-surface/invert",
+      "id": "VariableID:4167:4650",
+      "value": "#0f172a"
+    },
+    {
+      "name": "color/content/on-brand",
+      "id": "VariableID:4459:63436",
+      "value": "#ffffff"
+    },
+    {
+      "name": "color/accent/red/A06",
+      "id": "VariableID:4530:116572",
+      "value": "#7f1d1d"
+    },
+    {
+      "name": "color/accent/orange/A06",
+      "id": "VariableID:4530:116574",
+      "value": "#7c2d12"
+    },
+    {
+      "name": "color/accent/amber/A06",
+      "id": "VariableID:4530:116576",
+      "value": "#78350f"
+    },
+    {
+      "name": "color/accent/yellow/A06",
+      "id": "VariableID:4530:116578",
+      "value": "#713f12"
+    },
+    {
+      "name": "color/accent/lime/A06",
+      "id": "VariableID:4530:116580",
+      "value": "#365314"
+    },
+    {
+      "name": "color/accent/green/A06",
+      "id": "VariableID:4530:116582",
+      "value": "#14532d"
+    },
+    {
+      "name": "color/accent/emerald/A06",
+      "id": "VariableID:4530:116584",
+      "value": "#064e3b"
+    },
+    {
+      "name": "color/accent/teal/A06",
+      "id": "VariableID:4530:116586",
+      "value": "#134e4a"
+    },
+    {
+      "name": "color/accent/cyan/A06",
+      "id": "VariableID:4530:116588",
+      "value": "#164e63"
+    },
+    {
+      "name": "color/accent/sky/A06",
+      "id": "VariableID:4530:116590",
+      "value": "#0c4a6e"
+    },
+    {
+      "name": "color/accent/blue/A06",
+      "id": "VariableID:4530:116592",
+      "value": "#1e3a8a"
+    },
+    {
+      "name": "color/accent/indigo/A06",
+      "id": "VariableID:4530:116594",
+      "value": "#312e81"
+    },
+    {
+      "name": "color/accent/violet/A06",
+      "id": "VariableID:4530:116596",
+      "value": "#4c1d95"
+    },
+    {
+      "name": "color/accent/purple/A06",
+      "id": "VariableID:4530:116598",
+      "value": "#581c87"
+    },
+    {
+      "name": "color/accent/pink/A06",
+      "id": "VariableID:4530:116600",
+      "value": "#831843"
+    },
+    {
+      "name": "color/status/success/border/default",
+      "id": "VariableID:4648:16134",
+      "value": "#d1fae5"
+    },
+    {
+      "name": "color/status/warning/border/default",
+      "id": "VariableID:4648:16138",
+      "value": "#fef3c7"
+    },
+    {
+      "name": "color/bg/solid",
+      "id": "VariableID:4745:210595",
+      "value": "#e2e8f0"
+    },
+    {
+      "name": "color/accent/red/A01",
+      "id": "VariableID:4783:4042",
+      "value": "#fef2f2"
+    },
+    {
+      "name": "color/accent/orange/A01",
+      "id": "VariableID:4783:4043",
+      "value": "#fff7ed"
+    },
+    {
+      "name": "color/accent/amber/A01",
+      "id": "VariableID:4783:4044",
+      "value": "#fffbeb"
+    },
+    {
+      "name": "color/accent/yellow/A01",
+      "id": "VariableID:4783:4045",
+      "value": "#fefce8"
+    },
+    {
+      "name": "color/accent/lime/A01",
+      "id": "VariableID:4783:4046",
+      "value": "#f7fee7"
+    },
+    {
+      "name": "color/accent/green/A01",
+      "id": "VariableID:4783:4047",
+      "value": "#f0fdf4"
+    },
+    {
+      "name": "color/accent/emerald/A01",
+      "id": "VariableID:4783:4048",
+      "value": "#ecfdf5"
+    },
+    {
+      "name": "color/accent/teal/A01",
+      "id": "VariableID:4783:4049",
+      "value": "#f0fdfa"
+    },
+    {
+      "name": "color/accent/cyan/A01",
+      "id": "VariableID:4783:4050",
+      "value": "#ecfeff"
+    },
+    {
+      "name": "color/accent/sky/A01",
+      "id": "VariableID:4783:4051",
+      "value": "#f0f9ff"
+    },
+    {
+      "name": "color/accent/blue/A01",
+      "id": "VariableID:4783:4052",
+      "value": "#eff6ff"
+    },
+    {
+      "name": "color/accent/indigo/A01",
+      "id": "VariableID:4783:4053",
+      "value": "#eef2ff"
+    },
+    {
+      "name": "color/accent/violet/A01",
+      "id": "VariableID:4783:4054",
+      "value": "#f5f3ff"
+    },
+    {
+      "name": "color/accent/purple/A01",
+      "id": "VariableID:4783:4055",
+      "value": "#faf5ff"
+    },
+    {
+      "name": "color/accent/pink/A01",
+      "id": "VariableID:4783:4056",
+      "value": "#fdf2f8"
+    },
+    {
+      "name": "color/on-surface/action/selected-strong",
+      "id": "VariableID:5454:34521",
+      "value": "#d8f0ff"
+    },
+    {
+      "name": "color/on-surface/sunken-strong",
+      "id": "VariableID:5472:35025",
+      "value": "#cbd5e1"
+    },
+    {
+      "name": "color/neutral/on-surface/default",
+      "id": "VariableID:5869:23",
+      "value": "#e2e8f0"
+    },
+    {
+      "name": "color/neutral/on-surface/hover",
+      "id": "VariableID:5869:24",
+      "value": "#cbd5e1"
+    },
+    {
+      "name": "color/neutral/on-surface/pressed",
+      "id": "VariableID:5869:25",
+      "value": "#94a3b8"
+    },
+    {
+      "name": "color/neutral/on-surface/subtle",
+      "id": "VariableID:5869:26",
+      "value": "#f8fafc"
+    },
+    {
+      "name": "color/neutral/on-surface/muted",
+      "id": "VariableID:5869:27",
+      "value": "#f1f5f9"
+    },
+    {
+      "name": "color/neutral/content/default",
+      "id": "VariableID:5869:28",
+      "value": "#0f172a"
+    },
+    {
+      "name": "color/neutral/content/strong",
+      "id": "VariableID:5869:29",
+      "value": "#0f172a"
+    },
+    {
+      "name": "color/neutral/border/default",
+      "id": "VariableID:5869:30",
+      "value": "#cbd5e1"
+    },
+    {
+      "name": "color/neutral/border/strong",
+      "id": "VariableID:5869:31",
+      "value": "#94a3b8"
+    },
+    {
+      "name": "color/brand/decorative/gradient/from",
+      "id": "VariableID:5901:23",
+      "value": "#192450"
+    },
+    {
+      "name": "color/brand/decorative/gradient/via",
+      "id": "VariableID:5901:24",
+      "value": "#1789fa"
+    },
+    {
+      "name": "color/brand/decorative/gradient/to",
+      "id": "VariableID:5901:25",
+      "value": "#55ebff"
+    },
+    {
+      "name": "color/status/active/on-surface/default",
+      "id": "VariableID:5907:23",
+      "value": "#4ade80"
+    },
+    {
+      "name": "color/status/active/content/default",
+      "id": "VariableID:5907:24",
+      "value": "#22c55e"
+    },
+    {
+      "name": "color/status/active/on-surface/muted",
+      "id": "VariableID:5907:25",
+      "value": "#dcfce7"
+    },
+    {
+      "name": "color/status/error/border/strong",
+      "id": "VariableID:5981:23",
+      "value": "#ef4444"
+    },
+    {
+      "name": "color/status/error/border/default",
+      "id": "VariableID:6427:17",
+      "value": "#fee2e2"
+    },
+    {
+      "name": "color/status/warning/border/strong",
+      "id": "VariableID:6427:18",
+      "value": "#f59e0b"
+    },
+    {
+      "name": "color/status/info/border/default",
+      "id": "VariableID:6427:19",
+      "value": "#e0f2fe"
+    },
+    {
+      "name": "color/status/info/border/strong",
+      "id": "VariableID:6427:20",
+      "value": "#0ea5e9"
+    },
+    {
+      "name": "color/status/success/border/strong",
+      "id": "VariableID:6427:21",
+      "value": "#10b981"
+    },
+    {
+      "name": "color/brand/primary/content/on-fill",
+      "id": "VariableID:6923:17",
+      "value": "#ffffff"
+    },
+    {
+      "name": "color/brand/secondary/content/on-fill",
+      "id": "VariableID:6923:18",
+      "value": "#ffffff"
+    },
+    {
+      "name": "color/status/error/content/on-fill",
+      "id": "VariableID:6923:19",
+      "value": "#ffffff"
+    },
+    {
+      "name": "color/status/success/content/on-fill",
+      "id": "VariableID:6923:20",
+      "value": "#ffffff"
+    },
+    {
+      "name": "color/status/info/content/on-fill",
+      "id": "VariableID:6923:21",
+      "value": "#ffffff"
+    },
+    {
+      "name": "color/status/warning/content/on-fill",
+      "id": "VariableID:6923:22",
+      "value": "#ffffff"
+    },
+    {
+      "name": "color/status/active/content/on-fill",
+      "id": "VariableID:6923:23",
+      "value": "#ffffff"
+    }
+  ]
+}

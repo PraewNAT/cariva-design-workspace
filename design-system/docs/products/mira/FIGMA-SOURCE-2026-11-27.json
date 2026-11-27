@@ -1,0 +1,671 @@
+{
+  "fileKey": "37MSJL69dK206ouPp4F1xW",
+  "date": "2026-11-27",
+  "collection": "Mira Semantic",
+  "mode": "Mode 1",
+  "variables": [
+    {
+      "id": "VariableID:13:8",
+      "name": "color/card/blue/background/start",
+      "type": "COLOR",
+      "values": {
+        "13:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:34383a5022d2ed0deb755bce19e6be8a525fc0cf/5396:1140"
+        }
+      }
+    },
+    {
+      "id": "VariableID:13:9",
+      "name": "color/card/blue/background/end",
+      "type": "COLOR",
+      "values": {
+        "13:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:881b2bcc0ed9e0d967259b16690d79d24a5b0332/5396:1141"
+        }
+      }
+    },
+    {
+      "id": "VariableID:13:10",
+      "name": "color/card/blue/icon-bg",
+      "type": "COLOR",
+      "values": {
+        "13:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:36c5eb84a243e4f5694b757425380802f93957d0/5396:1142"
+        }
+      }
+    },
+    {
+      "id": "VariableID:13:11",
+      "name": "color/card/blue/content/strong",
+      "type": "COLOR",
+      "values": {
+        "13:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:ccff67a3830f74fddce5812d01604217c05685b4/5396:1149"
+        }
+      }
+    },
+    {
+      "id": "VariableID:13:12",
+      "name": "color/card/blue/content/subtle",
+      "type": "COLOR",
+      "values": {
+        "13:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:ccf29ce686665c052a5a101ded4a2f3581a6b13b/5396:1145"
+        }
+      }
+    },
+    {
+      "id": "VariableID:13:13",
+      "name": "color/card/emerald/background/start",
+      "type": "COLOR",
+      "values": {
+        "13:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:b00f384efb0a6b2a21812585145d3997d647e653/5396:658"
+        }
+      }
+    },
+    {
+      "id": "VariableID:13:14",
+      "name": "color/card/emerald/background/end",
+      "type": "COLOR",
+      "values": {
+        "13:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:b99fe813a8e27d715c0822ad97a708a6b9df8b33/5396:659"
+        }
+      }
+    },
+    {
+      "id": "VariableID:13:15",
+      "name": "color/card/emerald/icon-bg",
+      "type": "COLOR",
+      "values": {
+        "13:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:d0bdeeadce5cc79667792078cbcebe1f3ee966e6/5396:660"
+        }
+      }
+    },
+    {
+      "id": "VariableID:13:16",
+      "name": "color/card/emerald/content/strong",
+      "type": "COLOR",
+      "values": {
+        "13:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:d567ea28e9e61992a85a5d89e193a09abf8a089e/5396:667"
+        }
+      }
+    },
+    {
+      "id": "VariableID:13:17",
+      "name": "color/card/emerald/content/subtle",
+      "type": "COLOR",
+      "values": {
+        "13:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:e35231eadfe805a4a288d3c949fc3568e97287c4/5396:663"
+        }
+      }
+    },
+    {
+      "id": "VariableID:13:18",
+      "name": "color/card/cyan/background/start",
+      "type": "COLOR",
+      "values": {
+        "13:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:894e0ec747ee8137edb24463632a0a0f025865de/5396:1151"
+        }
+      }
+    },
+    {
+      "id": "VariableID:13:19",
+      "name": "color/card/cyan/background/end",
+      "type": "COLOR",
+      "values": {
+        "13:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:95b896569a2437a95aadf3c2c05876d3d40e78b8/5396:1152"
+        }
+      }
+    },
+    {
+      "id": "VariableID:13:20",
+      "name": "color/card/cyan/icon-bg",
+      "type": "COLOR",
+      "values": {
+        "13:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:e90b3b02ce983ac66e57c102f9c9715e9b4eeec7/5396:1153"
+        }
+      }
+    },
+    {
+      "id": "VariableID:13:21",
+      "name": "color/card/cyan/content/strong",
+      "type": "COLOR",
+      "values": {
+        "13:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:4ea55dd30e55dc4252f8dea327a3845aac5e9d0e/5396:1160"
+        }
+      }
+    },
+    {
+      "id": "VariableID:13:22",
+      "name": "color/card/cyan/content/subtle",
+      "type": "COLOR",
+      "values": {
+        "13:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:377971e8bd9820e919fafca1f0a661949f0f474a/5396:1156"
+        }
+      }
+    },
+    {
+      "id": "VariableID:13:23",
+      "name": "color/card/pink/background/start",
+      "type": "COLOR",
+      "values": {
+        "13:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:1ff3f0e621e3d1f01bf8f04a27f6adc5ef3149b0/5396:757"
+        }
+      }
+    },
+    {
+      "id": "VariableID:13:24",
+      "name": "color/card/pink/background/end",
+      "type": "COLOR",
+      "values": {
+        "13:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:d9ba5892658c27a56d3f2d57c114322dbdad69a5/5396:758"
+        }
+      }
+    },
+    {
+      "id": "VariableID:13:25",
+      "name": "color/card/pink/icon-bg",
+      "type": "COLOR",
+      "values": {
+        "13:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:affd3f59d39dabd5f2c6330a89bee06cbda1216f/5396:759"
+        }
+      }
+    },
+    {
+      "id": "VariableID:13:26",
+      "name": "color/card/pink/content/strong",
+      "type": "COLOR",
+      "values": {
+        "13:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:6b269279a5e18702f7730b4e076d3a33d4c93afd/5396:766"
+        }
+      }
+    },
+    {
+      "id": "VariableID:13:27",
+      "name": "color/card/pink/content/subtle",
+      "type": "COLOR",
+      "values": {
+        "13:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:c7289e0708b9e0ec35bc7daac3405ca186e14ef3/5396:762"
+        }
+      }
+    },
+    {
+      "id": "VariableID:13:28",
+      "name": "color/card/purple/background/start",
+      "type": "COLOR",
+      "values": {
+        "13:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:5f66757062b502aa567c4d63a29694e36a6d538e/5396:735"
+        }
+      }
+    },
+    {
+      "id": "VariableID:13:29",
+      "name": "color/card/purple/background/end",
+      "type": "COLOR",
+      "values": {
+        "13:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:6992d79ec0b8c1bafc2adc3bdd4a037382a1d2b8/5396:736"
+        }
+      }
+    },
+    {
+      "id": "VariableID:13:30",
+      "name": "color/card/purple/icon-bg",
+      "type": "COLOR",
+      "values": {
+        "13:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:91b0b3fd13b7c0b21c6711cd4125c466ff4e2f80/5396:737"
+        }
+      }
+    },
+    {
+      "id": "VariableID:13:31",
+      "name": "color/card/purple/content/strong",
+      "type": "COLOR",
+      "values": {
+        "13:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:47779384f33c179f825af1013485ea400e6c6178/5396:744"
+        }
+      }
+    },
+    {
+      "id": "VariableID:13:32",
+      "name": "color/card/purple/content/subtle",
+      "type": "COLOR",
+      "values": {
+        "13:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:2359cc5d3a0fcefc492f51a0b556021d4246e3ac/5396:740"
+        }
+      }
+    }
+  ],
+  "resolvedTokens": [
+    {
+      "id": "VariableID:13:8",
+      "name": "color/card/blue/background/start",
+      "value": {
+        "r": 0.9333333373069763,
+        "g": 0.9764705896377563,
+        "b": 1,
+        "a": 1
+      },
+      "hex": "#eef9ff"
+    },
+    {
+      "id": "VariableID:13:9",
+      "name": "color/card/blue/background/end",
+      "value": {
+        "r": 0.8470588326454163,
+        "g": 0.9411764740943909,
+        "b": 1,
+        "a": 1
+      },
+      "hex": "#d8f0ff"
+    },
+    {
+      "id": "VariableID:13:10",
+      "name": "color/card/blue/icon-bg",
+      "value": {
+        "r": 0.729411780834198,
+        "g": 0.9019607901573181,
+        "b": 1,
+        "a": 1
+      },
+      "hex": "#bae6ff"
+    },
+    {
+      "id": "VariableID:13:11",
+      "name": "color/card/blue/content/strong",
+      "value": {
+        "r": 0.08627451211214066,
+        "g": 0.30588236451148987,
+        "b": 0.572549045085907,
+        "a": 1
+      },
+      "hex": "#164e92"
+    },
+    {
+      "id": "VariableID:13:12",
+      "name": "color/card/blue/content/subtle",
+      "value": {
+        "r": 0.1764705926179886,
+        "g": 0.6431372761726379,
+        "b": 1,
+        "a": 1
+      },
+      "hex": "#2da4ff"
+    },
+    {
+      "id": "VariableID:13:13",
+      "name": "color/card/emerald/background/start",
+      "value": {
+        "r": 0.9254902005195618,
+        "g": 0.9921568632125854,
+        "b": 0.9607843160629272,
+        "a": 1
+      },
+      "hex": "#ecfdf5"
+    },
+    {
+      "id": "VariableID:13:14",
+      "name": "color/card/emerald/background/end",
+      "value": {
+        "r": 0.8196078538894653,
+        "g": 0.9803921580314636,
+        "b": 0.8980392217636108,
+        "a": 1
+      },
+      "hex": "#d1fae5"
+    },
+    {
+      "id": "VariableID:13:15",
+      "name": "color/card/emerald/icon-bg",
+      "value": {
+        "r": 0.6549019813537598,
+        "g": 0.9529411792755127,
+        "b": 0.8156862854957581,
+        "a": 1
+      },
+      "hex": "#a7f3d0"
+    },
+    {
+      "id": "VariableID:13:16",
+      "name": "color/card/emerald/content/strong",
+      "value": {
+        "r": 0.0235294122248888,
+        "g": 0.30588236451148987,
+        "b": 0.23137255012989044,
+        "a": 1
+      },
+      "hex": "#064e3b"
+    },
+    {
+      "id": "VariableID:13:17",
+      "name": "color/card/emerald/content/subtle",
+      "value": {
+        "r": 0.062745101749897,
+        "g": 0.7254902124404907,
+        "b": 0.5058823823928833,
+        "a": 1
+      },
+      "hex": "#10b981"
+    },
+    {
+      "id": "VariableID:13:18",
+      "name": "color/card/cyan/background/start",
+      "value": {
+        "r": 0.9215686321258545,
+        "g": 0.9960784316062927,
+        "b": 1,
+        "a": 1
+      },
+      "hex": "#ebfeff"
+    },
+    {
+      "id": "VariableID:13:19",
+      "name": "color/card/cyan/background/end",
+      "value": {
+        "r": 0.8039215803146362,
+        "g": 0.9843137264251709,
+        "b": 1,
+        "a": 1
+      },
+      "hex": "#cdfbff"
+    },
+    {
+      "id": "VariableID:13:20",
+      "name": "color/card/cyan/icon-bg",
+      "value": {
+        "r": 0.6313725709915161,
+        "g": 0.9607843160629272,
+        "b": 1,
+        "a": 1
+      },
+      "hex": "#a1f5ff"
+    },
+    {
+      "id": "VariableID:13:21",
+      "name": "color/card/cyan/content/strong",
+      "value": {
+        "r": 0.07450980693101883,
+        "g": 0.30980393290519714,
+        "b": 0.4000000059604645,
+        "a": 1
+      },
+      "hex": "#134f66"
+    },
+    {
+      "id": "VariableID:13:22",
+      "name": "color/card/cyan/content/subtle",
+      "value": {
+        "r": 0,
+        "g": 0.7372549176216125,
+        "b": 0.8627451062202454,
+        "a": 1
+      },
+      "hex": "#00bcdc"
+    },
+    {
+      "id": "VariableID:13:23",
+      "name": "color/card/pink/background/start",
+      "value": {
+        "r": 0.9921568632125854,
+        "g": 0.9490196108818054,
+        "b": 0.9725490212440491,
+        "a": 1
+      },
+      "hex": "#fdf2f8"
+    },
+    {
+      "id": "VariableID:13:24",
+      "name": "color/card/pink/background/end",
+      "value": {
+        "r": 0.9882352948188782,
+        "g": 0.9058823585510254,
+        "b": 0.9529411792755127,
+        "a": 1
+      },
+      "hex": "#fce7f3"
+    },
+    {
+      "id": "VariableID:13:25",
+      "name": "color/card/pink/icon-bg",
+      "value": {
+        "r": 0.9843137264251709,
+        "g": 0.8117647171020508,
+        "b": 0.9098039269447327,
+        "a": 1
+      },
+      "hex": "#fbcfe8"
+    },
+    {
+      "id": "VariableID:13:26",
+      "name": "color/card/pink/content/strong",
+      "value": {
+        "r": 0.5137255191802979,
+        "g": 0.0941176488995552,
+        "b": 0.26274511218070984,
+        "a": 1
+      },
+      "hex": "#831843"
+    },
+    {
+      "id": "VariableID:13:27",
+      "name": "color/card/pink/content/subtle",
+      "value": {
+        "r": 0.9254902005195618,
+        "g": 0.2823529541492462,
+        "b": 0.6000000238418579,
+        "a": 1
+      },
+      "hex": "#ec4899"
+    },
+    {
+      "id": "VariableID:13:28",
+      "name": "color/card/purple/background/start",
+      "value": {
+        "r": 0.9803921580314636,
+        "g": 0.9607843160629272,
+        "b": 1,
+        "a": 1
+      },
+      "hex": "#faf5ff"
+    },
+    {
+      "id": "VariableID:13:29",
+      "name": "color/card/purple/background/end",
+      "value": {
+        "r": 0.9529411792755127,
+        "g": 0.9098039269447327,
+        "b": 1,
+        "a": 1
+      },
+      "hex": "#f3e8ff"
+    },
+    {
+      "id": "VariableID:13:30",
+      "name": "color/card/purple/icon-bg",
+      "value": {
+        "r": 0.9137254953384399,
+        "g": 0.8352941274642944,
+        "b": 1,
+        "a": 1
+      },
+      "hex": "#e9d5ff"
+    },
+    {
+      "id": "VariableID:13:31",
+      "name": "color/card/purple/content/strong",
+      "value": {
+        "r": 0.3450980484485626,
+        "g": 0.10980392247438431,
+        "b": 0.529411792755127,
+        "a": 1
+      },
+      "hex": "#581c87"
+    },
+    {
+      "id": "VariableID:13:32",
+      "name": "color/card/purple/content/subtle",
+      "value": {
+        "r": 0.658823549747467,
+        "g": 0.3333333432674408,
+        "b": 0.9686274528503418,
+        "a": 1
+      },
+      "hex": "#a855f7"
+    }
+  ],
+  "properties": [
+    {
+      "id": "0:108",
+      "name": "crv-card",
+      "props": {
+        "Badge#5527:0": {
+          "type": "BOOLEAN",
+          "defaultValue": true
+        },
+        "Icon#5527:6": {
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "20:98",
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "15dd7225f25ebd6d11a63f754f9558c224fbafaa"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "62484b0e9cca25a838e2fa8b5407f76c521e7c79"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "b7a514ee334ed34bcf0280ff8126ec0c93ebc92d"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "fd40c55fd7be3e0d296209bcc17024cb67365e6b"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "3e9f88f6d756b6d28b3ea21193d487e58cd1d8da"
+            }
+          ]
+        },
+        "Title#5527:12": {
+          "type": "TEXT",
+          "defaultValue": "Title"
+        },
+        "Subtitle#5527:18": {
+          "type": "TEXT",
+          "defaultValue": "Description"
+        },
+        "color": {
+          "type": "VARIANT",
+          "defaultValue": "blue",
+          "variantOptions": [
+            "blue",
+            "emerald",
+            "cyan",
+            "pink",
+            "purple"
+          ]
+        }
+      }
+    },
+    {
+      "id": "101:1374",
+      "name": "mira-recorder",
+      "props": {
+        "state": {
+          "type": "VARIANT",
+          "defaultValue": "recording",
+          "variantOptions": [
+            "playback",
+            "recording",
+            "pause",
+            "ready-to-transcribe"
+          ]
+        }
+      }
+    }
+  ],
+  "fonts": [
+    {
+      "name": "font-family/ui",
+      "modes": [
+        {
+          "name": "cariva app",
+          "modeId": "4654:3"
+        },
+        {
+          "name": "back office",
+          "modeId": "4654:4"
+        }
+      ],
+      "resolved": "Aktiv Grotesk Thai"
+    },
+    {
+      "name": "font-family/display",
+      "modes": [
+        {
+          "name": "cariva app",
+          "modeId": "4654:3"
+        },
+        {
+          "name": "back office",
+          "modeId": "4654:4"
+        }
+      ],
+      "resolved": "Malila"
+    }
+  ],
+  "codeConnect": {
+    "status": "pending-unpublished",
+    "evidence": "No published components found in this selection"
+  },
+  "figmaDocumentation": {
+    "status": "pending",
+    "reason": "No mapped documentation frame in the supplied Mira file; this Figma-to-code task did not write to the canvas."
+  }
+}

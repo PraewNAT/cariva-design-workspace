@@ -1,0 +1,34 @@
+/* Mira Semantic, Mode 1, read from Figma 2026-11-27. Product scope only. */
+.mira-theme, [data-mira-theme] {
+  --mira-font-ui: "Aktiv Grotesk Thai", "IBM Plex Sans Thai", sans-serif;
+  --mira-font-display: "Malila", "IBM Plex Sans Thai", sans-serif;
+  --mira-recorder-time: #020618; /* imported theme/foreground binding */
+  --font-ui: var(--mira-font-ui);
+  --font-sans: var(--mira-font-ui);
+  --mira-card-blue-background-start: #eef9ff;
+  --mira-card-blue-background-end: #d8f0ff;
+  --mira-card-blue-icon-bg: #bae6ff;
+  --mira-card-blue-content-strong: #164e92;
+  --mira-card-blue-content-subtle: #2da4ff;
+  --mira-card-emerald-background-start: #ecfdf5;
+  --mira-card-emerald-background-end: #d1fae5;
+  --mira-card-emerald-icon-bg: #a7f3d0;
+  --mira-card-emerald-content-strong: #064e3b;
+  --mira-card-emerald-content-subtle: #10b981;
+  --mira-card-cyan-background-start: #ebfeff;
+  --mira-card-cyan-background-end: #cdfbff;
+  --mira-card-cyan-icon-bg: #a1f5ff;
+  --mira-card-cyan-content-strong: #134f66;
+  --mira-card-cyan-content-subtle: #00bcdc;
+  --mira-card-pink-background-start: #fdf2f8;
+  --mira-card-pink-background-end: #fce7f3;
+  --mira-card-pink-icon-bg: #fbcfe8;
+  --mira-card-pink-content-strong: #831843;
+  --mira-card-pink-content-subtle: #ec4899;
+  --mira-card-purple-background-start: #faf5ff;
+  --mira-card-purple-background-end: #f3e8ff;
+  --mira-card-purple-icon-bg: #e9d5ff;
+  --mira-card-purple-content-strong: #581c87;
+  --mira-card-purple-content-subtle: #a855f7;
+}
+

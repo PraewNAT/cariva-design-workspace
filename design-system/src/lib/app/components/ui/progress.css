@@ -1,0 +1,15 @@
+/* Activity motion belongs to Progress, independent from its consumers. */
+.cds-progress[data-variant="indeterminate"] [data-slot="progress-indicator"] {
+  width: 30% !important;
+  animation: cds-progress-travel 1.4s linear infinite;
+}
+@keyframes cds-progress-travel {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(334%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cds-progress[data-variant="indeterminate"] [data-slot="progress-indicator"] {
+    animation: none;
+    transform: translateX(117%);
+  }
+}

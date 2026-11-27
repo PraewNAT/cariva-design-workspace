@@ -1,0 +1,15 @@
+{
+  "prototypes": [
+    {
+      "id": "hosxp-home",
+      "product": "CarivaSpace HosXP",
+      "title": "HosXP · Homepage",
+      "url": "http://localhost:5174/",
+      "path": "products/carivaspace-hosxp/prototypes/hosxp-home",
+      "port": 5174,
+      "prototypeMode": "workspace-canvas",
+      "canvasPath": "products/carivaspace-hosxp/canvas/hosxp-home",
+      "storybookCanvasTitle": "Products/CarivaSpace HosXP/Canvas/Home"
+    }
+  ]
+}

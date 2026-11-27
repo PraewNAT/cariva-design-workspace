@@ -1,0 +1,58 @@
+/* Requested code motion, retaining the static Figma geometry and color tokens. */
+.cds-decorative-motion {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+/* Keep the label on navy; cyan light breathes inward from both side corners. */
+.cds-decorative-motion:not(:disabled):not([aria-disabled="true"]) {
+  filter: drop-shadow(0 0 4px color-mix(in srgb, var(--cds-brand-decorative-gradient-via) 18%, transparent));
+  transition: filter 240ms ease, box-shadow 240ms ease, opacity 160ms ease, translate 160ms ease;
+}
+/* Animate the original continuous fill, avoiding overlapping masked edges. */
+.cds-decorative-motion:not(:disabled):not([aria-disabled="true"]) {
+  /* Opaque stops avoid the uneven alpha blend over the navy base. */
+  background-image: radial-gradient(ellipse 50% 130% at 50% 50%,
+    var(--cds-brand-decorative-gradient-from) 0%,
+    color-mix(in srgb, var(--cds-brand-decorative-gradient-from) 78%, var(--cds-brand-decorative-gradient-via)) 25%,
+    color-mix(in srgb, var(--cds-brand-decorative-gradient-from) 42%, var(--cds-brand-decorative-gradient-via)) 50%,
+    var(--cds-brand-decorative-gradient-via) 75%,
+    var(--cds-brand-decorative-gradient-to) 100%);
+  background-repeat: no-repeat;
+  background-position: center;
+  animation: cds-ai-aura 2.5s linear infinite;
+}
+@keyframes cds-ai-aura {
+  0%, 100% { background-size: 125% 100%; }
+  50% { background-size: 100% 100%; }
+}
+@media (hover: hover) and (pointer: fine) {
+  .cds-decorative-motion:not(:disabled):not([aria-disabled="true"]):hover {
+    filter: drop-shadow(0 0 8px color-mix(in srgb, var(--cds-brand-decorative-gradient-via) 45%, transparent));
+  }
+}
+[data-slot="button-mic"][data-status="active"]:not(:disabled):not([aria-disabled="true"]) [data-slot="button-mic-wave"] > span {
+  transform-origin: center;
+  animation: cds-mic-wave var(--mic-wave-duration, 1.8s) ease-in-out var(--mic-wave-delay, 0s) infinite;
+}
+[data-slot="button-mic"][data-status="inactive"]:not(:disabled):not([aria-disabled="true"]) [data-slot="button-mic-wave"] > span {
+  transform-origin: center;
+  animation: cds-mic-quiet var(--mic-wave-duration, 1.8s) ease-in-out var(--mic-wave-delay, 0s) infinite;
+}
+@keyframes cds-mic-quiet {
+  0%, 100% { transform: scaleY(.65); }
+  50% { transform: scaleY(1); }
+}
+[data-slot="button-mic-wave"] > span:nth-child(2) { --mic-wave-delay: -.4s; --mic-wave-duration: 2s; }
+[data-slot="button-mic-wave"] > span:nth-child(3) { --mic-wave-delay: -.8s; --mic-wave-duration: 1.6s; }
+[data-slot="button-mic-wave"] > span:nth-child(4) { --mic-wave-delay: -.2s; --mic-wave-duration: 1.9s; }
+[data-slot="button-mic-wave"] > span:nth-child(5) { --mic-wave-delay: -.6s; --mic-wave-duration: 1.7s; }
+@keyframes cds-mic-wave {
+  0%, 100% { transform: scaleY(.5); }
+  50% { transform: scaleY(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cds-decorative-motion { filter: none !important; transition: none !important; animation: none !important; background-size: 100% 100% !important; }
+  .cds-decorative-motion::before, .cds-decorative-motion::after { content: none !important; animation: none !important; }
+  [data-slot="button-mic-wave"] > span { animation: none !important; transform: none; }
+}
