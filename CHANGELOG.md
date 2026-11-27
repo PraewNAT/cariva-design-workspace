@@ -4,6 +4,12 @@
 
 ## Unreleased — 2026-11-27
 
+- `Button` has a new `loading` prop (commit `605100a`): sets `disabled` and `aria-busy`, shows `Spinner`, hides the button's own icons, and shows only the spinner for `icon-*` sizes. Replaces the 26 November decision not to add the prop; composing `disabled` + `aria-busy` + `Spinner` by hand still works. Updated stories, docs, the `button-loading` Code Connect example (not yet published) and the shadcn skill notes.
+
+- Figma `button` set (not part of the code diff): linked the labels of the 36 `secondary` variants to `children` and applied `typography/label/large` to the 40 `default`-size labels. Library not published; consuming files not checked.
+
+- HosXP and Mira are now mock Products (`Mock HosXP`, `Mock Mira`): folders `products/mock-hosxp`, `products/mock-mira`, `src/lib/products/mock-mira`, `docs/products/mock-*`, `vite.mock-hosxp.config.ts`, `frames.mock-hosxp.json`, Storybook `Products/Mock …` and prototype ID `mock-hosxp-home`. Mock Product records added. Component identifiers and file names (e.g. `MiraRecorder`), Figma file names and screen content are unchanged. Code Connect for the Mira library needs republishing.
+
 - Workflow guardrails: Figma audits now require direct node/property/variable binding evidence and mark conflicting tool results unverified. Prototype reuse checks now map controls to DS components before coding and review native interactive controls after implementation, with documented exceptions. Aligned audit naming, authorization and Figma plugin routing.
 
 

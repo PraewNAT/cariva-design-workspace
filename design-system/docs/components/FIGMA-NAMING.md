@@ -23,7 +23,7 @@ The ⚠ mark = a structural decision (merge the set or keep it separate) is need
 | crv-avatar-group ✅ | 4457:63950 | `avatar-group` | Composition built from `avatar` |
 | crv-button-standard | 3646:28000 | `button` | Main set ✅ renamed |
 | crv-button-icon ✅ | 3730:5246 | `button-icon` | Code `Button` `size=icon-lg / icon / icon-sm` (= Figma `lg` / `default` / `sm`) |
-| crv-button-loading ✅ | 3730:5454 | `button-loading` | Code `Button disabled aria-busy` + `Spinner` (no `loading` prop) |
+| crv-button-loading ✅ | 3730:5454 | `button-loading` | Code `Button loading` |
 | crv-link ✅ | 4165:5267 | `button-link` | Code `Button variant="link"` |
 | crv-fab | 4497:77574 | `fab` | ✅ renamed; new `Fab` in Core (not merged with Button) |
 | crv-badge ✅ | 4518:82967 | `badge` | |
@@ -112,7 +112,7 @@ Set `crv-button-standard` → `button` (node `3646:28000`, renamed)
 | `startIconVisible`, `endIconVisible`, `startIcon`, `endIcon` | Exist | Keep original names (Figma only) | shadcn places icons as children |
 | `children` | Button text | `children` | Exists |
 
-Other sets on the Button page: `crv-button-icon` → `size=icon / icon-sm / icon-lg`, `crv-link` → `variant=link`, `crv-button-loading` → compose with Spinner (no `loading` prop added). Detailed table not yet done
+Other sets on the Button page: `crv-button-icon` → `size=icon / icon-sm / icon-lg`, `crv-link` → `variant=link`, `crv-button-loading` → `loading` prop. Detailed table not yet done
 
 **Not yet checked:** hover/pressed/disabled colors of each color, icon sizes, `elevated` shadow
 
@@ -247,9 +247,9 @@ Details: [MENU-FIGMA.md](MENU-FIGMA.md)
 Details: [OVERLAY-FIGMA.md](OVERLAY-FIGMA.md), [DIALOG-FIGMA.md](DIALOG-FIGMA.md), [PAGINATION-FIGMA.md](PAGINATION-FIGMA.md)
 
 
-Credit follow-up: `7089:1151` compact + `7094:365` remaining/used map to `src/lib/products/mira/components/credit-badge.tsx` (`CreditBadge`) under `Products/Mira/Components/Credit Badge` (Mira Product DS; docs7296:35). Source names/API remain unchanged; aliases depleted2/depleted 2 map to numeric depleted presentation.
+Credit follow-up: `7089:1151` compact + `7094:365` remaining/used map to `src/lib/products/mock-mira/components/credit-badge.tsx` (`CreditBadge`) under `Products/Mock Mira/Components/Credit Badge` (Mira Product DS; docs7296:35). Source names/API remain unchanged; aliases depleted2/depleted 2 map to numeric depleted presentation.
 
-| mira-tooltip-credit ✅ | 7118:777 | `credit-tooltip` | `MiraCreditTooltip` (`products/mira/components/credit-tooltip.tsx`), 9 variants; docs 7292:35 |
+| mira-tooltip-credit ✅ | 7118:777 | `credit-tooltip` | `MiraCreditTooltip` (`products/mock-mira/components/credit-tooltip.tsx`), 9 variants; docs 7292:35 |
 | crv-tag-standard ✅ | 4459:31603 | `tag` | `Tag` (`ui/tag.tsx`) `size` sm/default/lg, `content` label/count |
 | crv-tag-color ✅ | 3936:5879 | `tag-color` | `TagColor` |
 | crv-toast-standard ✅ | 6413:55828 | `toast` | `Toast` / `ToastCard` (`ui/toast.tsx`) severity × variant |

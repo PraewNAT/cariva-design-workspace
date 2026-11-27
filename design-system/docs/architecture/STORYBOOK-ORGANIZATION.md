@@ -48,7 +48,7 @@ Next: open the Card Docs and review the regrouped sections
 
 ## Superseded prototype examples — 2026-11-27
 
-Workspace/Canvas Board/Mobile and Workspace/Prototype Catalog/Appointment/Form were deleted on request and are no longer used as project entries. Use Products/CarivaSpace HosXP/Prototypes/Home for real work, together with the Product's Canvas; local host 5174 and workspace/prototypes.json are the current selector entries. Port 5173 is a workspace launcher with no mock screen
+Workspace/Canvas Board/Mobile and Workspace/Prototype Catalog/Appointment/Form were deleted on request and are no longer used as project entries. Use Products/Mock HosXP/Prototypes/Home for real work, together with the Product's Canvas; local host 5174 and workspace/prototypes.json are the current selector entries. Port 5173 is a workspace launcher with no mock screen
 
 Sidebar order: Core/Components starts with Button → Button Mic → Button Split → Fab. Remaining component groups sort alphabetically. Story titles and IDs remain unchanged; Product components remain under Products. Configured in .storybook/preview.tsx.
 

@@ -1,6 +1,6 @@
 import figma from "@figma/code-connect";
 import { CircularProgress, Progress } from "../src/lib/app/components/ui/progress";
-import { CreditBadge } from "../src/lib/products/mira/components/credit-badge";
+import { CreditBadge } from "../src/lib/products/mock-mira/components/credit-badge";
 
 // Generated from the Figma component sets listed in docs/components/FIGMA-NAMING.md
 // Figma file: Cariva Core Design System (XgxprkSY5mGbzIIwlmscCt)

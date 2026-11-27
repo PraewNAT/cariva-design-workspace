@@ -11,7 +11,7 @@ Implementation: `ui/progress.tsx` and scoped `progress.css`. Storybook `Core/Com
 
 Shared impact: Stepper and catalog now use4px default tracks. FileUpload's existing3px scoped override is preserved and regression tested. Both page and Dialog use the same primitive; widths follow available container while circular sizes stay fixed. Physical OS preference and all assistive-technology combinations are not certified; see PROGRESS-RADIO-RATING-AUDIT.md.
 
-Credit Badge is Mira Product DS; see [Mira Credit Badge](../products/mira/CREDIT-BADGE.md). Core Progress now has six stories; its primitive behavior is unchanged by the ownership move.
+Credit Badge is Mira Product DS; see [Mira Credit Badge](../products/mock-mira/CREDIT-BADGE.md). Core Progress now has six stories; its primitive behavior is unchanged by the ownership move.
 
 ## Renaming sets in Figma (26 Nov 2026, user confirmed as proposed)
 

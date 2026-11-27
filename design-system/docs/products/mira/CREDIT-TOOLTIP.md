@@ -1,9 +1,0 @@
-# Mira Credit Tooltip (Draft, 2026-11-26)
-
-Product source: `src/lib/products/mira/components/credit-tooltip.tsx`, styles and stories in the same folder. Storybook: Products/Mira/Components/Credit Tooltip. Reuses Core Tooltip; Core does not import Mira. Source set `7118:777` on the supplied shared DS page is Product-owned despite being in the Core Figma file. [Separate template documentation](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt?node-id=7292-35) contains all nine linked source variants.
-
-MiraCreditTooltip props: trigger, balance, validUntil (required); status default/low/depleted; placement top/top-end/none; costHintVisible=true; costHint; open/defaultOpen. Placement describes arrow edge: top and top-end use popup side bottom, with center/end alignment; none hides the arrow. Status, formatted balance and expiry text are caller-owned. No credit threshold, date calculation, charging action or backend is implemented.
-
-Width200px for top,208px for top-end/none, viewport max-width; padding4/8px (status message adds top8px), gap4px. All text12/16px; helper uses content/disabled against the dark surface. Source10px helper and2px gaps are deliberately adapted to workspace minimums, so height may exceed source60/82px body when text wraps. Low message uses warning/default; depleted message uses existing error/border/strong for contrast on the dark surface. Original alert glyph is masked in a16px box with its13.3333px source vector dimensions. These are local Product differences; no shared tokens changed.
-
-All nine Figma doc specimens retain main-component links. Only their10px helper text is overridden to12px; no main API/geometry changes. Figma specimens otherwise remain original reference appearance; the Callout distinguishes code spacing/color adaptations. See Core TOOLTIP-AUDIT.md for scoped validation.

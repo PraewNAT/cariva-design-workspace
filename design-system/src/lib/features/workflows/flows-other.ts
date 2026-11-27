@@ -30,7 +30,7 @@ export const otherFlows: Flow[] = [
     skills: ["create-project — ทั้ง flow (S1–S5)"],
     num: "08",
     title: "เริ่ม Product ใหม่ / สร้าง prototype ใหม่",
-    prompts: ["จะเริ่ม Product ใหม่ชื่อ Mira", "สร้าง prototype ใหม่จากหน้า Home ใน Figma"],
+    prompts: ["จะเริ่ม Product ใหม่ชื่อ [ชื่อ Product]", "สร้าง prototype ใหม่จากหน้า Home ใน Figma"],
     summary: "AI พาไปทีละขั้นและถามเฉพาะที่ขาด ไม่ถามทุกอย่างพร้อมกัน (flow Setup S1–S5 และ skill create-project) ทุกครั้งที่สร้างโปรเจกต์ AI จะอ่าน `create-project/SKILL.md` ฉบับล่าสุดก่อนเสมอ",
     steps: [
       { id: "a", lane: "you", label: "บอกว่าจะเริ่ม Product / prototype ใหม่", detail: "ถ้าไม่รู้ว่าต้องให้ข้อมูลอะไร ให้บอกแค่นี้ AI จะนำ" },
@@ -120,7 +120,7 @@ export const otherFlows: Flow[] = [
     skills: ["component-reuse-check — ดูว่าใช้ซ้ำจริงไหม (C1–C2)", "shadcn — ย้ายโค้ด (C4)", "component-audit — ทดสอบ (U5)", "figma:figma-code-connect — แมป Code Connect (ปลั๊กอิน โหลดก่อนแมป)"],
     num: "12",
     title: "ย้าย component จาก Product ขึ้น Core",
-    prompts: ["component นี้ของ Mira ใช้ซ้ำหลาย Product ยกขึ้น Core ได้ไหม", "ย้าย CreditTooltip ไปไว้ใน Core"],
+    prompts: ["component นี้ของ Mock Mira ใช้ซ้ำหลาย Product ยกขึ้น Core ได้ไหม", "ย้าย CreditTooltip ไปไว้ใน Core"],
     summary: "AI ไม่ยก component ขึ้น Core เองเงียบ ๆ ต้องมีเหตุผลเรื่องการใช้ซ้ำจริง และคุณตัดสินใจก่อนทุกครั้ง",
     steps: [
       { id: "a", lane: "you", label: "ถามหรือสั่งให้พิจารณายก", detail: "ระบุ component และ Product ต้นทาง" },
@@ -144,7 +144,7 @@ export const otherFlows: Flow[] = [
     skills: ["component-reuse-check — หาผู้ใช้งานทั้งหมด (C1–C2)", "shadcn — ย้ายโค้ด (C4)", "document — ย้ายเอกสารและ story", "component-audit — ทดสอบ (U5)", "figma:figma-code-connect — แมป Code Connect (ปลั๊กอิน โหลดก่อนแมป)"],
     num: "13",
     title: "ย้าย component จาก Core ลง Product",
-    prompts: ["component นี้มีแต่ Mira ใช้ ย้ายจาก Core ไปไว้ที่ Product Mira ได้ไหม", "ย้าย CreditBadge ออกจาก Core ไป Product"],
+    prompts: ["component นี้มีแต่ Mock Mira ใช้ ย้ายจาก Core ไปไว้ที่ Product Mock Mira ได้ไหม", "ย้าย CreditBadge ออกจาก Core ไป Product"],
     summary: "ใช้เมื่อ component ใน Core ถูกใช้แค่ Product เดียว หรือมีเนื้อหาเฉพาะงานของ Product นั้น Core ควรเก็บเฉพาะของที่ใช้ร่วมกัน AI จะตรวจก่อนว่ามี Product อื่นใช้อยู่ไหม และไม่ย้ายเองเงียบ ๆ",
     steps: [
       { id: "a", lane: "you", label: "ถามหรือสั่งให้พิจารณาย้ายลง", detail: "ระบุ component และ Product ปลายทาง" },
@@ -159,7 +159,7 @@ export const otherFlows: Flow[] = [
     ],
     back: [{ from: "g", to: "f", label: "ไม่ผ่าน" }],
     outputs: ["component อยู่ใน Product ปลายทาง พร้อม story และเอกสาร", "Core ไม่มีสำเนาค้างและไม่มี import ที่ชี้ไปที่เดิม", "Code Connect ชี้ไปที่ใหม่"],
-    rules: ["ไม่ย้ายลงเองเงียบ ๆ ถ้ามี Product อื่นใช้อยู่ต้องถามก่อน", "ไม่เหลือสำเนาซ้ำใน Core", "ตัวอย่างก่อนหน้า: CreditBadge ถูกย้ายจาก Core ไป Product Mira (ดู CHANGELOG)"],
+    rules: ["ไม่ย้ายลงเองเงียบ ๆ ถ้ามี Product อื่นใช้อยู่ต้องถามก่อน", "ไม่เหลือสำเนาซ้ำใน Core", "ตัวอย่างก่อนหน้า: CreditBadge ถูกย้ายจาก Core ไป Product Mock Mira (ดู CHANGELOG)"],
     notVerified: ["Product ที่ยังไม่มีบันทึกใน repo นี้", "การใช้งานนอก repo"],
     related: ["rules/component-adoption-flow.md", "docs/architecture/CORE-STORYBOOK-COVERAGE.md"],
   },
