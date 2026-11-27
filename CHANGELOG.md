@@ -7,13 +7,13 @@
 - Workflow guardrails: Figma audits now require direct node/property/variable binding evidence and mark conflicting tool results unverified. Prototype reuse checks now map controls to DS components before coding and review native interactive controls after implementation, with documented exceptions. Aligned audit naming, authorization and Figma plugin routing.
 
 
-- Skills cut from 24 to 13: removed doc-coverage, ux-writing, add-version-tab, crv-component-code, prototype-to-figma, ui-ux-pro-max and the impeccable copies; merged design-review and map-fix into audit, changelog into pr-checklist, case-planning into component-reuse-check; removed the aliases verify-ds-usage and document-update. Backups in `.skill-backups/` (untracked). `workflow-map.md` now has a **Skill** column on every flow table, each remaining skill states its workflow step, and the Storybook Workflows pages list the skills used. See `rules/skill-routing.md`.
+- Skills cut from 24 to 14: removed mermaid-diagrams, doc-coverage, ux-writing, add-version-tab, crv-component-code and prototype-to-figma (impeccable and ui-ux-pro-max were removed and restored because the team uses them); merged design-review and map-fix into audit, changelog into pr-checklist, case-planning into component-reuse-check; removed the aliases verify-ds-usage and document-update. Backups in `.skill-backups/` (untracked). `workflow-map.md` now has a **Skill** column on every flow table, each remaining skill states its workflow step, and the Storybook Workflows pages list the skills used. See `rules/skill-routing.md`.
 
 - Removed the back office theme (CSS block, `backOffice` radius tokens, two stories and story wrappers) and updated the docs.
 
 - Time Picker stories `Default` and `PageAndDialog`: the assertions now wait for the popover fade-in and focus return instead of checking immediately (they failed the same way before the status-line removal). Component unchanged.
 
-- Storybook `Workflows` folder (Thai): 15 pages (`00` overview + 14 flows) showing, for each kind of instruction, what the designer and the AI do, where the AI stops to ask, the result and what is not verified. Swimlane diagrams are inline SVG drawn from data in `design-system/src/lib/features/workflows/`; step codes match `rules/workflow-map.md`. No change to components or tokens.
+- Storybook `Workflows` folder (Thai): 16 pages (`00` overview with the end-to-end diagram + 15 flows) showing, for each kind of instruction, what the designer and the AI do, where the AI stops to ask, the result and what is not verified. Swimlane diagrams are inline SVG drawn from data in `design-system/src/lib/features/workflows/`; step codes match `rules/workflow-map.md`. No change to components or tokens.
 
 ## Unreleased — 2026-11-26
 

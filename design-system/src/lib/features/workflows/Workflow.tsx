@@ -1,5 +1,6 @@
 import type { Flow, Kind, Step } from "./types";
 import { flows } from "./flows";
+import { skills, removedSkills, pluginSkills } from "./skills";
 import { overviewFlow } from "./flow-overview";
 
 const W = 780;
@@ -142,7 +143,18 @@ export function WorkflowIndex() {
       <h1 className="mb-2 text-3xl font-semibold">Workflows: สั่งแบบนี้ เรากับ AI ทำอะไรบ้าง</h1>
       <p className="mb-4">แต่ละหน้าบอกว่าเมื่อคุณสั่งงานรูปแบบหนึ่ง ใครทำอะไรตามลำดับ AI จะหยุดรอคุณตอนไหน และสิ่งไหนที่ AI จะไม่อ้างว่าตรวจแล้ว รหัสขั้นตอน (เช่น F2, U5) ตรงกับ <code>rules/workflow-map.md</code> ซึ่งเป็นต้นฉบับของลำดับขั้นตอน</p>
 
-      <p className="mb-2">อยากเห็นภาพรวมสั้น ๆ ตั้งแต่สั่งงานจนเปิด PR ให้ดูหน้า “00 ผังรวม ตั้งแต่สั่งงานจนเปิด PR”</p>
+      <h2 className="mt-6 text-xl font-semibold">ภาพรวมตั้งแต่สั่งงานจนเปิด PR</h2>
+      <p>งานทุกชนิดในหน้า 01–15 ผ่านลำดับใหญ่นี้เหมือนกัน ส่วนที่ต่างกันคือขั้น “ทำงานตามชนิดงาน” ซึ่งมีรายละเอียดในแต่ละหน้า</p>
+      <Swimlane flow={overviewFlow} />
+      <ol className="list-decimal pl-6">
+        {overviewFlow.steps.map(s => (
+          <li key={s.id} className="mb-2">
+            <strong>{s.lane === "you" ? "คุณ" : "AI"}:</strong> <Rich text={s.label} />{kindText[s.kind ?? "do"]}
+            <div className="opacity-80"><Rich text={s.detail} /></div>
+          </li>
+        ))}
+      </ol>
+
       <h2 className="mt-6 text-xl font-semibold">เลือกตามสิ่งที่คุณจะสั่ง</h2>
       <table className="w-full border-collapse text-left">
         <thead><tr><th className="border-b p-2">หน้า</th><th className="border-b p-2">ใช้เมื่อ</th><th className="border-b p-2">ตัวอย่างคำสั่ง</th></tr></thead>
@@ -157,6 +169,7 @@ export function WorkflowIndex() {
         </tbody>
       </table>
 
+      <p className="mt-4">อยากรู้ว่าสกิลแต่ละตัวทำอะไร ดูหน้า “16 รวมสกิล”</p>
       <h2 className="mt-6 text-xl font-semibold">กติกาที่ใช้กับทุก flow</h2>
       <ul className="list-disc pl-6">
         <li>AI บอกชื่อ flow และรหัสขั้นตอนปัจจุบันก่อนเริ่มงาน (เช่น “Figma to Code, F2”)</li>
@@ -169,6 +182,73 @@ export function WorkflowIndex() {
 
       <h2 className="mt-6 text-xl font-semibold">วิธีอ่านผัง</h2>
       <p>สองเลน: ซ้ายคือคุณ ขวาคือ AI กล่องอยู่ในเลนของคนที่ทำ ลูกศรคือลำดับ เส้นหนาคือ AI หยุดรอคุณตอบ เส้นจุดคือทำเฉพาะบางกรณี เส้นประคือยังไม่มีเครื่องมือตรวจอัตโนมัติ ลูกศรประที่ย้อนกลับคือตรวจไม่ผ่านแล้วกลับไปแก้</p>
+    </div>
+  );
+}
+
+
+/** สีของป้าย "ใช้กับ DS ไหน" ใช้ token เดิมของ DS (ไม่สร้างสีใหม่) */
+const tones = {
+  both: { label: "Core + Product", cls: "bg-[var(--cds-brand-primary-on-surface-default)] text-[var(--cds-brand-primary-content-on-fill)]" },
+  product: { label: "เฉพาะ Product", cls: "bg-[var(--cds-status-success-on-surface-default)] text-[var(--cds-status-success-content-on-fill)]" },
+  figma: { label: "Figma", cls: "bg-[var(--cds-status-warning-on-surface-default)] text-[var(--cds-status-warning-content-on-fill)]" },
+  all: { label: "ทั้ง repo", cls: "bg-[var(--cds-on-surface-sunken)] text-[var(--cds-content-primary)]" },
+} as const;
+function toneOf(scope: string) {
+  if (scope.startsWith("Core")) return tones.both;
+  if (scope.startsWith("Figma")) return tones.figma;
+  if (scope.includes("Product")) return tones.product;
+  return tones.all;
+}
+
+export function SkillsPage() {
+  return (
+    <div className="max-w-[820px] font-sans leading-7">
+      <h1 className="mb-2 text-3xl font-semibold">รวมสกิลทั้งหมด ({skills.length} ตัว)</h1>
+      <p className="mb-4">สกิลคือชุดคำสั่งที่ AI โหลดมาใช้ตอนทำงานแต่ละขั้น แต่ละตัวมีหน้าที่เดียว ตารางนี้บอกว่าสกิลทำอะไร สั่งอย่างไร และใช้กับ DS ไหนได้ ต้นฉบับอยู่ที่ <code>.agents/skills/&lt;ชื่อ&gt;/SKILL.md</code> และคอลัมน์ “Skill” ของทุกตารางใน <code>rules/workflow-map.md</code></p>
+
+      <h2 className="mt-6 text-xl font-semibold">สกิลใน repo</h2>
+      <p className="mb-2 flex flex-wrap items-center gap-2 text-sm">
+        สีของป้าย:
+        {Object.values(tones).map(t => <span key={t.label} className={`rounded-md px-2 py-0.5 font-semibold ${t.cls}`}>{t.label}</span>)}
+      </p>
+      <div className="overflow-x-auto rounded-xl border">
+        <table className="w-full min-w-[760px] border-collapse text-left text-[15px] leading-6">
+          <thead>
+            <tr className="bg-[color-mix(in_srgb,currentColor_6%,transparent)]">
+              <th className="w-[150px] px-4 py-3 font-semibold">สกิล</th>
+              <th className="px-4 py-3 font-semibold">ทำอะไร</th>
+              <th className="w-[230px] px-4 py-3 font-semibold">สั่งยังไง</th>
+              <th className="w-[180px] px-4 py-3 font-semibold">ใช้กับ DS ไหน</th>
+            </tr>
+          </thead>
+          <tbody>
+            {skills.map(k => (
+              <tr key={k.name} className="border-t odd:bg-[color-mix(in_srgb,currentColor_2.5%,transparent)]">
+                <td className="px-4 py-4 align-top"><code className="font-semibold">{k.name}</code></td>
+                <td className="px-4 py-4 align-top">
+                  <Rich text={k.does} />
+                  {k.note && <div className="mt-1 text-sm opacity-70"><Rich text={k.note} /></div>}
+                </td>
+                <td className="px-4 py-4 align-top">
+                  {k.trigger.split(/(?<=”),\s*/).map(t => <div key={t} className="mb-1 last:mb-0">{t}</div>)}
+                </td>
+                <td className="px-4 py-4 align-top">
+                  <span className={`inline-block rounded-md px-2 py-0.5 text-sm font-semibold ${toneOf(k.scope).cls}`}>{k.scope}</span>
+                  {k.scopeNote && <div className="mt-1 text-sm opacity-70"><Rich text={k.scopeNote} /></div>}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <h2 className="mt-6 text-xl font-semibold">สกิลจากปลั๊กอินที่ใช้ร่วมกัน (ไม่อยู่ใน repo)</h2>
+      <ul className="list-disc pl-6">{pluginSkills.map(x => <li key={x}>{x}</li>)}</ul>
+
+      <h2 className="mt-6 text-xl font-semibold">สกิลที่เอาออกแล้ว (27 พ.ย. 2026)</h2>
+      <ul className="list-disc pl-6">{removedSkills.map(x => <li key={x}>{x}</li>)}</ul>
+      <p className="mt-2 text-sm opacity-80">ไฟล์สำรองอยู่ที่ <code>.skill-backups/</code> (ไม่ได้ติดตามใน git) และเหตุผลอยู่ใน <code>rules/skill-routing.md</code></p>
     </div>
   );
 }

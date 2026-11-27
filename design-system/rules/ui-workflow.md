@@ -69,7 +69,7 @@ Read `rules/agent-rules.md` for the project rules, `DESIGN.md` for visual guidan
 |---|---|---|
 | Storybook docs, stories, tests and review | `stories` from the skills installed in the session | First, before changing UI, and used again in the check step |
 | Case coverage | `.agents/skills/component-reuse-check/SKILL.md` (case-planning section) | Planning a new flow/cases or when requirements change |
-| Flowchart/decision tree for the work | `skills/mermaid-diagrams/SKILL.md` | When a diagram is requested. Read the scope and limits from the central rules; do not draw one automatically for every task |
+| Flowchart/decision tree for the work | `artifact-diagramming` for designers; Mermaid in Markdown for text in the repo | When a diagram is requested. Read the scope and limits from the central rules; do not draw one automatically for every task |
 | Reuse and duplicates | `.agents/skills/component-reuse-check/SKILL.md` | Before writing and checking after writing |
 | UI tidiness | `skills/unslop/SKILL.md` | Creating/adjusting UI within scope |
 | React/shadcn | `.agents/skills/shadcn/SKILL.md` | Implementing code that uses shadcn |
