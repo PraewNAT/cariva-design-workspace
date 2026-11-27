@@ -1,23 +1,23 @@
 ---
 name: ux-writing
-description: สกิล UX Writing เดิมที่เก็บไว้ ใช้เฉพาะเมื่อผู้ใช้สั่งเริ่มงานข้อความ ไม่เป็นขั้นตอนอัตโนมัติของแผนล่าสุด
+description: The earlier UX Writing skill, kept for reference. Use only when the user asks to start copy work; it is not an automatic step of the latest plan
 ---
 
-## ขอบเขตตามแพลนล่าสุด
+## Scope per the latest plan
 
-อ่าน AGENTS.md และ rules/skill-routing.md ก่อนใช้ กฎล่าสุดมีผลเหนือขั้นตอนเก่าที่ขัดกัน สกิลนี้ไม่อนุญาตให้ publish, push, deploy หรือเริ่มเลขเวอร์ชันโดยอัตโนมัติ ดำเนินการภายนอกเฉพาะที่ผู้ใช้มอบหมายจริง
+Read AGENTS.md and rules/skill-routing.md before use. The latest rules override any older steps that conflict. This skill does not allow publishing, pushing, deploying, or starting version numbers automatically. Take external actions only when the user has actually assigned them.
 
 
 # UX Writing
 
-ใช้เมื่อ user พูดว่า:
+Use when the user says (Thai trigger phrases are kept so Thai-speaking users can still invoke it):
 
 ```
-เช็ค copy นี้
-แนะนำ tone ให้หน่อย
+Check this copy  (Thai: "เช็ค copy นี้")
+Recommend a tone  (Thai: "แนะนำ tone ให้หน่อย")
 rewrite copy
-ช่วยเขียน error message
-เช็ค grammar
+Help write an error message  (Thai: "ช่วยเขียน error message")
+Check grammar  (Thai: "เช็ค grammar")
 ```
 
 ---
@@ -25,48 +25,50 @@ rewrite copy
 ## Mode
 
 ### Mode 1 — Grammar & Copy Check
-ใช้เมื่อ user ส่ง Figma link หรือ paste text มา
+Use when the user sends a Figma link or pastes text
 
-ตรวจ:
-- Typo และ grammar
-- Copy ที่ไม่ชัดเจนหรือ vague
-- Placeholder ที่ใช้แทน label
-- Error message ที่ไม่บอก action
-- Filler words ที่ตัดออกได้
+Check:
+- Typos and grammar
+- Copy that is unclear or vague
+- Placeholder used in place of a label
+- Error messages that give no action
+- Filler words that can be cut
 
 Report format:
 ```
-🔴 [ข้อความเดิม] → [ข้อความที่ควรเป็น] — เหตุผล
-🟡 [ข้อความเดิม] → [ข้อความที่แนะนำ] — เหตุผล
-🟢 [ข้อสังเกต]
+🔴 [original text] → [what it should be] — reason
+🟡 [original text] → [suggested text] — reason
+🟢 [note]
 ```
 
 ### Mode 2 — Tone Recommendation
-ใช้เมื่อ user อยากรู้ว่า product ควรเขียน tone แบบไหน
+Use when the user wants to know what tone the product should be written in
 
-ถามก่อนว่า:
-1. product นี้คือ B2B หรือ B2C?
-2. user หลักคือใคร? เช่น แพทย์, ผู้ป่วย, admin, general user
-3. อยากได้ภาษาไทย อังกฤษ หรือสลับกัน?
+Ask first:
+1. Is this product B2B or B2C?
+2. Who is the main user? e.g. doctor, patient, admin, general user
+3. Do they want Thai, English, or a mix of both?
 
-แล้วเสนอ 3 แนวทาง พร้อมตัวอย่าง 3 ประโยคต่อ tone:
+Then propose 3 approaches, with 3 example sentences per tone:
 
-| Tone | ลักษณะ | เหมาะกับ |
+| Tone | Characteristics | Best for |
 |---|---|---|
-| **Professional** | formal, ตรงไปตรงมา, ไม่มี personality | Healthcare, Finance, B2B admin |
-| **Friendly** | อบอุ่น, conversational, มี empathy | Consumer app, HR tool |
-| **Concise** | สั้น, direct, ไม่มี filler | Dashboard, Admin tool, Power user |
+| **Professional** | formal, direct, no personality | Healthcare, Finance, B2B admin |
+| **Friendly** | warm, conversational, empathetic | Consumer app, HR tool |
+| **Concise** | short, direct, no filler | Dashboard, Admin tool, Power user |
 
 ### Mode 3 — Rewrite
-ใช้เมื่อ user ให้ copy เดิม + บอก tone ที่ต้องการ
+Use when the user gives the original copy + says which tone they want
 
-- Rewrite ตาม tone ที่เลือก
-- ถ้าเป็นภาษาอังกฤษ ให้แปลภาษาไทยกำกับด้วย
-- ถ้าเป็นภาษาไทย ตอบแค่ภาษาไทย
+- Rewrite in the chosen tone
+- If it is in English, add a Thai translation alongside
+- If it is in Thai, reply in Thai only
 
 ---
 
-## ตัวอย่าง copy แต่ละ tone
+## Copy examples for each tone
+
+(The Thai text after each English line is sample Thai UI copy and is kept verbatim.)
 
 **Professional**
 1. "Invalid username or password. Please try again." — ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง กรุณาลองใหม่
@@ -89,18 +91,18 @@ Report format:
 4. "Saved." — บันทึกแล้ว
 5. "Required." — จำเป็น
 
-**ภาษาไทย — Friendly**
-1. "รหัสผ่านไม่ตรงนะ ลองเช็คดูอีกทีได้เลย"
-2. "ดูเหมือนคุณไม่ได้ใช้งานสักพัก กรุณาเข้าสู่ระบบอีกครั้งนะคะ"
-3. "ยังไม่มีสิทธิ์เข้าถึงส่วนนี้ ติดต่อ admin ได้เลยนะ"
-4. "บันทึกเรียบร้อยแล้ว ไปต่อได้เลย"
-5. "อย่าลืมกรอกช่องนี้ด้วยนะ"
+**Thai — Friendly** (Thai-only sample copy, kept verbatim; English gloss in parentheses)
+1. "รหัสผ่านไม่ตรงนะ ลองเช็คดูอีกทีได้เลย" (The password doesn't match — feel free to check again)
+2. "ดูเหมือนคุณไม่ได้ใช้งานสักพัก กรุณาเข้าสู่ระบบอีกครั้งนะคะ" (Looks like you haven't been active for a while — please log in again)
+3. "ยังไม่มีสิทธิ์เข้าถึงส่วนนี้ ติดต่อ admin ได้เลยนะ" (You don't have access to this section yet — feel free to contact your admin)
+4. "บันทึกเรียบร้อยแล้ว ไปต่อได้เลย" (Saved — you can carry on)
+5. "อย่าลืมกรอกช่องนี้ด้วยนะ" (Don't forget to fill in this field)
 
 ---
 
 ## Rules
 
-- ไม่แก้ไข Figma ระหว่างเช็ค — report เท่านั้น
-- ถ้าไม่รู้ context ของ product ให้ถามก่อน อย่าเดา tone เอง
-- Copy ภาษาไทยต้องไม่ formal จนเกินไปหรือ informal จนดูไม่น่าเชื่อถือ
-- Error message ต้องบอกเสมอว่า เกิดอะไรขึ้น + ทำอะไรได้ต่อ
+- Do not edit Figma while checking — report only
+- If you do not know the product's context, ask first; do not guess the tone yourself
+- Thai copy must not be so formal that it is stiff, nor so informal that it looks untrustworthy
+- An error message must always say what happened + what the user can do next

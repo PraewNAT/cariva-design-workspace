@@ -16,31 +16,31 @@ Next: review the new Mira group.
 # Progress coverage correction — 26/11/2026
 
 **Component Audit — Progress / Credit Badge**
-ผลรวม: เติมสอง Credit Badge sets ที่ตกหล่น ครอบคลุมทั้ง4 sets ใน section4457:16647;12/12 Progress story interactionsผ่าน
-ขอบเขต: compact2sizes×4statusesพร้อมnativehover, remaining/used, depleted text/zero aliases, loading/optional parts, page/DialogและThai320px. ไม่เชื่อมระบบเครดิตจริง
+Result: filled in the two missed Credit Badge sets, covering all 4 sets in section 4457:16647; 12/12 Progress story interactions pass
+Scope: compact 2 sizes × 4 statuses with native hover, remaining/used, depleted text/zero aliases, loading/optional parts, page/Dialog and Thai 320px. Not connected to a real credit system
 
-| ระดับ | ผล | รายการ | หลักฐาน | ถัดไป |
+| Severity | Status | Item | Evidence | Next action |
 |---|---|---|---|---|
-| — | ผ่าน |12/12 Progress stories รวม6credit stories; loading→loaded และ Dialogเปิดจริงก่อนตรวจvisible | output/progress-credit/tests.txt | คงกรณีทดสอบ |
-| — | ผ่าน | compact160×32/132×24; track64/48×4; UI font12/16; nativehover=#f1f5f9 | browser-evidence.json | คงrecipeเดียวบนหน้า/Dialog |
-| — | ผ่าน |320px ไม่ล้นแม้จำนวนยาว/labelไทย; coin source16pxโหลดจริง | browser-evidence.json | ไม่ต้องดำเนินการเพิ่ม |
-| — | ผ่าน | low textwarning/content/strong contrast5.02:1; primary/warningtrackใช้subtleเพื่อแก้sourceใกล้แต่ต่ำกว่า3:1 | PROGRESS-FIGMA.md | คงtokenกลางเดิม; บันทึกvisual difference |
-| — | ผ่าน | Figma docs61linked specimens (12+24+16+9), visiblecreditlabels≥12; noownoverflow;2main APIs/geometry unchanged | figma-verification.json; docs4721:88932 | source10pxยังเป็นข้อมูลต้นฉบับ ไม่อ้างsyncmainfont |
-| — | ผ่าน | Build, scopedlint, tokens checkผ่าน; sharedProgress/Skeletonไม่แก้ | build.txt; commandsจริง | ไม่ต้องดำเนินการเพิ่ม |
-| ต่ำ | ตรวจไม่ได้ | PhysicalOS reducedmotion/screen readers/billing integration | CSSmotion-reduce; Productownsdata/status | ไม่อ้างfullAAหรือbillingreadiness |
+| — | Pass | 12/12 Progress stories including 6 credit stories; loading→loaded and the Dialog actually opened before the visibility check | output/progress-credit/tests.txt | Keep the test cases |
+| — | Pass | compact 160×32/132×24; track 64/48×4; UI font 12/16; native hover=#f1f5f9 | browser-evidence.json | Keep a single recipe on the page/Dialog |
+| — | Pass | 320px does not overflow even with long numbers/Thai labels; coin source 16px actually loaded | browser-evidence.json | No further action needed |
+| — | Pass | low text warning/content/strong contrast 5.02:1; primary/warning track uses subtle to fix a source that was close to, but below, 3:1 | PROGRESS-FIGMA.md | Keep the existing central token; record the visual difference |
+| — | Pass | Figma docs 61 linked specimens (12+24+16+9), visible credit labels ≥12; no own overflow; 2 main APIs/geometry unchanged | figma-verification.json; docs 4721:88932 | Source 10px is still the original data; do not claim main font sync |
+| — | Pass | Build, scoped lint, tokens check pass; shared Progress/Skeleton not modified | build.txt; actual commands | No further action needed |
+| Low | Could not check | Physical OS reduced motion / screen readers / billing integration | CSS motion-reduce; Product owns data/status | Do not claim full AA or billing readiness |
 
-สรุป: ผ่าน6, ต้องแก้0ในขอบเขตที่ตรวจ, ตรวจไม่ได้1
-ต่อไป: ใช้รีวิวProgressฉบับแก้coverage และคงProduct logicแยกจากpresentation
+Totals: 6 passed, 0 need fixing within the checked scope, 1 could not be checked
+Next: use the coverage-corrected Progress review and keep Product logic separate from presentation
 
 **Component Reuse & Duplicate Check — Progress Credit**
-ผลรวม: ใช้CreditBadgeเดียวประกอบจากProgress/Skeletonจริง ไม่พบของซ้ำในขอบเขตที่ตรวจ
-ขอบเขต: src/lib/products/mira/components/credit-badge.tsx, src/lib/products/mira/components/credit-badge.stories.tsx และimportsของProgress/Skeleton
+Result: a single CreditBadge composed from the real Progress/Skeleton; no duplicates found within the checked scope
+Scope: src/lib/products/mira/components/credit-badge.tsx, src/lib/products/mira/components/credit-badge.stories.tsx and the Progress/Skeleton imports
 
-| ระดับ | ผล | รายการ | หลักฐาน | ถัดไป |
+| Severity | Status | Item | Evidence | Next action |
 |---|---|---|---|---|
-| — | ผ่าน |สองFigma setsแมปCreditBadgeผ่านpresentationprops ไม่สร้างthresholdหรือrequestlogic | src/lib/products/mira/components/credit-badge.tsx; source7089:1151/7094:365 | Productส่งamount/status/progress |
+| — | Pass | Both Figma sets map to CreditBadge through presentation props; no threshold or request logic created | src/lib/products/mira/components/credit-badge.tsx; source 7089:1151/7094:365 | Product passes amount/status/progress |
 
-สรุป: ผ่าน1, ต้องแก้0, ตรวจไม่ได้0
-ต่อไป: ไม่ต้องดำเนินการเพิ่ม
+Totals: 1 passed, 0 need fixing, 0 could not be checked
+Next: no further action needed
 
-รอบก่อนตัดCreditBadgeออกจากscopeเอง; การแก้รอบนี้ยืนยัน4setsครบ. ข้อความexclusionในauditเดิมเป็นhistoricalและมีcorrectionแล้ว. Main Figmaไม่rename/เปลี่ยนAPI; sourcealiasesdepleted2/depleted 2เป็นnumeric-zero presentation. Labels10pxปรับเฉพาะcode/docinstancesเป็น12px จึงอาจทำให้detailedbadgeกว้างกว่าsource ไม่ฝืนwidthจนข้อความเล็กลง. ต้นฉบับiconใช้PNG16pxจากFigma มิใช่ภาพแบนของcomponent.
+The previous round dropped CreditBadge from scope on its own; this correction confirms all 4 sets are covered. The exclusion text in the earlier audit is historical and has been corrected. Main Figma was not renamed and its API not changed; source aliases depleted2 / depleted 2 are numeric-zero presentation. 10px labels were adjusted to 12px only in code/doc instances, so the detailed badge may be wider than the source; width is not forced, which would shrink the text. The original icon uses a 16px PNG from Figma, not a flattened image of the component.

@@ -1,29 +1,29 @@
-# MUI import — 24 พฤศจิกายน 2026
+# MUI import — 24 November 2026
 
-> **สถานะ 26 พฤศจิกายน 2026:** เอกสารนี้เป็นบันทึกตามวันที่ที่เขียน ไม่ได้อัปเดตตามทุกการตัดสินใจหลังจากนั้น โค้ด MUI ที่นำเข้าตอนนั้นตอนนี้อยู่ที่ `legacy/mui/` ของ repo (ต้นฉบับ `/Users/natthaphorna/Cariva DS` ถูกจัดโครงใหม่) ใช้เป็นอ้างอิงเท่านั้น ลำดับขั้นและจุดตัดสินใจปัจจุบันอยู่ที่ `rules/workflow-map.md` ของ `shadcn/`
+> **Status as of 26 November 2026:** This document is a dated record of what was written at the time; it has not been updated for every decision made since. The MUI code imported then now lives in `legacy/mui/` of the repo (the original `/Users/natthaphorna/Cariva DS` was restructured) and is for reference only. The current order of steps and decision gates are in `rules/workflow-map.md` of `shadcn/`.
 
-นำ Core จาก `/Users/natthaphorna/Cariva DS` มาเป็นฐานชั่วคราวใน workspace นี้ตามคำสั่งผู้ใช้ ระหว่างตกลง stack กับ Dev ไม่ได้ย้ายกลับไปทำงานใน repository เก่า และไม่ได้แก้ต้นฉบับ
+The Core from `/Users/natthaphorna/Cariva DS` was brought into this workspace as a temporary base at the user's instruction, while the stack is being agreed with Dev. Work was not moved back into the old repository, and the original was not modified.
 
-## นำเข้ามาแล้ว
+## Imported
 
-- `code/core` เดิม 407 ไฟล์ ครอบคลุม component 47 โฟลเดอร์, theme, tokens, icons, stories, unit tests, เอกสารและ Code Connect
-- `tokens.json`, `figma.config.json`, `code-connect/` และ token generator
-- เก็บ specs เดิมใน `design-references/mui/rules` และ package metadata ต้นฉบับ รวม manifest ที่บันทึก SHA-256 ของไฟล์ก่อนปรับ
-- ใช้ MUI 7.3.11, icons 7.3.11, date pickers 7.29.4, Emotion และ fonts ตาม dependencies ที่ต้นฉบับติดตั้งจริง
-- คง React 19, Vite 8 และ Storybook 10 ของ workspace ปลายทาง ไม่ย้าย peer-bridge, secrets, node_modules หรือ config Storybook 8
+- The original `code/core`: 407 files covering 47 component folders, theme, tokens, icons, stories, unit tests, documentation and Code Connect
+- `tokens.json`, `figma.config.json`, `code-connect/` and the token generator
+- The original specs kept in `design-references/mui/rules` and the original package metadata, including a manifest recording the SHA-256 of each file before adjustment
+- MUI 7.3.11, icons 7.3.11, date pickers 7.29.4, Emotion and fonts, per the dependencies actually installed in the original
+- Kept the destination workspace's React 19, Vite 8 and Storybook 10; did not move peer-bridge, secrets, node_modules or the Storybook 8 config
 
-## ปรับเฉพาะการเชื่อมต่อ
+## Connection-only adjustments
 
-- Story imports เปลี่ยนเป็น `@storybook/react-vite`
-- แก้ callback arguments ของ checkbox/radio ใน stories, type ของ ModalDemo และ token ที่ไม่มีจริงใน Sidebar story (`bg.page` → `bg.subtle`)
-- React 19: ใช้ JSX type import และไม่ส่ง ref แบบ unknown ผ่าน props ของ SwitchBase
-- จำกัด return type ของ style helpers Table/Tabs ให้ตรงกับ callback ที่คืนจริง เพื่อใช้ประกอบ sx ได้ โดยไม่เปลี่ยน style values
-- โหลด MUI theme/fonts ในแอปและ Storybook และ prebundle dependencies เพื่อไม่ให้ test runner reload ระหว่างรัน
-- เก็บ `code/core/CLAUDE.md` เดิมเป็น reference ที่ `design-references/mui/CORE-CLAUDE.original.md` เพื่อไม่ให้กฎเก่าทับ AGENTS.md ปัจจุบัน
+- Story imports changed to `@storybook/react-vite`
+- Fixed the checkbox/radio callback arguments in stories, the ModalDemo type, and a token that does not actually exist in the Sidebar story (`bg.page` → `bg.subtle`)
+- React 19: use JSX type import and do not pass an unknown ref through SwitchBase props
+- Narrowed the return type of the Table/Tabs style helpers to match what the callbacks actually return, so they can be composed into sx without changing style values
+- Load the MUI theme/fonts in the app and Storybook and prebundle dependencies so the test runner does not reload mid-run
+- Kept the original `code/core/CLAUDE.md` as a reference at `design-references/mui/CORE-CLAUDE.original.md` so the old rules do not override the current AGENTS.md
 
-`code/core/tokens.ts` และ `tokens.json` ยังตรงกับไฟล์ต้นฉบับ ไม่ได้เปลี่ยน design หรือ API ของ Button
+`code/core/tokens.ts` and `tokens.json` still match the original files; the design and API of Button were not changed.
 
-## เปิดใช้งาน
+## Getting it running
 
 ```sh
 npm ci
@@ -31,34 +31,34 @@ npm run dev
 npm run storybook -- --no-open
 ```
 
-แอปหลักที่พอร์ต 5173 แสดง component MUI จริง ส่วน Storybook พอร์ต 6006 แสดง library เดิมและหน้า Workspace มี Code panel, usage และ implementation source ที่อ่านจากไฟล์จริง
+The main app on port 5173 shows the actual MUI components; Storybook on port 6006 shows the original library, and the Workspace page has a Code panel, usage and implementation source read from the actual files.
 
-งานทดลองเดิมยังอยู่ครบ เปิดแยกด้วย `npm run dev:experiments` ที่พอร์ต 5174 และ `npm run storybook:experiments` ที่พอร์ต 6007 ไม่ใช้เป็น Core หลัก
+The earlier experiments are all still there; open them separately with `npm run dev:experiments` on port 5174 and `npm run storybook:experiments` on port 6007. They are not used as the main Core.
 
-## ผลตรวจ
+## Check results
 
-- `npm run build`: ผ่าน รวม typecheck source และ stories ของ MUI
-- `npm run build-storybook`: ผ่าน
-- `npm run tokens:check`: ผ่าน
-- `npm run lint`: ผ่าน โดยยังมีคำเตือน Fast Refresh เดิม
-- Storybook rendering/interaction: ผ่าน 312 stories รวมสาม stories ใหม่ของหน้า migration
-- ตรวจภาพหน้า desktop, mobile 390px และ modal; ไม่พบ JavaScript error หรือหน้าล้นบนหน้าที่ตรวจ ข้อความหน้า preview ที่ตรวจไม่ต่ำกว่า 12px
-- ทดสอบเปิด modal ด้วย Enter, ยืนยัน, Escape และคืน focus รวมถึงเปรียบเทียบขนาด/ฟอนต์/ความโค้งปุ่มหน้าและ modal
+- `npm run build`: passed, including typecheck of the MUI source and stories
+- `npm run build-storybook`: passed
+- `npm run tokens:check`: passed
+- `npm run lint`: passed, with the existing Fast Refresh warnings still present
+- Storybook rendering/interaction: 312 stories passed, including the three new migration-page stories
+- Checked the desktop page, mobile at 390px and the modal; no JavaScript errors or page overflow found on the pages checked. The preview page text checked is no smaller than 12px
+- Tested opening the modal with Enter, confirming, Escape and returning focus, plus comparing the size/font/corner radius of the page button and the modal button
 
-## ข้อจำกัดที่ยังค้าง
+## Remaining limitations
 
-- Accessibility ยังไม่ผ่าน: runner รายงาน 209 คู่ story/rule ใน 174 stories รวม 11 กลุ่มกฎ เช่น contrast, ชื่อ field/dialog/progress และ table semantics ดูรายการใน `reports/mui-migration/storybook-results.json` ไม่ใช่การรับรองทั้ง library และจำนวนนี้ไม่ใช่จำนวน bug ที่แยกจากกันทั้งหมด
-- คง a11y `todo` เดิมไว้ ไม่ลดกฎหรือปิดการตรวจ สี primary `#1789fa` กับขาวมี contrast ประมาณ 3.5:1 ต้องตัดสินใจแก้ design แยกจากงานนำเข้า
-- ยังไม่ sync Figma ล่าสุด: Button medium เดิมใช้ metrics 36px, icon 20px และ fixed height ส่วน Figma ล่าสุดต้องการ Hug 40px, icon 24px; ข้อมูล font/mode ใน tokens เก่าอาจต่างจาก Figma ล่าสุดด้วย
-- Fonts Aktiv/Malila ต้องใช้ Adobe Fonts ตามสิทธิ์และ config ของทีม; workspace นี้คง fallback เดิมและยังไม่ได้เพิ่มการโหลด remote kit จึงไม่รับรองว่า render ด้วย Aktiv ทุกเครื่อง
-- เอกสาร `.ai.md`, specs และ integration เดิมบางส่วนเป็นข้อมูลเก่า มีหัวข้อ/ค่าที่อาจไม่ตรง implementation; หน้า Workspace / Setup and source ระบุขอบเขตที่ตรวจแล้ว ไม่มีการประกาศว่า docs ทุกไฟล์เป็นปัจจุบัน
-- เก็บ Code Connect เดิมไว้ แต่ไม่ได้ publish, แก้ mapping บน Figma หรือยืนยัน parity
-- Unit tests เดิมถูกเก็บไว้ แต่รอบนี้ใช้ Storybook browser tests เป็นหลัก ยังไม่ได้ตั้ง unit-test runner เดิมใหม่
+- Accessibility does not pass yet: the runner reports 209 story/rule pairs across 174 stories covering 11 rule groups, such as contrast, field/dialog/progress names and table semantics. See the list in `reports/mui-migration/storybook-results.json`. This is not a certification of the whole library, and the count is not the number of separate bugs
+- The existing a11y `todo` was kept; no rules were reduced and no checks turned off. The primary colour `#1789fa` on white has a contrast of about 3.5:1 and needs a design decision to fix, separate from the import work
+- Figma has not been synced to the latest: the old Button medium used metrics 36px, icon 20px and a fixed height, while the latest Figma wants Hug 40px, icon 24px; the font/mode data in the old tokens may also differ from the latest Figma
+- Aktiv/Malila fonts require Adobe Fonts per the team's licence and config; this workspace kept the existing fallback and has not added loading of the remote kit, so there is no guarantee it renders in Aktiv on every machine
+- Some of the original `.ai.md` docs, specs and integrations are out of date, with headings/values that may not match the implementation; the Workspace / Setup and source page states the scope that was checked, and there is no claim that every doc file is current
+- The original Code Connect was kept, but nothing was published, no mapping was edited in Figma and parity was not confirmed
+- The original unit tests were kept, but this round relied mainly on Storybook browser tests; the original unit-test runner has not been set up again
 
-## จุดสำรองและย้อนกลับ
+## Backup and rollback point
 
-ก่อนนำเข้าเก็บไฟล์ workspace เดิมไว้ที่ `backups/2026-11-24-before-mui.tar.gz` รวม package/lock/config/source และ symlinks แต่ไม่รวม dependencies, build output หรือ `.git`
+Before the import, the previous workspace files were kept at `backups/2026-11-24-before-mui.tar.gz`, including package/lock/config/source and symlinks, but not dependencies, build output or `.git`.
 
-หากต้องย้อน ให้แตก archive ลงโฟลเดอร์ว่างก่อน แล้วรัน `npm ci` ในโฟลเดอร์นั้น อย่าแตกทับงานใหม่โดยไม่ตรวจ เพราะ archive ไม่ลบไฟล์ที่เพิ่มภายหลัง การเก็บ snapshot นี้ไม่ใช่การเริ่มเลขเวอร์ชัน DS
+To roll back, extract the archive into an empty folder first, then run `npm ci` in that folder. Do not extract over new work without checking, because the archive does not delete files added later. Keeping this snapshot is not the start of DS version numbering.
 
-ขั้นถัดไป: ตกลง stack กับ Dev แล้วเลือก Button เป็นงาน sync แรกตามทิศทางที่ระบุ พร้อมอัปเดต docs และ audit อีกครั้ง
+Next step: agree the stack with Dev, then pick Button as the first sync task in the stated direction, and update docs and audit again.

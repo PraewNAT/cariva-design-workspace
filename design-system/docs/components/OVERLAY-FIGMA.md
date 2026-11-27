@@ -1,35 +1,35 @@
 # Overlay — Figma specification
 
-อ่านจาก Figma วันที่ 26 พฤศจิกายน 2026: [Overlay](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt?node-id=4716-64196) (ไฟล์ Cariva Core Design System) งานนี้ผู้ใช้สั่งให้ตัดสินใจเองระหว่างที่ไม่อยู่ (ชื่อและ prop ด้านล่างเป็นการตัดสินใจของ Claude ยังไม่ผ่านการยืนยัน)
+Read from Figma on 26 November 2026: [Overlay](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt?node-id=4716-64196) (Cariva Core Design System file). For this work the user told me to decide on my own while away (the names and props below are Claude's decisions and have not been confirmed)
 
-## ชุดใน Figma (เปลี่ยนชื่อแล้ว ชื่อเดิมสำรองใน plugin data `oldName_2026-11-26`)
+## Sets in Figma (renamed; original names backed up in plugin data `oldName_2026-11-26`)
 
-| ชื่อใหม่ | ชื่อเดิม | instance (ก่อน → หลัง) |
+| New name | Original name | instance (before → after) |
 |---|---|---|
 | `overlay/sm` (390×844) | `crv-overlay/sm` | 2 → 2 |
 | `overlay/md+` (1440×900) | `crv-overlay/md+` | 1 → 1 |
 
-ข้อความชื่อเดิมในกรอบ `Doc — overlay` เปลี่ยนแล้ว (5 จุดรวมกับหน้า Modal) ทั้งสองเป็นสี่เหลี่ยมเต็มจอ ไม่มี prop
+The original-name text in the `Doc — overlay` frame has been changed (5 places, including the Modal page). Both are full-screen rectangles with no props
 
-## สเปก
+## Spec
 
-- พื้น `overlay/backdrop` (ดำ 40% = `#00000066`) ขนาดตามเฟรม (sm มือถือ, md+ แท็บเล็ต/เดสก์ท็อป) ไม่มีเบลอ
-- ใช้คู่กับ Modal, Drawer, Bottom Sheet วางไว้ล่างสุด; ห้ามปรับ opacity หรือสีเอง
-- เอกสารใน Figma ระบุว่ายังไม่มีแบบ strong (`overlay/backdrop/strong` ดำ 60%) — token มีอยู่แล้วใน `tokens.json`
+- Fill `overlay/backdrop` (black 40% = `#00000066`), sized to the frame (sm mobile, md+ tablet/desktop), no blur
+- Used together with Modal, Drawer and Bottom Sheet, placed at the very bottom; do not adjust the opacity or color yourself
+- The Figma documentation notes that there is no strong variant yet (`overlay/backdrop/strong`, black 60%) — the token already exists in `tokens.json`
 
-## ชื่อ Figma ↔ โค้ด
+## Figma names ↔ Code
 
-| Figma | โค้ด |
+| Figma | Code |
 |---|---|
-| `overlay/sm`, `overlay/md+` | `DialogOverlay`, `SheetOverlay` (ขนาดตามหน้าจอจริง ไม่มี prop) |
+| `overlay/sm`, `overlay/md+` | `DialogOverlay`, `SheetOverlay` (size follows the real screen, no props) |
 
-## โค้ด (26 พ.ย. 2026)
+## Code (26 Nov 2026)
 
-พื้นของ `DialogOverlay` และ `SheetOverlay` เปลี่ยนจาก `bg-black/80` + เบลอ เป็น `--cds-overlay-backdrop` (ดำ 40%) ไม่มีเบลอ
+The fill of `DialogOverlay` and `SheetOverlay` changed from `bg-black/80` + blur to `--cds-overlay-backdrop` (black 40%) with no blur
 
-| เรื่อง | สถานะ |
+| Item | Status |
 |---|---|
-| สี `rgba(0,0,0,0.4)` ของ Dialog overlay | ตรง (วัดใน story `FigmaDialog`) |
-| Sheet overlay | ตั้งค่าเดียวกัน **ยังไม่ได้วัด** |
+| `rgba(0,0,0,0.4)` color of the Dialog overlay | matches (measured in story `FigmaDialog`) |
+| Sheet overlay | same value set, **not measured** |
 
-**ผลกระทบ:** พื้นหลังตอนเปิด Dialog และ Sheet จางลง (ดำ 80% เป็น 40%) และไม่เบลอ ทุกที่ที่ใช้
+**Impact:** the backdrop when opening a Dialog or Sheet is lighter (black 80% to 40%) and no longer blurred, everywhere it is used

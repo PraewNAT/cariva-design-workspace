@@ -1,8 +1,8 @@
 # Figma Workflow
 
-> **หมายเหตุ (26 พ.ย. 2026):** เอกสารนี้เขียนในยุค MUI ส่วนที่พูดถึง `Crv*`, MUI props และ `.ai.md` ใช้กับ `legacy/mui/` เท่านั้น ส่วนขั้นตอนฝั่ง Figma ใช้ได้ทั่วไป DS ปัจจุบันคือ shadcn ใน `shadcn/` (กฎใน `shadcn/rules/`)
+> **Note (26 Nov 2026):** This document was written in the MUI era. The parts that mention `Crv*`, MUI props and `.ai.md` apply to `legacy/mui/` only, while the Figma-side steps are generally applicable. The current DS is shadcn in `shadcn/` (rules in `shadcn/rules/`)
 
-ครอบคลุมงาน — **Figma authoring** (สร้าง/แก้ component ใน Figma) และ **Figma → Code** (implement React จาก Figma) รวมถึง **Code → Figma ระดับหน้าจอ** (Part C)
+Covers — **Figma authoring** (creating/editing components in Figma) and **Figma → Code** (implementing React from Figma), including **screen-level Code → Figma** (Part C)
 
 **Related docs**
 - Screens / templates: `legacy/mui/rules/pixel-perfect-ui.md`
@@ -12,31 +12,31 @@
 
 ---
 
-## Part A — Figma Authoring (สร้างและแก้ component ใน Figma)
+## Part A — Figma Authoring (creating and editing components in Figma)
 
 ### Tools Required
 
-- **figma-console MCP** — ต้องเชื่อมต่อผ่าน Desktop Bridge plugin ใน Figma Desktop
+- **figma-console MCP** — must be connected through the Desktop Bridge plugin in Figma Desktop
 - Verify: `figma_get_status` with `probe: true`
-- ถ้าหลุด: Figma Desktop → Plugins → Development → Figma Desktop Bridge → Run
+- If it drops: Figma Desktop → Plugins → Development → Figma Desktop Bridge → Run
 
 ### A1 — Prop Naming Rules
 
-1. ใช้ MUI prop names ถ้าทำได้
-2. ถ้า MUI prop ใช้ใน Figma ไม่ได้ (เช่น `children`) ให้ตั้งชื่อ Figma แล้ว document mapping ใน `rules/components.md`
+1. Use MUI prop names where possible
+2. If a MUI prop cannot be used in Figma (for example `children`), name it in Figma and document the mapping in `rules/components.md`
 
-**Variant axes (สร้าง frame แยกต่างหาก):**
-- `size=small|medium|large` — เมื่อ visual sizing ต่างกัน
-- `state=default|hover|focused|filled` — interaction states (CSS pseudo — ห้าม expose เป็น code prop)
-- `disabled=false|true` — boolean axis แยก → MUI `disabled={true}`
-- `error=false|true` — boolean axis แยก → MUI `error={true}`
-- `selected=false|true` — boolean axis แยก → MUI `selected={true}`
+**Variant axes (create separate frames):**
+- `size=small|medium|large` — when the visual sizing differs
+- `state=default|hover|focused|filled` — interaction states (CSS pseudo — do not expose as a code prop)
+- `disabled=false|true` — separate boolean axis → MUI `disabled={true}`
+- `error=false|true` — separate boolean axis → MUI `error={true}`
+- `selected=false|true` — separate boolean axis → MUI `selected={true}`
 
-**ห้ามรวม `disabled` หรือ `error` เข้า `state` axis** — เป็น MUI props แยกกัน
+**Do not merge `disabled` or `error` into the `state` axis** — they are separate MUI props
 
 ### A2 — Variable Binding (mandatory)
 
-Bind variables ทุก property ที่ทำได้ ห้าม hardcode
+Bind variables on every property where it is possible; do not hardcode
 
 **Spacing mapping:**
 
@@ -52,7 +52,7 @@ Bind variables ทุก property ที่ทำได้ ห้าม hardcode
 | 32 | `spacing/3xl` |
 | 40 | `spacing/4xl` |
 
-ถ้าค่าตกระหว่าง token ให้ round ไป token ที่ใกล้ที่สุด ห้ามสร้าง one-off local value
+If a value falls between tokens, round to the nearest token; do not create a one-off local value
 
 ```js
 // ✅ correct
@@ -83,12 +83,12 @@ await figma.loadAllPagesAsync();
 const allVars   = await figma.variables.getLocalVariablesAsync();
 const allStyles = await figma.getLocalTextStylesAsync();
 const node      = await figma.getNodeByIdAsync('1234:5678');
-// primaryAxisSizingMode: ใช้ 'AUTO' ไม่ใช่ 'HUG'
+// primaryAxisSizingMode: use 'AUTO', not 'HUG'
 ```
 
 ### A3 — Purple Dashed Border (mandatory)
 
-ทุก component set ต้องมี purple dashed border `#8A38F5` — เกิดอัตโนมัติจาก `combineAsVariants()`
+Every component set must have a purple dashed border `#8A38F5` — it is created automatically by `combineAsVariants()`
 
 ```js
 // Multiple variants → COMPONENT_SET
@@ -100,62 +100,62 @@ const comp = figma.createComponentFromNode(existingFrame);
 comp.name = 'crv-component-name';
 ```
 
-ห้ามสร้าง FRAME เป็น deliverable สุดท้าย — ต้องเป็น COMPONENT หรือ COMPONENT_SET เสมอ
+Do not create a FRAME as the final deliverable — it must always be a COMPONENT or COMPONENT_SET
 
 ### A4 — Audit
 
-Report ทุก finding พร้อม:
+Report every finding with:
 - **Severity**: 🔴 Critical / 🟡 Warning / 🟢 Info
-- **What**: prop/token/layer name จริง
-- **Why**: rule ที่ละเมิด
-- **Fix**: สิ่งที่ต้องเปลี่ยน
+- **What**: the actual prop/token/layer name
+- **Why**: the rule that is violated
+- **Fix**: what needs to change
 
 **Severity:**
-- 🔴 dev implement ผิด behavior (wrong token category, missing prop, undocumented state)
+- 🔴 a dev would implement the wrong behavior (wrong token category, missing prop, undocumented state)
 - 🟡 visual drift (hardcoded spacing, wrong surface token)
 - 🟢 naming inconsistency (no visual impact)
 
-ห้าม auto-fix หลัง audit — รอ user สั่ง "แก้เลย"
+Do not auto-fix after an audit — wait for the user to say "fix it now" (Thai: "แก้เลย")
 
 ### A5 — Fix
 
-Fix เฉพาะเมื่อ user สั่งชัดเจน:
-1. **Edit existing** — modify nodes in place ด้วย `figma_execute`
-2. **Rebuild** — เฉพาะเมื่อ user สั่ง หรือ structure ไม่รองรับ fix
+Fix only when the user explicitly orders it:
+1. **Edit existing** — modify nodes in place with `figma_execute`
+2. **Rebuild** — only when the user orders it or the structure cannot support a fix
 
-หลัง fix ทุกครั้ง: `figma_capture_screenshot` และ verify ก่อน report done
+After every fix: `figma_capture_screenshot` and verify before reporting done
 
 ### A6 — Naming Convention
 
 - Figma: `crv-{component-name}` kebab-case
 - Code: `Crv{ComponentName}` PascalCase
-- ห้ามใช้ `cv-` prefix (deprecated)
+- Do not use the `cv-` prefix (deprecated)
 
 ### A7 — Annotation Rules
 
-**Purple stroke บน COMPONENT_SET** — native Figma annotation จาก `combineAsVariants()` ห้าม report เป็น hardcoded stroke และห้ามลบหรือ replace ด้วย variable
+**Purple stroke on COMPONENT_SET** — a native Figma annotation from `combineAsVariants()`; do not report it as a hardcoded stroke, and do not remove it or replace it with a variable
 
 ---
 
-## Part B — Figma → Code (implement React จาก Figma)
+## Part B — Figma → Code (implementing React from Figma)
 
-### Principle: Figma wins on conflict (สำหรับ Figma → Code)
+### Principle: Figma wins on conflict (for Figma → Code)
 
-`shadcn/rules/components/*.md` คือ checklist และ contract ไม่ใช่ substitute สำหรับการอ่าน Figma
+`shadcn/rules/components/*.md` is a checklist and a contract, not a substitute for reading Figma
 
-ถ้า rule ขัดกับ Figma node จริง → **trust Figma** → implement จาก Figma → **update rule ในงานเดียวกัน**
+If a rule conflicts with the actual Figma node → **trust Figma** → implement from Figma → **update the rule in the same task**
 
 ### B1 — Inspect Figma first (mandatory)
 
-ก่อนเขียนโค้ด inspect node ด้วย figma-console MCP:
+Before writing code, inspect the node with the figma-console MCP:
 
-1. `figma_get_status` — confirm Desktop Bridge เชื่อมต่อ
-2. เปิด component set / reference frame
-3. บันทึก structure:
+1. `figma_get_status` — confirm the Desktop Bridge is connected
+2. Open the component set / reference frame
+3. Record the structure:
    - **Top-level children** — sibling vs nested
-   - **All variant axes** — ทุก combination ที่ต้อง support ใน Storybook
-   - **Per-layer fills/strokes** — token ต่อ layer อย่าสมมติ bg เดียวทั้ง component
-   - **Layout** — direction, alignment, gap, padding ต่อ frame
+   - **All variant axes** — every combination that must be supported in Storybook
+   - **Per-layer fills/strokes** — a token per layer; do not assume a single bg for the whole component
+   - **Layout** — direction, alignment, gap, padding per frame
 
 ```text
 crv-example
@@ -170,63 +170,63 @@ crv-example
 2. `legacy/mui/code/core/components/{Component}/{Component}.ai.md` — exports, AI rules
 3. `legacy/mui/code/CLAUDE.md` — tokens, imports, MUI wrapper rules
 
-Note gaps ระหว่าง doc กับ Figma แล้ว plan fix หลัง implement
+Note the gaps between the doc and Figma, then plan a fix after implementing
 
 ### B3 — Implement
 
-1. **Mirror Figma hierarchy ใน JSX** — footer มักเป็น sibling ไม่ใช่ nested ใน padding
-2. **Tokens only** — `colors`, `spacing`, `radius` จาก `@/ds/tokens` ห้าม raw hex/px ใน `sx`
-3. **MUI wrapper** — extend MUI แต่ override layout ให้ตรง Figma
-4. **Styles file** — เก็บ variant logic ใน `{Component}Styles.ts` เมื่อ logic ซับซ้อน
-5. **Exports** — public API ผ่าน `index.ts`; stories import จาก `index.ts`
+1. **Mirror the Figma hierarchy in JSX** — the footer is usually a sibling, not nested inside the padding
+2. **Tokens only** — `colors`, `spacing`, `radius` from `@/ds/tokens`; no raw hex/px in `sx`
+3. **MUI wrapper** — extend MUI but override the layout to match Figma
+4. **Styles file** — keep variant logic in `{Component}Styles.ts` when the logic is complex
+5. **Exports** — public API through `index.ts`; stories import from `index.ts`
 
 ### B4 — Storybook coverage (mandatory)
 
-Story ต่อแต่ละ variant axis สำคัญ:
-- Layout types, breakpoints, boolean toggles ที่เปลี่ยน anatomy
-- อย่างน้อย 1 realistic content example
+A story per important variant axis:
+- Layout types, breakpoints, boolean toggles that change the anatomy
+- At least 1 realistic content example
 
 Story title pattern: `{Category}/Crv{Component}`
 
 ### B5 — Visual verify (mandatory)
 
-ก่อน mark done:
-1. รัน Storybook และเปิด stories ใหม่
-2. เทียบกับ Figma — `figma_take_screenshot` บน matching variant
-3. เช็คเฉพาะ: bg color ต่อ section, border/divider, CTA order ต่อ breakpoint, padding/gap/typography
+Before marking done:
+1. Run Storybook and open the new stories
+2. Compare with Figma — `figma_take_screenshot` on the matching variant
+3. Check only: bg color per section, border/divider, CTA order per breakpoint, padding/gap/typography
 
-ถ้าต่าง → แก้โค้ดก่อน → update rules ทีหลัง
+If different → fix the code first → update the rules afterwards
 
 ### B6 — Sync documentation
 
-| File | Update เมื่อ |
+| File | Update when |
 |---|---|
-| `shadcn/rules/components/{name}.md` | anatomy, tokens, layout, prop mapping เปลี่ยน |
-| `legacy/mui/code/core/components/{Component}/{Component}.ai.md` | props, slots, implementation rules ใหม่ |
-| `legacy/mui/code/CLAUDE.md` | global pattern ใหม่ที่ใช้ได้กว้าง |
+| `shadcn/rules/components/{name}.md` | anatomy, tokens, layout, prop mapping change |
+| `legacy/mui/code/core/components/{Component}/{Component}.ai.md` | new props, slots, implementation rules |
+| `legacy/mui/code/CLAUDE.md` | a new global pattern with broad applicability |
 
 ### Common failure modes
 
-| Mistake | แก้ด้วย |
+| Mistake | Fix with |
 |---|---|
-| Trust stale rule เหนือ Figma | Inspect node; update rule หลัง fix |
-| Single wrapper with uniform padding | Split เป็น sibling sections ตาม Figma |
-| Footer สี same กับ body | อ่าน fill บน footer layer จริง |
-| MUI `DialogActions` border-top | เฉพาะเมื่อ Figma มี divider stroke |
-| Story เดียวสำหรับ multi-axis component | Story ต่อ axis combination |
-| Stories import deep path | Import จาก `index.ts` เสมอ |
+| Trust stale rule over Figma | Inspect the node; update the rule after the fix |
+| Single wrapper with uniform padding | Split into sibling sections per Figma |
+| Footer same color as body | Read the fill on the actual footer layer |
+| MUI `DialogActions` border-top | Only when Figma has a divider stroke |
+| Single story for a multi-axis component | A story per axis combination |
+| Stories import deep path | Always import from `index.ts` |
 
 ### Quick checklist
 
 ```
 [ ] Figma node inspected — structure, variants, per-layer tokens
-[ ] shadcn/rules/components/*.md อ่านแล้ว; conflicts noted
+[ ] shadcn/rules/components/*.md read; conflicts noted
 [ ] JSX mirrors top-level Figma frames
 [ ] Tokens only — no hardcoded hex/px
 [ ] index.ts exports + stories import from index
-[ ] Storybook stories ครอบ key variants
+[ ] Storybook stories cover key variants
 [ ] Visual compare Storybook vs Figma
-[ ] rules + .ai.md updated ถ้า Figma ต่างจาก doc
+[ ] rules + .ai.md updated if Figma differs from the doc
 ```
 
 

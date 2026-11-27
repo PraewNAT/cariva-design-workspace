@@ -1,73 +1,119 @@
 ---
 name: create-project
-description: สร้าง prototype ใหม่ด้วย React/shadcn พร้อม Storybook ที่สลับ Canvas / Preview และเปิดเต็มหน้าได้ ใช้กับทุก Product โดยไม่ scaffold ทับโปรเจกต์เดิม
+description: Creates a new prototype with React/shadcn and a Storybook that switches between Canvas / Preview and can open full page; applies to every Product without scaffolding over an existing project
 ---
 
 # Create Project — Cariva prototype
 
-ผู้ใช้ยืนยัน 27 พฤศจิกายน 2026: prototype ใหม่ทุกโปรเจกต์ใช้ React + TypeScript + design-system/ui บน Base UI + Tailwind และ Storybook ที่สลับ Canvas / Preview และเปิดเต็มหน้าได้ แทน workflow MUI/Crv เดิม นี่เป็นข้อกำหนดส่งมอบ ไม่ใช่ generator ที่ติดตั้งหรือ feature ที่ implement แล้ว
+The user confirmed on 27 November 2026: every new prototype project uses React + TypeScript + shadcn/ui on Base UI + Tailwind and a Storybook that switches between Canvas / Preview and can open full page, replacing the old MUI/Crv workflow. This skill defines the delivery steps; it is not an automatic generator. Check the tooling that actually exists before starting: this workspace already has PrototypeShell and the Canvas viewer, but scaffolding a new app is still work the AI must do
 
-## เริ่มงานและหาเป้าหมาย
+## Starting work and finding the target
 
-1. อ่าน AGENTS.md, DESIGN-SYSTEM-PLAN.md และ rules/skill-routing.md ระบุ flow Setup และขั้น S1–S5 ตาม design-system/rules/workflow-map.md ก่อนทำงาน; งานหน้าจอต่อด้วย U1–U6
-2. ตรวจ working directory, branch, remote, working changes และ package จริง ห้าม scaffold ทับแอปเดิมหรือเขียน Product app ลง design-system/ ใช้ products/<product-id>/prototypes/<prototype-id>/ ใน workspace เดียวกันเป็นค่าเริ่มต้น ไม่ต้องแนบโฟลเดอร์ว่างแยก หาก Product หรือ prototype id ยังระบุไม่ได้ ให้ถามเฉพาะข้อมูลนั้น หากมีโปรเจกต์อยู่แล้ว ให้ reuse และรักษา stack เดิม ไม่ migrate อัตโนมัติ
-3. ใช้ Product record ตาม design-system/rules/product-setup-flow.md และ onboarding ตาม design-system/rules/new-project-guide.md ขอเฉพาะข้อมูลที่ขาด ไม่เดา Product จากชื่อผู้ทำงาน ไม่บังคับสร้าง remote repo หรือ login ก่อนเริ่มงาน local
+1. Read AGENTS.md, DESIGN-SYSTEM-PLAN.md and rules/skill-routing.md; name the Setup flow and steps S1–S5 per design-system/rules/workflow-map.md before working; screen work continues with U1–U6
+2. Check the actual working directory, branch, remote, working changes and package. Do not scaffold over an existing app or write a Product app into design-system/. By default use products/<product-id>/prototypes/<prototype-id>/ in the same workspace; there is no need to attach a separate empty folder. If the Product or prototype id cannot be determined yet, ask only for that information. If a project already exists, reuse it and keep its existing stack; do not migrate automatically
+3. Use the Product record per design-system/rules/product-setup-flow.md and onboarding per design-system/rules/new-project-guide.md. Ask only for missing information; do not guess the Product from the worker's name; do not require creating a remote repo or logging in before starting local work
 
-## Foundation ของ prototype ใหม่
+## New flow: continue in the existing work item or split into a new one — 27 November 2026
 
-- อ่าน design-system/DESIGN.md, design-system/tokens.json, design-system/rules/agent-rules.md และสกิล shadcn ของโปรเจกต์ ใช้ React + TypeScript + Vite สำหรับเป้าหมายว่าง เว้นแต่มี app framework ที่ตกลงไว้แล้ว ไม่ใช้ legacy/mui หรือ MUI dev export
-- ใช้ component-reuse-check ก่อน implement และหลังเปลี่ยน ใช้ Core/token จริง ไม่ทำ component เลียนแบบ ตรวจวิธีนำ DS เข้าเป้าหมายที่มีจริง ปัจจุบันไม่มี shadcn dev export สำเร็จรูป อย่าอ้างว่ามี package ให้ติดตั้ง หากต้อง vendor ให้ระบุ component dependencies, theme, fonts, styles และ licenses ให้ครบ บันทึก source commit/imports ที่ตรวจจริง ไม่คัดลอก credentials, node_modules หรือทั้ง config จากอีกโปรเจกต์
-- Core ไม่ขึ้นกับ routing/API/editor; screens, fixtures, cases และ business logic อยู่ใน Product; Canvas/preview tooling แยกจาก production components
-- ทุก Product แยก component เฉพาะไว้ในพื้นที่ Product และ Storybook กลุ่ม Products/<ProductName>/Components/<Component> พร้อม docs/mapping ตรงกัน ไม่ใส่ของ Product ใน Core
-- ใช้ Product font role/mode และ semantic tokens ที่ตรวจแล้ว ทุกข้อความที่ render ขั้นต่ำ 12px
+“Work item” here means a prototype entry in the sidebar list, similar to a chat list; it is not a browser tab or a Page inside the Canvas, and it is not a command to create a new Codex chat.
 
-## Storybook: Canvas / Preview / เต็มหน้า
+- When the user asks for a **new flow**, first ask **“Continue in the existing work item, or split into a new work item?”** unless the request already states the answer clearly. Wait for the answer before adding the flow to the catalog/Canvas or creating a new work item. Reading requirements and searching for components may continue. Editing or extending a clearly existing flow uses the existing entry; do not ask again
+- If **continuing in the existing work item**, use the existing prototype id and record, and add the flow/Page inside that work item's Canvas within the agreed scope; do not create a duplicate sidebar entry
+- If **splitting into a new work item**, create a new prototype id and record in `workspace/prototypes.json` under the same Product, with a clearly separate name and URL, shown as a separate entry in the sidebar, with the work item's own Canvas catalog/entry at `products/<product-id>/canvas/<prototype-id>/` and `Products/<ProductName>/Canvas/<PrototypeName>`. Do not merge the new work item's frames/Pages into the old board, but the viewer and production components may be shared; do not copy screens unnecessarily
+- Keep the work item's local source/fixtures in `products/<product-id>/prototypes/<prototype-id>/`, and bind the sidebar selection, Canvas, Preview/direct URL and docs to the same prototype id. Verify that selecting each entry opens the right work item, with no mixing of cases or overwriting of existing work. There is no need to create an extra server/port merely because the entry is split, if the existing runtime already separates routes and can be opened directly; a project with a separate runtime uses its own host per the rules below
+- Record the method (`workspace-canvas` / `claude-artifact`) and the Claude link **of the split work item separately**, per the next heading; do not silently inherit the method or link of the original work item. If the user has not chosen yet, ask first. For the sidebar entry/Storybook artifact, point to that work item's real link
+- Pages are used only to divide features/sub-flows **within a work item**; they do not replace splitting into a separate entry when the user chooses a new work item. Update the table of contents and docs to match the real structure. This rule does not permit automatically moving or splitting an entire existing work item
 
-อ่านสกิล stories ก่อนแก้ UI/stories ตรวจ version และ CLI help ของ package เป้าหมาย ใช้ scripts ของจริงและ reuse server ที่ถูกต้อง ไม่ใช้ CLI รุ่นใหม่กับรุ่นเก่า ไม่ upgrade/install dependency อัตโนมัติเพื่อให้ตรงสกิล ขออนุมัติการติดตั้งหรือ npx shadcn add ตามกฎที่ใช้จริงเมื่อจำเป็น
+## Choosing the prototype method per project — 27 November 2026
 
-ทุก prototype ใหม่ต้องมีทางเข้า Storybook และตัวสลับมุมมองที่เห็นชัด:
+Before starting a prototype, check the record by project/prototype id in `workspace/prototypes.json`. If there is no `prototypeMode` yet, ask UX/UI whether to use **our Canvas** (`workspace-canvas`) or a **Claude artifact** (`claude-artifact`), and wait for the answer before creating work that depends on this choice. Reading requirements/design may continue. Save the answer and reuse it next time; do not ask again. Do not apply the choice across projects, and do not automatically move existing work when the method changes
 
-| มุมมอง | พฤติกรรมส่งมอบ |
+- Record `prototypeMode` and the path/Storybook title by work type in the existing record; do not create another table of contents. For Claude, use `artifactPath`, `storybookArtifactTitle` and the `claudeArtifacts` list in the format below. If the link is not yet known, ask UX/UI what this work item's artifact link is. While waiting use `url: null, status: "awaiting-url"`; once the link is received use `status: "provided"`, which is not evidence that it was opened and checked. Do not invent URLs or store tokens/credentials
+- Separate by work type: workspace-canvas uses `products/<product-id>/canvas/<prototype-id>/` and `Products/<ProductName>/Canvas/<PrototypeName>`; **claude-artifact** uses `products/<product-id>/claude-artifacts/<work-id>/` and `Products/<ProductName>/Claude Artifacts/<WorkName>`, and is not put in the Prototype/Canvas folder or group. This item replaces the Canvas entry requirement in the split-into-a-new-work-item heading when the type is Claude
+- One Claude work item can hold multiple links in the existing record via `claudeArtifacts: [{ id, title, url, addedOn, status }]`, used in place of the singular claudeArtifact for new work, without creating a duplicate catalog. Each link must have a name that conveys its flow/content and an added date in the form `YYYY-MM-DD` (Asia/Bangkok); show the name + date in the Storybook list/link catalog page so entries can be told apart. The added date is not the artifact's creation/edit date, which is not yet known. If UX/UI provides the source date, store it separately and state its meaning; do not overwrite or drop earlier links when adding a new link
+- The Claude entry shows the name, date and real link from the central record, opening in a new tab with `rel="noopener noreferrer"`; if the link is missing, ask UX/UI and show that it is pending; do not create a made-up link unless the user explicitly asks for a mock, which must be a separate fixture and labeled Mock, not mixed into the real-work catalog. Do not force an iframe because the origin may not allow it
+- Check the real capability before claiming that a Claude artifact can be created or updated. Choosing this method does not mean a Claude integration already exists. Do not scaffold a local app/server or copy an artifact automatically just to satisfy the local rules
+- The React/shadcn rules, separate localhost, workspace sidebar, and Canvas/Preview/responsive frame arrangement in this skill apply to **workspace-canvas**. For Claude, use the actual artifact runtime and keep the external link in Storybook. This rule replaces the earlier text that required a local prototype for every project. Having a link is not an audit or code/Figma parity of the artifact
+
+## Foundation for a new prototype
+
+- Read design-system/DESIGN.md, design-system/tokens.json, design-system/rules/agent-rules.md and the project's shadcn skill. Use React + TypeScript + Vite for an empty target unless an app framework has already been agreed. Do not use legacy/mui or the MUI dev export
+- Use component-reuse-check before implementing and after changes. Use real Core/tokens; do not build imitation components. Check how the DS is brought into the actual target. Currently there is no ready-made shadcn dev export; do not claim there is a package to install. If vendoring is required, list the component dependencies, theme, fonts, styles and licenses completely. Record the source commit/imports actually checked; do not copy credentials, node_modules or the whole config from another project
+- Core does not depend on routing/API/editor; screens, fixtures, cases and business logic live in Product; Canvas/preview tooling is separate from production components
+- Every Product keeps its specific components in the Product area and in the Storybook group Products/<ProductName>/Components/<Component>, with docs/mapping consistent; do not put Product items in Core
+- Use the Product font role/mode and verified semantic tokens; every rendered text is at least 12px
+
+## Storybook: Canvas / Preview / Full page
+
+Read the stories skill before editing UI/stories. Check the version and CLI help of the target package. Use the real scripts and reuse the correct server; do not use a newer CLI with an older version; do not automatically upgrade/install dependencies to match the skill. Request approval for installs or npx shadcn add per the rules actually in force when necessary
+
+Every new prototype must have a Storybook entry and a clearly visible view switcher:
+
+| View | Delivered behavior |
 |---|---|
-| Canvas | Board ของหลายหน้า/เคสที่ตกลงไว้ มีชื่อ frame และ zoom/pan แต่ละ frame render screen component จริง ไม่ใช่ภาพหรือ UI ที่เขียนซ้ำ |
-| Preview | ทดลองกดหน้า/flow ที่เลือกได้ ใช้ screens, fixtures และ state logic ชุดเดียวกับ Canvas ไม่ใช่ docs/code snippet |
-| เต็มหน้า | เปิด Preview เคสที่เลือกในแท็บใหม่โดยไม่มี Storybook/board chrome; มี fullscreen ภายในเมื่อ browser รองรับ พร้อมทางออกตาม keyboard/browser ปกติ |
+| Canvas | A board of multiple pages/cases that were agreed, with frame names and zoom/pan; each frame renders the real screen component, not an image or re-written UI |
+| Preview | Click through the selected page/flow interactively; uses the same screens, fixtures and state logic as the Canvas; not docs/code snippets |
+| Full page | Opens the selected case's Preview in a new tab without Storybook/board chrome; has in-page fullscreen when the browser supports it, with the normal keyboard/browser exit |
 
-- Canvas หมายถึง board หลาย frames ไม่ใช่แค่ชื่อ Canvas tab มาตรฐานของ Storybook
-- สลับ Canvas / Preview แล้วคง screen/case ที่เลือก เก็บ selection/view ใน URL หรือกลไกที่ reload และ share local preview ได้ ตรวจ direct link จริง ไม่แต่ง public URL
-- ใช้ catalog/metadata ของ screens/cases ร่วมกันระหว่าง board, Preview, stories และ docs; fixtures deterministic ระบุวิธี reset state เมื่อสลับเคส ไม่อ้างว่า state ของหลาย frames sync กันโดยยังไม่ได้ทำ
-- แยก pan/drag ของ board จาก interaction ของ prototype ไม่ขวางปุ่ม/form และ keyboard; ตรวจ portals/dialog ไม่ถูก clip หรือวางตำแหน่งผิดเพราะ iframe
-- ค้น board เดิมก่อนสร้างใหม่ ใน DS checkout นี้มี workspace/canvas และ Workspace/Canvas ให้ตรวจ reuse แต่การมี iframe ไม่ได้แปลว่ามี mode switch/เต็มหน้าครบ ไม่ดึง catalog ทั้ง DS เข้า prototype อัตโนมัติ
-- stories จัดตาม Product/flow จริง Workspace tooling แยกจาก Core ใช้ layout fullscreen สำหรับ screen stories ที่ต้องการ ไม่สร้าง sidebar shell/version tabs แบบ legacy เป็นค่าเริ่มต้น
-- ปุ่มเปิดแท็บใหม่มีชื่อบอกปลายทาง ใช้ rel="noopener noreferrer"; fullscreen ที่ไม่รองรับให้ใช้ standalone Preview แทน
+- Canvas means a board with multiple frames, not merely the name of Storybook's standard Canvas tab
+- Switching Canvas / Preview keeps the selected screen/case. Store the selection/view in the URL or a mechanism that survives reload and allows sharing the local preview. Verify the direct link for real; do not invent a public URL
+- Share the screens/cases catalog/metadata among the board, Preview, stories and docs; fixtures are deterministic and state how to reset state when switching cases; do not claim that state across multiple frames is synced if it has not been done
+- Separate the board's pan/drag from the prototype's interaction; do not block buttons/forms and keyboard; check that portals/dialogs are not clipped or misplaced because of the iframe
+- Search for an existing board before creating a new one. This DS checkout has workspace/canvas and Workspace/Canvas to check for reuse, but having an iframe does not mean a full mode switch/full page exists. Do not automatically pull the whole DS catalog into the prototype
+- Organize stories by real Product/flow. Workspace tooling is separate from Core. Use the fullscreen layout for screen stories that need it. A workspace sidebar per the requirements below is required; do not create assumed release/version tabs
+- The open-in-new-tab button has a name that says its destination and uses rel="noopener noreferrer"; where fullscreen is not supported, use the standalone Preview instead
 
-## ทำ UI เอกสาร และตรวจรับ
+### Grouping frames on the Canvas — standard for every project
 
-ใช้ case-planning สำหรับ agreed cases แยก confirmed/proposed/unresolved ไม่แต่ง business rules เพื่อเติม board อัปเดต stories/docs/mappings ตามสิ่งที่ implement จริง แล้วทำ component-audit บนผลสุดท้ายและ consumers ที่กระทบ
+The user confirmed on 27 November 2026: when creating or arranging a Canvas, pair the **Product's primary size + Mobile of the same page/state** next to each other, and leave space between groups so it is clear they are different pages/states.
 
-เกณฑ์ก่อนส่งมอบแต่ละ prototype:
+- Use the primary size per the agreed design/Product: a Product that starts from Desktop uses Desktop + Mobile; a Product that starts from Tablet uses Tablet + Mobile. Do not automatically add Tablet as an extra size for a Product that is primarily Desktop, and do not assume a primary size when there is no evidence
+- Place the primary size on the left and Mobile on the right, with top edges aligned, **32px** between the pair and **320px** between group edges, both horizontally and vertically, measured from the widest/tallest frame in the group, so groups do not overlap. The number of groups per row adapts to the board's available space
+- Put the page/state name and viewport on each frame so the pairing is evident even when zooming or panning the board. Use the same real catalog/fixtures and screen components; do not copy UI to arrange the board
+- If Mobile has no design yet, state that it is a responsive adaptation; if that cannot be done yet, report the gap and do not claim a complete Mobile set. Pairing does not permit inventing extra business cases
+- Separate the Canvas entry from the prototype: use `products/<product-id>/canvas/<prototype-id>/` for the board entry and Storybook `Products/<ProductName>/Canvas/<PrototypeName>`; screen/flow stories stay in the existing Prototypes group, using the central viewer in the workspace without creating a duplicate implementation. Update the table of contents and docs to match
+- Before delivery, verify that each pair is close together, groups are clearly separated, and no frames overlap, both in the overview and when zoomed in. Updating this skill is not an automatic move or rearrangement of the old boards of every Product
 
-- Storybook เปิดได้จริง สลับ Canvas / Preview ได้ด้วยเมาส์และ keyboard และคง selection
-- เปิดเต็มหน้า/แท็บใหม่ตรงเคสที่เลือก ไม่มี board chrome ใน standalone Preview เปิด direct URL/reload และออก fullscreen ได้
-- ตรวจ desktop/mobile ที่ตกลง ข้อความไทยยาว overflow และ computed text ขั้นต่ำ 12px
-- ตรวจ flow สำคัญ focus/form/overlays ทั้งสอง mode และ reduced motion ถ้ามี animation
-- รัน build/focused checks ตาม tooling ของจริง รายงานสิ่งที่ไม่ได้ตรวจและ blockers ตรงไปตรงมา ไม่เรียกการแก้สกิลอย่างเดียวว่า UI implement แล้ว
-- ส่งคำสั่ง setup/run, source/import instructions, ลิงก์ Storybook/Canvas/Preview ที่เปิดตรวจจริง และ cases/gaps ไม่เริ่ม release numbering หรือ version metadata เอง
+## Building UI, documentation, and acceptance checks
 
-## ขอบเขตภายนอก
+Use case-planning for agreed cases; separate confirmed/proposed/unresolved; do not invent business rules to fill the board. Update stories/docs/mappings per what is actually implemented, then run component-audit on the final result and the affected consumers
 
-การสร้าง prototype ไม่อนุญาตสร้าง remote repo, push, deploy, publish package/library หรือเขียน Figma อัตโนมัติ ทำเฉพาะเมื่อผู้ใช้สั่งและรู้ปลายทาง ไม่คัดลอก legacy Crv/MUI guard hooks มาใช้ใน shadcn ใหม่
+Criteria before delivering each prototype:
+
+- Storybook opens for real, switches Canvas / Preview by mouse and keyboard, and keeps the selection
+- Full page/new tab opens exactly the selected case, with no board chrome in the standalone Preview; direct URL/reload works and fullscreen can be exited
+- Check the agreed desktop/mobile, overflow with long Thai text, and computed text minimum of 12px
+- Check the key flows, focus/forms/overlays in both modes, and reduced motion if there are animations
+- Run the build/focused checks per the real tooling; report what was not checked and blockers plainly; do not call a skill-only edit a UI implementation
+- Deliver the setup/run commands, source/import instructions, the Storybook/Canvas/Preview links actually opened and checked, and the cases/gaps; do not start release numbering or version metadata on your own
+
+## External scope
+
+Creating a prototype does not authorize creating a remote repo, pushing, deploying, publishing a package/library, or writing to Figma automatically. Do those only when the user instructs and the destination is known. Do not copy the legacy Crv/MUI guard hooks into the new shadcn setup
 
 
-## Localhost แยกสำหรับ prototype — ผู้ใช้ยืนยัน 27 พฤศจิกายน 2026
+## Separate localhost for each prototype — user confirmed 27 November 2026
 
-ทุก prototype ต้องมี dev host/คำสั่ง run ของตัวเองที่เปิดได้โดยไม่ต้องเปิด Storybook และยัง browse ผ่าน Storybook ได้ ใช้ renderer, screens และ case fixtures ชุดเดียวกัน ไม่ embed Storybook มาเป็น standalone app บันทึกพอร์ต/URL ที่ตรวจจริง ห้ามแย่งพอร์ตของโปรเจกต์อื่น ปุ่มเปิดเต็มหน้าใน Storybook ชี้ไป case เดียวกันบน prototype host; แจ้งว่าต้องเปิดทั้งสอง server เมื่อใช้งานร่วมกัน ไม่ผูกทุก Product เข้าพอร์ตเดียวกันหรือใช้ URL จากอีกโปรเจกต์เงียบ ๆ
+Every prototype must have its own dev host/run command that can be opened without opening Storybook and can still be browsed through Storybook. Use the same renderer, screens and case fixtures; do not embed Storybook as a standalone app. Record the ports/URLs actually verified. Do not take another project's port. The full-page button in Storybook points to the same case on the prototype host; state that both servers must be running when used together. Do not tie every Product to the same port or silently use a URL from another project
 
 
-## Cariva Design Workspace — 27 พฤศจิกายน 2026
+## Cariva Design Workspace — 27 November 2026
 
-อ่าน rules/workspace-structure.md ก่อนเลือกตำแหน่ง DS อยู่ design-system/ ส่วน prototype ทุก Product อยู่ products/<product-id>/prototypes/<prototype-id>/ tooling อยู่ workspace/; shadcn และ sync/canvas เป็น compatibility links ไม่ใช่ source อีกชุด ไม่ rename checkout/remote จากการตั้งชื่อ workspace
+Read rules/workspace-structure.md before choosing a location. The DS lives in design-system/, every Product's prototypes live in products/<product-id>/prototypes/<prototype-id>/, and tooling lives in workspace/; shadcn and sync/canvas are compatibility links, not another source. Do not rename the checkout/remote because of the workspace naming
 
-หลังสร้างหรือย้ายงาน อัปเดต products/README.md ด้วย Product, ชื่อ/path, สถานะ, คำสั่ง run จาก root, local URL/port ที่ตรวจแล้ว, Storybook entry, Figma mapping/source และวันที่ตรวจจริง ช่องที่ยังไม่มีให้ระบุ ไม่สร้าง app หรือข้อมูลสมมติ การรวม workspace ไม่อนุญาตรวม dependencies ของทุก Product เข้า DS: เก็บ package/lockfile และ runtime แยกเมื่อจำเป็น ไม่เพิ่ม npm workspaces อัตโนมัติ
+After creating or moving work, update products/README.md with the Product, name/path, status, run command from the root, verified local URL/port, Storybook entry, Figma mapping/source and the date actually checked. State any missing fields; do not create an app or assumed data. Merging the workspace does not permit merging every Product's dependencies into the DS: keep packages/lockfiles and runtimes separate when needed; do not add npm workspaces automatically
 
-ใช้เจตนาผู้ใช้กำหนดงานร่วมกับ Figma node ไม่บังคับ frame เต็มจอเท่านั้น และไม่บังคับ Figma Desktop หรือ gh login เมื่อเครื่องมืออื่นเข้าถึงได้หรืองานเป็น local ขั้น setup ไม่อนุญาต remote repo/push/deploy อัตโนมัติ
+Use the user's intent to define the work together with the Figma node; do not require full-screen frames only, and do not require Figma Desktop or a gh login when other tools can reach it or the work is local. The setup step does not permit automatic remote repo/push/deploy
+
+
+## Workspace sidebar — required in every new prototype project
+
+A standalone prototype must have a sidebar for choosing a prototype by Product from the real table of contents; do not default to opening a screen directly with no way to choose work. Use the shared shell in workspace/presentation/PrototypeShell.tsx and the list workspace/prototypes.json when in this workspace; do not create a duplicate sidebar implementation in every Product
+
+- Show Product groups and the prototypes that actually exist; selecting one opens it; groups collapse/expand; do not create assumed version entries
+- The collapse/expand button is in the sidebar header: collapsing leaves a rail that still lets you pick work, with accessible names/tooltips
+- Cmd/Ctrl + Backslash (`\`) hides the whole sidebar, leaving no floating button or hint on screen, and the content expands to fill the area. Press again to restore the sidebar, and focus must not stay stuck on a hidden element
+- The shortcut hint appears only in the sidebar footer, hidden with the sidebar/rail. When capturing screens to Figma, use the fully hidden mode
+- The Storybook preview of a screen shows UI only, so it can be compared with Figma, but there must also be a story for the shell/work selection; the normal local host has the shell enabled
+
+The user insisted that this skill be read before creating every new project/prototype (27 November 2026), including when work is assigned from Figma without naming the skill

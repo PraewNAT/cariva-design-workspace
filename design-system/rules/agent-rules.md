@@ -1,10 +1,10 @@
 # Cariva DS — shared agent rules
 
-## แจ้งก่อนแก้และไปขั้นถัดไป — ผู้ใช้ยืนยัน 26 พฤศจิกายน 2026
+## Notify before fixing and moving to the next step — user confirmed 26 November 2026
 
-เมื่อพบปัญหาหรือสิ่งที่ต้องแก้ระหว่างตรวจงาน ให้แจ้งในแชทก่อน โดยบอกปัญหา ผลกระทบ และแนวทางแก้ แล้วรอผู้ใช้ยืนยันก่อนลงมือแก้หรือไปขั้นตอนถัดไปของงานนั้น แม้เป็นปัญหาใน scope ที่ตรวจพบจาก tests/audit ก็ไม่แก้ต่อเงียบ ๆ ความเงียบไม่ใช่คำยืนยัน หากยืนยันให้แก้รายการนั้นแล้ว ไม่ต้องถามซ้ำสำหรับรายการเดิม
+When a problem or something that needs fixing is found during a review, report it in chat first, stating the problem, the impact and the proposed fix, then wait for the user's confirmation before fixing it or moving to the next step of that task. Even a problem within scope that was found by tests/audit is not fixed silently. Silence is not confirmation. If the user has confirmed fixing an item, do not ask again for that same item
 
-หากผู้ใช้เลือกมองข้าม ให้บันทึกเป็นข้อจำกัดที่ยอมรับสำหรับรอบนั้น ไม่รายงานว่าข้อนั้นผ่านหรือถูกแก้แล้ว และไม่ตีความว่าอนุญาตให้ข้ามปัญหาใหม่ในอนาคต กติกานี้มีผลเหนือข้อความเดิมใน workflow ที่ให้แก้ failures ใน scope แล้วเดินหน้าต่อโดยอัตโนมัติ
+If the user chooses to overlook it, record it as an accepted limitation for that round; do not report that item as passed or fixed, and do not interpret it as permission to skip new problems in the future. This rule takes precedence over the earlier text in workflows that says to fix in-scope failures and then continue automatically
 
 ## Current objective — prototype and Figma design, 2026-11-25
 
@@ -52,7 +52,7 @@ This installs instructions/references, not a renderer or MCP connection. Check t
 
 ### How to draw a flow for the designer (user decided 2026-11-26)
 
-When the user asks for a flow, flowchart or "who does what" summary meant to be read by a designer, do it with the **`artifact-diagramming` skill** (with `artifact-design` for the page): a swimlane drawn as inline SVG, one lane for the user ("คุณ") and one for Claude, boxes placed in the lane of whoever acts, step codes from `rules/workflow-map.md` on each box, a text version of the same steps under the drawing, and the review record. Meaning must not depend on colour alone: outline weight, dotted for conditional steps, dashed for unverified steps, and an arrow back for a failed check. Keep it short: split into two drawings rather than one dense one, and write unverified steps (for example render checks that have no tool yet) as dashed with a note. Look at the rendered result before publishing and say what was not checked (for example phone width).
+When the user asks for a flow, flowchart or "who does what" summary meant to be read by a designer, do it with the **`artifact-diagramming` skill** (with `artifact-design` for the page): a swimlane drawn as inline SVG, one lane for the user ("คุณ", Thai for "you") and one for Claude, boxes placed in the lane of whoever acts, step codes from `rules/workflow-map.md` on each box, a text version of the same steps under the drawing, and the review record. Meaning must not depend on colour alone: outline weight, dotted for conditional steps, dashed for unverified steps, and an arrow back for a failed check. Keep it short: split into two drawings rather than one dense one, and write unverified steps (for example render checks that have no tool yet) as dashed with a note. Look at the rendered result before publishing and say what was not checked (for example phone width).
 
 `artifact-diagramming` is a built-in Claude artifact skill, not a file in this repo. If the agent has no such skill (for example Codex), fall back to the `mermaid-diagrams` skill above and say so. Use Mermaid when the diagram must live as versionable text in the repo (`.mmd` or Markdown). Do not publish an artifact for a diagram the user did not ask to see outside the chat.
 
@@ -76,7 +76,7 @@ Read this file, local `DESIGN.md` and `rules/core-rules.md` first; use `rules/ui
 
 ## Active runtime — shadcn migration authorized 2026-11-24
 
-The user's latest “เปลี่ยนเลย” explicitly starts the migration and supersedes the earlier wait/MUI-only paragraphs below. Active code is React 19 + Vite + shadcn Base UI, with shadcn Chart + Recharts. Reuse `src/lib/app/components/ui`, composed patterns in `src/lib/app/components/app`, and the Core catalog in `src/lib/features/board` (screens are not kept in this workspace). Shared tokens/theme live in `src/lib/core/design-system`. Read `SHADCN-MIGRATION.md` for actual mappings, API changes, checks and remaining limitations.
+The user's latest “เปลี่ยนเลย” ("change it now") explicitly starts the migration and supersedes the earlier wait/MUI-only paragraphs below. Active code is React 19 + Vite + shadcn Base UI, with shadcn Chart + Recharts. Reuse `src/lib/app/components/ui`, composed patterns in `src/lib/app/components/app`, and the Core catalog in `src/lib/features/board` (screens are not kept in this workspace). Shared tokens/theme live in `src/lib/core/design-system`. Read `SHADCN-MIGRATION.md` for actual mappings, API changes, checks and remaining limitations.
 
 The frozen MUI reference lives in `legacy/mui/` at the repo root, outside this workspace; never import it into active src. The earlier `code/core`, `legacy/shadcn-experiments` and the checkpoint archive were not brought into this repo. MUI/Emotion are removed from active dependencies. Do not delete legacy without approval. Work on a branch and ask before commit or push; no publish, merge or version numbering.
 
@@ -100,9 +100,9 @@ When the user says they changed any Figma variable, follow `rules/figma-variable
 
 The adapted color/font rules are in local `DESIGN.md`; imported-document conflicts and adopted conventions are recorded in `rules/core-rules.md`. `content/secondary` is Slate 700 in the live Figma file (it was briefly Slate 500 on 2026-11-26 and the user restored 700); tokens.json and DESIGN.md follow it. Do not reinstate the old palette, Slate 500 secondary text, generic 8px/no-pill radius rules, 10px labels, a permanent MUI-only stack or mandatory remote documentation sync from older references.
 
-## Code Connect — ทุก component ใหม่
+## Code Connect — every new component
 
-**ทุก component ใหม่ต้องเชื่อม Code Connect เสมอ (ผู้ใช้สั่งเมื่อ 26 พฤศจิกายน 2026):** เมื่อสร้างหรือเปลี่ยนชื่อ component/ชุดใน Figma ที่มีโค้ดคู่กัน ต้องสร้างหรืออัปเดตไฟล์ map `*.figma.tsx` ใน `shadcn/code-connect/` ให้ครบทุกชุดของ component นั้น (Figma node URL → component shadcn, prop และค่าตามตารางใน [FIGMA-NAMING.md](../docs/components/FIGMA-NAMING.md)) รัน `npm run code-connect:dry-run` (root) แล้ว `npm run code-connect:publish` และตรวจใน Dev Mode ก่อนบอกว่างาน component นั้นเสร็จ ถ้า publish ไม่ได้ (ไม่มี token, Figma ไม่เชื่อม) ให้รายงานเป็นงานค้างตรงๆ ห้ามข้ามเงียบๆ ชุดที่โค้ดไม่มีคู่ให้รายงานเป็น gap
+**Every new component must be connected to Code Connect (the user ordered this on 26 November 2026):** when creating or renaming a component/set in Figma that has matching code, create or update the `*.figma.tsx` map files in `shadcn/code-connect/` to cover every set of that component (Figma node URL → shadcn component, props and values per the table in [FIGMA-NAMING.md](../docs/components/FIGMA-NAMING.md)); run `npm run code-connect:dry-run` (root), then `npm run code-connect:publish`, and check in Dev Mode before saying the work on that component is done. If publishing is not possible (no token, Figma not connected), report it plainly as outstanding work and do not skip it silently. Sets with no matching code are reported as a gap
 
 ## Core Storybook coverage
 
@@ -116,11 +116,16 @@ The new-project template supports other companies' Figma DS without carrying Car
 
 Onboarding order correction (user confirmed 2026-11-25): ask which first screen/flow to design only at the end of setup, after inspecting the DS/code, confirming implementation base, preparing visual rules and tokens/theme scaffolding plus component/docs/Storybook/mapping structure, and summarizing readiness/gaps. Resolve necessary foundation questions during setup. Reuse a first-screen answer if already given. Setup does not require implementing the entire component library; build the needed subset after the design task is selected. Apply this order in both the local guide and the portable template.
 
-## Storybook grouping — ผู้ใช้ยืนยัน 26 พฤศจิกายน 2026
+## Storybook grouping — user confirmed 26 November 2026
 
-ทุก component อยู่ใน `Core/Components/<ชื่อ component>`; รวม primitive, variants, composed examples, states และเอกสารที่เกี่ยวข้องไว้ในกลุ่มเดียวและ Docs เดียว เช่น Card รวม Vertical/Horizontal/Profile/Metric และ Checkbox รวม Field/Group/Card. ไม่แยกตัวอย่างของ component เดียวไปไว้ Patterns หรือ Composed. Component ที่มี API ของตัวเอง เช่น Rating/Stepper/File Upload/Date Time Picker ให้มีกลุ่มชื่อตัวเองใน Components. Foundations, catalog และ Canvas เป็นภาพรวมจึงอยู่หมวดแยกได้. เมื่อย้าย stories ตรวจ index จริง, ไม่ทำ IDs ชน, อัปเดต docs/link ที่เกี่ยวข้อง และเก็บ play functions/source เดิม.
+Every component lives in `Core/Components/<component name>`; its primitive, variants, composed examples, states and related documentation are kept in a single group and a single Docs page, e.g. Card includes Vertical/Horizontal/Profile/Metric and Checkbox includes Field/Group/Card. Examples of a single component are not split out into Patterns or Composed. A component with its own API, such as Rating/Stepper/File Upload/Date Time Picker, gets its own named group under Components. Foundations, the catalog and the Canvas are overviews and so may sit in separate categories. When moving stories, check the actual index, avoid ID collisions, update the related docs/links, and keep the existing play functions/source.
 
 
 ## Cariva Design Workspace — user decision 2026-11-27
 
 Use [workspace structure rules](../../rules/workspace-structure.md) for new work. Canonical DS path is `design-system/`; `shadcn/` is a compatibility symlink. Product prototypes belong in `products/<product-id>/prototypes/<prototype-id>/` in this same workspace; do not require a separate empty folder or forbid all Product work inside this repository. Never scaffold into DS or overwrite an existing app. Canvas tooling is `workspace/canvas/`, with `sync/canvas/` retained as a compatibility symlink. Maintain `products/README.md` with actual paths, run commands, local ports, Storybook and Figma references/status. Every new prototype uses React/shadcn with its own dev host plus shared-renderer Storybook Canvas / Preview / full-page access. Existing DS examples are not Product screens. Older absolute bans/legacy setup instructions conflicting with this decision are superseded; no automatic repo creation, commit, push, deployment or Figma writes.
+
+
+## Daily Git update check — 27 November 2026
+
+Before the first work of the day, follow the [daily repository update](../../rules/workspace-structure.md): check the branch/upstream, fetch and pull fast-forward only when the working tree is clean; do not stash/reset/merge/rebase on your own; do not push; and do not claim the check passed when the remote is unreachable

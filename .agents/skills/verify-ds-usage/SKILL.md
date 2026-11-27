@@ -1,6 +1,6 @@
 ---
 name: verify-ds-usage
-description: ตรวจว่า code ใช้ component จริงหรือไม่ เป็นชื่อเดิมของ component-reuse-check ให้ใช้ workflow เดียวกัน ไม่รัน audit ซ้ำ
+description: Check whether code really uses components. This is the previous name of component-reuse-check; use the same workflow and do not re-run the audit
 ---
 
 # Verify DS Usage — compatibility entry

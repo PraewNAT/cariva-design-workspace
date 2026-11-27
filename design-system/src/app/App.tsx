@@ -1,7 +1,5 @@
 import "./globals.css";
-import { PrototypePreview } from "../lib/features/prototype/PrototypePreview";
-
-/** Standalone prototype host; shares its renderer with Workspace/Prototype. */
+import { PrototypeShell } from "../../../workspace/presentation/PrototypeShell";
 export default function App() {
-  return <PrototypePreview caseId={new URLSearchParams(location.search).get("case") || "catalog"} />;
+  return <PrototypeShell currentId=""><div className="p-6 text-sm text-muted-foreground">เลือก prototype จากแถบด้านซ้าย</div></PrototypeShell>;
 }

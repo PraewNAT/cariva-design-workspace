@@ -3,30 +3,30 @@
 > Figma documentation follow-up, 26 November 2026: [updated documentation](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt/Cariva-Core-Design-System?node-id=4716-45214). Earlier statements about Figma docs being pending describe the code-only audit pass. Documentation is now updated; runtime audit gaps remain unchanged. See FIGMA-DOCUMENTATION.md.
 
 
-สถานะ Draft, 26 พฤศจิกายน 2026 · Core · branch `praew` · ไม่ได้ publish
+Status Draft, 26 November 2026 · Core · branch `praew` · not published
 
-แหล่งออกแบบ: [Bottom Sheet](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt/Cariva-Core-Design-System?node-id=4481-19038), Header `4485:31705`, Content `4485:31742`.
+Design source: [Bottom Sheet](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt/Cariva-Core-Design-System?node-id=4481-19038), Header `4485:31705`, Content `4485:31742`.
 
-## ขอบเขตที่ผู้ใช้ยืนยัน
+## Scope confirmed by the user
 
-ใช้ `SheetContent side="bottom"` เดิม ไม่สร้าง Drawer ใหม่ ไม่เปลี่ยน top/right/left หรือ Sidebar. Default/Search header, icon, สีตกแต่ง, พื้นที่เลื่อนและ footer ยืนยัน ใช้ Input/Field และ Button Core เดิม. ข้อมูลตัวเลือกใน stories เป็น fixture สำหรับตรวจ UI ไม่ใช่ business rule.
+Uses the existing `SheetContent side="bottom"`; no new Drawer is created; top/right/left and Sidebar are not changed. Default/Search header, icon, decorative color, scroll area and footer are confirmed; uses the existing Core Input/Field and Button. The option data in the stories is a fixture for checking the UI, not a business rule.
 
-| ส่วน | สเปกและ API |
+| Part | Spec and API |
 |---|---|
-| Content | `side="bottom"`, เต็มความกว้าง, มุมบน 24px, สูงตามเนื้อหาและไม่เกิน viewport ลบ 24px; Base UI Dialog ดูแล modal/focus/Escape |
-| Header | `variant="default"` หรือ `"search"`, `showTopColor=true`, `icon=undefined` ใช้ icon Figma, `icon=null` ซ่อน icon, ReactNode แทน icon ได้; options เหล่านี้มีผลเฉพาะ bottom |
-| Default | ความสูง 72px เมื่อ title หนึ่งบรรทัด, padding บน 24/ข้าง 24/ล่าง 16, icon 32px |
-| Search | ความสูง 152px เมื่อ title หนึ่งบรรทัดและมี Field/Input lg 48px พร้อม helper 12/16; icon 24px, gap 12px; Input เป็น children ไม่ใช่ search prop |
-| Title | UI font ตาม theme (`--font-ui`), 20/28px, weight 600; ข้อความยาวตัดบรรทัดและทำให้ Header สูงขึ้นได้ |
-| Close | ปุ่ม 32×32px ด้านบน/ขวา 24px, icon Figma 16px; `showCloseButton=false` ซ่อนปุ่มเดิม |
-| Body | เพิ่ม `SheetBody` สำหรับ flex/overflow-y auto, min-height 0, padding 16/24; เนื้อหาไม่ดัน footer ออกนอกพื้นที่ |
-| Footer | border บน, padding บน 24/ข้าง 16/ล่าง max(24px,safe-area-inset-bottom); stories ใช้ Button lg 48px |
+| Content | `side="bottom"`, full width, 24px top corners, height follows content and does not exceed the viewport minus 24px; Base UI Dialog handles modal/focus/Escape |
+| Header | `variant="default"` or `"search"`, `showTopColor=true`, `icon=undefined` uses the Figma icon, `icon=null` hides the icon, a ReactNode can replace the icon; these options apply to bottom only |
+| Default | Height 72px with a one-line title, padding top 24/sides 24/bottom 16, icon 32px |
+| Search | Height 152px with a one-line title and a Field/Input lg 48px with 12/16 helper; icon 24px, gap 12px; Input is passed as children, not a search prop |
+| Title | UI font per theme (`--font-ui`), 20/28px, weight 600; long text wraps and can make the Header taller |
+| Close | 32×32px button at top/right 24px, Figma icon 16px; `showCloseButton=false` hides the existing button |
+| Body | Adds `SheetBody` for flex/overflow-y auto, min-height 0, padding 16/24; content does not push the footer out of the area |
+| Footer | top border, padding top 24/sides 16/bottom max(24px,safe-area-inset-bottom); stories use Button lg 48px |
 
-Header Default/Search ใช้ SVG export เดิมใน `src/lib/app/components/ui/assets/sheet/` โดยเก็บขนาดและ viewBox เดิม. ที่ความกว้าง 375px Input ขยายตามพื้นที่จริงเหลือ 327px.
+Header Default/Search use the existing SVG exports in `src/lib/app/components/ui/assets/sheet/`, keeping the original size and viewBox. At 375px width the Input expands to the actual available space, leaving 327px.
 
-Figma documentation เก่าแสดง Header 76/136px แต่ node จริงเป็น 72/152px; งานนี้อ้าง node จริงตามที่ผู้ใช้ยืนยัน. ไม่ได้แก้หรือ sync เอกสารใน Figma เพราะทิศทางงานเป็น Figma → Code.
+The old Figma documentation shows Header 76/136px but the actual node is 72/152px; this work cites the actual node as the user confirmed. The documentation in Figma was not edited or synced because the direction of this work is Figma → Code.
 
-## ตัวอย่างจาก stories จริง
+## Examples from the actual stories
 
 ```tsx
 <Sheet>
@@ -39,14 +39,14 @@ Figma documentation เก่าแสดง Header 76/136px แต่ node จ�
         <FieldDescription id="sheet-help">พิมพ์เพื่อค้นหาตัวเลือก</FieldDescription>
       </Field>
     </SheetHeader>
-    <SheetBody>{/* เนื้อหาจริงของแต่ละ Product */}</SheetBody>
+    <SheetBody>{/* Real content for each Product */}</SheetBody>
     <SheetFooter><SheetClose render={<Button size="lg" />}>ยืนยัน</SheetClose></SheetFooter>
   </SheetContent>
 </Sheet>
 ```
 
-Input เป็น HTML search input ผ่าน Base UI; ใช้คีย์บอร์ดจริงของ browser/อุปกรณ์ ไม่มี GBoard จำลองหรือพื้นที่ keyboard แบบ fix height. การปรับความสูง viewport ใช้ `dvh`; การเปิด software keyboard และพฤติกรรม visual viewport บน iOS/Android ต้องตรวจบนอุปกรณ์จริง ยังไม่ถือว่าผ่านจาก desktop emulation.
+Input is an HTML search input via Base UI; it uses the browser's/device's real keyboard, with no simulated GBoard and no fixed-height keyboard area. Viewport height adjustment uses `dvh`; opening the software keyboard and visual viewport behavior on iOS/Android must be checked on real devices and are not considered passed from desktop emulation.
 
-Stories: Default (right เดิม), BottomDefault, BottomSearch (กรอง/ไม่พบ/ยืนยัน), MobileThai (24 ตัวเลือกและ title ยาว), PlainHeader, OtherSides, MobileSidebarRegression. ผลรอบสุดท้ายและข้อค้างอยู่ใน `SHEET-AUDIT.md`.
+Stories: Default (existing right), BottomDefault, BottomSearch (filter/not found/confirm), MobileThai (24 options and a long title), PlainHeader, OtherSides, MobileSidebarRegression. Final results and open items are in `SHEET-AUDIT.md`.
 
-ตรวจใน Chromium ที่ 320/375/1280px แล้ว: Header สั้น 72/152px, input 48px, close 32px/icon 16px, gradient เต็ม Header และข้อความต่ำสุด 12px. Tab/Space/Escape, focus trap/restore, scroll body และ footer บน viewport สูง 480px ผ่าน; software keyboard จริงยังไม่ตรวจ. Storybook 9 stories ผ่านการรัน โดย accessibility มี contrast ค้างตามที่ผู้ใช้รับทราบ ไม่ถือว่าผ่าน AA ทั้งหมด.
+Checked in Chromium at 320/375/1280px: Header 72/152px with a short title, input 48px, close 32px/icon 16px, gradient fills the Header and minimum text 12px. Tab/Space/Escape, focus trap/restore, body scroll and footer on a 480px-high viewport pass; the real software keyboard has not been checked. The 9 Storybook stories ran and passed, with accessibility contrast issues left open as the user acknowledged; this is not considered full AA conformance.

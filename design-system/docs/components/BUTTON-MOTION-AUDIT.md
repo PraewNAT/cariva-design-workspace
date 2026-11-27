@@ -9,31 +9,31 @@ Code-only motion requested for button-decorative 5844:33868 and button-mic 5862:
 | Disabled/inactive/dot | Remain static; reduced-motion disables effects | Preserve state meaning and motion preference |
 
 **Component Reuse & Duplicate Check — Core Button motion**
-ผลรวม: ใช้ components และ API เดิม ไม่สร้างซ้ำ
-ขอบเขต: Button, ButtonMic, HosXP และ Mira Recorder ที่เกี่ยวข้อง
+Overall: reuses the existing components and API; nothing duplicated
+Scope: Button, ButtonMic, and the related HosXP and Mira Recorder
 
-| ระดับ | ผล | รายการ | หลักฐาน | ถัดไป |
+| Level | Result | Item | Evidence | Next |
 |---|---|---|---|---|
-| — | ผ่าน | Existing variants/components | decorative class และ active wave selector ใน shared CSS | ไม่มี |
+| — | Pass | Existing variants/components | decorative class and active wave selector in the shared CSS | None |
 
-สรุป: ผ่าน 1
-ต่อไป: ไม่ต้องดำเนินการเพิ่ม
+Summary: Pass 1
+Next: no further action needed
 
 **Component Audit — Core Button motion**
-ผลรวม: focused checks ผ่าน; source a11y gaps เดิมยังอยู่
-ขอบเขต: decorative/default, mic active/inactive/disabled/dot, page/Dialog, HosXP Interaction และ Mira Recorder PageAndDialog
+Overall: focused checks pass; the original source a11y gaps remain
+Scope: decorative/default, mic active/inactive/disabled/dot, page/Dialog, HosXP Interaction and Mira Recorder PageAndDialog
 
-| ระดับ | ผล | รายการ | หลักฐาน | ถัดไป |
+| Level | Result | Item | Evidence | Next |
 |---|---|---|---|---|
-| — | ผ่าน | Focused stories | 8/8 รวม MotionStates และ AiMotionPageAndDialog | ไม่มี |
-| — | ผ่าน | Geometry และ portal consistency | 32/40/48px, page/Dialog เทียบ height/radius/font/padding ใน play test | ไม่มี |
-| — | ผ่าน | Rendered motion gates | browser: decorative side aura 6s, wave 1.6–2s, inactive/disabled animation none | ไม่มี |
-| — | ผ่าน | DS build | build ผ่าน | ไม่มี |
-| กลาง | ต้องแก้ | Source contrast เดิม | white-on-primary 3.5:1 และ consumer warnings ใน test report | ค้าง; ไม่เปลี่ยน palette รอบนี้ |
-| — | ตรวจไม่ได้ | Live reduced-motion preference | มี CSS fallback/conditional assertions แต่ไม่ได้สลับ browser preference จริง | ตรวจเมื่อจำลองได้ |
+| — | Pass | Focused stories | 8/8 including MotionStates and AiMotionPageAndDialog | None |
+| — | Pass | Geometry and portal consistency | 32/40/48px; page/Dialog compared on height/radius/font/padding in the play test | None |
+| — | Pass | Rendered motion gates | browser: decorative side aura 6s, wave 1.6–2s, inactive/disabled animation none | None |
+| — | Pass | DS build | build passes | None |
+| Medium | Needs fix | Original source contrast | white-on-primary 3.5:1 and consumer warnings in the test report | Open; palette not changed this round |
+| — | Could not check | Live reduced-motion preference | CSS fallback/conditional assertions exist but the real browser preference was not toggled | Check when it can be simulated |
 
-สรุป: ผ่าน 4, ต้องแก้ 1, ตรวจไม่ได้ 1
-ต่อไป: รับ feedback จังหวะ motion
+Summary: Pass 4, Needs fix 1, Could not check 1
+Next: collect feedback on the motion timing
 
 Updated BUTTON-SETS-FIGMA.md, BUTTON-MIC-FIGMA.md, ButtonSource.mdx and stories. This is new requested code motion, not extracted Figma motion. Figma docs were not edited because the request explicitly targets code. Code Connect usage/API remains unchanged.
 

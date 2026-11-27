@@ -3,38 +3,38 @@
 > Correction: the previous exclusion of Credit Badge was a scope mistake. Both sets are now included; PROGRESS-CREDIT-AUDIT.md supersedes that exclusion and records the expanded Progress coverage. The35-story result below is historical evidence for the original three-component pass.
 
 **Component Audit — Cariva Core**
-ผลรวม: Implement และอัปเดต Storybook/Markdown/Figma docs ครบ;35/35 story interactions ผ่าน โดยยังมีข้อจำกัด accessibility จาก visual ต้นทาง
-ขอบเขต: Progress6, Radio Group6, Rating8 stories; regression15 File Upload/Stepper/Sheet/catalog. ตรวจ carivaApp และ backOffice mobile320px, page/Dialog, keyboard จริง. ไม่รวม credit badges, backend, physical touch/OS preference หรือ screen-reader certification
+Overall: implemented and updated Storybook/Markdown/Figma docs fully; 35/35 story interactions pass, with accessibility limitations remaining from the source visuals
+Scope: Progress 6, Radio Group 6, Rating 8 stories; regression 15 File Upload/Stepper/Sheet/catalog. Checked carivaApp and backOffice, mobile 320px, page/Dialog, real keyboard. Excludes credit badges, backend, physical touch/OS preference and screen-reader certification
 
-| ระดับ | ผล | รายการ | หลักฐาน | ถัดไป |
+| Level | Result | Item | Evidence | Next |
 |---|---|---|---|---|
-| กลาง | ต้องแก้ | Radio border/default และ Rating amber/empty outline มี non-text contrast ต่ำ; Rating18px/half-step มีพื้นที่กดต่ำกว่า24px | Figma bindings; computed browser styles; RATING-FIGMA.md / RADIO-GROUP-FIGMA.md | คง visual ต้นทางและบันทึกข้อค้าง ไม่เปลี่ยน token กลางเพื่อผ่าน audit |
-| — | ผ่าน |20/20 component stories และ15/15 consumer interactions; disabled style และ SVG mask มี focused regression | output/progress-radio-rating/component-tests.txt, consumer-tests.txt | คง regression cases |
-| — | ผ่าน | Native Rating ArrowRight4→4.5; Radio ArrowUp ข้าม disabled; focus/system inset2px | output/progress-radio-rating/browser-evidence.json | ไม่ต้องดำเนินการเพิ่ม |
-| — | ผ่าน | Progress4px/circular24/40/56; Radio16/dot10; Rating18/24/30; page/Dialog recipeตรงกัน; Thai320pxไม่ล้น ข้อความต่ำสุด12px | browser-evidence.json; Storybook states | ใช้ primitives ชุดเดียวกัน |
-| — | ผ่าน | Figma templateครบ3หน้า,75 linked specimens, own-doc text≥20px/no overflow;7 main contracts/geometryไม่เปลี่ยน | figma-verification.json; mapped Figma links | อัปเดต mapped nodes เดิม |
-| — | ผ่าน | Build, scoped oxlint, tokens check, story file coverage41/41 | คำสั่งที่รันจริง; output/progress-radio-rating/build.txt | ไม่ใช่การรับรองทุก Product/ทุก state |
-| ต่ำ | ตรวจไม่ได้ | Reduced-motion ตรวจ CSS branches เท่านั้น; ยังไม่เปิด OS preference จริง/physical touch/screen reader | motion-safe/motion-reduce rules; progress.css | ตรวจเมื่อมี device/AT ที่เหมาะสม |
+| Medium | Needs fix | Radio border/default and Rating amber/empty outline have low non-text contrast; Rating 18px/half-step has a hit area below 24px | Figma bindings; computed browser styles; RATING-FIGMA.md / RADIO-GROUP-FIGMA.md | Keep the source visuals and record the open items; do not change central tokens just to pass the audit |
+| — | Pass | 20/20 component stories and 15/15 consumer interactions; disabled style and SVG mask have focused regression tests | output/progress-radio-rating/component-tests.txt, consumer-tests.txt | Keep regression cases |
+| — | Pass | Native Rating ArrowRight 4→4.5; Radio ArrowUp skips disabled; focus/system inset 2px | output/progress-radio-rating/browser-evidence.json | No further action needed |
+| — | Pass | Progress 4px/circular 24/40/56; Radio 16/dot 10; Rating 18/24/30; page/Dialog recipes match; Thai 320px does not overflow, minimum text 12px | browser-evidence.json; Storybook states | Use the same primitives |
+| — | Pass | Figma template complete for 3 pages, 75 linked specimens, own-doc text ≥20px/no overflow; 7 main contracts/geometry unchanged | figma-verification.json; mapped Figma links | Update the existing mapped nodes |
+| — | Pass | Build, scoped oxlint, tokens check, story file coverage 41/41 | Commands actually run; output/progress-radio-rating/build.txt | Not a certification for every Product/every state |
+| Low | Could not check | Reduced-motion checked via CSS branches only; real OS preference/physical touch/screen reader not yet tested | motion-safe/motion-reduce rules; progress.css | Check when suitable devices/AT are available |
 
-สรุป: ผ่าน5, ต้องแก้1, ตรวจไม่ได้1; ไม่อ้าง WCAG AA ครบ แม้ interaction tests ผ่านทั้งหมด
-ต่อไป: แก้ accessibility visual gaps ที่ต้นทางเมื่อทีมพร้อม โดยคงหลักฐาน/ข้อจำกัดนี้ในการ handoff
+Summary: 5 passed, 1 needs fixing, 1 cannot be checked; do not claim full WCAG AA even though all interaction tests pass
+Next: fix the accessibility visual gaps at the source when the team is ready, keeping this evidence/these limitations in the handoff
 
 **Component Reuse & Duplicate Check — Cariva Core**
-ผลรวม: ใช้ shared/Base UI primitives จริง ไม่พบของซ้ำในขอบเขตที่ตรวจ
-ขอบเขต: ui/progress.tsx, ui/radio-group.tsx, app/rating.tsx, patterns.tsx และผู้ใช้ร่วมที่ระบุข้างต้น
+Overall: really uses shared/Base UI primitives; no duplicates found within the scope checked
+Scope: ui/progress.tsx, ui/radio-group.tsx, app/rating.tsx, patterns.tsx and the shared consumers listed above
 
-| ระดับ | ผล | รายการ | หลักฐาน | ถัดไป |
+| Level | Result | Item | Evidence | Next |
 |---|---|---|---|---|
-| — | ผ่าน | ขยาย Progress/RadioGroup เดิม; CircularProgress ใช้ Base UI Progress root; RadioField ใช้ RadioGroupItem; Rating ใช้ shared RadioGroup + Base UI Radio.Root และ original SVG | source imports; old Ratingแทนด้วย re-export ไม่เก็บคู่ซ้ำ | คง composition; ไม่แตะ Spinner เดิม |
+| — | Pass | Extended the existing Progress/RadioGroup; CircularProgress uses the Base UI Progress root; RadioField uses RadioGroupItem; Rating uses the shared RadioGroup + Base UI Radio.Root and the original SVG | source imports; old Rating replaced with a re-export, no duplicate kept | Keep the composition; the existing Spinner is untouched |
 
-สรุป: ผ่าน1, ต้องแก้0, ตรวจไม่ได้0
-ต่อไป: ไม่ต้องดำเนินการเพิ่ม
+Summary: 1 passed, 0 need fixing, 0 cannot be checked
+Next: no further action needed
 
-## การตัดสินใจในขอบเขตที่ผู้ใช้อนุญาต
+## Decisions within the scope the user permitted
 
-- ไม่ถามยืนยันซ้ำตามคำสั่งล่าสุด แต่คงข้อจำกัด shared tokens/main Figma APIs. ไม่เปลี่ยน contrast ของ File Upload ที่ผู้ใช้ตัดสินใจคงไว้ก่อนหน้านี้; regression ยังรายงาน error4.41:1 และ primary demo3.5:1 เดิม ไม่ถือเป็น defect ใหม่จากสามตัวนี้.
-- ไม่แก้ credit badge บนหน้า Progress หรือ component อื่นที่เพื่อนร่วมงานกำลังแก้.
-- Progress default track12→4px มีผลกับ Stepper/catalog ตาม Figma; FileUpload override3pxคงเดิม. ทดสอบผู้ใช้ร่วมแล้ว.
-- Radio disabled ใช้ data-disabled ที่ Base UI render จริง; ไม่ใช้ pseudo-class disabled ที่ไม่ตรงกับ span radio. Error/disabled precedenceชัดเจน. RadioField แยก accessible label กับ description และเว้น1px legacy paddingเพื่อรักษา spacing scale.
-- Ratingใช้ต้นฉบับSVG20×19ใน24pxslot ผ่าน CSS mask ที่ quote URL ถูกต้อง; เพิ่ม regression ที่ตรวจ computed mask เพื่อไม่ให้ย้อนกลับไปเป็นสี่เหลี่ยม. Hoverใช้23/29/36pxตามsource. ไม่จำลอง network/business data.
-- ชื่อ/props/variants/radius main Figma ไม่เปลี่ยน; เปลี่ยนเฉพาะ docs templateและdescriptions. Naming tableระบุ code mappingจริง แยกจากข้อเสนอ rename.
+- Did not ask for confirmation again per the latest instruction, but kept the constraints on shared tokens/main Figma APIs. Did not change the File Upload contrast that the user had previously decided to keep; the regression still reports the same error 4.41:1 and primary demo 3.5:1, which are not treated as new defects from these three.
+- Did not change the credit badge on the Progress page or other components that colleagues are working on.
+- Progress default track 12→4px affects Stepper/catalog per Figma; the FileUpload 3px override is kept. Shared consumers tested.
+- Radio disabled uses the data-disabled that Base UI actually renders; does not use the disabled pseudo-class, which does not match the span radio. Error/disabled precedence is clear. RadioField separates the accessible label from the description and omits the 1px legacy padding to preserve the spacing scale.
+- Rating uses the original 20×19 SVG in a 24px slot via a CSS mask with a correctly quoted URL; added a regression that checks the computed mask so it does not revert to a rectangle. Hover uses 23/29/36px per the source. No network/business data is simulated.
+- Names/props/variants/radius of the main Figma components are unchanged; only the docs template and descriptions changed. The naming table lists the actual code mapping, separate from rename proposals.

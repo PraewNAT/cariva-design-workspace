@@ -1,30 +1,30 @@
 # Prototype workspace — 2026-11-27
 
 **Component Reuse Check — Workspace tooling**
-ผลรวม: reuse board และ DS examples เดิม ไม่สร้าง Product UI ซ้ำ
-ขอบเขต: sync/canvas, WorkspaceCanvas, CoreCatalog, CatalogAppointment, CatalogForm และ Vite entry
+Overall: reuses the existing board and DS examples; no duplicate Product UI created
+Scope: sync/canvas, WorkspaceCanvas, CoreCatalog, CatalogAppointment, CatalogForm and the Vite entry
 
-| ระดับ | ผล | รายการ | หลักฐาน | ถัดไป |
+| Level | Result | Item | Evidence | Next |
 |---|---|---|---|---|
-| — | ผ่าน | renderer เดียวใน Vite และ Storybook | PrototypePreview.tsx + App.tsx + PrototypePreview.stories.tsx | เพิ่ม Product screens ใน registry เมื่อมีงานจริง |
-| — | ผ่าน | tooling แยกจาก Core | features/prototype และ features/board; ไม่มี Core imports ย้อนเข้า tooling | ไม่ต้องแก้ Core |
+| — | Pass | A single renderer in Vite and Storybook | PrototypePreview.tsx + App.tsx + PrototypePreview.stories.tsx | Add Product screens to the registry when real work arrives |
+| — | Pass | Tooling is separate from Core | features/prototype and features/board; no Core imports back into tooling | No Core changes needed |
 
-สรุป: ผ่าน 2, ต้องแก้ 0, ตรวจไม่ได้ 0 ในขอบเขตนี้
-ต่อไป: เพิ่มเคส Product จริงเมื่อได้รับ requirement
+Summary: 2 pass, 0 need fixes, 0 unverifiable in this scope
+Next: add real Product cases when requirements arrive
 
 **Component Audit — Workspace tooling**
-ผลรวม: feature พร้อมใช้งาน มีข้อค้างของ DS examples เดิมและข้อจำกัด native fullscreen
-ขอบเขต: Canvas/Preview, standalone localhost, keyboard, URL reload, frame 320px; ไม่ใช่ audit ทุก Core component
+Overall: the feature is ready to use; outstanding items remain in the existing DS examples, plus a native fullscreen limitation
+Scope: Canvas/Preview, standalone localhost, keyboard, URL reload, 320px frame; not an audit of every Core component
 
-| ระดับ | ผล | รายการ | หลักฐาน | ถัดไป |
+| Level | Result | Item | Evidence | Next |
 |---|---|---|---|---|
-| กลาง | ต้องแก้ | contrast 3.5:1 และ label-content-name-mismatch ใน examples ที่ reuse | /tmp/cariva-prototype-test.txt; catalog/appointment stories | แก้ที่ Core ในงานแยก ไม่แก้ shared behavior รอบนี้ |
-| — | ตรวจไม่ได้ | native fullscreen สำเร็จ | browser ปฏิเสธ requestFullscreen; มี notice และลิงก์แทน | ทดสอบ browser ที่อนุญาต; new-tab preview ตรวจผ่าน |
-| — | ผ่าน | mode switch, selection, link และ mobile | 5 stories ผ่าน; Board play สลับ/เลือกเคส, Mobile play วัด 320px; browser วัด preview top 125.19 > toolbar bottom 113.19 | ไม่ต้องแก้เพิ่ม |
-| — | ผ่าน | standalone และ popup | เปิดลิงก์จริงจาก Canvas ไป localhost:5173/?case=appointment; keyboard/Escape คืน focus ที่ date trigger | ไม่ต้องแก้เพิ่ม |
-| — | ผ่าน | build และเอกสาร | npm run build ผ่าน (bundle-size warning); STORYBOOK-ORGANIZATION.md และ create-project skill | ไม่มี dependency ใหม่ |
+| Medium | Needs fix | contrast 3.5:1 and label-content-name-mismatch in the reused examples | /tmp/cariva-prototype-test.txt; catalog/appointment stories | Fix in Core as a separate task; shared behavior not changed this round |
+| — | Could not check | native fullscreen succeeds | the browser rejected requestFullscreen; a notice and a link are shown instead | Test in a browser that allows it; new-tab preview checked and passes |
+| — | Pass | mode switch, selection, link and mobile | 5 stories pass; Board play switches/selects cases, Mobile play measures 320px; browser measured preview top 125.19 > toolbar bottom 113.19 | No further fixes needed |
+| — | Pass | standalone and popup | opened the real link from Canvas to localhost:5173/?case=appointment; keyboard/Escape returns focus to the date trigger | No further fixes needed |
+| — | Pass | build and docs | npm run build passes (bundle-size warning); STORYBOOK-ORGANIZATION.md and the create-project skill | No new dependencies |
 
-สรุป: ผ่าน 3, ต้องแก้ 1, ตรวจไม่ได้ 1; interaction stories ผ่าน 5/5 แต่ไม่อ้างว่า a11y ทั้ง examples ผ่าน
-ต่อไป: ทบทวนข้อค้าง Core แยกจาก workspace feature
+Summary: 3 pass, 1 needs fixes, 1 unverifiable; interaction stories pass 5/5 but this does not claim that a11y passes for all the examples
+Next: review the outstanding Core items separately from the workspace feature
 
-ข้อจำกัด: direct Canvas URL เก็บ mode/case แต่ Storybook shell reload เริ่มจาก URL ของ story; state ของแต่ละ frame/host ไม่ sync กัน Static Storybook ยังอ้าง prototype localhost และต้องเปิด server 5173 แยกเมื่อใช้ปุ่มเต็มหน้า ตัวอย่างปัจจุบันเป็น DS catalog/form/date-time ไม่ใช่ Product prototype ที่ออกแบบใหม่
+Limitations: the direct Canvas URL keeps mode/case, but a Storybook shell reload starts from the story's URL; the state of each frame/host is not synced. Static Storybook still references the localhost prototype and server 5173 must be started separately when using the full-page button. The current examples are the DS catalog/form/date-time, not a newly designed Product prototype

@@ -1,48 +1,48 @@
 # Accordion — Figma specification
 
-อ่านจาก Figma วันที่ 26 พฤศจิกายน 2026: [Accordion](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt?node-id=4166-93) (หน้า Accordion ไฟล์ Cariva Core Design System) ขอบเขต: component set `accordion-item` (เดิมชื่อ `crv-accordion-standard`) 2 variants (`expanded` = false / true) เปลี่ยนชื่อชุดและ layer `Frame 1` เป็น `AccordionIcon` แล้ว (instance 5 ตัวยังเชื่อมครบ) ชื่อเดิมสำรองไว้ใน plugin data (`oldName_2026-11-26`, `oldLayerNames_2026-11-26`)
+Read from Figma on 26 November 2026: [Accordion](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt?node-id=4166-93) (the Accordion page of the Cariva Core Design System file). Scope: the `accordion-item` component set (previously named `crv-accordion-standard`), 2 variants (`expanded` = false / true). The set and the `Frame 1` layer have been renamed to `AccordionIcon` (all 5 instances are still linked). The original names are backed up in plugin data (`oldName_2026-11-26`, `oldLayerNames_2026-11-26`)
 
 ## Anatomy
 
-หนึ่ง item คือการ์ดหนึ่งใบ: padding 16, gap 16, ขอบ 1px (`border/default`), มุมโค้ง `radius/12`, พื้น `on-surface/elevated`
+One item is one card: padding 16, gap 16, 1px border (`border/default`), corner radius `radius/12`, fill `on-surface/elevated`
 
-- **AccordionTrigger** (แถว gap 16): กล่องไอคอน 40×40 (`AccordionIcon` พื้น `on-surface/subtle` มุมโค้ง 12 ไอคอน 20px สี `content/secondary`) + `Title` (16/24 SemiBold `content/primary`) + ช่องว่างยืดได้ + ลูกศร 20px (`content/secondary`) ลูกศรขึ้นเมื่อเปิด
-- **Content** (เมื่อ `expanded=true`): เยื้อง 56px (กล่องไอคอน 40 + gap 16) ข้อความ 14/20 Regular `content/secondary`
-- ตัวอย่างใน Figma วางการ์ด 3 ใบห่างกัน 16px
+- **AccordionTrigger** (row, gap 16): 40×40 icon box (`AccordionIcon`, fill `on-surface/subtle`, corner radius 12, 20px icon in `content/secondary`) + `Title` (16/24 SemiBold `content/primary`) + flexible spacer + 20px arrow (`content/secondary`); the arrow points up when open
+- **Content** (when `expanded=true`): indented 56px (40 icon box + 16 gap), text 14/20 Regular `content/secondary`
+- The example in Figma places 3 cards 16px apart
 
-## Properties ใน Figma
+## Properties in Figma
 
-| property | ชนิด | หมายเหตุ |
+| property | type | notes |
 |---|---|---|
-| `expanded` | variant false / true | เฉพาะ Figma โค้ดคุมด้วย `value` ของ Accordion (Base UI) |
-| `showIcon` | boolean (true) | เฉพาะ Figma โค้ดแสดงกล่องไอคอนเมื่อส่ง prop `icon` |
-| `icon` | instance swap | ตรงกับ prop `icon` ของ `AccordionTrigger` |
-| `title` | text | เนื้อหา (children) ของ `AccordionTrigger` |
-| `content` | text | เนื้อหา (children) ของ `AccordionContent` |
-| `showBadge` | boolean (true) | **ไม่มีป้ายอยู่ในดีไซน์และเอกสารไม่พูดถึง** น่าจะเป็นของเหลือ ยังไม่ได้ลบ รอผู้ใช้ตัดสินใจ |
+| `expanded` | variant false / true | Figma only; in code it is controlled by the `value` of Accordion (Base UI) |
+| `showIcon` | boolean (true) | Figma only; code shows the icon box when the `icon` prop is passed |
+| `icon` | instance swap | matches the `icon` prop of `AccordionTrigger` |
+| `title` | text | content (children) of `AccordionTrigger` |
+| `content` | text | content (children) of `AccordionContent` |
+| `showBadge` | boolean (true) | **There is no badge in the design and the docs do not mention one**; probably a leftover, not yet removed, awaiting the user's decision |
 
-ไม่มี variant สำหรับ hover, focus หรือ disabled ใน Figma จึงไม่ได้กำหนดในเอกสารนี้
+There are no variants for hover, focus or disabled in Figma, so none are defined in this document
 
-## โค้ด
+## Code
 
-แหล่ง: `src/lib/app/components/ui/accordion.tsx` ประกอบด้วย `Accordion` (แถวการ์ด gap 16) → `AccordionItem` (การ์ด) → `AccordionTrigger` (`icon` เป็น optional) + `AccordionContent` (เยื้อง 56px อัตโนมัติเมื่อ item มี icon)
+Source: `src/lib/app/components/ui/accordion.tsx`, consisting of `Accordion` (row of cards, gap 16) → `AccordionItem` (card) → `AccordionTrigger` (`icon` is optional) + `AccordionContent` (indented 56px automatically when the item has an icon)
 
-| เรื่อง | Figma | โค้ด | สถานะ |
+| Topic | Figma | Code | Status |
 |---|---|---|---|
-| โครงรวม | การ์ดแยกใบ ห่าง 16 | `Accordion` เป็นแถว gap-4 ไม่มีกรอบรวม | ตรง (วัดแล้ว) |
-| การ์ด | padding 16, ขอบ 1px, มุมโค้ง 12 | วัดได้ 16 / 1px / 12px | ตรง (วัดแล้ว) |
-| หัวข้อ | 16/24 SemiBold | 16px / 24px / 600 | ตรง (วัดแล้ว) |
-| กล่องไอคอน, ลูกศร | 40×40, 20px | 40 และ 20 | ตรง (วัดแล้ว) |
-| ข้อความด้านล่าง | 14/20, เยื้อง 56, ห่างหัวข้อ 16 | 14px / 20px / pl 56 / pt 16 | ตรง (วัดแล้ว) |
-| สี (พื้นการ์ด, ขอบ, หัวข้อ, กล่องไอคอน, ลูกศร, ข้อความ) | ผูก semantic variables | ผูก `--cds-*` วัดแล้วตรงกับค่า token | ตรง (วัดแล้ว) |
-| ตอนชี้เมาส์ | ไม่มีกำหนด | ตัดเส้นใต้เดิมออก | ตัดสินใจโดยผู้ใช้ |
+| Overall structure | Separate cards, 16 apart | `Accordion` is a gap-4 row with no outer frame | Matches (measured) |
+| Card | padding 16, 1px border, corner radius 12 | measured 16 / 1px / 12px | Matches (measured) |
+| Title | 16/24 SemiBold | 16px / 24px / 600 | Matches (measured) |
+| Icon box, arrow | 40×40, 20px | 40 and 20 | Matches (measured) |
+| Text below | 14/20, indent 56, 16 below the title | 14px / 20px / pl 56 / pt 16 | Matches (measured) |
+| Colors (card fill, border, title, icon box, arrow, text) | Bound to semantic variables | Bound to `--cds-*`, measured and matches the token values | Matches (measured) |
+| On hover | Not defined | The original underline was removed | Decided by the user |
 
-**ไอคอน (แก้ 26 พ.ย.):** ไอคอนใน Figma เป็นชุด Material (SettingsRounded, LockOutlined, HelpOutlineRounded และลูกศร rounded แบบทึบ) โค้ดเดิมใช้ไอคอนเส้นของ hugeicons จึงหน้าตาไม่ตรง เปลี่ยนเป็นไอคอนเดียวกับ Figma (คัดลอกเส้นจาก Figma ไว้ใน `src/lib/app/components/app/icons.tsx`) ลูกศรเป็นตัวเดียวหมุน 180° เมื่อเปิด
+**Icons (fixed 26 Nov):** The icons in Figma are a Material set (SettingsRounded, LockOutlined, HelpOutlineRounded and a solid rounded arrow). The code originally used hugeicons stroke icons, so the look did not match; changed to the same icons as Figma (paths copied from Figma into `src/lib/app/components/app/icons.tsx`). The arrow is a single icon rotated 180° when open
 
-**สีไอคอนและข้อความรอง (ปิดแล้ว 26 พ.ย.):** เดิม component Accordion ใน Figma ผูกสีกับ **ตัวแปรของ library ภายนอก** (remote) ซึ่ง `color/content/secondary` = Slate 700 (`#334155`) ขณะที่ตัวแปรในไฟล์นี้และ `tokens.json` ตอนนั้น = Slate 500 (`#64748b`) ผู้ใช้สั่งให้ผูกใหม่ ผูก 24 จุดในหน้า Accordion (ใน component set `accordion-item` และ node ปกติ) จากตัวแปร library เป็นตัวแปรในไฟล์ชื่อเดียวกัน ตรวจแล้วค่าตรงกับโค้ด instance ตัวอย่างรับค่าตามอัตโนมัติ **หมายเหตุ:** ตอนนั้นตัวแปรในไฟล์เป็น Slate 500 แต่ผู้ใช้ยืนยันว่าข้อความรองต้องเป็น **Slate 700** จึงเปลี่ยนตัวแปร `color/content/secondary` ในไฟล์กลับเป็น Slate 700 (`#334155`) แล้ว ตอนนี้ไอคอนกล่อง ลูกศร และข้อความด้านล่างเป็น `#334155` ทั้ง Figma และโค้ด ค่าเดิมสำรองไว้ใน plugin data ของไฟล์ (`contentSecondaryBackup_2026-11-26`) การผูกเดิมสำรองไว้ใน plugin data ของหน้า Accordion (`rebindBackup_2026-11-26`)
+**Icon color and secondary text (closed 26 Nov):** Previously the Accordion component in Figma bound its colors to **variables from an external library** (remote), in which `color/content/secondary` = Slate 700 (`#334155`), while the variable in this file and `tokens.json` at that time = Slate 500 (`#64748b`). The user asked to rebind: 24 bindings on the Accordion page (inside the `accordion-item` component set and plain nodes) were switched from the library variable to the same-named variable in this file. Checked that the values match the code; the example instances follow automatically. **Note:** at that time the variable in the file was Slate 500, but the user confirmed that secondary text must be **Slate 700**, so the `color/content/secondary` variable in the file was changed back to Slate 700 (`#334155`). The icon box, arrow and the text below are now `#334155` in both Figma and code. The previous value is backed up in the file's plugin data (`contentSecondaryBackup_2026-11-26`). The previous bindings are backed up in the plugin data of the Accordion page (`rebindBackup_2026-11-26`)
 
-**ที่ยังผูก library อยู่ในหน้า Accordion (21 จุด ไม่ได้แก้):** ตัวแปรที่ไม่มีชื่อเดียวกันในไฟล์นี้ (`background`, `foreground`, `border`, `primary`, `muted-foreground` เป็นชื่อแบบ shadcn UI kit) อยู่ในกรอบเอกสารและ layer ช่วย (`.Utility / Title`, section) และ `color/content/secondary` อีก 2 จุดนอก component ผมไม่เดาว่าตัวแปรเหล่านี้ตรงกับตัวไหนของเรา จึงปล่อยไว้ ไม่กระทบ component
+**Still bound to the library on the Accordion page (21 places, not changed):** variables that have no same-named counterpart in this file (`background`, `foreground`, `border`, `primary`, `muted-foreground` are shadcn UI kit-style names) in the documentation frames and helper layers (`.Utility / Title`, section), and 2 more `color/content/secondary` places outside the component. I do not guess which of ours these variables correspond to, so I left them; they do not affect the component
 
-**ข้อสังเกต:** โค้ดเดิมใช้ `rounded-xl` ซึ่งในธีมนี้คือ 24px ไม่ใช่ 12px ตาม Figma แก้เป็น `rounded-md` (12px) แล้ว การ์ดเดิมที่เป็นกล่องรวมกับเส้นคั่นเปลี่ยนเป็นการ์ดแยกใบ และเพิ่ม focus ring (เดิมไม่มี)
+**Notes:** the code originally used `rounded-xl`, which in this theme is 24px, not 12px as in Figma; changed to `rounded-md` (12px). The original card, a single box with dividers, became separate cards, and a focus ring was added (there was none before)
 
-**ยังไม่ได้ตรวจ:** hover/focus เทียบ Figma (ไม่มีให้เทียบ), contrast ของข้อความรอง (`content/secondary` เป็น Slate 700 บนพื้นขาว ประมาณ 10:1), การแสดงผลเมื่อไม่มี icon (ไม่มีเยื้อง) ใน Figma ยังไม่เห็นตัวอย่างเคส `showIcon=false`
+**Not yet checked:** hover/focus against Figma (nothing to compare), contrast of secondary text (`content/secondary` is Slate 700 on a white fill, about 10:1), rendering when there is no icon (no indent); Figma has no example of the `showIcon=false` case yet

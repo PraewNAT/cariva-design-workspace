@@ -1,0 +1,12 @@
+.prototype-shell { display: flex; min-height: 100dvh; width: 100%; background: var(--cds-bg-subtle); }
+.prototype-shell-sidebar { position: sticky; top: 0; width: 260px; height: 100dvh; flex-shrink: 0; border-right: 1px solid var(--cds-border-default); background: var(--cds-on-surface-default); }
+.prototype-shell-rail { width: 64px; }
+.prototype-shell-header { display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 8px; padding: 16px 12px; }
+.prototype-shell-header strong { font: 600 14px/20px var(--font-ui); }
+.prototype-shell-header strong span { color: var(--cds-content-secondary); font-weight: 400; }
+.prototype-shell-group { padding: 8px; }
+.prototype-shell-group-toggle { display: flex; width: 100%; align-items: center; gap: 4px; padding: 8px 0; color: var(--cds-content-secondary); font: 500 12px/16px var(--font-ui); text-align: left; }
+.prototype-shell-group-toggle:focus-visible { outline: 2px solid var(--cds-border-system); outline-offset: 2px; }
+.prototype-shell-footer { font: 400 12px/20px var(--font-ui); padding: 12px; color: var(--cds-content-secondary); }
+.prototype-shell-content { flex: 1; min-width: 0; outline: none; }
+@media(max-width: 760px) { .prototype-shell-sidebar { width: 200px; } .prototype-shell-rail { width: 56px; } }

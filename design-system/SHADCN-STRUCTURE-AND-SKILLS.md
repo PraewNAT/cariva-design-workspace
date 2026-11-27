@@ -1,61 +1,61 @@
-# โครงสร้างและสกิลสำหรับแผนใหม่
+# Structure and skills for the new plan
 
-> **สถานะ 26 พฤศจิกายน 2026:** เอกสารนี้เป็นบันทึกตามวันที่ที่เขียน ไม่ได้อัปเดตตามทุกการตัดสินใจหลังจากนั้น ข้อตกลง "เก็บของเก่าจนกว่าจะอนุญาต" ยังใช้อยู่ในรูปของ `legacy/mui/` ลำดับขั้นและจุดตัดสินใจปัจจุบันอยู่ที่ `rules/workflow-map.md` ของ `shadcn/`
+> **Status as of 26 November 2026:** This document is a dated record of what was written at the time and has not been updated for every decision made since. The agreement to "keep the old code until permission is given" still applies in the form of `legacy/mui/`. The current order of steps and decision gates are in `rules/workflow-map.md` of `shadcn/`.
 
-บันทึก 24 พฤศจิกายน 2026 / สถานะ: ผู้ใช้สั่งเริ่ม migrate แล้ว ดู SHADCN-MIGRATION.md สำหรับโครงสร้างจริงและผลตรวจ
+Note from 24 November 2026 / Status: the user has ordered the migration to start. See SHADCN-MIGRATION.md for the actual structure and check results.
 
-## ข้อตกลงล่าสุด
+## Latest agreements
 
-1. ปรับ component ใน Figma Design System ให้ลงตัวก่อน เก็บของเก่าจนกว่าผู้ใช้อนุญาตให้แทนหรือลบ
-2. เมื่อผู้ใช้สั่งเริ่ม จึงเปลี่ยนโค้ด component ทั้งชุดไปใช้ shadcn และปรับหน้าตาให้ตรง Figma ที่ตกลงแล้ว
-3. อิงโครงสร้าง `/Users/natthaphorna/structure-lab-interpret/` โดยเลือกเฉพาะส่วนที่เหมาะกับ DS ไม่ยก business logic ของ Lab มาใช้
-4. ใช้สกิลที่มีอยู่ ไม่สร้างสกิลใหม่ ผู้ใช้อนุญาตจัดโครงสร้าง active code แล้ววันที่ 25 พฤศจิกายน 2026
-5. การย้าย MUI ก่อนหน้านี้เป็นฐานชั่วคราว ไม่ใช่ stack เป้าหมายถาวร ไม่ให้ดำเนินการต่อจากแผนเก่าโดยอัตโนมัติ
+1. Settle the components in the Figma Design System first. Keep the old code until the user allows it to be replaced or deleted.
+2. When the user orders the start, switch the code of the whole component set to shadcn and adjust the appearance to match the agreed Figma.
+3. Base the structure on `/Users/natthaphorna/structure-lab-interpret/`, picking only the parts that suit the DS and not carrying over the Lab's business logic.
+4. Use the existing skills and do not create new ones. The user allowed active code to be restructured on 25 November 2026.
+5. The earlier MUI migration was a temporary base, not the permanent target stack. Do not continue automatically from the old plan.
 
-## โครงสร้างที่พบจริงในโฟลเดอร์อ้างอิง
+## Structure actually found in the reference folder
 
 ```text
 app/                              # Next.js routes, layout, globals.css
 lib/
   app/
     components/ui/                # shadcn primitives
-    components/app/               # ส่วนประกอบร่วมของแอป เช่น page-header, edge-states
-    hooks/                        # alias ตั้งไว้ ไม่ได้ยืนยันว่ามีไฟล์ใช้งานแล้ว
+    components/app/               # shared app parts, e.g. page-header, edge-states
+    hooks/                        # alias is set up, not confirmed that any file is in use yet
     i18n/, messages/, utils.ts
-  core/                           # shared utilities และ i18n ที่ไม่ผูกหน้า
+  core/                           # shared utilities and i18n not tied to a page
   features/<feature>/
-    presentation/                 # หน้าจอและองค์ประกอบของ feature
-    infrastructure/               # การเชื่อมข้อมูลของ feature
+    presentation/                 # screens and parts of the feature
+    infrastructure/               # the feature's data connections
   infrastructure/                 # config, auth, HTTP, composition
 assets/brand/
 components.json
 ```
 
-หลักฐาน: components.json และ directory layout; package.json เป็น Next.js 16 / React 19, Tailwind 4 และใช้ Radix กับ shadcn style radix-nova ในโฟลเดอร์อ้างอิง ไม่ได้หมายความว่า workspace ปัจจุบันเปลี่ยนเป็น Next.js หรือ Radix แล้ว
+Evidence: components.json and the directory layout; package.json shows Next.js 16 / React 19, Tailwind 4, and uses Radix with the shadcn style radix-nova in the reference folder. This does not mean the current workspace has changed to Next.js or Radix.
 
-## โครงสร้างที่เสนอสำหรับ DS นี้
+## Proposed structure for this DS
 
 ```text
-app/                              # route/layout ถ้าเลือก Next.js ภายหลัง
+app/                              # route/layout if Next.js is chosen later
 lib/
   app/
     components/
-      ui/                         # shared Core primitives จาก shadcn
-      app/                        # reusable compositions/patterns เช่น Table toolbar
+      ui/                         # shared Core primitives from shadcn
+      app/                        # reusable compositions/patterns, e.g. Table toolbar
     hooks/
     utils.ts
   core/
     design-system/
-      tokens/                     # primitives และ semantic tokens
-      themes/                     # default theme และ Product overrides
-      catalog/                    # registry/index สำหรับค้นหาของเดิม
-      figma/                      # mappings และ baseline ที่ตรวจแล้ว
+      tokens/                     # primitives and semantic tokens
+      themes/                     # default theme and Product overrides
+      catalog/                    # registry/index for finding existing items
+      figma/                      # mappings and verified baselines
   features/
-    board/presentation/           # พื้นที่แสดงเคสจริง แยกจาก components สำหรับส่ง Dev
-    playground/presentation/      # ฟีเจอร์ในแผน ยังไม่สร้างตอน migrate อัตโนมัติ
-    <product>/presentation/        # หน้าจอและ component เฉพาะ Product
-  infrastructure/                 # integration ที่จำเป็นจริง ค่อยเพิ่มเมื่อมีการใช้
-design-references/                # DESIGN.md และ reference แยกจาก approved tokens
+    board/presentation/           # area showing real cases, separate from components handed to Dev
+    playground/presentation/      # planned feature, not created during the automatic migration
+    <product>/presentation/        # Product-specific screens and components
+  infrastructure/                 # integrations that are actually needed, added when used
+design-references/                # DESIGN.md and references separate from approved tokens
 docs/
   plans/
   handoff/
@@ -64,60 +64,60 @@ docs/
 AGENTS.md
 ```
 
-โครงสร้างนี้นำมาใช้กับ active src แล้ววันที่ 25 พฤศจิกายน 2026; ดู docs/architecture/STRUCTURE.md สำหรับตำแหน่งจริง ชื่อ `ui` หมายถึง Core ที่ใช้ข้าม Product ส่วน `features/<product>` เป็นของเฉพาะ Product; ไม่สร้าง Core สองชุดซ้ำกันอีก
+This structure was applied to the active src on 25 November 2026; see docs/architecture/STRUCTURE.md for the actual locations. The name `ui` means Core used across Products, while `features/<product>` is Product-specific; do not create two duplicate Cores again.
 
-- วาง story และ doc ใกล้ component เมื่อเหมาะสม ไม่บังคับเจ็ดไฟล์ต่อ component
-- แยก theme ต่อ Product โดยใช้ component กลางร่วมกัน อย่าล็อกสี/ฟอนต์ Product ใน primitive
-- อย่า import board/playground หรือ infrastructure ของแอปเข้า UI Core
-- หากคง Vite ให้ใช้ entry/routes ของ Vite แทน `app/` แบบ Next.js โดยรักษาการแบ่งชั้นเดียวกัน
-- ก่อนเริ่มจริง ตรวจ framework, primitive base (Radix/Base UI), aliases และวิธีส่ง component ให้ Dev ร่วมกับทีม ไม่ถือว่าการอ้างอิงโครงสร้างคืออนุมัติทุก dependency
+- Place stories and docs near the component where appropriate; seven files per component are not mandatory
+- Separate themes per Product while sharing the central components. Do not lock a Product's colors/fonts into a primitive
+- Do not import the app's board/playground or infrastructure into the UI Core
+- If Vite is kept, use Vite's entry/routes instead of Next.js-style `app/`, while keeping the same layering
+- Before actually starting, check the framework, the primitive base (Radix/Base UI), aliases and how components are handed to Dev together with the team. Referencing the structure does not mean every dependency is approved
 
-## สกิลที่ใช้ซ้ำได้
+## Reusable skills
 
-โปรเจกต์นี้ใช้ symlink `.agents/skills → ../../Cariva DS/.agents/skills` อยู่แล้ว ไม่ต้องคัดลอกหรือติดตั้งซ้ำ หากเปิดโปรเจกต์ใหม่คนละที่ ต้องตั้ง path/link หรือคัดลอก skills พร้อม references ให้ถูก ไม่พึ่ง symlink ที่ชี้หาย
+This project already uses the symlink `.agents/skills → ../../Cariva DS/.agents/skills`, so there is no need to copy or reinstall. If a project is opened in a different location, set the path/link or copy the skills together with their references correctly, and do not rely on a symlink that points nowhere
 
-| กลุ่ม | Skill | การใช้งานและข้อจำกัด |
+| Group | Skill | Usage and limits |
 |---|---|---|
-| หลัก | component-reuse-check | ค้นหา Core/Product ก่อนสร้าง ตรวจซ้ำหลังแก้ ใช้กับ shadcn ได้ |
-| หลัก | component-audit | ตรวจ code, tokens, cross-surface, states, accessibility หลังแก้ |
-| หลัก | case-planning | วางเคสก่อนเขียน UI แยกเคสยืนยัน/ข้อเสนอ/คำถาม |
-| หลัก | shadcn | ใช้เมื่อเริ่มทำโค้ดใหม่ อ่าน components.json ของ target จริง |
-| หลัก | document | อัปเดต doc จาก implemented contract และ visual spec ที่ตกลง |
-| หลัก | doc-coverage | ตรวจ component/story/doc ที่มีจริง ไม่บังคับทุกตัวต้องมี .md |
-| หลัก | changelog | บันทึกการเปลี่ยนแปลงแบบ Draft ไม่เริ่มเลข release เอง |
-| หลัก | pr-checklist | ใช้เมื่อมี Git/PR จริง ใช้ผล audit/reuse เดิม ไม่รันซ้ำโดยไร้เหตุผล |
-| งาน Figma | audit | ตรวจ bindings/naming ใน Figma ไม่ใช่ audit โค้ด; ต้อง resolve paths และ tokens ของ target ใหม่ |
-| งาน Figma | map-fix | ใช้ workflow เดิมแก้ mapping/bindings ต้องทบทวนกฎเก่าและอ่านปลายทางจริงก่อน ห้ามใช้ specs MUI เก่าทับแบบใหม่ |
-| งาน Figma | design-review | ตรวจหน้าจอ Figma ก่อน handoff ไม่แทน component-audit |
-| งาน Figma | rename-frame | จัดชื่อ frames เมื่อร้องขอ ไม่เปลี่ยน naming ทั่วไฟล์อัตโนมัติ |
-| งาน Figma | code-to-figma | ส่งหน้าจอที่เลือกไป Figma ผ่าน plugin; มี references path เก่าที่ต้อง resolve ตาม workspace |
-| เลือกใช้ | impeccable | ช่วย critique/polish ตามทิศทางที่เลือก เป็น link ไป global installation |
-| เลือกใช้ | emil-design-eng | รายละเอียด interaction/motion ไม่ใช่ขั้นบังคับทุก component |
-| เลือกใช้ | ui-ux-pro-max | ค้นแนวทางประกอบการตัดสินใจ ไม่ให้ทับ Figma/tokens ที่ตกลง |
-| เลือกใช้ | prototype-to-figma | แตก prototype เป็น flows/states เมื่อร้องขอ ไม่ใช้ซ้ำกับ code-to-figma ในงานเดียวกัน |
-| นำมาด้วย | localization-export | ดึงข้อความจาก Figma จัดทำ/อัปเดต localization sheet และช่วยแปล ใช้กับ shadcn ได้ ไม่ผูกกับ MUI; เรียกเมื่อมีงาน localization |
-| ภายหลัง | ux-writing | รอผู้ใช้สั่งเริ่มตามข้อตกลงเดิม |
+| Core | component-reuse-check | Search Core/Product before creating, re-check after editing, works with shadcn |
+| Core | component-audit | Check code, tokens, cross-surface, states and accessibility after editing |
+| Core | case-planning | Plan the cases before writing UI, separating confirmed items/proposals/questions |
+| Core | shadcn | Use when starting new code, read the real target's components.json |
+| Core | document | Update docs from the implemented contract and the agreed visual spec |
+| Core | doc-coverage | Check the components/stories/docs that actually exist, not every one is required to have a .md |
+| Core | changelog | Record changes as a Draft, do not start release numbering on its own |
+| Core | pr-checklist | Use when there is a real Git/PR, reuse the earlier audit/reuse results, do not rerun without reason |
+| Figma work | audit | Check bindings/naming in Figma, not a code audit; must resolve the new target's paths and tokens |
+| Figma work | map-fix | Use the existing workflow to fix mappings/bindings; must review the old rules and read the real target first, do not overwrite the new approach with old MUI specs |
+| Figma work | design-review | Check Figma screens before handoff, does not replace component-audit |
+| Figma work | rename-frame | Tidy frame names on request, does not rename across the whole file automatically |
+| Figma work | code-to-figma | Send selected screens to Figma via a plugin; has old path references that must be resolved per workspace |
+| Optional | impeccable | Helps critique/polish in the chosen direction, is a link to the global installation |
+| Optional | emil-design-eng | Interaction/motion details, not a mandatory step for every component |
+| Optional | ui-ux-pro-max | Look up guidance to support decisions, must not override the agreed Figma/tokens |
+| Optional | prototype-to-figma | Break a prototype into flows/states on request, do not use together with code-to-figma on the same task |
+| Brought over | localization-export | Extract text from Figma, produce/update the localization sheet and help translate; works with shadcn, not tied to MUI; call it when there is localization work |
+| Later | ux-writing | Wait for the user to order the start, per the earlier agreement |
 
-เป็นการตรวจขอบเขตจาก skill definitions/routing และอ่านรายละเอียดบางตัว ไม่ได้ทดสอบทุก skill แบบ end-to-end หรือรับรองว่า legacy path ทุกจุดใช้ได้โดยไม่ปรับ ใช้ตัวเดิมเป็นฐานและปรับ configuration/references เมื่อเริ่มจริง แทนการเขียน skill ใหม่
+This is a scope check from the skill definitions/routing plus reading some of them in detail. It did not test every skill end to end or guarantee that every legacy path works without adjustment. Use the existing ones as the base and adjust configuration/references when actually starting, instead of writing new skills
 
-## ไม่นำเข้าชุดใหม่
+## Not bringing in the new set
 
-ตามคำสั่งผู้ใช้ ไม่นำ `crv-component-code`, `create-project`, `add-version-tab` และ aliases ซ้ำ `verify-ds-usage`, `document-update` มาในชุดใหม่ เก็บต้นฉบับใน Cariva DS ไว้ ไม่ลบผ่าน symlink ที่แชร์กัน รายการข้างต้นเป็นแผนการเลือกสกิล ยังไม่ได้แยกหรือติดตั้งชุดใหม่จริง
+Per the user's order, do not bring `crv-component-code`, `create-project`, `add-version-tab` and the duplicate aliases `verify-ds-usage`, `document-update` into the new set. Keep the originals in Cariva DS and do not delete them through the shared symlink. The list above is a skill selection plan; the new set has not actually been split out or installed
 
-## เครื่องมือ/สกิลจากภายนอกโฟลเดอร์
+## Tools/skills from outside the folder
 
-- Figma plugin: figma-use, figma-generate-library, figma-generate-design, figma-design-to-code, figma-code-connect ใช้ตามงาน ไม่ต้องคัดลอกโค้ดสกิลเข้า repo
-- Storybook: ใช้ stories/write-story และ test/review CLI ตามเวอร์ชันที่ติดตั้งใน target จริง
-- MCP เป็นการเชื่อมต่อเครื่องมือ ไม่ใช่ระบบ sync อัตโนมัติ
-- Design–Code Parity & Sync, board/playground/catalog automation ยังไม่ถือว่ามี implementation จากการมี skills
+- Figma plugin: figma-use, figma-generate-library, figma-generate-design, figma-design-to-code, figma-code-connect are used as the work requires, no need to copy skill code into the repo
+- Storybook: use stories/write-story and the test/review CLI according to the version installed in the real target
+- MCP is a tool connection, not an automatic sync system
+- Design–Code Parity & Sync and board/playground/catalog automation are not considered implemented just because the skills exist
 
-## ลำดับเมื่อผู้ใช้สั่งเริ่มภายหลัง
+## Order when the user orders the start later
 
-1. ยืนยัน component/spec ใน Figma พร้อมแยกของใหม่กับของเก่า
-2. ตรวจและล็อกโครงสร้าง/stack กับ Dev แล้วเก็บ checkpoint
-3. ย้ายทีละ component เริ่ม Table หรือ Button ตามลำดับที่ตกลง โดย reuse shadcn และรักษา contract ที่จำเป็น
-4. เทียบ visual จาก Figma จริง อัปเดต cases, stories, doc และ mapping ที่เกี่ยวข้อง
-5. Component Audit และ regression ของ consumers ก่อนนำไปใช้ร่วมกัน
-6. ไม่ลบ MUI/ของเก่าหรือ publish จนกว่าผู้ใช้อนุญาต
+1. Confirm the component/spec in Figma, separating new items from old ones
+2. Check and lock the structure/stack with Dev, then keep a checkpoint
+3. Migrate one component at a time, starting with Table or Button in the agreed order, reusing shadcn and keeping the necessary contract
+4. Compare the visuals against the real Figma, then update the related cases, stories, docs and mapping
+5. Component Audit and regression of consumers before sharing
+6. Do not delete MUI/the old code or publish until the user allows it
 
-ตอนนี้หยุดที่การบันทึกแผนและการใช้สกิลเดิม ไม่มีการ migrate code, สร้าง skill, เปลี่ยน dependencies หรือแก้ Figma จากงานบันทึกนี้
+For now, stop at recording the plan and using the existing skills; no code migration, skill creation, dependency changes or Figma edits come from this record

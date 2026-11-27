@@ -13,9 +13,9 @@ Shared impact: Stepper and catalog now use4px default tracks. FileUpload's exist
 
 Credit Badge is Mira Product DS; see [Mira Credit Badge](../products/mira/CREDIT-BADGE.md). Core Progress now has six stories; its primitive behavior is unchanged by the ownership move.
 
-## เปลี่ยนชื่อชุดใน Figma (26 พ.ย. 2026, ผู้ใช้ยืนยันตามเสนอ)
+## Renaming sets in Figma (26 Nov 2026, user confirmed as proposed)
 
-| ชื่อใหม่ | ชื่อเดิม | prop ที่เปลี่ยน | instance |
+| New name | Original name | Changed props | instance |
 |---|---|---|---|
 | `progress` | `crv-linear-progress` | — | 22 → 22 |
 | `circular-progress` | `crv-circular-progress` | `size` small / medium / large → `sm` / `default` / `lg` | 24 → 24 |

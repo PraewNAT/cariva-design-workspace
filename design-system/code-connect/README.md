@@ -1,37 +1,41 @@
 # Code Connect — Figma ↔ shadcn
 
-เชื่อมชุด component ใน Figma (ไฟล์ Cariva Core Design System `XgxprkSY5mGbzIIwlmscCt`) เข้ากับโค้ดใน `shadcn/src/lib/app/components/` ให้ Dev Mode แสดงโค้ดและ import จริงของ DS (เชื่อมครั้งแรก 26 พฤศจิกายน 2026: 37 ไฟล์ 169 mapping หลังตรวจซ้ำรอบสอง ซึ่งเก็บชุดที่ตกหล่นเพิ่ม 20 mapping)
+Links the component sets in Figma (file Cariva Core Design System `XgxprkSY5mGbzIIwlmscCt`) to the code in `shadcn/src/lib/app/components/`, so Dev Mode shows the DS's real code and imports (first linked on 26 November 2026: 38 files, 170 mappings after a second re-check pass, which picked up 20 additional mappings for sets that had been missed)
 
-## กฎ
+## Rules
 
-**ทุก component ใหม่ต้องเชื่อม Code Connect ทุกครั้ง** (ผู้ใช้สั่ง 26 พฤศจิกายน 2026) ถ้าเพิ่มหรือเปลี่ยนชื่อชุดใน Figma ที่มีโค้ดคู่กัน ให้เพิ่ม/แก้ไฟล์ `*.figma.tsx` ในโฟลเดอร์นี้ แล้วรันขั้นตอนด้านล่างก่อนบอกว่าเสร็จ ดูกฎเต็มที่ [workflow-map.md](../rules/workflow-map.md)
+**Every new component must be connected through Code Connect every time** (user ordered this on 26 November 2026). If you add or rename a set in Figma that has matching code, add/edit the `*.figma.tsx` file in this folder, then run the steps below before saying it is done. See the full rule in [workflow-map.md](../rules/workflow-map.md)
 
-## วิธีเพิ่ม / แก้ map
+## How to add / edit a map
 
-1. เปิดไฟล์ของ component นั้น (หรือสร้าง `ชื่อ.figma.tsx`) แล้วเพิ่ม `figma.connect(Component, "<URL ของชุดใน Figma>", { props, example })` ใช้ node id ของ **component set** (ไม่ใช่ instance) ค่า prop และชื่อค่าใน `figma.enum` ต้องตรงกับ Figma ตามตารางใน [FIGMA-NAMING.md](../docs/components/FIGMA-NAMING.md)
-2. ตรวจ type: `npx tsc -p shadcn/code-connect/tsconfig.json` (ที่ root ของ repo) ต้องไม่มี error ในโฟลเดอร์นี้
-3. จาก **root ของ repo**: `npm run code-connect:parse` (ดูผล parse), `npm run code-connect:dry-run` (ตรวจโดยไม่ส่ง) แล้ว `npm run code-connect:publish`
-4. ตรวจใน Dev Mode หรือ `get_code_connect_map` ว่า node ใหม่ขึ้น component/ import ถูกต้อง
+1. Open that component's file (or create `name.figma.tsx`) and add `figma.connect(Component, "<URL of the set in Figma>", { props, example })`. Use the node id of the **component set** (not an instance). The prop values and the value names in `figma.enum` must match Figma according to the table in [FIGMA-NAMING.md](../docs/components/FIGMA-NAMING.md)
+2. Type-check: `npx tsc -p shadcn/code-connect/tsconfig.json` (at the repo root) must report no errors in this folder
+3. From the **repo root**: `npm run code-connect:parse` (see the parse result), `npm run code-connect:dry-run` (check without sending), then `npm run code-connect:publish`
+4. Check in Dev Mode or with `get_code_connect_map` that the new node shows the correct component/import
 
-ต้องมี `FIGMA_ACCESS_TOKEN` ใน `.env.local` (ผู้ใช้ใส่เอง สคริปต์ `scripts/code-connect.sh` โหลดให้) config อยู่ที่ `figma.config.json` ที่ root (`importPaths` ต้องมีทั้ง `ui/*`, `app/*` และ `products/mira/components/*` เพราะ `*` จับแค่ชื่อไฟล์)
+`FIGMA_ACCESS_TOKEN` must be in `.env.local` (the user adds it; the script `scripts/code-connect.sh` loads it). The config is in `figma.config.json` at the root (`importPaths` must include `ui/*`, `app/*` and `products/mira/components/*`, because `*` matches only the file name)
 
 ## Visualization
 
-`visualization.figma.tsx` เชื่อมการ์ด `crv-chart-01…25` (25 ชุด) และ `Chart plot / …` (25 ชิ้นส่วน) เข้ากับ `VisualizationChart` โดยใช้ `variant` ตาม `docs/components/VISUALIZATION-MAPPING.json` (เขียนโดยงานฝั่ง ChatGPT) prop `title` เชื่อมกับ text prop `title` ของการ์ด ส่วนข้อมูล (`data`, `series`) เป็นตัวอย่างพื้นฐาน ไม่ผูกกับ Figma และ `viewport` desktop / mobile ไม่ส่งเป็น prop (กราฟปรับตามความกว้างเอง) ชื่อชุดยังเป็น `crv-chart-NN / …` ตามที่งานนั้นกำหนด
+`visualization.figma.tsx` connects the `crv-chart-01…25` cards (25 sets) and `Chart plot / …` (25 parts) to `VisualizationChart`, using `variant` according to `docs/components/VISUALIZATION-MAPPING.json` (written by the ChatGPT side). The `title` prop is linked to the card's text prop `title`, while the data (`data`, `series`) is basic sample data not tied to Figma, and `viewport` desktop / mobile is not passed as a prop (the chart adapts to the width by itself). The set names are still `crv-chart-NN / …` as that work defined them
 
-## ข้อจำกัดที่รู้
+## MIRA Component Library file (`37MSJL69dK206ouPp4F1xW`)
 
-- ค่า `false` ของ prop boolean ไม่ถูกแสดงในตัวอย่าง (Code Connect แสดงเฉพาะ `true`) จึงไม่เห็น `showTopColor={false}`, `progressVisible={false}`, `valueVisible={false}`, `costHintVisible={false}` ตอนที่ Figma ปิดไว้ (ค่าเริ่มต้นในโค้ดเป็น `true`) ถ้าต้องแสดงให้แยก connect ตามค่า (`variant: { ... }`) ตัวอย่าง: `Tooltip` ที่ `placement=none` แยกเป็น `showArrow={false}`
-- ส่วนย่อยภายในที่ไม่มี export ของตัวเอง map ไปที่ component แม่: `calendar-day` → `Calendar`, `time-column` / `time-option` → `TimePicker`, `rating-star` → `Rating`, `sheet-content` → `SheetContent side="bottom"`
-- ตัวอย่างเป็นการประกอบพื้นฐาน (เช่น `Sidebar`, `Sortable`, `Stepper` ใส่ข้อมูลตัวอย่าง) ไม่ใช่ค่าจริงของหน้านั้น
+`mira-library.figma.tsx` connects `mira-recorder` (4 states → `MiraRecorder` `state`) and `crv-card` (`color` → `WorkflowCard`; the props in Figma are named `Badge`, `Title`, `Subtitle`, `Icon`, `color`) of that file (`products/mira/components/`). **Pending:** the 5 color variants of `crv-card` (nodes `0:109`, `0:115`, `0:121`, `0:131`, `0:141`) have old, incorrect mappings in the Figma file (names like `WorkflowCard/blue` point to `src/components/ui/WorkflowCard.tsx`, which does not exist) that cannot be overwritten by publishing. Those mappings must be deleted in Figma Dev Mode first, then publish again
 
-## ชุด Button แยก
+## Known limitations
 
-`button-sets.figma.tsx` เชื่อม `button-icon` (`size` lg / default / sm → `icon-lg` / `icon` / `icon-sm`), `button-loading`, `button-link`, `button-decorative` เข้ากับ `Button` ตัวเดียวกัน (เปลี่ยนชื่อชุดและค่าใน Figma แล้ว 26 พ.ย. 2026)
+- The `false` value of a boolean prop is not shown in the example (Code Connect shows only `true`), so you will not see `showTopColor={false}`, `progressVisible={false}`, `valueVisible={false}`, `costHintVisible={false}` when Figma has them turned off (the default in code is `true`). If it must be shown, split the connect by value (`variant: { ... }`). Example: `Tooltip` with `placement=none` is split out as `showArrow={false}`
+- Inner sub-parts that have no export of their own map to the parent component: `calendar-day` → `Calendar`, `time-column` / `time-option` → `TimePicker`, `rating-star` → `Rating`, `sheet-content` → `SheetContent side="bottom"`
+- The examples are basic compositions (e.g. `Sidebar`, `Sortable`, `Stepper` filled with sample data), not the real values of that page
 
-## ยังไม่เชื่อม (ไม่มีโค้ดคู่)
+## Separate Button sets
 
-- Button: `crv-button-mic`, `crv-button-split` (โค้ดไม่มี)
-- `Component Base` ในหน้า Breadcrumb (ชิ้นส่วนเทมเพลต)
+`button-sets.figma.tsx` connects `button-icon` (`size` lg / default / sm → `icon-lg` / `icon` / `icon-sm`), `button-loading`, `button-link`, `button-decorative` to the same single `Button` (set names and values were renamed in Figma on 26 Nov 2026)
 
-`scrollbar` เชื่อมกับ `ScrollArea` (`orientation`, `track`) และ `separator` กับ `Separator` ใน `misc.figma.tsx`
+## Not yet connected (no matching code)
+
+- Button: `crv-button-mic`, `crv-button-split` (no code exists)
+- `Component Base` on the Breadcrumb page (a template part)
+
+`scrollbar` is connected to `ScrollArea` (`orientation`, `track`) and `separator` to `Separator` in `misc.figma.tsx`

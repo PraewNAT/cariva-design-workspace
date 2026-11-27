@@ -5,6 +5,7 @@ import tailwindcss from "@tailwindcss/vite";
 
 // https://vite.dev/config/
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { storybookTest } from "@storybook/addon-vitest/vitest-plugin";
 import { playwright } from "@vitest/browser-playwright";
 const dirname = import.meta.dirname;
@@ -13,7 +14,7 @@ const dirname = import.meta.dirname;
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   resolve: {
-    alias: { "@": path.resolve(dirname, "src") },
+    alias: { "storybook/test": fileURLToPath(import.meta.resolve("storybook/test")), "@": path.resolve(dirname, "src"), ...Object.fromEntries(["react", "react-dom", "lucide-react", "@fontsource"].map(name => [name, path.resolve(dirname, "node_modules", name)])) },
     dedupe: ["react", "react-dom"],
   },
   test: {

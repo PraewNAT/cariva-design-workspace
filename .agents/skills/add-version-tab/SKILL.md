@@ -1,54 +1,54 @@
 ---
 name: add-version-tab
-description: จัดแท็บ version ของ legacy sidebar shell เฉพาะเมื่อผู้ใช้ขอชัดเจน ไม่รันตอน commit และไม่เริ่ม release numbering เอง
+description: Manages version tabs of the legacy sidebar shell only when the user explicitly asks; does not run at commit time and does not start release numbering on its own
 ---
 
-## ขอบเขตตามแพลนล่าสุด
+## Scope per the latest plan
 
-อ่าน AGENTS.md และ rules/skill-routing.md ก่อนใช้ กฎล่าสุดมีผลเหนือขั้นตอนเก่าที่ขัดกัน สกิลนี้ไม่อนุญาตให้ publish, push, deploy หรือเริ่มเลขเวอร์ชันโดยอัตโนมัติ ดำเนินการภายนอกเฉพาะที่ผู้ใช้มอบหมายจริง
-ไม่ทำงานอัตโนมัติเมื่อ commit; ช่วง Draft ใช้ checkpoint/history ตามแพลน หากผู้ใช้ขอแท็บของ legacy app ให้แยกจากเลข release ของ DS และไม่คัดลอกทั้งโปรเจกต์เป็นระบบ snapshot ใหม่
+Read AGENTS.md and rules/skill-routing.md before using this skill. The latest rules take precedence over any older conflicting steps. This skill does not allow publishing, pushing, deploying, or starting version numbers automatically. Perform external actions only when the user has actually assigned them.
+It does not run automatically at commit time; during the Draft phase, use checkpoint/history per the plan. If the user asks for a tab in the legacy app, keep it separate from the DS release numbers and do not copy the whole project into a new snapshot system.
 
 
 # Add Version Tab — Cariva DS
 
-**ไม่ต้อง trigger ด้วยคำพูดเฉพาะ** — ทำงานร่วมกับจังหวะ "ถามก่อน commit" ที่มีอยู่แล้วใน Git & PR Workflow (`CLAUDE.md`) โดยอัตโนมัติ ใช้เฉพาะกับ repo ที่มี sidebar shell จาก skill `create-project` เท่านั้น — เช็คจาก **โครงสร้างไฟล์ใน repo ปัจจุบัน** ไม่ใช่จากบทสนทนาที่ผ่านมา (รองรับกรณี user เปิดแชทใหม่มาทำงานต่อในโปรเจกต์เดิม)
+**No specific trigger phrase is needed** — it works automatically alongside the existing "ask before commit" step in the Git & PR Workflow (`CLAUDE.md`). Use it only in repos that have a sidebar shell from the `create-project` skill — check the **file structure of the current repo**, not earlier conversation (this supports the case where the user opens a new chat to continue work in an existing project).
 
-## เมื่อไหร่ต้องถาม
+## When to ask
 
-ระหว่างทำงาน **ไม่ต้องถามอะไรเรื่องแท็บ/เวอร์ชันเลย** — ถือว่ากำลังแก้ในแท็บ/เวอร์ชันปัจจุบันเสมอโดย default
+While working, **do not ask anything about tabs/versions** — always assume by default that you are editing within the current tab/version.
 
-**ถามแค่ตอนใกล้ commit** — ต่อจากคำถามเดิม "งานนี้เสร็จแล้วครับ อยาก commit + push เลยไหม?" ให้ถามเพิ่มอีก 1 คำถามในจังหวะเดียวกัน (ไม่ใช่ถามแยกจังหวะใหม่):
+**Ask only when a commit is near** — following the existing question "The work is done. Do you want to commit + push now?", add 1 more question at the same moment (not as a separate new prompt):
 
-**"อยากให้งานนี้เป็นเวอร์ชันใหม่ (แท็บใหม่) หรือแก้ทับเวอร์ชันปัจจุบันครับ?"**
+**"Do you want this work to be a new version (new tab) or to overwrite the current version?"**
 
-- **แก้ทับของเดิม** → commit ตามปกติ ไม่ต้องทำอะไรเพิ่มจาก skill นี้
-- **เวอร์ชันใหม่** → ทำตาม Steps ด้านล่างก่อน แล้วค่อย commit
+- **Overwrite the existing one** → commit as usual; nothing more is needed from this skill
+- **New version** → follow the Steps below first, then commit
 
-## Steps (เฉพาะกรณีเลือก "เวอร์ชันใหม่")
+## Steps (only when "new version" is chosen)
 
-1. **ตั้งชื่อแท็บให้อัตโนมัติ** — ใช้รูปแบบ `{วันที่} {เวลา}` เช่น `27 Aug 23:15`
-   - **ยกเว้น** user ระบุชื่อเวอร์ชันเอง → ใช้ชื่อที่ user บอกแทนทันที ไม่ต้อง auto-name
-   - ถ้าชื่อ (ไม่ว่า auto หรือ user ระบุ) ซ้ำกับแท็บที่มีอยู่แล้ว → ต่อท้ายด้วยเลขลำดับ เช่น `27 Aug 23:15 (2)`
+1. **Name the tab automatically** — use the format `{date} {time}`, e.g. `27 Aug 23:15`
+   - **Exception:** if the user gives a version name, use the user's name immediately; no auto-naming
+   - If the name (whether auto or user-given) duplicates an existing tab → append a sequence number, e.g. `27 Aug 23:15 (2)`
 
-2. สร้าง route/page ใหม่สำหรับเวอร์ชันนี้ — **ห้ามแตะ/ลบไฟล์ของเวอร์ชันเดิม** เวอร์ชันก่อนหน้าต้องยังเข้าถึงได้ผ่านแท็บเก่าเหมือนเดิมทุกอย่าง
+2. Create a new route/page for this version — **do not touch/delete the files of the previous version**. Earlier versions must remain reachable through the old tab exactly as before.
 
-3. เพิ่มแท็บใหม่เข้า `CrvSidebar` เดิม — ต่อท้ายรายการเวอร์ชัน **ภายในกลุ่มโปรเจกต์ที่กำลังทำงานอยู่** ห้ามลบ/จัดเรียงเวอร์ชันเก่าใหม่ และห้ามสร้างกลุ่มโปรเจกต์ใหม่
+3. Add the new tab to the existing `CrvSidebar` — append it to the version list **within the project group currently being worked on**. Do not delete/reorder old versions, and do not create a new project group.
 
-   `versions.json` เป็นโครง 2 ชั้น (`projects[].versions[]`) — ต้องรู้ก่อนว่ากำลังอยู่โปรเจกต์ไหน:
-   - ถ้ามีกลุ่มเดียว → ลงกลุ่มนั้นได้เลย ไม่ต้องถาม
-   - ถ้ามีหลายกลุ่ม → ใช้กลุ่มของแท็บที่ user เปิดทำงานอยู่ ถ้ายังไม่ชัดให้ถามสั้นๆ ว่า **"เวอร์ชันนี้อยู่ในโปรเจกต์ไหนครับ?"** พร้อมลิสต์ชื่อกลุ่มให้เลือก ห้ามเดา
+   `versions.json` has a 2-level structure (`projects[].versions[]`) — you must know which project you are in first:
+   - If there is only one group → go into that group directly; no need to ask
+   - If there are multiple groups → use the group of the tab the user has open; if still unclear, ask briefly **"Which project does this version belong to?"** with the group names listed as choices. Do not guess.
 
-4. ย้ายงานที่เพิ่งแก้ (ที่กำลังจะ commit) เข้าไปอยู่ในหน้า/route ใหม่นี้
+4. Move the work just edited (which is about to be committed) into this new page/route
 
-5. **เขียนสรุปการเปลี่ยนแปลงเอง (AI-written)** — อ่าน `git diff` ของงานที่กำลังจะ commit แล้วสรุปเป็นภาษาที่ designer อ่านเข้าใจง่าย (ไม่ใช่ commit message แบบ technical) เช่น "เพิ่มปุ่ม export CSV และแก้สีปุ่มหลักให้เข้ม" ไม่ใช่ "Add CrvButton variant, update theme.ts" — เพิ่ม entry ใหม่เข้า `versions[]` **ของกลุ่มโปรเจกต์ที่ถูกต้อง** ใน `versions.json` (จาก `create-project`) ด้วย `id`/`label`/`date`/`summary` ของแท็บนี้ — **ห้ามให้ user เขียนเอง** เว้นแต่ user อยากแก้ข้อความที่เขียนไปแล้ว
+5. **Write the change summary yourself (AI-written)** — read the `git diff` of the work about to be committed and summarize it in language a designer can easily understand (not a technical commit message), e.g. "Added an export CSV button and darkened the primary button color", not "Add CrvButton variant, update theme.ts" — add a new entry to `versions[]` **of the correct project group** in `versions.json` (from `create-project`) with this tab's `id`/`label`/`date`/`summary` — **do not make the user write it** unless the user wants to edit the text already written
 
-6. commit + push ตาม Git workflow ปกติ — Vercel จะ deploy ซ้ำที่ลิงก์เดิม (ไม่มีลิงก์ใหม่เกิดขึ้น)
+6. Commit + push per the normal Git workflow — Vercel redeploys at the same link (no new link is created)
 
 ## Rules
 
-- ห้ามลบหรือทับแท็บ/เวอร์ชันเก่าโดยไม่ถามก่อน
-- ชื่อแท็บอัตโนมัติต้องไม่ซ้ำกับแท็บที่มีอยู่ — เช็คก่อนตั้งชื่อเสมอ
-- ถ้า repo ปัจจุบันไม่มี sidebar shell (ไม่ได้มาจาก `create-project`) → skill นี้ไม่ทำงาน ไม่ต้องถามคำถามข้างบนเลย ปล่อยให้ commit ไหลตาม Git workflow ปกติ
-- ถ้า user ขอ "โปรเจกต์ใหม่" หรือบอกว่างานนี้ **ไม่ได้ทำต่อจากเวอร์ชันเดิม** (เป็นแนวทางใหม่คนละทาง) → นี่ไม่ใช่แท็บเวอร์ชันใหม่ ให้ส่งต่อให้ skill `create-project` ซึ่งจะถามว่าจะขึ้นเป็น**กลุ่มโปรเจกต์ใหม่ใน repo เดิม** หรือ**แยก repo ใหม่** — ห้ามตัดสินใจเองว่าต้องเป็น repo ใหม่เสมอ
-- เวอร์ชันแรกของแต่ละกลุ่มโปรเจกต์ไม่มีไอคอน "ดูสิ่งที่เปลี่ยนแปลง" (นับแยกต่อกลุ่ม ไม่ใช่นับรวมทั้งไฟล์) — ตอนเพิ่มเวอร์ชันที่ 2 ของกลุ่มไหนก็ตาม ไอคอนจะเริ่มโผล่ที่เวอร์ชันนั้นเอง
-- Summary การเปลี่ยนแปลงต้อง AI เขียนเองเสมอ ห้ามถาม user ว่าจะเขียนอะไร — เขียนสั้น กระชับ 1-2 ประโยค ภาษาที่ designer อ่านเข้าใจ ไม่ใช้ศัพท์เทคนิค/ชื่อไฟล์/ชื่อ component ตรงๆ
+- Do not delete or overwrite old tabs/versions without asking first
+- The automatic tab name must not duplicate an existing tab — always check before naming
+- If the current repo has no sidebar shell (not from `create-project`) → this skill does not run, and none of the questions above are asked; let the commit flow through the normal Git workflow
+- If the user asks for a "new project" or says this work is **not a continuation of the existing version** (a completely different direction) → this is not a new version tab; hand off to the `create-project` skill, which will ask whether to make it a **new project group in the existing repo** or a **separate new repo** — do not decide on your own that it must always be a new repo
+- The first version of each project group has no "view changes" icon (counted per group, not across the whole file) — when the 2nd version of any group is added, the icon starts appearing at that version
+- The change summary must always be written by the AI; do not ask the user what to write — keep it short and concise, 1-2 sentences, in language a designer understands, without technical terms/file names/component names

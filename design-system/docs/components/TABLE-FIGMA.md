@@ -1,56 +1,56 @@
 # Table — Figma specification
 
-อ่านจาก Figma วันที่ 26 พฤศจิกายน 2026: [Table](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt?node-id=4582-9184) (ไฟล์ Cariva Core Design System) ผู้ใช้ยืนยันชื่อตามที่ Claude เสนอ รวม 3 ข้อตัดสินใจ: footer ใช้ `TablePagination`, BWC Table (Draft) ถูกลบออกจาก Figma แล้ว, แถวสลับสีเป็น `striped` ที่ `Table` หน้านี้มีกรอบ `Table Doc` อยู่แล้ว (แก้ชื่อ prop เก่าในข้อความแล้ว ข้อความเดิมสำรองใน `docText_2026-11-26`)
+Read from Figma on 26 November 2026: [Table](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt?node-id=4582-9184) (Cariva Core Design System file). The user confirmed the names as proposed by Claude, including 3 decisions: the footer uses `TablePagination`, BWC Table (Draft) was deleted from Figma, and alternating row colors are `striped` on `Table`. This page already has a `Table Doc` frame (old prop names in the text were fixed; the original text is backed up in `docText_2026-11-26`)
 
-## ชุดใน Figma (เปลี่ยนชื่อแล้ว ชื่อเดิมสำรองใน plugin data `oldName_2026-11-26`)
+## Sets in Figma (renamed; original names backed up in plugin data `oldName_2026-11-26`)
 
-| ชื่อใหม่ | ชื่อเดิม | prop | หมายเหตุ |
+| New name | Original name | prop | Notes |
 |---|---|---|---|
-| `table-head` | `crv-table-head` | `size` default / sm (เดิม small), `compact`, `checkBoxVisible`, `leftSortVisible`, `rightSortVisible`, `label` | instance 21 → 21 |
-| `table-cell` | `crv-table-cell` | `size`, `state` default / hover / disabled, `alternate`, ช่อง `customContent` | 61 → 61 |
+| `table-head` | `crv-table-head` | `size` default / sm (previously small), `compact`, `checkBoxVisible`, `leftSortVisible`, `rightSortVisible`, `label` | instances 21 → 21 |
+| `table-cell` | `crv-table-cell` | `size`, `state` default / hover / disabled, `alternate`, `customContent` slot | 61 → 61 |
 | `table-text-cell` | `crv-tableText-cell` | `descriptionVisible` | 27 → 27 |
 | `table-scroll-shadow` | `crv-table-scroll-shadow` | `side` left / right | 2 → 2 |
-| `table-footer` | `crv-table-footer` | 5 → 5 | เปลี่ยนชื่อแล้ว 26 พ.ย. 2026 ใช้ `TablePagination` แทน (ดีไซน์ "Go to" ยังรอ) |
-| `bwc-table/*` | — | — | ลบออกจาก Figma แล้ว 26 พ.ย. 2026 (section `BWC Table / Draft` ทั้งหมด ผู้ใช้สั่งลบ) |
+| `table-footer` | `crv-table-footer` | 5 → 5 | Renamed 26 Nov 2026; uses `TablePagination` instead (the "Go to" design is still pending) |
+| `bwc-table/*` | — | — | Removed from Figma 26 Nov 2026 (the entire `BWC Table / Draft` section; the user ordered the deletion) |
 
-## สเปก
+## Spec
 
-- head: พื้น `on-surface/subtle`, 14/20 Medium `content/primary`, ช่องว่าง 8 · default padding 16 (สูง 54 เมื่อมีไอคอนเรียง) · sm padding 7/16 (สูง 34) · ไอคอนเรียง `arrow-downward` 18 ในกรอบ 22
-- compact (คอลัมน์ checkbox / ไอคอน): สี่เหลี่ยมคงที่ default 54×54, sm 36×36
-- cell: พื้น `on-surface/default`, ข้อความ 14/20 · default padding 16 สูงต่ำสุด 54 · sm padding 4/16 สูงต่ำสุด 36 · hover `on-surface/action/hover` · alternate `on-surface/subtle` · disabled พื้นโปร่ง ข้อความ `content/disabled` · ไม่มีเส้นขอบ
-- text cell: ข้อความหลัก 14/20, คำอธิบาย 12/16 `content/secondary`
-- scroll shadow: กว้าง 16 ไล่ระดับดำ 8% → 4% → 0% (left ทอดไปขวา, right ทอดไปซ้าย)
+- head: fill `on-surface/subtle`, 14/20 Medium `content/primary`, gap 8 · default padding 16 (height 54 when there is a sort icon) · sm padding 7/16 (height 34) · sort icon `arrow-downward` 18 in a 22 frame
+- compact (checkbox / icon column): fixed square, default 54×54, sm 36×36
+- cell: fill `on-surface/default`, text 14/20 · default padding 16, min height 54 · sm padding 4/16, min height 36 · hover `on-surface/action/hover` · alternate `on-surface/subtle` · disabled transparent fill, text `content/disabled` · no border
+- text cell: main text 14/20, description 12/16 `content/secondary`
+- scroll shadow: width 16, black gradient 8% → 4% → 0% (left extends rightward, right extends leftward)
 
-## ชื่อ Figma ↔ โค้ด
+## Figma name ↔ Code
 
-| Figma | โค้ด |
+| Figma | Code |
 |---|---|
-| `size` | prop `size` ของ `Table` (`default` / `sm`) ใช้ร่วมกันทั้งตาราง (doc: ห้ามผสม) |
-| `table-head` | `TableHead` (`sort` left / right = แสดงลูกศร, `compact`) |
+| `size` | prop `size` of `Table` (`default` / `sm`), shared across the whole table (doc: do not mix) |
+| `table-head` | `TableHead` (`sort` left / right = shows an arrow, `compact`) |
 | `table-cell` | `TableCell` (`compact`) |
-| `alternate` | `striped` ที่ `Table` (แถวคู่) |
-| `state` hover | CSS hover ที่แถว · disabled = `disabled` ที่ `TableRow` |
-| `customContent` | children ของ `TableCell` |
+| `alternate` | `striped` on `Table` (even rows) |
+| `state` hover | CSS hover on the row · disabled = `disabled` on `TableRow` |
+| `customContent` | children of `TableCell` |
 | `table-text-cell` | `TableTextCell` (`description`) |
 | `table-scroll-shadow` | `TableScrollShadow` (`side`) |
-| `checkBoxVisible`, `leftSortVisible`, `rightSortVisible`, `label`, `descriptionVisible` | ใส่หรือไม่ใส่ children / `sort` / `description` |
+| `checkBoxVisible`, `leftSortVisible`, `rightSortVisible`, `label`, `descriptionVisible` | include or omit children / `sort` / `description` |
 
-## โค้ด (26 พ.ย. 2026)
+## Code (26 Nov 2026)
 
-แหล่ง `src/lib/app/components/ui/table.tsx` ไอคอน `ArrowDownwardFilled` คัดลอกจาก Figma ไว้ใน `app/icons.tsx` footer ใช้ `TablePagination` ([PAGINATION-FIGMA.md](PAGINATION-FIGMA.md)) story ที่ `Core/Components/Table`: `Default`, `SizeDefault`, `SizeSm`, `Striped`, `TextCellWithDescription`, `SortIcons`, `CompactCheckboxColumn`, `DisabledRow`, `PinnedColumnShadow`, `ComposedTable`
+Source `src/lib/app/components/ui/table.tsx`; the `ArrowDownwardFilled` icon is copied from Figma into `app/icons.tsx`; the footer uses `TablePagination` ([PAGINATION-FIGMA.md](PAGINATION-FIGMA.md)); stories under `Core/Components/Table`: `Default`, `SizeDefault`, `SizeSm`, `Striped`, `TextCellWithDescription`, `SortIcons`, `CompactCheckboxColumn`, `DisabledRow`, `PinnedColumnShadow`, `ComposedTable`
 
-| เรื่อง | สถานะ |
+| Topic | Status |
 |---|---|
-| head พื้น `#F8FAFC`, 500, padding 16, สูง 54 (default) / 34 (sm), padding 7 | ตรง (วัดแล้ว) |
-| cell สูง 54 / 36, padding 16 / 4, พื้นขาว, ไม่มีเส้นขอบ | ตรง (วัดแล้ว) |
-| striped แถวคู่ `#F8FAFC`, hover `#F1F5F9` ทับ striped | ตรง (วัด striped แล้ว, hover ตรวจด้วยเมาส์จริงในเบราว์เซอร์) |
-| text cell 14/20 + 12/16 `#334155` | ตรง (วัดแล้ว) |
-| compact 54×54 / 36×36, ไอคอนเรียง 22×22, scroll shadow กว้าง 16 | ตรง (วัดแล้ว) |
-| disabled: ข้อความ `#94A3B8` พื้นโปร่ง | ตรง (วัดแล้ว) |
-| สีเงา scroll shadow | **ยังไม่ได้วัด** |
+| head fill `#F8FAFC`, 500, padding 16, height 54 (default) / 34 (sm), padding 7 | matches (measured) |
+| cell height 54 / 36, padding 16 / 4, white fill, no border | matches (measured) |
+| striped even rows `#F8FAFC`, hover `#F1F5F9` over striped | matches (striped measured, hover checked with a real mouse in the browser) |
+| text cell 14/20 + 12/16 `#334155` | matches (measured) |
+| compact 54×54 / 36×36, sort icon 22×22, scroll shadow width 16 | matches (measured) |
+| disabled: text `#94A3B8`, transparent fill | matches (measured) |
+| scroll shadow color | **Not measured** |
 
-**ผลกระทบ:** `Table` เดิมหน้าตาเปลี่ยน: ไม่มีเส้นขอบระหว่างแถว (ตาม Figma), หัวตารางพื้นเทาอ่อน, padding 16 (เดิม 12) และ `TableHead` สูง 52–54 (เดิม 48) ใช้ที่หน้า Foundations ของ Catalog `TableCaption` และ `TableFooter` ถูกลบ (ไม่มีในโค้ดที่ใช้อยู่)
+**Impact:** the existing `Table` changes appearance: no border between rows (per Figma), light gray header fill, padding 16 (previously 12), and `TableHead` height 52–54 (previously 48); used on the Foundations page of the Catalog. `TableCaption` and `TableFooter` were removed (not in the code in use)
 
-**ลบสิ่งที่ Figma ไม่มี (ตามที่ผู้ใช้สั่ง):** `TableCaption`, `TableFooter` (tfoot), สถานะเรียง asc / desc / none, `onSort` และ `aria-sort` (Figma มีแค่แสดงหรือซ่อนลูกศร) footer ของตารางใช้ `TablePagination` ถ้าต้องการให้หัวเรียงได้จริงต้องมีดีไซน์ก่อน
+**Removed things Figma does not have (as the user ordered):** `TableCaption`, `TableFooter` (tfoot), the sort states asc / desc / none, `onSort` and `aria-sort` (Figma only shows or hides the arrow); the table footer uses `TablePagination`. If sortable headers are really needed, a design is required first
 
-**ยังไม่ได้ตรวจ:** การตรึงคอลัมน์ด้วย sticky จริง (Figma บอกว่าเป็นหน้าที่ฝั่งโค้ด ตอนนี้มีแค่ตัวเงา), state selected ของแถว (Figma ยังไม่มี), `table-footer` แบบ "Go to", การเลื่อนแนวนอนบนมือถือ
+**Not yet checked:** real column pinning with sticky (Figma says it is the code side's job; currently only the shadow exists), the selected row state (Figma does not have it yet), the "Go to" style `table-footer`, horizontal scrolling on mobile

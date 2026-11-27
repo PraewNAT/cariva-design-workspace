@@ -1,39 +1,39 @@
-# Bottom Sheet audit · 26 พฤศจิกายน 2026
+# Bottom Sheet audit · 26 November 2026
 
 > Figma documentation follow-up, 26 November 2026: [updated documentation](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt/Cariva-Core-Design-System?node-id=4716-45214). Earlier statements about Figma docs being pending describe the code-only audit pass. Documentation is now updated; runtime audit gaps remain unchanged. See FIGMA-DOCUMENTATION.md.
 
 
 **Reuse & Duplicate Check — Core Bottom Sheet**
-ผลรวม: ใช้ Sheet เดิม เพิ่มส่วนประกอบ body และ options ของ Header โดยไม่สร้าง Drawer ซ้ำ
-ขอบเขต: ก่อน/หลังแก้; source, docs-list/docs-show, Sheet, Input/Field, Button, RadioGroup, catalog และ Sidebar
+Overall: reuses the existing Sheet, adding a body part and Header options without creating a duplicate Drawer
+Scope: before/after the change; source, docs-list/docs-show, Sheet, Input/Field, Button, RadioGroup, catalog and Sidebar
 
-| ระดับ | ผล | รายการ | หลักฐาน | ถัดไป |
+| Level | Result | Item | Evidence | Next |
 |---|---|---|---|---|
-| — | ผ่าน | ใช้ Base UI Sheet เดิมพร้อม Input/Field/Button/RadioGroup จริง; ไม่พบ implementation ซ้ำใน scope | `sheet.tsx`, `sheet.stories.tsx`, `CatalogNavigation.tsx` | ไม่ต้องรวม component เพิ่ม |
-| — | ผ่าน | Shared Core เปลี่ยน recipe เฉพาะ bottom; Header options ไม่มีผลกับด้านอื่น; SheetBody เป็น additive API | `SheetSideContext`, OtherSides, MobileSidebarRegression | คงขอบเขตนี้ |
+| — | Pass | Uses the existing Base UI Sheet with the real Input/Field/Button/RadioGroup; no duplicate implementation found in scope | `sheet.tsx`, `sheet.stories.tsx`, `CatalogNavigation.tsx` | No further component merging needed |
+| — | Pass | Shared Core changes the recipe for bottom only; Header options have no effect on other sides; SheetBody is an additive API | `SheetSideContext`, OtherSides, MobileSidebarRegression | Keep this scope |
 
-สรุป: ผ่าน 2, ต้องแก้ 0, ตรวจไม่ได้ 0 ในขอบเขตที่ตรวจ
-ต่อไป: ตรวจคุณภาพและข้อค้างด้านล่าง
+Summary: 2 pass, 0 need fixes, 0 unverifiable within the audited scope
+Next: review the quality checks and open items below
 
 **Component Audit — Core Bottom Sheet**
-ผลรวม: งานที่อนุมัติแก้ครบและ tests ผ่านการรัน 9 stories; มีข้อค้าง contrast และยังไม่ตรวจ software keyboard บนเครื่องจริง
-ขอบเขต: Chromium desktop/mobile viewport 320/375/1280px, portal, native browser keyboard, catalog, top/right/left และ mobile Sidebar; ไม่ใช่การรับรองทุก Product/theme หรือ AA ทั้งหมด
+Overall: the approved fixes are all done and the tests ran across 9 stories; contrast issues remain open and the software keyboard has not been checked on a real device
+Scope: Chromium desktop/mobile viewport 320/375/1280px, portal, native browser keyboard, catalog, top/right/left and mobile Sidebar; not a certification of every Product/theme or of full AA
 
-| ระดับ | ผล | รายการ | หลักฐาน | ถัดไป |
+| Level | Result | Item | Evidence | Next |
 |---|---|---|---|---|
-| กลาง | ต้องแก้ | Contrast เดิม: Button primary 3.50:1, Sidebar active 4.38:1, catalog destructive 4.13:1 ต่ำกว่า 4.5:1 | [test log](</Users/natthaphorna/Cariva DS/output/sheet/storybook-tests.txt>) | ผู้ใช้ให้บันทึกค้าง ไม่เปลี่ยนสีในรอบนี้ |
-| — | ตรวจไม่ได้ | Software keyboard/visual viewport บน iOS/Android จริง และ Product/font modes อื่น | ทดสอบด้วย browser keyboard และ viewport เท่านั้น | ตรวจบนอุปกรณ์ก่อนรับรอง mobile keyboard |
-| — | ผ่าน | Header 72/152px, title UI 20/28 weight600, input48, มุม24; gradient เต็ม Header; close32/icon16 | [consumer geometry](</Users/natthaphorna/Cariva DS/output/sheet/consumer-geometry.json>), [native measurements](</Users/natthaphorna/Cariva DS/output/sheet/native-keyboard.json>) | ไม่ต้องแก้เพิ่ม |
-| — | ผ่าน | Search/filter/empty/selection/confirm; Tab/Space, focus trap, Escape และ focus restore | BottomDefault, BottomSearch; native-keyboard.json | คง native input ไม่มี GBoard จำลอง |
-| — | ผ่าน | ไทยยาว/24ตัวเลือก; text≥12px, ไม่ล้นแนวนอนที่320px, body scroll ได้และ footer อยู่ใน480px viewport | [ภาพมือถือ](</Users/natthaphorna/Cariva DS/output/sheet/mobile-thai.png>), native-keyboard.json | ไม่ต้องแก้เพิ่ม |
-| — | ผ่าน | Top/right/left คง recipe เดิม; Sidebar mobile เปิด–ปิด/คืนfocus; catalog integration ผ่าน | OtherSides, MobileSidebarRegression, consumer-geometry.json | ไม่แก้ spacing6px เดิมของด้านอื่นนอก scope |
-| — | ผ่าน | Stories/docs/code สอดคล้องกัน; build/migration, tokens, Storybook build, coverage39/39, focused lint ผ่าน | output/sheet logs; `SHEET-FIGMA.md`, coverage sheet7 | ไม่ publish/release |
+| Medium | Needs fix | Existing contrast: Button primary 3.50:1, Sidebar active 4.38:1, catalog destructive 4.13:1, all below 4.5:1 | [test log](</Users/natthaphorna/Cariva DS/output/sheet/storybook-tests.txt>) | The user asked to log it as open; colors are not changed in this round |
+| — | Could not check | Software keyboard/visual viewport on real iOS/Android devices, and other Product/font modes | Tested only with a browser keyboard and viewport | Check on a device before certifying the mobile keyboard |
+| — | Pass | Header 72/152px, title UI 20/28 weight600, input48, corner radius 24; gradient fills the Header; close32/icon16 | [consumer geometry](</Users/natthaphorna/Cariva DS/output/sheet/consumer-geometry.json>), [native measurements](</Users/natthaphorna/Cariva DS/output/sheet/native-keyboard.json>) | No further fix needed |
+| — | Pass | Search/filter/empty/selection/confirm; Tab/Space, focus trap, Escape and focus restore | BottomDefault, BottomSearch; native-keyboard.json | Keep the native input; no simulated GBoard |
+| — | Pass | Long Thai text/24 options; text≥12px, no horizontal overflow at 320px, body scrolls and footer stays within a 480px viewport | [mobile screenshot](</Users/natthaphorna/Cariva DS/output/sheet/mobile-thai.png>), native-keyboard.json | No further fix needed |
+| — | Pass | Top/right/left keep the existing recipe; mobile Sidebar open–close/focus restore; catalog integration passes | OtherSides, MobileSidebarRegression, consumer-geometry.json | The existing 6px spacing on the other sides is out of scope and not changed |
+| — | Pass | Stories/docs/code are consistent; build/migration, tokens, Storybook build, coverage39/39, focused lint pass | output/sheet logs; `SHEET-FIGMA.md`, coverage sheet7 | No publish/release |
 
-สรุป: ผ่าน 5, ต้องแก้ 1 กลุ่ม, ตรวจไม่ได้ 1 กลุ่ม; interaction tests ผ่าน 9/9 ไม่เท่ากับ accessibility ผ่านทั้งหมด
-ต่อไป: รับรอง mobile keyboard บนอุปกรณ์จริง และแยกงาน contrast ตามการตัดสินใจต้นทาง
+Summary: 5 pass, 1 group needs fixes, 1 group unverifiable; interaction tests passing 9/9 does not equal full accessibility conformance
+Next: certify the mobile keyboard on real devices, and split the contrast work out per the upstream decision
 
-## เอกสารและขอบเขต parity
+## Documentation and parity scope
 
-อัปเดต Sheet stories 7 รายการ โดยคง Default ID, coverage, DESIGN.md และ changelog แบบ Draft. อ้าง Figma node จริง Header 72/152px ตามที่ผู้ใช้ยืนยัน; Figma on-canvas docs เดิม 76/136px ไม่ได้เขียนกลับในงาน Figma → Code. ไม่มีการ publish library หรืออ้างว่าเอกสาร Figma synchronized.
+Updated 7 Sheet stories, keeping the Default ID, coverage, DESIGN.md and changelog as Draft. Cites the actual Figma node, Header 72/152px, as the user confirmed; the previous Figma on-canvas docs (76/136px) were not written back in the Figma → Code work. The library was not published, and the Figma docs are not claimed to be synchronized.
 
-Header สูงขึ้นเมื่อ title หลายบรรทัด; body/footer สูงตามเนื้อหา ไม่กำหนดความสูง keyboard หรือจำลอง GBoard. Input กว้าง fluid 327px บนจอ375px. ตัวเลือกและเงื่อนไขปุ่มใน stories เป็น fixture ไม่ใช่ business logic ของ Product. การ audit นี้ไม่ใช่ automated pixel parity.
+The Header grows taller when the title wraps to multiple lines; body/footer heights follow their content, with no fixed keyboard height and no simulated GBoard. The Input is fluid, 327px wide on a 375px screen. The options and button conditions in the stories are fixtures, not Product business logic. This audit is not automated pixel parity.

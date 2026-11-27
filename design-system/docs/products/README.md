@@ -1,10 +1,10 @@
 # Product setup records
 
-ใช้ [Product setup flow](../../rules/product-setup-flow.md) รับข้อมูลจาก Designer 4 ช่อง แล้วเก็บแต่ละ Product ใน `<product-id>/PRODUCT.md` ทั้ง Codex และ Claude ต้องค้นบันทึกเดิมก่อนถามซ้ำ
+Use the [Product setup flow](../../rules/product-setup-flow.md) to take the 4 fields from the Designer, then store each Product in `<product-id>/PRODUCT.md`. Both Codex and Claude must search the existing records before asking again.
 
-ยังไม่มี Product ที่บันทึกจาก flow setup นี้ รอผู้ใช้ระบุข้อมูลจริง ไม่ถือว่า Product A/B ในตัวอย่าง workflow เป็นรายการที่ setup แล้ว
+No Product has been recorded from this setup flow yet; wait for the user to provide real information. The Product A/B in the workflow examples are not treated as already set up.
 
-| Product | ไฟล์ข้อมูล |
+| Product | Data file |
 |---|---|
 
-เมื่อมี Product จริง ให้เพิ่มชื่อและลิงก์ไปไฟล์ข้อมูลที่นี่ ไม่คัดลอก URL ทั้งชุดมาซ้ำ และไม่เก็บ active Product ร่วมกันข้ามแชต
+When a real Product exists, add its name and a link to the data file here; do not copy the whole set of URLs again, and do not keep an active Product shared across chats.

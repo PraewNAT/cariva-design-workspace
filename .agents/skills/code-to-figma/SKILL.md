@@ -1,20 +1,20 @@
 ---
 name: code-to-figma
-description: สร้างหรืออัปเดตหน้าจอ Cariva ใน Figma จาก code หรือ Storybook โดยยึด Figma DS ใช้กับหน้าจอที่ระบุ ไม่ใช้แตก prototype เป็น flow หลายสถานะหรือสร้าง DS library
+description: Creates or updates Cariva screens in Figma from code or Storybook, anchored to the Figma DS; applies to the specified screen only and is not for breaking a prototype into a multi-state flow or building a DS library
 ---
 
 # Code to Figma — Cariva screens
 
-ตัวเรียก workflow ระดับหน้าจอของ Cariva ใช้สกิลที่มีอยู่แล้ว ไม่ดูแล implementation ซ้ำ
+A screen-level workflow caller for Cariva. It uses existing skills and does not maintain the implementation again.
 
 ```text
-code-to-figma Patient List source=[path หรือ URL] figma=[target Figma URL]
+code-to-figma Patient List source=[path or URL] figma=[target Figma URL]
 ```
 
-1. อ่าน `shadcn/DESIGN.md`, `shadcn/tokens.json` และ `rules/figma-workflow.md` Part C ซึ่งเป็นที่เก็บกฎ Cariva, source precedence, การ update node เดิม และ completion evidence เพียงแห่งเดียว
-2. โหลด `figma:figma-generate-design` จาก catalog ปัจจุบันเพื่อทำ screen construction และโหลด `figma:figma-use` ก่อนเรียก `use_figma` ตามข้อกำหนดของปลั๊กอิน หาก dependency ขาดให้แจ้ง ไม่อ้างว่า sync สำเร็จ
-3. ใช้ Part C จำกัด fallback ของ upstream: Code เป็นค่าเริ่มต้นของทิศทาง sync แต่ต้องรักษา API/variables/radius ของ target Figma component เดิม รายงาน conflicts ก่อนเขียนทับ shared DS และตรวจภาพ/bindings
+1. Read `shadcn/DESIGN.md`, `shadcn/tokens.json`, and `rules/figma-workflow.md` Part C, which is the single place holding the Cariva rules, source precedence, updating existing nodes, and completion evidence
+2. Load `figma:figma-generate-design` from the current catalog for screen construction, and load `figma:figma-use` before calling `use_figma` as the plugin requires. If a dependency is missing, report it; do not claim the sync succeeded
+3. Use Part C to limit the upstream fallback: Code is the default sync direction, but you must preserve the API/variables/radius of the existing target Figma component. Report conflicts before overwriting the shared DS, and verify the visuals/bindings
 
-หากขอแตก interaction flow เป็นหลาย state พร้อม annotations ให้ใช้ `prototype-to-figma` และใช้กฎ Cariva ใน Part C เช่นกัน ไม่ต้องรันทั้งสอง pipeline กับหน้าจอเดียวกัน หากขอสร้าง library ให้แยกเป็นงาน DS authoring
+If asked to break an interaction flow into multiple states with annotations, use `prototype-to-figma` and apply the Cariva rules in Part C as well; do not run both pipelines on the same screen. If asked to build a library, treat it as separate DS authoring work.
 
-แหล่ง upstream: [Figma — figma-generate-design](https://github.com/figma/mcp-server-guide/blob/main/skills/figma-generate-design/SKILL.md); ใช้เวอร์ชันที่ติดตั้งในปลั๊กอินขณะทำงาน
+Upstream source: [Figma — figma-generate-design](https://github.com/figma/mcp-server-guide/blob/main/skills/figma-generate-design/SKILL.md); use the version installed in the plugin at the time of work

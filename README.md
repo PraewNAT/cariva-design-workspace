@@ -1,49 +1,51 @@
 # Cariva Design Workspace
 
-Workspace เดียวสำหรับ Design System และ prototype ของแต่ละ Product แยก source และเครื่องมือให้ค้นงานง่าย โดยไม่ปนโค้ดทดลองกับ shared components
+A single workspace for the Design System and each Product's prototypes. Sources and tooling are kept separate so work is easy to find, without mixing experimental code into shared components.
 
-## โครงสร้าง
+## Structure
 
 ```text
-cariva-design/                    # ชื่อ workspace; checkout บนเครื่องยังใช้ชื่อเดิมได้
+cariva-design/                    # workspace name; the local checkout can keep its existing name
 ├── design-system/                # React/shadcn Core, Product DS, tokens, docs, Storybook
 ├── products/<product-id>/
-│   └── prototypes/<prototype-id>/ # หน้าจอ, cases, fixtures และ app ของ prototype
+│   └── prototypes/<prototype-id>/ # screens, cases, fixtures and the prototype app
 ├── workspace/
-│   └── canvas/                   # board และ frame catalogs
-├── .agents/skills/               # canonical skills; skills/ เป็น compatibility link
-├── rules/                        # กฎและ routing กลาง
+│   └── canvas/                   # board and frame catalogs
+├── .agents/skills/               # canonical skills; skills/ is a compatibility link
+├── rules/                        # shared rules and routing
 ├── legacy/mui/                   # frozen reference
-├── sync/                         # sync tooling; canvas เป็น compatibility link
+├── sync/                         # sync tooling; canvas is a compatibility link
 └── scripts/                      # peer bridge / Code Connect tooling
 ```
 
-`shadcn/` เป็น compatibility link ไป `design-system/` ไม่ใช่ DS อีกชุดหนึ่ง และ `sync/canvas/` ชี้ไป `workspace/canvas/` เพื่อรักษา scripts/ลิงก์เดิม ไม่เปลี่ยนชื่อ Git remote หรือ checkout บนเครื่องโดยอัตโนมัติ
+`shadcn/` is a compatibility link to `design-system/`, not a separate DS, and `sync/canvas/` points to `workspace/canvas/` to keep existing scripts/links working. The Git remote name and the local checkout are not renamed automatically.
 
-## เริ่มใช้งาน
+## Getting started
 
-- DS Storybook: `cd design-system && npm ci && npm run storybook` (ปัจจุบัน port 6006)
-- ตัวอย่าง prototype ของ DS: `cd design-system && npm run prototype` (port 5173) ใช้ renderer ร่วมกับ Workspace/Prototype ใน Storybook ตัวอย่างนี้ไม่ใช่ Product prototype
-- ดู [สารบัญ prototype](products/README.md) สำหรับงานจริง แยกคำสั่ง run, port, Figma และสถานะราย prototype
-- อ่าน [create-project](.agents/skills/create-project/SKILL.md) ก่อนสร้างงานใหม่ และ [ขอบเขต workspace](rules/workspace-structure.md) ก่อนเลือกตำแหน่ง
+- DS Storybook: `cd design-system && npm ci && npm run storybook` (currently port 6006)
+- Workspace launcher: `cd design-system && npm run prototype` (port 5173) shows a sidebar for choosing real Product prototypes; there are no DS examples
+- See the [prototype index](products/README.md) for real work, with run commands, ports, Figma and per-prototype status listed separately
+- Read [create-project](.agents/skills/create-project/SKILL.md) before creating new work, and the [workspace scope](rules/workspace-structure.md) before choosing a location
 
-## สั่งสร้าง prototype
+## Requesting a prototype
 
 ```text
-สร้าง prototype [ชื่อ] ของ Product [ชื่อ Product]
-ใช้ workspace นี้ เก็บใน products/<product-id>/prototypes/<prototype-id>/
-Figma: [ลิงก์ ถ้ามี — หรือให้ออกแบบจาก requirements]
+Create prototype [name] for Product [Product name]
+Use this workspace and keep it in products/<product-id>/prototypes/<prototype-id>/
+Figma: [link, if any — or design from requirements]
 ```
 
-ไม่ต้องแนบโฟลเดอร์ว่างแยกเสมอไป หากมีแอปอยู่แล้วให้ตรวจและ reuse ไม่ scaffold ทับ ยึดเจตนาผู้ใช้ร่วมกับ node ไม่ตัดสินจาก frame/component อย่างเดียว ต้องเข้าถึงดีไซน์ผ่านเครื่องมือที่ใช้ได้ แต่ไม่บังคับ Figma Desktop หรือ gh/login สำหรับงาน local การสร้าง remote repo, publish, push, deploy และเขียน Figma ต้องอยู่ในคำขอแยก
+Thai trigger phrase (still works): `สร้าง prototype [ชื่อ] ของ Product [ชื่อ Product]`
 
-prototype ใหม่ทุก Product ใช้ React/shadcn, dev host แยก และเปิดใน Storybook ได้ พร้อม Canvas / Preview / เต็มหน้าโดยใช้ renderer และ cases ชุดเดียวกัน ไม่ติดตั้ง dependencies ของ Product ลง DS เพียงเพื่อรวม workspace
+There is no need to always attach a separate empty folder. If an app already exists, inspect and reuse it; do not scaffold over it. Follow the user's intent together with the node, rather than judging from the frame/component alone. The design must be accessible through the available tools, but Figma Desktop or gh/login is not required for local work. Creating a remote repo, publishing, pushing, deploying and writing to Figma must each be a separate request.
 
-## กฎอ้างอิง
+Every new Product prototype uses React/shadcn with its own dev host and can be opened in Storybook, with Canvas / Preview / full-page views using the same renderer and cases. Do not install Product dependencies into the DS just to combine the workspace.
+
+## Reference rules
 
 - [Workflow](design-system/rules/workflow-map.md)
 - [Agent rules](design-system/rules/agent-rules.md)
 - [Product setup](design-system/rules/product-setup-flow.md)
 - [Figma component naming](design-system/docs/components/FIGMA-NAMING.md)
 
-การจัด workspace นี้ไม่เริ่มเลข release และไม่ย้ายหรือ publish Git repository
+Organizing this workspace does not start release numbering and does not move or publish the Git repository.

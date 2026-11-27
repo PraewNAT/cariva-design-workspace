@@ -1,52 +1,52 @@
 # Checkbox — Figma specification
 
-อ่านจาก Figma วันที่ 26 พฤศจิกายน 2026: [Checkbox](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt?node-id=3815-4883) (ไฟล์ Cariva Core Design System)
+Read from Figma on 26 November 2026: [Checkbox](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt?node-id=3815-4883) (Cariva Core Design System file)
 
-## ชุดใน Figma (เปลี่ยนชื่อแล้ว ชื่อเดิมสำรองใน plugin data `oldName_2026-11-26` / `oldNames_2026-11-26`)
+## Sets in Figma (renamed; the original names are backed up in plugin data `oldName_2026-11-26` / `oldNames_2026-11-26`)
 
-| ชื่อใหม่ | ชื่อเดิม | instance (ก่อน → หลัง) |
+| New name | Original name | instances (before → after) |
 |---|---|---|
 | `checkbox` | `crv-checkbox-base` | 182 → 182 |
 | `checkbox-field` | `crv-checkbox-standard` | 36 → 36 |
 | `checkbox-group` | `crv-checkbox-group` | 2 → 2 |
 | `checkbox-card` | `crv-checkbox-card` | 5 → 5 |
 
-prop `color` (primary / error) ทุกชุดเปลี่ยนเป็น `error` (false / true) ให้ตรงกับ Input; `state` (default / focusVisible / disabled / hover) ไม่เปลี่ยน
+The `color` prop (primary / error) on every set was changed to `error` (false / true) to match Input; `state` (default / focusVisible / disabled / hover) is unchanged
 
-## สเปก
+## Spec
 
-- กล่อง 16×16 มุมโค้ง 4 ขอบ 1px `border/default`; ติ๊กและขีด 14px สี `content/inverse`
-- ติ๊กแล้วหรือ indeterminate: พื้น `brand/primary/on-surface/default` (ตอนโฟกัส `…/pressed`) ไม่มีขอบ
-- โฟกัสตอนว่าง: ขอบ `border/system` · error ว่าง: ขอบ `status/error/border/strong` (โฟกัส `border/error`) · error ติ๊กแล้ว: พื้น `status/error/on-surface/default` (โฟกัส `…/pressed`)
-- disabled: พื้น `on-surface/action/disabled` ขอบ `border/disabled` ไอคอน `content/disabled` (ไม่ลด opacity)
-- `checkbox-field`: ช่องว่าง 12, ป้ายชื่อ 14/20 Medium, คำอธิบาย 14/20 `content/secondary` ช่องว่าง 4; `labelPlacement=start` วางป้ายชื่อก่อนกล่อง; error ป้ายชื่อสี `status/error/content/default`; disabled ป้ายชื่อและคำอธิบาย `content/disabled`
-- `checkbox-group`: ป้ายชื่อ + คำอธิบายแล้วรายการ ช่องว่าง 12
-- `checkbox-card`: กว้าง 409, padding 16, มุมโค้ง 16, ขอบ 1px; ติ๊กแล้ว พื้น `brand/primary/on-surface/subtle` ขอบ `brand/primary/border/default`; error ขอบ `status/error/border/strong` ติ๊กแล้วพื้น `status/error/on-surface/subtle`; disabled ขอบ `border/disabled`
+- 16×16 box with corner radius 4 and a 1px `border/default` border; the check and dash are 14px in colour `content/inverse`
+- checked or indeterminate: fill `brand/primary/on-surface/default` (on focus `…/pressed`), no border
+- focus when empty: border `border/system` · error empty: border `status/error/border/strong` (focus `border/error`) · error checked: fill `status/error/on-surface/default` (focus `…/pressed`)
+- disabled: fill `on-surface/action/disabled`, border `border/disabled`, icon `content/disabled` (opacity is not reduced)
+- `checkbox-field`: gap 12, label 14/20 Medium, description 14/20 `content/secondary` gap 4; `labelPlacement=start` places the label before the box; error label colour `status/error/content/default`; disabled label and description `content/disabled`
+- `checkbox-group`: label + description, then the items, gap 12
+- `checkbox-card`: width 409, padding 16, corner radius 16, 1px border; checked fill `brand/primary/on-surface/subtle`, border `brand/primary/border/default`; error border `status/error/border/strong`, checked fill `status/error/on-surface/subtle`; disabled border `border/disabled`
 
-## ชื่อ Figma ↔ โค้ด
+## Figma names ↔ Code
 
-| Figma | โค้ด |
+| Figma | Code |
 |---|---|
 | `checkbox` | `Checkbox` (`ui/checkbox.tsx`) |
 | `checked`, `indeterminate`, `disabled` | `checked` / `defaultChecked`, `indeterminate`, `disabled` |
-| `error` | prop `error` (ตั้ง `aria-invalid`) |
+| `error` | prop `error` (sets `aria-invalid`) |
 | `checkbox-field` | `CheckboxField` (`app/checkbox-patterns.tsx`) |
 | `labelPlacement` | `labelPlacement` |
 | `label`, `description` | `label`, `description` |
-| `checkbox-group` | `CheckboxGroup` (children = รายการ) |
+| `checkbox-group` | `CheckboxGroup` (children = items) |
 | `checkbox-card` | `CheckboxCard` |
-| `state` focusVisible / hover, `checkbox01..06Visible`, `checkBoxSlot` | เฉพาะ Figma |
+| `state` focusVisible / hover, `checkbox01..06Visible`, `checkBoxSlot` | Figma only |
 
-## โค้ด (26 พ.ย. 2026)
+## Code (26 Nov 2026)
 
-| เรื่อง | สถานะ |
+| Topic | Status |
 |---|---|
-| กล่อง 16×16 มุมโค้ง 4 | ตรง (วัดใน story) |
-| สีพื้นตอนติ๊ก / indeterminate `#1789FA`, ขอบ error `#EF4444`, disabled `#F1F5F9` | ตรง (วัดใน story) |
-| ติ๊กถูก/ขีด เป็นไอคอน Material คัดลอกจาก Figma | ตรวจด้วยสายตา |
-| card กว้าง 409, พื้นตอนติ๊ก | พื้นตอนโหลดแรกตรง; ตอนคลิกสลับวัดสีไม่ได้ในเทสต์ (transition ค้างในเทสต์) ตรวจแค่สถานะ checked |
-| สถานะโฟกัสทุกแบบ (พื้น pressed, ขอบ system/error) | ตั้งตาม Figma **ยังไม่ได้วัด** |
+| 16×16 box with corner radius 4 | matches (measured in story) |
+| Fill when checked / indeterminate `#1789FA`, error border `#EF4444`, disabled `#F1F5F9` | matches (measured in story) |
+| The check/dash are Material icons copied from Figma | checked visually |
+| card width 409, fill when checked | The fill on first load matches; the colour after toggling by click could not be measured in the test (the transition stays stuck in the test), only the checked state was checked |
+| Every focus state (pressed fill, system/error border) | set per Figma, **not measured** |
 
-**ตัดสินใจร่วมกับผู้ใช้:** ตามโฟกัสของ Figma คือเปลี่ยนสีพื้น/ขอบ ไม่มีวงแหวน; card ตอนชี้เมาส์ใช้ `shadow/sm` ตอนยังไม่ติ๊ก และ `glow/primary` (error: `glow/error`) ตอนติ๊ก ผ่าน token `--cds-shadow-sm` / `--cds-glow-*` (เพิ่ม 26 พ.ย. 2026; วัดด้วยเมาส์จริงตอนติ๊กแล้วตรง `rgba(23,137,250,0.36) 0 0 4px`; แบบยังไม่ติ๊ก, error และ disabled (ไม่มีเงา) **ยังไม่ได้วัด**)
+**Decided together with the user:** following Figma's focus, focus changes the fill/border colour with no ring; on card hover use `shadow/sm` while unchecked and `glow/primary` (error: `glow/error`) when checked, through tokens `--cds-shadow-sm` / `--cds-glow-*` (added 26 Nov 2026; measured with a real mouse when checked and it matches `rgba(23,137,250,0.36) 0 0 4px`; the unchecked, error and disabled (no shadow) variants are **not measured**)
 
-**ผลกระทบ:** กล่องเดิมมุมโค้ง 6 และ disabled ลด opacity 50% ตอนนี้มุม 4 และ disabled เป็นสีเฉพาะ; โฟกัสเดิมเป็นวงแหวน 3px ตอนนี้เป็นเปลี่ยนสี; ใช้กับ `CatalogForm` (Dropdown Menu checkbox item มีสไตล์ของตัวเอง ไม่ได้ใช้ `Checkbox`)
+**Impact:** the old box had corner radius 6 and disabled reduced opacity to 50%; now the corner radius is 4 and disabled uses dedicated colours; the old focus was a 3px ring, now it is a colour change; used by `CatalogForm` (the Dropdown Menu checkbox item has its own styling and does not use `Checkbox`)

@@ -1,42 +1,42 @@
-# Date/Time audit — รอคำตัดสินใจ
+# Date/Time audit — awaiting decisions
 
 > Figma documentation follow-up, 26 November 2026: [updated documentation](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt/Cariva-Core-Design-System?node-id=7228-128). Earlier statements about Figma docs being pending describe the code-only audit pass. Documentation is now updated; runtime audit gaps remain unchanged. See FIGMA-DOCUMENTATION.md.
 
 
-26 พฤศจิกายน 2026 · Core · branch `praew` · checkpoint `output/date-time/baseline/` · ไม่ commit/publish
+26 November 2026 · Core · branch `praew` · checkpoint `output/date-time/baseline/` · not committed/published
 
 **Reuse & Duplicate Check — Core Date/Time**
-ผลรวม: ใช้ Calendar/Popover/Field/Button และ Input recipe เดิม เพิ่ม reusable DatePicker/TimePicker โดยไม่สร้าง date engine ซ้ำ
-ขอบเขต: source, docs-list/docs-show, Calendar consumers ทั้งตัวอย่างนัดหมายและ catalog; ไม่เพิ่ม dependency
+Overall: reuses the existing Calendar/Popover/Field/Button and Input recipe, adds reusable DatePicker/TimePicker without creating a duplicate date engine
+Scope: source, docs-list/docs-show, Calendar consumers including the appointment example and the catalog; no dependency added
 
-| ระดับ | ผล | รายการ | หลักฐาน | ถัดไป |
+| Level | Result | Item | Evidence | Next |
 |---|---|---|---|---|
-| — | ผ่าน | Calendar คง React DayPicker engine; DatePicker composition จาก Popover+Calendar ตามshadcn; TimePickerใช้Button/Fieldเดิม | date-time-pickers.tsx, calendar.tsx | ไม่ติดตั้ง package เพิ่ม |
-| — | ผ่าน | DateTimePickerเดิมประกอบจากสองcomponentใหม่; Coreไม่มี API/routing/age rules | patterns.tsx, DATE-TIME-FIGMA.md | ตรวจconsumersรอบสุดท้าย |
+| — | Pass | Calendar keeps the React DayPicker engine; DatePicker is composed from Popover+Calendar per shadcn; TimePicker uses the existing Button/Field | date-time-pickers.tsx, calendar.tsx | No additional package installed |
+| — | Pass | The existing DateTimePicker is composed from the two new components; Core has no API/routing/age rules | patterns.tsx, DATE-TIME-FIGMA.md | Check consumers in the final round |
 
-สรุป: ผ่าน2, ต้องแก้0, ตรวจไม่ได้0ในreuse scope
-ต่อไป: รอคำตัดสินใจจาก component audit
+Summary: pass 2, needs fix 0, could not check 0 in the reuse scope
+Next: wait for decisions from the component audit
 
 **Component Audit — Core Date/Time**
-ผลรวม: ฟังก์ชันหลักทำแล้ว; interactionผ่าน19/20 แต่ยังมี defect/ข้อค้างที่รออนุญาตก่อนแก้
-ขอบเขต: Chromium page/Dialog, mobile320px, native keyboard, Figma context, controlled/uncontrolled, Calendar/appointment/catalog; ยังไม่รับรองhandoffหรือAAทั้งหมด
+Overall: core functionality done; interaction passes 19/20 but there are still defects/open items waiting for permission before they are fixed
+Scope: Chromium page/Dialog, mobile 320px, native keyboard, Figma context, controlled/uncontrolled, Calendar/appointment/catalog; handoff or full AA not yet certified
 
-| ระดับ | ผล | รายการ | หลักฐาน | ถัดไป |
+| Level | Result | Item | Evidence | Next |
 |---|---|---|---|---|
-| สูง | ต้องแก้ | CalendarDayButtonสร้างrefแต่ไม่ส่งให้Button; native keyboardเริ่มที่ปุ่มnavigationแทนวันที่ | baseline/calendar.tsx; native-audit.json calendarActiveElement | รออนุญาตผูกref |
-| กลาง | ต้องแก้ | accessible name ของ triggerไม่รวมvalue/placeholder; วัน1แสดง1แต่nameเป็น01/09/2024 | Storybook label-content-name-mismatch | รออนุญาตเพิ่มvisible textในชื่อ |
-| กลาง | ต้องแก้ | Time Default testตรวจfocusก่อนpopupถอดDOM; closing storiesบางตัวมีfocus-guard transient | tests19/20; nativefocusAfterClose=true | รออนุญาตให้testsรอปิดDOMจริง |
-| กลาง | ต้องแก้ | Popover rounded-2xlคำนวณ32pxแทนFigma16; ชั่วโมง08อยู่ท้ายviewport; dividerทำคอลัมน์ไม่เท่ากันเล็กน้อย | time-popup.png, native-audit.json | รออนุญาตแก้เฉพาะDate/Time |
-| กลาง | ต้องแก้ | สีprimary selectedและวันนอกเดือนกดได้ยังcontrastต่ำ; error/shared controlsมีข้อค้างเดิม | Storybook color-contrast | รอคำตัดสินใจคงสี/บันทึก |
-| — | ตรวจไม่ได้ | EveryProduct/font mode และpixel parityสมบูรณ์ | source/renderเฉพาะscopeนี้ | ไม่อ้างผ่านทั้งหมด |
-| — | ผ่าน | Single/Range/Birth constraints, draft/OK/Now09:37→09:30/Clear/Escape, disabledoptions, formatDD/MM/YYYY | stories19pass; native23:15; source | ไม่สร้างbusiness rulesเพิ่ม |
-| — | ผ่าน | Trigger40px text16/24 icon20, UI text≥12; native320pxไม่ล้น; build/migration/tokens/Storybookbuild/coverage40/40ผ่าน | output/date-time logs/native-audit.json | ตรวจรอบสุดท้ายหลังแก้ |
+| High | Needs fix | CalendarDayButton creates a ref but does not pass it to the Button; native keyboard starts at the navigation button instead of the date | baseline/calendar.tsx; native-audit.json calendarActiveElement | Waiting for permission to wire up the ref |
+| Medium | Needs fix | The accessible name of the trigger does not include the value/placeholder; day 1 shows 1 but the name is 01/09/2024 | Storybook label-content-name-mismatch | Waiting for permission to add the visible text to the name |
+| Medium | Needs fix | The Time Default test checks focus before the popup is removed from the DOM; some closing stories have a transient focus-guard | tests 19/20; native focusAfterClose=true | Waiting for permission to make the tests wait until the DOM is actually closed |
+| Medium | Needs fix | Popover rounded-2xl computes to 32px instead of Figma's 16; hour 08 is at the end of the viewport; the divider makes the columns slightly unequal | time-popup.png, native-audit.json | Waiting for permission to fix Date/Time only |
+| Medium | Needs fix | The primary selected colour and the clickable outside-month days still have low contrast; error/shared controls have existing open items | Storybook color-contrast | Waiting for a decision to keep the colour / record it |
+| — | Could not check | Every Product/font mode and complete pixel parity | source/render for this scope only | Do not claim everything passes |
+| — | Pass | Single/Range/Birth constraints, draft/OK/Now 09:37→09:30/Clear/Escape, disabled options, format DD/MM/YYYY | stories 19 pass; native 23:15; source | No additional business rules created |
+| — | Pass | Trigger 40px text 16/24 icon 20, UI text ≥12; native 320px does not overflow; build/migration/tokens/Storybook build/coverage 40/40 pass | output/date-time logs/native-audit.json | Check again in the final round after the fix |
 
-สรุป: ผ่าน2, ต้องแก้5กลุ่ม, ตรวจไม่ได้1กลุ่ม; ยังไม่ปิดงาน
-ต่อไป: รับคำยืนยันเฉพาะข้อที่แจ้ง แล้วแก้และรันfocused regressionก่อนhandoff
+Summary: pass 2, needs fix 5 groups, could not check 1 group; work not yet closed
+Next: get confirmation only for the items reported, then fix and run focused regression before handoff
 
-## ขอบเขต parity
+## Parity scope
 
-Figma specimenวันที่ในช่องกับเดือนปฏิทินบางจุดไม่ตรงกัน โค้ดใช้Dateจริงเดียวกันตามที่ผู้ใช้ยืนยัน. Inset-ring popup recipeมีขนาดนอกน้อยกว่าphysical border specimen2px (Time293เทียบ295, Date324เทียบ326) โดยคงspacing/เนื้อหาและไม่เพิ่มpaddingกลางscaleเพื่อบังคับheight. ยังไม่ถือว่าpixel parityสมบูรณ์. SVGต้นฉบับไม่แก้paths/viewBox; ลูกศรroot24ใช้wrapper scaleให้เห็น16pxตามFigma.
+In the Figma specimen the dates in the field and in some calendar months do not match; the code uses the same real Date, as the user confirmed. The inset-ring popup recipe has an outer size 2px smaller than the physical-border specimen (Time 293 vs 295, Date 324 vs 326), keeping the spacing/content and not adding padding outside the scale to force the height. Complete pixel parity is not claimed. The original SVGs were not edited in paths/viewBox; the root 24 arrow uses a wrapper scale so that it shows as 16px per Figma.
 
-มีCalendar3stories, DatePicker6, TimePicker8 และDateTimePicker1; ทุกตัวอย่างอยู่Core/Componentsของตัวเอง. ไม่แก้FigmaหรือpublishCodeConnect. Unit testsในStorybookและnativekeyboardเป็นการตรวจbrowser ไม่ใช่การรับรองทุกassistive technology.
+There are 3 Calendar stories, 6 DatePicker, 8 TimePicker and 1 DateTimePicker; every example is in its own Core/Components group. Figma was not edited and Code Connect was not published. The unit tests in Storybook and the native keyboard check are browser checks, not certification for every assistive technology.

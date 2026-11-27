@@ -12,9 +12,9 @@ Implementation: `ui/radio-group.tsx`. All examples live under `Core/Components/R
 
 One selection per group. Base UI owns radio keyboard behavior, form integration and disabled skipping; native ArrowUp was verified. Label/description associations use unique IDs. Long Thai wraps inside flexible content. Consumers checked: catalog form, Sheet bottom search, Rating grouping and page/Dialog. Border/default has low non-text contrast on white; this Figma-origin limitation remains documented rather than changing a shared token. See combined audit.
 
-## เปลี่ยนชื่อชุดใน Figma (26 พ.ย. 2026, ผู้ใช้ยืนยันตามเสนอ)
+## Renaming sets in Figma (26 Nov 2026, user confirmed as proposed)
 
-| ชื่อใหม่ | ชื่อเดิม | prop ที่เปลี่ยน | instance |
+| New name | Original name | Changed props | instance |
 |---|---|---|---|
 | `radio-group` | `crv-radio-group` | `color` primary / error → `error` false / true | 4 → 4 |
 | `radio-field` | `crv-radio-standard` | `type` → `variant`; `color` → `error` false / true | 8 → 8 |

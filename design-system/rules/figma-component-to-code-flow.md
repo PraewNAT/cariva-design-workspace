@@ -1,69 +1,69 @@
-# Flow: ปรับ component ใน Figma แล้วอัปเดตโค้ด
+# Flow: adjust a component in Figma, then update the code
 
-ใช้ร่วมกันสำหรับ Codex และ Claude ผ่านกฎกลาง อ่านร่วมกับ [UI workflow](ui-workflow.md) ส่วนนี้ระบุขั้นเฉพาะของ Figma → Code; การ reuse, docs, testing และ audit ใช้ขั้นเดิม ไม่สร้างกฎอีกชุด
+Shared by Codex and Claude via the central rules. Read together with [UI workflow](ui-workflow.md); this section states the steps specific to Figma → Code; reuse, docs, testing and audit use the existing steps and no second rule set is created
 
-## เริ่มด้วยคำสั่งแบบไหน
+## What command to start with
 
-> ฉันปรับ Button ใน Figma แล้ว ช่วยอัปเดตโค้ดตาม node นี้ [ลิงก์] ใช้ component เดิม ตรวจทุก variant ที่เปลี่ยน แล้วอัปเดต Storybook กับ doc พร้อม audit ด้วย
+> I adjusted Button in Figma; please update the code to match this node [link]. Use the existing component, check every changed variant, then update Storybook and the doc along with an audit (Thai: "ฉันปรับ Button ใน Figma แล้ว ช่วยอัปเดตโค้ดตาม node นี้ [ลิงก์] ใช้ component เดิม ตรวจทุก variant ที่เปลี่ยน แล้วอัปเดต Storybook กับ doc พร้อม audit ด้วย")
 
-- งานเฉพาะ Product: เพิ่ม “เฉพาะ Product A ยังไม่แก้ Core”
-- งานกลาง: เพิ่ม “ปรับ Core และตรวจผลกระทบทุก Product ที่ใช้”
-- ถ้าแชตระบุ Product ไว้แล้ว ใช้บริบทเดิม ไม่ถามซ้ำ เว้นแต่ node/ไฟล์ขัดกับปลายทางนั้น
-- ถ้าขอ sync โดยไม่ระบุทิศทาง กฎกลางมีค่าเริ่มต้น code → Figma แต่คำสั่งว่า “แก้โค้ดตาม Figma” ระบุ Figma → Code ชัดเจนและมีผลเหนือค่าเริ่มต้น
+- Product-specific work: add "Product A only, do not change Core yet" (Thai: "เฉพาะ Product A ยังไม่แก้ Core")
+- Shared work: add "adjust Core and check the impact on every Product that uses it" (Thai: "ปรับ Core และตรวจผลกระทบทุก Product ที่ใช้")
+- If the chat has already specified a Product, use the existing context and do not ask again, unless the node/file conflicts with that destination
+- If sync is requested without a direction, the shared rule defaults to code → Figma, but the instruction "fix the code to match Figma" (Thai: "แก้โค้ดตาม Figma") clearly states Figma → Code and overrides the default
 
-## ลำดับงาน
+## Order of work
 
-1. ยืนยัน workspace, Product/mode, node และขอบเขตจากคำขอ ตรวจว่าเป็น main component, component set หรือ instance บนหน้าจอ ก่อนตีความว่าเปลี่ยน Core
-2. อ่านสกิล Stories ก่อนแก้ UI และอ่านสกิล Figma design-to-code ก่อนใช้ get_design_context หากต้อง inspect ผ่าน JavaScript ใน Figma ให้อ่าน figma-use ก่อนใช้เครื่องมือ ตามข้อกำหนดของ plugin ที่ติดตั้งจริง
-3. อ่าน Figma ล่าสุด: anatomy, variants, states, properties, variable bindings, typography, auto-layout, sizing และ constraints ที่เกี่ยวข้อง ไม่ดูเฉพาะภาพ default หรือข้อมูลจากแชตเก่า
-4. ค้น component เดิมและ mapping ในโค้ด ตรวจชื่อ หน้าที่ props และ consumers ถ้าไม่มี mapping ให้ค้นจากหลักฐานจริงก่อน หากยังระบุไม่ได้ให้ถาม ไม่สร้าง component ซ้ำขึ้นมาแก้ปัญหา
-5. เทียบความต่างเป็นรายการ: Figma ปัจจุบัน / โค้ดปัจจุบัน / สิ่งที่จะอัปเดต / ผลกระทบหรือข้อขัดแย้ง แยก approved visual spec ออกจากพฤติกรรมที่ implement จริง
-6. ถ้าเป็นการเปลี่ยน variable ให้ทำ [variable-change flow](figma-variable-change-flow.md) รวมการอ่านและเทียบ snapshot ทั้งชุด ไม่อ่านเฉพาะสีบน node แล้วอ้างว่า sync variables ครบ
-7. ตรวจ consumers และขอบเขตตาม UI workflow ใช้ props/tokens เดิม หากต้องเพิ่ม API, เปลี่ยน behavior นอกงาน หรือขัดข้อจำกัดผู้ใช้ ให้ถามเฉพาะส่วนนั้นและทำส่วนอิสระต่อได้
-8. แก้ component เดิมที่ระดับต้นเหตุ คง business behavior ที่ไม่ได้สั่งเปลี่ยน ไม่ใช้ภาพ prototype เป็นหลักฐานให้เดา validation, permission หรือ backend outcome
-9. อัปเดต stories, component docs และ mapping ที่ได้รับผลจริง **และเชื่อม/อัปเดต Code Connect (`shadcn/code-connect/*.figma.tsx`) ของ component ใหม่หรือชุดที่เปลี่ยนชื่อทุกครั้ง** ดูกฎใน [workflow-map.md](workflow-map.md) · ถ้าไม่มี Code Connect ให้ใช้ mapping หลักฐานที่มี ไม่บังคับติดตั้ง/ตั้งค่า Code Connect เพื่อเริ่มงาน
-10. เทียบ render กับ Figma สำหรับ variants/states ที่เปลี่ยน รวม mobile/resizing, ภาษาไทยยาว, keyboard/focus และ page/portal ตามผลกระทบ ทำ tests และ Component Audit ตาม UI workflow ไม่รันซ้ำเพียงเพราะเอกสารหลายตัวเรียกขั้นเดียวกัน
-11. ส่ง review รอบล่าสุดพร้อมสิ่งที่ตรงแล้ว, สิ่งที่ยังต่าง, สิ่งที่ตรวจไม่ได้ และ consumer ที่ตรวจจริง ไม่เรียก component-audit ว่าเป็นหลักฐาน parity หากไม่ได้เทียบ Figma
+1. Confirm the workspace, Product/mode, node and scope from the request; check whether it is a main component, a component set or an instance on a screen, before interpreting it as a Core change
+2. Read the Stories skill before changing UI and the Figma design-to-code skill before using get_design_context; if you must inspect via JavaScript in Figma, read figma-use before using the tool, as required by the actually installed plugin
+3. Read the latest Figma: anatomy, variants, states, properties, variable bindings, typography, auto-layout, sizing and relevant constraints; do not look only at the default image or data from an old chat
+4. Search for the existing component and mapping in code; check its name, role, props and consumers. If there is no mapping, search from actual evidence first; if it still cannot be identified, ask; do not create a duplicate component to solve the problem
+5. Compare the differences as a list: current Figma / current Code / what will be updated / Impact or conflict; separate the approved visual spec from the behavior actually implemented
+6. If it is a variable change, run the [variable-change flow](figma-variable-change-flow.md), including reading and comparing the whole snapshot; do not read only the colors on a node and claim the variables are fully synced
+7. Check consumers and scope per the UI workflow; use existing props/tokens. If an API must be added, behavior outside the task changed, or a user constraint violated, ask only about that part and continue with the independent parts
+8. Fix the existing component at the root cause level; keep business behavior that was not ordered changed; do not use a prototype image as evidence to guess validation, permission or backend outcomes
+9. Update stories, component docs and mappings that are actually affected **and link/update Code Connect (`shadcn/code-connect/*.figma.tsx`) for every new or renamed component or set**; see the rule in [workflow-map.md](workflow-map.md) · if there is no Code Connect, use the mapping evidence available; do not require installing/setting up Code Connect to start work
+10. Compare the render with Figma for the changed variants/states, including mobile/resizing, long Thai text, keyboard/focus and page/portal according to the impact; run tests and the Component Audit per the UI workflow; do not rerun merely because several documents call the same step
+11. Submit the latest review round with what matches, what still differs, what could not be checked and the consumers actually checked; do not call component-audit evidence of parity if Figma was not compared
 
-## จุดตัดสินใจที่ต้องระวัง
+## Decision points to watch
 
-| เปลี่ยนใน Figma | การดำเนินการ |
+| Changed in Figma | Action |
 |---|---|
-| Main component / component set | เทียบ component กลางและ consumers ไม่ถือว่า instance overrides ทุกตัวเปลี่ยนตามโดยไม่มีการตรวจ |
-| Instance บนหน้าจอ | ตรวจว่าเป็น override เฉพาะหน้าหรือข้อเสนอ Core ห้าม promote override เข้า Core เอง |
-| Variable / alias / mode | เข้า variable-change flow และ trace consumers |
-| Variant / property ใหม่ | ตรวจการประกอบด้วย API เดิมก่อน หากต้องเพิ่ม prop ให้แจ้งก่อนตามข้อจำกัดของเรา |
-| Interaction / prototype | ยืนยัน observable behavior และ business rule แยกจาก visual state |
-| Figma ขัด DESIGN.md หรือข้อห้ามล่าสุด | แจ้ง conflict ไม่เลือกทับกฎอื่นเงียบ ๆ |
-| เข้าถึง Figma หรือ consumer บาง Product ไม่ได้ | ระบุข้อจำกัด ตรวจส่วนที่ทำได้ ไม่อ้างว่าอ่านหรือ sync ครบ |
+| Main component / component set | Compare the central component and consumers; do not assume every instance override changes accordingly without checking |
+| Instance on a screen | Check whether it is a page-specific override or a Core proposal; do not promote an override into Core on your own |
+| Variable / alias / mode | Enter the variable-change flow and trace consumers |
+| New variant / property | Check composition with the existing API first; if a prop must be added, notify first per our constraints |
+| Interaction / prototype | Confirm observable behavior and business rules separately from visual state |
+| Figma conflicts with DESIGN.md or the latest prohibition | Report the conflict; do not silently override another rule |
+| Some Product's Figma or consumer is not accessible | State the limitation and check what can be done; do not claim to have read or synced everything |
 
-## ภาพรวม
+## Overview
 
-ผู้อ่านคือ designer, developer และ AI ทั้งสอง เป้าหมายคือรู้ขั้นตอนอัปเดตโค้ดหลังแก้ Figma อ่านจากบนลงล่าง กล่องเป็นการทำงาน ข้าวหลามตัดเป็นจุดตัดสินใจ ลูกศรมีชื่อเงื่อนไข ไม่ใช้สีแทนความหมาย
+The readers are designers, developers and AI alike. The goal is to know the steps for updating code after editing Figma. Read from top to bottom; boxes are work, diamonds are decision points, arrows carry condition names, and color is not used in place of meaning
 
 ```mermaid
 flowchart TD
-  Request["แจ้งว่าแก้ Figma พร้อมลิงก์"] --> Scope["ระบุ Product และขอบเขต"]
-  Scope --> Read["อ่าน component variants และ variables ล่าสุด"]
-  Read --> Find["ค้น component เดิมและ mapping ในโค้ด"]
-  Find --> Match{"ยืนยันตัวที่จะอัปเดตได้ไหม"}
-  Match -->|ไม่ได้| AskMapping["ค้นเพิ่มหรือถามก่อน ไม่สร้างซ้ำ"]
+  Request["Report that Figma was edited, with link"] --> Scope["Identify Product and scope"]
+  Scope --> Read["Read the latest component variants and variables"]
+  Read --> Find["Find the existing component and mapping in code"]
+  Find --> Match{"Can the component to update be confirmed?"}
+  Match -->|No| AskMapping["Search more or ask first; do not duplicate"]
   AskMapping --> Find
-  Match -->|ได้| Diff["เทียบความต่างและไล่ consumers"]
-  Diff --> Conflict{"มี conflict หรือขยาย scope ไหม"}
-  Conflict -->|มี| Decide["ถามเฉพาะจุดที่ต้องตัดสินใจ"]
+  Match -->|Yes| Diff["Compare differences and trace consumers"]
+  Diff --> Conflict{"Any conflict or scope expansion?"}
+  Conflict -->|Yes| Decide["Ask only about the points that need a decision"]
   Decide --> Diff
-  Conflict -->|ไม่มี| Edit["แก้ component เดิมในโค้ด"]
-  Edit --> Docs["อัปเดต stories docs และ mapping ที่ได้รับผล"]
-  Docs --> Verify["เทียบ render กับ Figma และทดสอบ"]
-  Verify --> Result{"ผลตรวจเป็นอย่างไร"}
-  Result -->|ยังแก้ไม่ครบ| Edit
-  Result -->|ผ่านตาม scope| Deliver["ทำ audit และส่ง review ล่าสุด"]
-  Result -->|ตรวจต่อไม่ได้| Pending["รายงานสิ่งที่เสร็จและสิ่งที่ค้าง"]
+  Conflict -->|No| Edit["Fix the existing component in code"]
+  Edit --> Docs["Update stories, docs and affected mappings"]
+  Docs --> Verify["Compare render with Figma and test"]
+  Verify --> Result{"What was the check result?"}
+  Result -->|Not fully fixed| Edit
+  Result -->|Passes within scope| Deliver["Run audit and submit the latest review"]
+  Result -->|Cannot continue checking| Pending["Report what is done and what remains"]
 ```
 
-## ขอบเขตการ sync
+## Sync scope
 
-รอบนี้ Figma เป็นแหล่ง visual ที่ขอให้โค้ดตาม ไม่เอาโค้ดเก่าเขียนกลับไปทับดีไซน์ใหม่ การอ่าน Figma ไม่อนุญาตให้เขียนกลับเอง Code Connect ช่วยระบุ mapping ไม่ใช่ระบบ sync อัตโนมัติ การเปลี่ยน doc หรือโค้ดไม่พิสูจน์ว่ามีการแก้ Figma แล้ว
+This round Figma is the visual source that the code is asked to follow; old code is not written back over the new design. Reading Figma does not permit writing back on its own. Code Connect helps identify mappings and is not an automatic sync system. Changing a doc or code does not prove that Figma has been edited
 
-สถานะ: เอกสาร workflow และ Mermaid source เขียนตามสกิล mermaid-diagrams วันที่ 25 พฤศจิกายน 2026 แหล่งข้อมูลคือคำตัดสินในแชตและกฎปัจจุบันของ workspace มีข้อความ/ตารางสำรองสำหรับการอ่านโดยไม่มี renderer ยังไม่ได้ตรวจ parser หรือ render ในปลายทางจริง ไม่ใช่การเริ่ม sync component ใดในรอบนี้
+Status: the workflow doc and Mermaid source were written per the mermaid-diagrams skill on 25 November 2026. The sources are decisions in chat and the workspace's current rules. There is fallback text/table for reading without a renderer. The parser or render in the real destination has not yet been checked. This is not the start of syncing any component in this round

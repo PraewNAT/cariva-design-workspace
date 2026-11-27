@@ -1,6 +1,6 @@
 ---
 name: document
-description: สร้างหรืออัปเดตเอกสาร component Cariva จาก code contract และ visual specification ที่ตกลงไว้ ใช้กับ Markdown, Storybook หรือ Figma docs ที่ผู้ใช้ระบุ
+description: Create or update Cariva component documentation from the agreed code contract and visual specification. Use with the Markdown, Storybook or Figma docs the user specifies
 ---
 
 # Component Documentation

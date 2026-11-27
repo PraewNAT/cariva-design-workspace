@@ -1,77 +1,77 @@
 # Figma ↔ Code drift check
 
-เครื่องมือนี้ใช้เทียบ component ใน Figma กับ component ที่ render จริงใน Storybook และรายงานว่าตัวไหนต่างกัน
-ระบบตรวจจากค่าที่วัดได้จริงทั้งสองฝั่ง จึงไม่ต้องพึ่งความจำว่าเคยแก้อะไรไปบ้าง
+This tool compares components in Figma against the components actually rendered in Storybook and reports which ones differ.
+It checks values measured on both sides, so it does not rely on anyone remembering what was changed before.
 
-> **หมายเหตุ (26 พ.ย. 2026):** DS เปลี่ยนเป็น shadcn แล้ว (`shadcn/`) สคริปต์เทียบ Figma กับ Storybook (`components.json`, `measure-storybook.js`, `regress-storybook.js`) ยังตั้งค่าไว้สำหรับ Storybook ของ MUI ใน `legacy/mui/` และยังไม่ได้ปรับให้อ่านของ shadcn ส่วน **Canvas** ใช้ได้กับทั้งสองฝั่ง (ฝั่ง shadcn ใช้ `?frames=frames.shadcn`)
+> **Note (26 Nov 2026):** The DS has switched to shadcn (`shadcn/`). The Figma-vs-Storybook comparison scripts (`components.json`, `measure-storybook.js`, `regress-storybook.js`) are still configured for the MUI Storybook in `legacy/mui/` and have not yet been adapted to read the shadcn one. The **Canvas** works with both (for shadcn, use `?frames=frames.shadcn`).
 
-สถานะ: **นำร่อง** ตอนนี้ตั้งค่าไว้ 3 ตัว คือ CrvButton, CrvInput และ CrvDropdown
+Status: **Pilot**. Currently 3 are configured: CrvButton, CrvInput and CrvDropdown.
 
-## สิ่งที่เทียบ
+## What is compared
 
-เทียบทุก variant ที่ไม่ใช่ hover / pressed / focused ในแต่ละชิ้นส่วนที่ตั้งค่าไว้ (เช่น `box`, `label`, `field`) โดยดูค่าเหล่านี้
+Compares every variant that is not hover / pressed / focused, for each configured part (e.g. `box`, `label`, `field`), using these values:
 
-- ความสูง, padding, gap, radius
-- สีพื้น, สีเส้นขอบ, ความหนาเส้นขอบ
-- ตัวอักษร: size, line height, weight, family และสี
+- Height, padding, gap, radius
+- Fill color, border color, border width
+- Text: size, line height, weight, family and color
 
-**ยังไม่ครอบคลุม:** hover/pressed/focus, shadow, icon, ความกว้างที่ขึ้นกับเนื้อหา, พฤติกรรม (behavior) และ prop ที่ไม่มีผลต่อภาพ
+**Not yet covered:** hover/pressed/focus, shadow, icon, content-dependent width, behavior, and props that have no visual effect.
 
-## ไฟล์
+## Files
 
-| ไฟล์ | หน้าที่ |
+| File | Purpose |
 |---|---|
-| `components.json` | ตั้งค่าต่อ component ได้แก่ Figma node, story, การจับคู่ variant กับ prop (`propMap`), ชิ้นส่วนที่จะวัด (`parts`) และฝั่งที่เป็นต้นฉบับ (`source`) |
-| `figma-extract.js` | รันใน Figma ผ่าน figma-console `figma_execute` (อ่านอย่างเดียว) |
-| `measure-storybook.js` | รันใน Storybook preview iframe เพื่อวัด DOM ที่ render จริง |
-| `server.mjs` | helper ใน local (port 6019) รับผลวัดจาก Storybook มาเขียนลงไฟล์ |
-| `compare.mjs` | เทียบสองฝั่ง แล้วเขียน `report.md` และ `report.json` |
-| `snapshots/figma.json` | ค่าจาก Figma ณ เวลาที่ดึง |
-| `snapshots/code/*.json` | ค่าจาก Storybook ณ เวลาที่วัด |
+| `components.json` | Per-component config: Figma node, story, variant-to-prop mapping (`propMap`), parts to measure (`parts`) and which side is the source of truth (`source`) |
+| `figma-extract.js` | Runs in Figma via figma-console `figma_execute` (read-only) |
+| `measure-storybook.js` | Runs in the Storybook preview iframe to measure the actually rendered DOM |
+| `server.mjs` | Local helper (port 6019) that receives the measurements from Storybook and writes them to files |
+| `compare.mjs` | Compares the two sides and writes `report.md` and `report.json` |
+| `snapshots/figma.json` | Values from Figma at the time they were pulled |
+| `snapshots/code/*.json` | Values from Storybook at the time they were measured |
 
-## วิธีรัน (ให้ Claude รันให้ได้)
+## How to run (Claude can run this for you)
 
-1. เปิด Figma Desktop ที่ไฟล์ Cariva Core Design System และเปิด Desktop Bridge plugin ไว้
-2. เปิด Storybook: `npm run storybook`
-3. เปิด helper: `node sync/server.mjs`
-4. Figma: นำ entry จาก `components.json` ไปใส่แทน `__CONFIG__` ใน `figma-extract.js` แล้วรันผ่าน `figma_execute` จากนั้นบันทึกผลลงใน `snapshots/figma.json`
-5. Storybook: เปิด `iframe.html` แล้วรัน
+1. Open Figma Desktop on the Cariva Core Design System file and keep the Desktop Bridge plugin open
+2. Start Storybook: `npm run storybook`
+3. Start the helper: `node sync/server.mjs`
+4. Figma: put the entries from `components.json` in place of `__CONFIG__` in `figma-extract.js`, run it via `figma_execute`, then save the result to `snapshots/figma.json`
+5. Storybook: open `iframe.html` and run
    ```js
    const src = await (await fetch('http://localhost:6019/script/measure')).text();
    await new (Object.getPrototypeOf(async function () {}).constructor)('ONLY', src)(['CrvButton']);
    ```
-   ควรรันครั้งละไม่กี่ component เพราะแต่ละ variant ต้อง render ใหม่
-6. สร้างรายงาน: `node sync/compare.mjs` แล้วเปิดดู `sync/report.md`
+   Run only a few components at a time, because every variant has to be re-rendered
+6. Generate the report: `node sync/compare.mjs`, then open `sync/report.md`
 
-## เพิ่ม component
+## Add a component
 
-เพิ่ม entry ใน `components.json`
+Add an entry to `components.json`:
 
-- `nodeId`: ดึงมาจากไฟล์ `*.figma.tsx` (Code Connect)
-- `storyId`: ดูได้จาก `http://localhost:6006/index.json`
-- `propMap`: จับคู่ Figma variant กับ React prop ใช้ได้ 3 แบบ
-  - ระบุชื่อ prop ตรงๆ
-  - ระบุ object ต่อค่า variant
-  - ใช้ `"$story": "<id>"` เมื่อ story หลักไม่ได้ใช้ arg นั้น
-- `parts`: กำหนดชื่อ layer ใน Figma (ใช้ `"."` เมื่อหมายถึงตัว variant เอง) คู่กับ CSS selector ใน DOM ใส่ `text: true` เมื่อเป็นข้อความ, ใส่ `domStroke` เมื่อเส้นขอบอยู่บน element อื่น และใส่ `ignore` เพื่อข้ามค่าที่ไม่ควรเทียบ
+- `nodeId`: taken from the `*.figma.tsx` file (Code Connect)
+- `storyId`: found at `http://localhost:6006/index.json`
+- `propMap`: maps a Figma variant to a React prop, in 3 ways:
+  - Give the prop name directly
+  - Give an object per variant value
+  - Use `"$story": "<id>"` when the main story does not use that arg
+- `parts`: the Figma layer name (use `"."` when it means the variant itself) paired with a CSS selector in the DOM. Add `text: true` for text, `domStroke` when the border sits on another element, and `ignore` to skip values that should not be compared
 
-## เช็คว่า refactor ไม่ทำให้หน้าตาเปลี่ยน
+## Checking that a refactor does not change the look
 
-`regress-storybook.js` เก็บ computed style ของทุก element ในทุก story (ไม่สนชื่อ class, attribute และข้อความ) แล้วสรุปเป็น fingerprint ต่อ story ใช้ก่อนและหลัง refactor ถ้า fingerprint ตรงกันทุก story แปลว่าหน้าตาไม่เปลี่ยน
+`regress-storybook.js` collects the computed style of every element in every story (ignoring class names, attributes and text) and reduces it to a fingerprint per story. Run it before and after a refactor; if the fingerprints match for every story, the look has not changed.
 
 ```js
 const src = await (await fetch('http://localhost:6019/script/regress')).text();
-new Function('LABEL', 'FILTER', src)('before', '');   // FILTER = prefix ของ story id ถ้าจะรันบางส่วน
-// รอจน window.__regress.before.done เป็น true (ทั้งหมดใช้ราว 40 วินาที)
+new Function('LABEL', 'FILTER', src)('before', '');   // FILTER = story id prefix, if you want to run only part of it
+// wait until window.__regress.before.done is true (the full run takes about 40 seconds)
 ```
 
-ต้องเปิด Browser pane ไว้ระหว่างรัน เพราะหน้าที่ถูกซ่อนจะรันช้ามาก ส่วน story `experiments-cariva-layout-comparison--compare` ได้ผลไม่นิ่ง (ย่อ iframe ตาม `ResizeObserver`) จึงต่างได้โดยไม่ได้แก้อะไร
+Keep the Browser pane open while it runs, because a hidden page runs very slowly. The story `experiments-cariva-layout-comparison--compare` gives unstable results (it shrinks the iframe via `ResizeObserver`), so it can differ even when nothing was changed.
 
-## การอ่านผล
+## Reading the results
 
-- **ต่างกัน** หมายถึงพบความต่าง แต่ไม่ได้บอกว่าฝั่งไหนถูก ให้ดู `source` ใน `components.json` ประกอบกับประวัติการแก้ไข
-- รายการใน "ต่างกันทุก component" มักเป็นเรื่องระดับ theme หรือ token (เช่น font family) ไม่ได้เป็นปัญหาของ component ใด component หนึ่ง
-- **ตรงกัน** หมายถึงตรงกันเฉพาะค่าที่ตรวจตามรายการข้างบน ไม่ใช่การรับประกันทุก state หรือทุก behavior
+- **Differs** means a difference was found, but not which side is correct. Check `source` in `components.json` together with the edit history.
+- Items under "Differs in every component" are usually theme- or token-level issues (e.g. font family), not a problem of any one component.
+- **Matches** means it matches only on the values checked in the list above; it is not a guarantee for every state or every behavior.
 
 ## Canvas (Figma-style frames)
 

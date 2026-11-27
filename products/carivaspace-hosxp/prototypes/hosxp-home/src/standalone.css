@@ -1,0 +1,5 @@
+@import "../../../../../design-system/src/app/globals.css";
+@import "./hosxp.css";
+@source "../../../../../design-system/src";
+@source ".";
+@source "../../../../../workspace/presentation";

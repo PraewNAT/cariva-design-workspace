@@ -1,32 +1,32 @@
 # Figma variables inventory
 
-อ่านครบทุก local collection วันที่ 24 พฤศจิกายน 2026 จาก [[Shadcn] Cariva Core Design System](https://www.figma.com/design/e9ypItGZbm2poUZLUQxu66)
+Read every local collection on 24 November 2026 from [[Shadcn] Cariva Core Design System](https://www.figma.com/design/e9ypItGZbm2poUZLUQxu66)
 
-นี่คือ baseline ที่อ่านจาก Figma ไม่ใช่การรับรองว่าโค้ดรองรับหรือ sync ครบทุกตัว เก็บค่าดิบ alias และค่าที่ resolve แล้วใน [variables.latest.json](variables.latest.json) ไม่มีการแก้ variables ใน Figma จากการสำรวจนี้
+This is a baseline read from Figma, not a guarantee that the code supports or is synced with every variable. The raw values, aliases and resolved values are stored in [variables.latest.json](variables.latest.json). No variables in Figma were changed by this survey.
 
-| Collection | จำนวน | Mode | ประเภท |
+| Collection | Count | Mode | Types |
 |---|---:|---|---|
 | Foundation | 382 | Mira | FLOAT, COLOR, STRING |
 | Semantic | 199 | Light Theme | COLOR |
 | Typography | 51 | Desktop, Mobile | FLOAT |
 | Product Style | 3 | cariva app, back office, HosXP | STRING |
 
-รวม **635 variables**: COLOR 467, FLOAT 160, STRING 8, BOOLEAN 0 จำนวนนี้นับ variable ไม่ได้นับค่าซ้ำในแต่ละ mode
+Total **635 variables**: COLOR 467, FLOAT 160, STRING 8, BOOLEAN 0. This count is of variables, not counting the repeated values in each mode
 
-Foundation มี breakpoint, radius, opacity, spacing, color, border-width, blur, font และ icon; Semantic มีสีตามบทบาท; Typography มีขนาด/line-height/น้ำหนัก/spacing ของตัวอักษร; Product Style มีฟอนต์ตาม Product
+Foundation contains breakpoint, radius, opacity, spacing, color, border-width, blur, font and icon; Semantic contains role-based colors; Typography contains text size/line-height/weight/spacing; Product Style contains per-Product fonts
 
-ค่าล่าสุดที่ยืนยัน: content/secondary = Slate 700; border/default = Slate 200; border/strong = Slate 300; border/disabled = Slate 100
+Latest confirmed values: content/secondary = Slate 700; border/default = Slate 200; border/strong = Slate 300; border/disabled = Slate 100
 
-## สถานะการนำไปใช้ในโค้ด
+## Status of adoption in code
 
-| ส่วน | สถานะ |
+| Part | Status |
 |---|---|
-| content/secondary และ border/default/strong/disabled | อัปเดต local token mapping และ generated code ตามค่าปัจจุบันแล้ว |
-| Semantic colors อื่น | มี mapping เดิมหลายตัว; on-fill บางตัวและ alias structure ยังไม่ครบ ไม่อ้าง parity ทั้ง collection |
-| Product Style fonts | จดค่าครบ 3 modes แล้ว; Core legacy carivaApp/HosXP ยังไม่ตรงทั้งหมด ดู DESIGN.md |
-| Foundation / Typography | เก็บทุกค่า/alias/mode แล้ว ยังไม่ได้ audit code mapping ทุกตัวหรือ migrate geometry |
+| content/secondary and border/default/strong/disabled | Local token mapping and generated code have been updated to the current values |
+| Other Semantic colors | Many mappings already exist; some on-fill entries and the alias structure are incomplete, so parity for the whole collection is not claimed |
+| Product Style fonts | Values for all 3 modes have been recorded; Core legacy carivaApp/HosXP does not fully match yet, see DESIGN.md |
+| Foundation / Typography | Every value/alias/mode is recorded; the code mapping of every item has not been audited and geometry has not been migrated |
 
-## รายการครบทุกตัว
+## Complete list of every variable
 
 <details>
 <summary>Foundation (382)</summary>

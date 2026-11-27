@@ -24,14 +24,14 @@ Contrast: user chose to keep Figma error text 4.41:1 and the existing primary Di
 
 ## Upload motion — 26/11/2026
 
-เฉพาะ uploading: แทน file icon ด้วย spinner หมุน linear 1s ต่อรอบ; progress เปลี่ยน width ด้วย transition 200ms ease-out ตามค่าจริงจาก Product. prefers-reduced-motion ปิดการหมุนและ transition; ข้อความ Uploading... และค่าความคืบหน้ายังอยู่. Complete/error/idle ไม่มี spinner. ไม่จำลองค่าเปอร์เซ็นต์ใน production component. Story Upload Animation มีปุ่มเปลี่ยนข้อมูลจำลอง 20→40 และ complete เพื่อรีวิว.
+Uploading only: replaces the file icon with a spinner rotating linear 1s per turn; progress changes width with a 200ms ease-out transition following the real value from Product. prefers-reduced-motion disables the rotation and transition; the text Uploading... and the progress value remain. Complete/error/idle have no spinner. No percentage values are simulated in the production component. The Upload Animation story has a button that changes the simulated data 20→40 and complete for review.
 
-## เปลี่ยนชื่อชุดใน Figma (26 พ.ย. 2026, ผู้ใช้ยืนยันตามเสนอ)
+## Renaming sets in Figma (26 Nov 2026, user confirmed as proposed)
 
-| ชื่อใหม่ | ชื่อเดิม | instance |
+| New name | Original name | instance |
 |---|---|---|
 | `file-upload` | `crv-file-upload` | 5 → 5 |
 | `file-upload-image` (= `variant="image"`) | `crv-file-upload (img)` | 5 → 5 |
 | `file-upload-item` | `crv-file-upload-item` | 4 → 4 |
 
-prop `state` ตรงโค้ดอยู่แล้ว
+Prop `state` already matches the code

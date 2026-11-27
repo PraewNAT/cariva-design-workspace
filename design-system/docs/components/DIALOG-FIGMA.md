@@ -1,45 +1,45 @@
-# Dialog (Figma หน้า Modal) — Figma specification
+# Dialog (Figma page Modal) — Figma specification
 
-อ่านจาก Figma วันที่ 26 พฤศจิกายน 2026: [Modal](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt?node-id=4660-2223) (ไฟล์ Cariva Core Design System) สีทุกจุดในชุด 52 จุดผูกตัวแปรในไฟล์ ผู้ใช้สั่งให้ตัดสินใจเองระหว่างที่ไม่อยู่ ชื่อและ prop ด้านล่างเป็นการตัดสินใจของ Claude ยังไม่ผ่านการยืนยัน
+Read from Figma on 26 November 2026: [Modal](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt?node-id=4660-2223) (Cariva Core Design System file); all 52 colour points in the set are bound to variables in the file. The user told Claude to decide on its own while away; the names and props below are Claude's decisions and have not been confirmed.
 
-## ชุดใน Figma (เปลี่ยนชื่อแล้ว ชื่อเดิมสำรองใน plugin data `oldName_2026-11-26` / `oldNames_2026-11-26`)
+## Sets in Figma (renamed; the original names are backed up in plugin data `oldName_2026-11-26` / `oldNames_2026-11-26`)
 
-| ชื่อใหม่ | ชื่อเดิม | instance (ก่อน → หลัง) |
+| New name | Original name | instances (before → after) |
 |---|---|---|
 | `dialog` | `crv-modal` | 3 → 3 |
 
-prop `type` เปลี่ยนเป็น `align`: `default` → `start`, `alignCenter` → `center`; ส่วน `breakpoint` (sm 320 / md+ 400), `showContent`, `showDescription`, `showIcon`, `icon`, `showCTA`, `contentSlot`, `ctaSlot` ไม่เปลี่ยน ข้อความในกรอบ `📄 Modal Doc` เปลี่ยนชื่อ (และ `type=` เป็น `align=`) แล้ว
+The `type` prop changed to `align`: `default` → `start`, `alignCenter` → `center`; `breakpoint` (sm 320 / md+ 400), `showContent`, `showDescription`, `showIcon`, `icon`, `showCTA`, `contentSlot`, `ctaSlot` are unchanged. The text in the `📄 Modal Doc` frame has been renamed (and `type=` to `align=`).
 
-## สเปก
+## Spec
 
-- กล่อง: พื้น `on-surface/default` มุมโค้ง 16 ขอบ 1px `border/default` เงา `shadow/2xl` กว้าง 320 (sm) / 400 (md+)
-- ส่วนหัว: padding 24/16/16/16; `align=start` ไอคอน 28 (กรอบมุม 12 padding 4, ไอคอน 20) อยู่ซ้ายของข้อความ, `align=center` ไอคอน 44 (ไอคอน 36) อยู่เหนือข้อความและจัดกลาง; หัวข้อ 20/28 SemiBold `content/primary` คำอธิบาย 14/20 `content/secondary`; ไอคอน `content/secondary`
-- เนื้อหา (slot): padding 16 ช่องว่าง 16
-- ส่วนท้าย: พื้น `on-surface/subtle` padding 16 ช่องว่าง 8; sm ปุ่มซ้อนแนวตั้งเต็มความกว้าง (ปุ่มหลักอยู่บน), md+ ปุ่มเรียงแนวนอนชิดขวา (ปุ่มรองก่อนปุ่มหลัก); ปุ่ม sm (32)
-- Figma ไม่มีปุ่มปิด (X)
+- Box: fill `on-surface/default`, corner radius 16, 1px `border/default` border, shadow `shadow/2xl`, width 320 (sm) / 400 (md+)
+- Header: padding 24/16/16/16; `align=start` icon 28 (frame with corner radius 12, padding 4, icon 20) sits to the left of the text, `align=center` icon 44 (icon 36) sits above the text and is centred; title 20/28 SemiBold `content/primary`, description 14/20 `content/secondary`; icon `content/secondary`
+- Content (slot): padding 16 gap 16
+- Footer: fill `on-surface/subtle` padding 16 gap 8; sm buttons are stacked vertically at full width (primary button on top), md+ buttons are laid out horizontally and aligned right (secondary button before the primary button); button sm (32)
+- Figma has no close (X) button
 
-## ชื่อ Figma ↔ โค้ด
+## Figma names ↔ Code
 
-| Figma | โค้ด |
+| Figma | Code |
 |---|---|
 | `dialog` | `Dialog` + `DialogContent` (`ui/dialog.tsx`) |
-| `align` start / center | prop `align` ของ `DialogHeader` |
-| `icon`, `showIcon` | prop `icon` ของ `DialogHeader` (ไม่ใส่ = ไม่แสดง) |
-| หัวข้อ / คำอธิบาย | `DialogTitle` / `DialogDescription` |
+| `align` start / center | prop `align` of `DialogHeader` |
+| `icon`, `showIcon` | prop `icon` of `DialogHeader` (omitted = not shown) |
+| title / description | `DialogTitle` / `DialogDescription` |
 | `contentSlot` | `DialogBody` |
 | `ctaSlot` | `DialogFooter` |
-| `breakpoint` sm / md+ | responsive ในโค้ด (กว้าง 320 ที่แคบ, 400 ตั้งแต่ md) |
-| `showContent`, `showDescription`, `showCTA` | ใส่หรือไม่ใส่ส่วนนั้น |
+| `breakpoint` sm / md+ | responsive in code (width 320 when narrow, 400 from md) |
+| `showContent`, `showDescription`, `showCTA` | include or omit that part |
 
-## โค้ด (26 พ.ย. 2026)
+## Code (26 Nov 2026)
 
-`DialogContent` สลับเป็นเลย์เอาต์ตาม Figma (ไม่มี padding รอบกล่อง, ส่วนท้ายเป็นแถบสี subtle) เมื่อ child แรกเป็น `DialogHeader`; ถ้า child ตรงๆ ไม่ใช่ header (เช่น Dialog ที่มีตัวเลือกวันที่ข้างใน) ยังได้ padding 16 รอบด้านและไม่มีแถบ จึงไม่กระทบตัวอย่างเดิม
+`DialogContent` switches to the layout per Figma (no padding around the box, the footer is a subtle-coloured bar) when the first child is a `DialogHeader`; if the direct child is not a header (e.g. a Dialog with a date picker inside) it still gets padding 16 on all sides and no bar, so existing examples are not affected
 
-| เรื่อง | สถานะ |
+| Topic | Status |
 |---|---|
-| มุม 16, padding ส่วนหัว 24/16/16, หัวข้อ 20/28/600, ไอคอน 28, ส่วนท้าย `#F8FAFC` padding 16, พื้นขาว, เงา | ตรง (วัดใน story `FigmaDialog`) |
-| ไอคอน `center` 44, ความกว้าง 320 / 400, ส่วนท้ายแนวตั้งบนมือถือ, สีไอคอน | ตั้งตาม Figma **ยังไม่ได้วัด** |
+| Corner radius 16, header padding 24/16/16, title 20/28/600, icon 28, footer `#F8FAFC` padding 16, white fill, shadow | matches (measured in story `FigmaDialog`) |
+| `center` icon 44, width 320 / 400, vertical footer on mobile, icon colour | set per Figma, **not measured** |
 
-**ตัดสินใจโดย Claude:** คงปุ่มปิด (X) ไว้เป็นค่าเริ่มต้นเพื่อไม่เปลี่ยนพฤติกรรมเดิม (Figma ไม่มี; ปิดได้ด้วย `showCloseButton={false}`)
+**Decided by Claude:** keep the close (X) button as the default so the existing behaviour does not change (Figma has none; it can be removed with `showCloseButton={false}`)
 
-**ผลกระทบ:** Dialog เดิมมุม 24 → 16 (`--container-radius`), เงาเปลี่ยนเป็น `shadow/2xl`, ขอบ 1px, หัวข้อใหญ่ขึ้นเป็น 20/28; Dialog ที่ใช้ `DialogHeader` จะได้เลย์เอาต์แบบแถบ
+**Impact:** the existing Dialog corner radius 24 → 16 (`--container-radius`), shadow changes to `shadow/2xl`, 1px border, the title is larger at 20/28; a Dialog that uses `DialogHeader` gets the bar-style layout

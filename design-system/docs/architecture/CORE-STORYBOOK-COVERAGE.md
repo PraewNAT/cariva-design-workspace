@@ -1,6 +1,6 @@
 # Core Storybook coverage
 
-39/39 modules มี dedicated stories และลงทะเบียนใน live Storybook แล้ว. Subcomponents ประกอบในตัวอย่าง parent; ไม่ใช่การยืนยันครบทุก variant/state. Static examples ปิด Controls โดยแสดง source JSX และ prop table ของ component จริง.
+39/39 modules have dedicated stories and are registered in the live Storybook. Subcomponents are composed in the parent's examples; this is not confirmation that every variant/state is covered. Static examples disable Controls and show the source JSX and the prop table of the real component.
 
 | Module | Storybook | Stories |
 |---|---|---|

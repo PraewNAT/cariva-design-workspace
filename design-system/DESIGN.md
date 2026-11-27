@@ -1,58 +1,58 @@
-# Cariva DS — แนวทางการออกแบบ
+# Cariva DS — Design Guidelines
 
-## รูปแบบวันที่
+## Date format
 
-- วันที่ในช่องกรอกและข้อความแสดงวันที่ใช้ **DD/MM/YYYY** เช่น `20/01/2022` เติมเลขศูนย์ให้วันและเดือนครบสองหลัก
-- ช่วงวันที่ใช้ `20/01/2022 - 09/02/2022`
-- กฎนี้กำหนดรูปแบบการแสดงผล ไม่เปลี่ยนปี ค.ศ./พ.ศ. หรือค่าข้อมูลเดิมโดยอัตโนมัติ
+- Dates in input fields and date display text use **DD/MM/YYYY**, for example `20/01/2022`, with day and month zero-padded to two digits
+- Date ranges use `20/01/2022 - 09/02/2022`
+- This rule defines the display format only; it does not automatically change the CE/BE year or existing data values
 
-อัปเดต 25 พฤศจิกายน 2026 ปรับจากเอกสารที่ผู้ใช้ส่ง โดยยึดคำสั่งล่าสุดและ Figma ปัจจุบัน ไม่ใช่การยืนยันว่า runtime sync ทุกตัวแล้ว
+Updated 25 November 2026, adapted from the document the user sent, following the latest instruction and the current Figma; this does not confirm that every runtime has been synced.
 
-ทิศทาง: สะอาด เป็นมิตร และมีความเป็นเครื่องมือทำงาน จัดข้อมูลแน่นภายในกลุ่มที่อ่านง่าย และเว้นพื้นที่ระหว่างกลุ่มให้ชัดเจน ส่วนพื้นผิวและการจัดวางด้านล่างปรับแนวคิดจาก `awesomic.com-DESIGN.md` ที่ผู้ใช้ให้ โดยใช้กับ Product UI หลังบ้านของ Cariva
+Direction: clean, friendly and work-tool-like; keep information dense within groups that read easily, and leave clear space between groups. The surface and layout guidance below adapts ideas from `awesomic.com-DESIGN.md`, provided by the user, applied to Cariva's back-office Product UI.
 
-## แหล่งอ้างอิง
+## References
 
-- Visual tokens: [Figma DS](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt) และรายการครบใน [VARIABLES.md](design-references/figma/VARIABLES.md)
-- โค้ดปัจจุบัน: `tokens.json` → `npm run tokens:generate` → `src/lib/core/design-system/tokens/tokens.ts`, `generatedPalette.ts` และ `semantic.generated.css`; theme entry คือ `src/app/globals.css` (shadcn Base UI)
-- การนำกฎไปใช้: [Core rules](rules/core-rules.md); เมื่อแจ้งว่าแก้ variables ให้ทำ [Variable change flow](rules/figma-variable-change-flow.md)
-- ค่าจากเอกสารเก่าหรือ snapshot เป็นหลักฐานของเวลาที่อ่าน ไม่ทับ Figma ล่าสุดหรือคำสั่งผู้ใช้
+- Visual tokens: [Figma DS](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt) and the full list in [VARIABLES.md](design-references/figma/VARIABLES.md)
+- Current code: `tokens.json` → `npm run tokens:generate` → `src/lib/core/design-system/tokens/tokens.ts`, `generatedPalette.ts` and `semantic.generated.css`; the theme entry is `src/app/globals.css` (shadcn Base UI)
+- Applying the rules: [Core rules](rules/core-rules.md); when told that variables were edited, follow the [Variable change flow](rules/figma-variable-change-flow.md)
+- Values from older documents or snapshots are evidence of the time they were read; they do not override the latest Figma or the user's instructions
 
-## สี
+## Color
 
-ใช้ semantic tokens ใน component และ CSS/theme adapter ไม่ใส่ raw hex หรือ primitive Slate/Tailwind เพื่อแทน role โดยตรง ค่า hex ในเอกสาร/ไฟล์ export ใช้อ้างอิงได้ ไม่ใช่สิทธิ์ให้ hardcode ใน UI
+Use semantic tokens in components and in the CSS/theme adapter; do not put raw hex or primitive Slate/Tailwind values in directly to stand in for a role. Hex values in documents/export files may be used as reference; they are not permission to hardcode them in the UI.
 
-| บทบาท | Token | ค่าที่อ่านล่าสุด |
+| Role | Token | Last value read |
 |---|---|---|
-| พื้นหน้า | `color/bg/white` | White |
+| Page background | `color/bg/white` | White |
 | App shell | `color/bg/subtle` | Slate 100 |
 | Card/input/menu | `color/on-surface/default` | White |
 | Modal/popover | `color/on-surface/elevated` | White |
-| ข้อความ/ไอคอนหลัก | `color/content/primary` | Slate 900 |
-| ข้อความ/ไอคอนรอง | `color/content/secondary` | **Slate 700 / #334155** |
+| Primary text/icon | `color/content/primary` | Slate 900 |
+| Secondary text/icon | `color/content/secondary` | **Slate 700 / #334155** |
 | Placeholder | `color/content/placeholder` | Slate 500 |
 | Disabled content | `color/content/disabled` | Slate 400 |
-| ขอบทั่วไป/divider | `color/border/default` | **Slate 200 / #E2E8F0** |
-| ขอบเน้น | `color/border/strong` | **Slate 300 / #CBD5E1** |
-| ขอบ disabled | `color/border/disabled` | **Slate 100 / #F1F5F9** |
-| ขอบ focus/system | `color/border/system` | Blue 600 / #2563EB |
-| ขอบ validation error | `color/border/error` | Red 600 / #DC2626 |
+| General border/divider | `color/border/default` | **Slate 200 / #E2E8F0** |
+| Emphasized border | `color/border/strong` | **Slate 300 / #CBD5E1** |
+| Disabled border | `color/border/disabled` | **Slate 100 / #F1F5F9** |
+| Focus/system border | `color/border/system` | Blue 600 / #2563EB |
+| Validation error border | `color/border/error` | Red 600 / #DC2626 |
 | Primary action | `color/brand/primary/on-surface/default` | Dodger blue 600 / #1789FA |
 | Selected surface | `color/on-surface/action/selected` | Dodger blue 50 |
 
-- `bg` สำหรับพื้นระดับหน้า; `on-surface` สำหรับผิว component และสถานะ interaction; `content` สำหรับข้อความและไอคอน
-- `brand/primary` และ `brand/secondary` ใช้ตามบทบาทแบรนด์ ไม่ตีความ brand secondary ว่าเป็นข้อความรอง
-- Destructive/error/validation ใช้ `color/status/error/*`; success/warning/info ใช้ตระกูล status ที่ตรงความหมาย พร้อมข้อความหรือไอคอน ไม่พึ่งสีอย่างเดียว
-- `color/accent/*` ใช้กับชุดข้อมูลในกราฟ avatar หรือกลุ่มตกแต่ง ไม่ใช้แทนสี error/validation/brand; legend และรูปแบบเส้นต้องช่วยแยกข้อมูลด้วย
-- Focus ใช้ `color/border/system`; ห้ามสร้างกลุ่มสี text/icon/danger/field/foreground หรือ alias ใหม่เพื่อหลบ semantic token ที่มีอยู่
-- บน filled surface ให้ใช้ `content/on-fill` ของตระกูลนั้นเมื่อ runtime มี mapping; `content/inverse` ใช้กับพื้น inverse ส่วน `content/on-brand` เป็น compatibility เดิม ไม่ใช่ token ใหม่ที่ควรขยายการใช้
-- Figma และ `tokens.json` มี on-fill ครบทั้ง 7 ตระกูลแล้ว (อ่านสดจากไฟล์ Cariva Core Design System วันที่ 26 พฤศจิกายน 2026) ทั้งหมดเป็นสีขาวตามที่แสดงผลอยู่ในตอนนี้ และ Figma ระบุว่า secondary, warning และ active รอแก้ contrast จึงห้ามอ้างว่าผ่าน AA เพียงเพราะมี token
-- ถ้า token ไม่มี ให้รายงานช่องว่าง/ข้อเสนอ ไม่สร้าง token หรือปรับสีเฉพาะหน้าเงียบ ๆ
+- `bg` is for page-level backgrounds; `on-surface` is for component surfaces and interaction states; `content` is for text and icons
+- `brand/primary` and `brand/secondary` are used by brand role; do not interpret brand secondary as secondary text
+- Destructive/error/validation use `color/status/error/*`; success/warning/info use the status family that matches the meaning, with text or an icon, and do not rely on color alone
+- `color/accent/*` is for chart data series, avatars or decorative groups; do not use it in place of error/validation/brand colors; the legend and line patterns must also help tell the data apart
+- Focus uses `color/border/system`; do not create text/icon/danger/field/foreground color groups or new aliases to get around an existing semantic token
+- On a filled surface use the `content/on-fill` of that family when the runtime has a mapping; `content/inverse` is for inverse backgrounds, and `content/on-brand` is the existing compatibility token, not a new token whose use should be extended
+- Figma and `tokens.json` now have on-fill for all 7 families (read live from the Cariva Core Design System file on 26 November 2026). All of them are white as currently rendered, and Figma notes that secondary, warning and active are awaiting a contrast fix, so do not claim AA passes just because a token exists
+- If a token is missing, report the gap/proposal; do not silently create a token or adjust a color for one page
 
-สี primary/filled บางคู่ใน Figma ยังมี contrast ไม่ผ่าน AA สำหรับข้อความขนาดปกติ ต้องรายงานและแก้ที่ต้นทางตามการตัดสินใจของทีม ไม่เปลี่ยนสีเฉพาะหน้าเพื่อให้ audit ผ่าน และไม่เรียกว่าผ่าน accessibility ทั้งหมด
+Some primary/filled color pairs in Figma still fail AA contrast for normal-size text. This must be reported and fixed at the source per the team's decision; do not change a color for one page to make an audit pass, and do not call it fully accessible.
 
-## ฟอนต์ตาม Product Style
+## Fonts by Product Style
 
-อ่านสดจาก Figma วันที่ 24 พฤศจิกายน 2026 เป็นค่าชั่วคราวจนกว่าผู้ใช้ยืนยันกับทีม
+Read live from Figma on 24 November 2026; temporary values until the user confirms with the team.
 
 | Role | cariva app | back office | HosXP |
 |---|---|---|---|
@@ -60,101 +60,101 @@
 | `font-family/prose` | IBM Plex Sans Thai Looped | IBM Plex Sans Thai Looped | Google Sans |
 | `font-family/display` | Malila | Malila | Malila |
 
-- UI ใช้กับ controls, ตาราง, label และข้อความหน้าจอ; prose ใช้กับย่อหน้าอ่านต่อเนื่อง; display ใช้กับบริบท display/marketing ที่เลือกไว้ ไม่ใช้กับ form/table โดยอัตโนมัติ
-- เลือก Product/mode ก่อน ไม่สมมติว่าทุก Product ใช้ฟอนต์เดียวกัน ฟอนต์ foundation แยกจาก Product Style และห้ามนำมาทับ role ของ Product
-- ใช้ชื่อ role `ui`/`prose`; `sans`/`serif` ที่มีใน legacy เป็น compatibility aliases
-- ไม่เลือก Inter/Roboto หรือฟอนต์ใหม่เป็น design choice เอง มี generic CSS fallback เพื่อความทนทานได้ แต่ห้ามอ้างว่า fallback คือการ render ฟอนต์ตาม Figma แล้ว
-- ตรวจ font asset และ weights ที่โหลดจริง โดยเฉพาะฟอนต์ที่พึ่ง Adobe Fonts รายงาน fallback/ไฟล์ขาด ไม่สมมติว่าติดตั้งอยู่
-- Active `carivaApp` และ `backOffice` ใช้ IBM Plex Sans Thai UI / Looped prose ร่วมกันแล้วใน shadcn; HosXP และ Malila asset ยังไม่รับรองครบ ค่าฟอนต์ใน code/core เป็น legacy reference
+- UI is for controls, tables, labels and screen text; prose is for continuous reading paragraphs; display is for the selected display/marketing contexts and is not automatically used for forms/tables
+- Choose the Product/mode first; do not assume every Product uses the same font. Foundation fonts are separate from Product Style and must not be used to override a Product's role
+- Use the role names `ui`/`prose`; the `sans`/`serif` present in legacy are compatibility aliases
+- Do not choose Inter/Roboto or a new font as a design choice on your own. A generic CSS fallback may be kept for robustness, but do not claim the fallback is rendering the Figma font
+- Check the font assets and weights actually loaded, especially fonts that depend on Adobe Fonts; report fallbacks/missing files and do not assume they are installed
+- The active `carivaApp` and `backOffice` now share IBM Plex Sans Thai UI / Looped prose in shadcn; the HosXP and Malila assets are not yet certified complete; the font values in code/core are a legacy reference
 
-## ขนาดตัวอักษร
+## Font sizes
 
-**ห้าม render ข้อความต่ำกว่า 12px** รวม metadata, badge, chart labels/tooltips และมือถือ แม้ไฟล์ legacy จะมี `label/xsmall = 10px` ก็ไม่ใช่ตัวเลือกที่อนุญาตให้ใช้ใน UI ใหม่
+**Never render text smaller than 12px**, including metadata, badges, chart labels/tooltips and on mobile. Even though the legacy file has `label/xsmall = 10px`, it is not an option allowed in new UI.
 
-| กลุ่ม | ขนาดที่มีใน local tokens | หลักการ |
+| Group | Sizes in local tokens | Principle |
 |---|---|---|
-| Heading | 24 / 20 / 16px | หัวข้อ ตามลำดับความสำคัญ |
-| Body | 16 / 14 / 12px | เนื้อหา UI |
-| Label | 16 / 14 / 12px | controls และ actions |
-| Caption | 12px | metadata ที่จำเป็น |
-| Prose | 16 / 14 / 12px | ย่อหน้าอ่านต่อเนื่อง |
+| Heading | 24 / 20 / 16px | Headings, in order of importance |
+| Body | 16 / 14 / 12px | UI content |
+| Label | 16 / 14 / 12px | controls and actions |
+| Caption | 12px | necessary metadata |
+| Prose | 16 / 14 / 12px | continuous reading paragraphs |
 
-เลือก text style/recipe เดิมก่อน ไม่ปรับ font-size เฉพาะหน้าเพื่อบังคับ control height น้ำหนักใช้ 400/500/600/700 ตาม style ที่มี ขนาดและ line-height ต้องอ่านจาก Typography mode และ contract ของ component จริงก่อนเปลี่ยน
+Choose the existing text style/recipe first; do not adjust font-size for a single page to force a control height. Weights use 400/500/600/700 per the styles that exist. Sizes and line-heights must be read from the Typography mode and the actual component contract before changing.
 
-เอกสารเก่าระบุ body line-height 20/16 แต่ local tokens ยังมี 22/18 ในบาง role ให้บันทึกเป็น drift ไม่เปลี่ยน geometry ทั่ว Core จากการคัดลอกเอกสาร ต้องตรวจภาษาไทยจริงทั้งสระ/วรรณยุกต์ ข้อความยาว และ computed size บน desktop/mobile/portal
+The old document specifies a body line-height of 20/16, but local tokens still have 22/18 in some roles; record this as drift and do not change geometry across Core by copying the document. Check real Thai text, including vowels/tone marks, long text and the computed size on desktop/mobile/portal.
 
-## พื้นผิวและความลึก
+## Surfaces and depth
 
-ให้ความต่างของพื้นผิวช่วยจัดกลุ่มข้อมูลก่อนเพิ่มเส้นขอบหรือเงา ใช้สีจาก semantic tokens เดิม ไม่ย้ายพาเลท Zinc หรือปุ่มดำของ Awesomic มาทับสี Cariva
+Let differences in surface help group information before adding borders or shadows. Use the existing semantic token colors; do not bring Awesomic's Zinc palette or black buttons over Cariva's colors.
 
-| บริเวณ | แนวทาง | Token ที่ใช้ |
+| Area | Guidance | Token used |
 |---|---|---|
-| พื้นเนื้อหาหลัก | ใช้สีขาวเป็นฐานของหน้าใหม่ เว้นช่วงระหว่างกลุ่มงาน | `color/bg/white` |
-| App shell / กลุ่มงานขนาดใหญ่ | ใช้พื้นเทาอ่อนเมื่อต้องแยกพื้นที่ทำงานหรือกลุ่มที่มีความหมาย | `color/bg/subtle` |
-| Card / แผงข้อมูล | ใช้แผงขาวบนพื้นต่างระดับ เงาไม่ใช่ค่าเริ่มต้นของทุก Card | `color/on-surface/default` |
-| พื้นด้านในของกลุ่ม controls | รูปแบบเสริมเมื่อจำเป็นต้องแสดง interaction หลายระดับ ไม่ใช่ค่าเริ่มต้นของ filter/toolbar | `color/on-surface/subtle` |
-| ขอบและเส้นแบ่ง | ใช้เมื่อจำเป็นต่อการเห็นขอบเขตหรืออ่านข้อมูลต่อเนื่อง | `color/border/default` |
-| Overlay / แผงที่ลอยเหนือหน้า | ใช้ surface และ elevation recipe ที่มีอยู่ | `color/on-surface/elevated` |
+| Main content background | Use white as the base of new pages; leave space between work groups | `color/bg/white` |
+| App shell / large work groups | Use a light gray background when a workspace or a meaningful group must be separated | `color/bg/subtle` |
+| Card / data panel | Use a white panel on a different-level background; a shadow is not the default for every Card | `color/on-surface/default` |
+| Inner background of a controls group | An extra pattern for when multiple levels of interaction must be shown; not the default for filter/toolbar | `color/on-surface/subtle` |
+| Borders and dividers | Use when needed to see boundaries or to read continuous data | `color/border/default` |
+| Overlay / panels floating above the page | Use the existing surface and elevation recipe | `color/on-surface/elevated` |
 
-- พื้นขาวกับแผงขาวที่อยู่ติดกันยังใช้ border ได้ ไม่บังคับลบขอบของทุก Card หรือ Table
-- ใช้ inset shell **เฉพาะจุดที่จำเป็นต่อการจัดกลุ่มการโต้ตอบ** เช่น selector ที่ต้องเห็นขอบเขตภายใน หรือแผงขั้นตอนที่มี interaction หลายระดับ ไม่ใช่รูปแบบเริ่มต้นของทุก section
-- **ไม่ครอบกราฟ กลุ่มกราฟ หรือตารางทั้งก้อนด้วยพื้นเทา แล้วซ้อนแผงขาวด้านในอีกชั้น** ให้กราฟและตารางเป็นแผงชั้นเดียว ใช้ border/divider เท่าที่ช่วยให้อ่านขอบเขตได้
-- **Filter/toolbar ของตารางให้เริ่มจากวาง controls บนพื้นหน้าโดยตรง** ใช้ spacing และ alignment จัดกลุ่ม ไม่ครอบพื้นเทาทั้งแถบเพียงเพราะมีตัวกรองกับช่องค้นหาอยู่ด้วยกัน แสดงสถานะเลือกบน control นั้น เช่น เส้นใต้หรือตัวอักษรที่ชัดขึ้น
-- ข้อมูลตารางเป็นพื้นขาว สำหรับแถบตัวเลขสรุปใช้พื้นอ่อนได้เมื่อทั้งแถบเป็นกลุ่มเดียวและไม่มีแผงขาวซ้อนอยู่ด้านใน
-- ก่อนเพิ่ม shell ต้องอธิบายได้ว่าช่วยรวม controls หรือแยก interaction ใด หากมีไว้เพื่อสร้างกรอบตกแต่งอย่างเดียวให้เว้นพื้นที่ระหว่างกลุ่มแทน
-- เงาเหมาะกับ overlay หรือแผงที่ต้องแสดงความลอยจริง ใช้ shadow/elevation token หรือ recipe เดิม หากยังไม่มีให้เสนอเพิ่มก่อน ไม่คัดลอกค่าเงาหลายชั้นมาใส่เฉพาะหน้า
-- ความเป็นมิตรเกิดจากพื้นที่ว่าง พื้นผิว และ hierarchy ร่วมกัน ไม่เปลี่ยน radius ของ component ที่ตกลงไว้เพื่อให้เหมือนภาพอ้างอิง
-- `bg/subtle` คือ Slate 100 ส่วน `bg/solid` คือ Slate 200 คำว่า “พื้นสีเรียบ” ไม่ใช่ชื่อ token; gradient เป็นอีกเรื่องหนึ่ง ค่าเริ่มต้นของหน้างานใช้พื้นสีเรียบ ไม่เพิ่ม glow หรือ gradient ทุกกลุ่ม
+- A white background next to a white panel can still use a border; there is no requirement to remove the border of every Card or Table
+- Use an inset shell **only where it is needed to group interaction**, such as a selector whose inner boundary must be visible, or a step panel with multiple levels of interaction; it is not the default pattern of every section
+- **Do not wrap a chart, chart group or whole table in a gray background and then nest a white panel inside it.** Let charts and tables be a single-layer panel, using borders/dividers only as far as they help the boundary read
+- **Start a table's filter/toolbar by placing the controls directly on the page background**, grouping with spacing and alignment; do not wrap the whole bar in a gray background just because a filter and a search field are together. Show the selected state on the control itself, such as an underline or bolder text
+- Table data is a white background; for a summary-number strip a light background may be used when the whole strip is one group and has no white panel nested inside it
+- Before adding a shell you must be able to explain which controls it groups or which interaction it separates; if it exists only to create a decorative frame, leave space between the groups instead
+- Shadows suit an overlay or a panel that must actually look floating; use a shadow/elevation token or the existing recipe, and if there is none yet, propose adding one first; do not copy multi-layer shadow values in for one page
+- Friendliness comes from white space, surfaces and hierarchy together; do not change the radius of an agreed component to look like the reference image
+- `bg/subtle` is Slate 100 and `bg/solid` is Slate 200. The phrase “flat color background” is not a token name; a gradient is a separate matter. The default for work pages is a flat color background; do not add a glow or gradient to every group
 
-## Layout และความหนาแน่น
+## Layout and density
 
-- Spacing scale ที่อนุญาต: `0, 2, 4, 8, 12, 16, 20, 24, 28, 32, ...px` ตั้งแต่ 4px ขึ้นไปต้องหาร 4 ลงตัว โดย 2px เป็นข้อยกเว้น ใช้กับ padding, margin, gap และระยะห่างในการจัดวาง ทั้งมือถือและจอใหญ่ เลือกจาก tokens เดิมที่อยู่ในชุดนี้ก่อน ไม่ใช้ค่าแทรก เช่น 6, 10, 14 หรือ 18px
-- มือถือกับจอใหญ่เลือกคนละขั้นใน scale ได้ตามพื้นที่ ไม่จำเป็นต้องลดทุก component ตามสัดส่วน กฎนี้เป็นกฎระยะห่าง ไม่เปลี่ยน border width, radius, typography หรือขนาด component ที่อนุมัติไว้โดยอัตโนมัติ
-- จัดหน้าให้เห็นหัวข้อ งานสำคัญ และข้อมูลที่ต้องตัดสินใจก่อนรายละเอียดรอง จัดแนวขอบซ้ายของหัวข้อ ตัวเลข และกลุ่มข้อมูลให้สัมพันธ์กัน
-- โปร่งระหว่างกลุ่ม กระชับภายในกลุ่ม: ใช้ spacing tokens เดิม เช่น gap 12/16px ระหว่างข้อมูลที่เกี่ยวข้อง และ 24/32px ระหว่างส่วนหลัก โดยเลือกตามเนื้อหาและ viewport
-- Panel ใช้ padding ตามขนาดและ recipe ที่มีอยู่ เช่น 16/24px ไม่ใช้ค่าข้างต้นไป override padding ของ Button, Input หรือ Accordion
-- Card หนึ่งใบควรตอบคำถามหรือรวมงานที่ชัดเจน ไม่จำเป็นต้องแยกตัวเลขทุกตัวเป็น Card รูปแบบเดียวกัน สามารถใช้แถบสรุปหรือกลุ่มตัวเลขร่วมกันได้
-- ใช้คอลัมน์ขนาดต่างกันเมื่อข้อมูลมีน้ำหนักต่างกัน เช่น กราฟหลักคู่กับงานที่ต้องติดตาม; ใช้กริดเท่ากันเมื่อข้อมูลควรเปรียบเทียบกันโดยตรง
-- บนมือถือเรียงกลุ่มตามความสำคัญ คงขนาดข้อความที่อ่านได้ ตารางที่จำเป็นต้องกว้างให้เลื่อนภายในบริเวณตาราง ไม่ทำให้ทั้งหน้าล้น
+- Allowed spacing scale: `0, 2, 4, 8, 12, 16, 20, 24, 28, 32, ...px`. From 4px upward values must be divisible by 4, with 2px as the exception. It applies to padding, margin, gap and layout spacing, on both mobile and large screens. Choose from the existing tokens in this set first; do not use in-between values such as 6, 10, 14 or 18px
+- Mobile and large screens may choose different steps in the scale according to space; there is no need to reduce every component proportionally. This is a spacing rule; it does not automatically change border width, radius, typography or the approved component sizes
+- Lay out the page so the headings, key tasks and the information needed for decisions are seen before secondary details; align the left edges of headings, numbers and data groups so they relate to each other
+- Airy between groups, compact within a group: use the existing spacing tokens, such as gap 12/16px between related information and 24/32px between major sections, chosen by content and viewport
+- A Panel uses padding by the existing size and recipe, such as 16/24px; do not use the values above to override the padding of Button, Input or Accordion
+- One Card should answer one clear question or combine one clear task; there is no need to split every number into the same Card pattern. A summary strip or a shared group of numbers can be used
+- Use columns of different sizes when the data has different weight, such as a main chart paired with tasks to follow; use an equal grid when the data should be compared directly
+- On mobile, order the groups by importance and keep readable text sizes; a table that must be wide scrolls within the table area and does not make the whole page overflow
 
-## ลำดับข้อมูลและตัวอักษร
+## Information order and typography
 
-- คง font-family และ type scale ตาม Product Style ข้างต้น ผู้ใช้เลื่อนการตัดสินใจเรื่องฟอนต์ใหม่ออกไป ยังไม่เปลี่ยนเป็น Cosmica หรือ Manrope
-- ใช้น้ำหนัก 600 สำหรับหัวข้อสำคัญ, 500 สำหรับชื่อรายการหรือ action และ 400 สำหรับเนื้อหา ตาม text style ที่มี ไม่ทำทุกส่วนหนาเท่ากัน
-- เนื้อหาหลักในงานใหม่ให้เริ่มจาก 14/16px และใช้ 12px สำหรับ metadata ที่จำเป็น ไม่ลดข้อมูลสำคัญทั้งตารางลงเหลือ 12px เพียงเพื่อให้ใส่ข้อมูลได้มากขึ้น ทั้งนี้ต้องคง contract ของ component เดิมจนกว่าจะอนุมัติการปรับ
-- ตัวเลขสรุปต้องอยู่ใกล้ label และหน่วย แสดงช่วงเวลาหรือฐานเปรียบเทียบเมื่อจำเป็น ไม่ใช้ตัวเลขใหญ่เป็นของตกแต่ง เลือก text style ที่มีอยู่ตามความสำคัญ
-- ใช้ข้อความรองผ่าน `content/secondary`; `content/placeholder` ใช้กับ placeholder ไม่ใช้แทน metadata ทั้งหน้า
-- ไม่เพิ่ม negative tracking ให้ทั้งหน้า หรือใช้สไตล์หัวข้อภาษาอังกฤษกับภาษาไทยโดยไม่ตรวจสระ วรรณยุกต์ และการขึ้นบรรทัด
+- Keep the font-family and type scale per the Product Style above; the user deferred the new font decision, so it has not been changed to Cosmica or Manrope
+- Use weight 600 for key headings, 500 for item names or actions and 400 for content, per the existing text styles; do not make every part equally bold
+- Main content in new work should start from 14/16px and use 12px for necessary metadata; do not reduce important data across a whole table to 12px just to fit more data in. The existing component contract must be kept until an adjustment is approved
+- Summary numbers must sit near the label and unit, showing the time period or comparison base when needed; do not use large numbers as decoration. Choose an existing text style according to importance
+- Use secondary text via `content/secondary`; `content/placeholder` is for placeholders and is not used in place of metadata across a whole page
+- Do not add negative tracking to the whole page, or apply English heading styles to Thai without checking vowels, tone marks and line wrapping
 
-## Controls กราฟ และรายละเอียดที่ทำให้หน้าอ่านง่าย
+## Controls, charts and details that make a page easy to read
 
-- ให้ primary action เด่นตามความสำคัญของงาน ใช้ variants และสีแบรนด์เดิม ส่วน secondary actions ใช้รูปแบบรองที่มีอยู่ ไม่ทำทุกปุ่มเด่นเท่ากัน
-- คงขนาด Button/Input, padding, radius, icon และ focus recipe ตาม Core ทั้งบนหน้าและใน modal ไม่คัดลอกปุ่มสูง 49px, radius 14/16px หรือผิวดำมันวาวจาก Awesomic มาแทน contract เดิม
-- Status tag ใช้ข้อความและสี semantic ที่ตรงสถานะ ไม่เพิ่มจุดหน้า tag และไม่ใช้ middle dot (`·`) คั่น metadata
-- กราฟต้องมีชื่อชุดข้อมูล หน่วย และช่วงเวลาที่อ่านได้ ใช้สีชุดข้อมูลตามกฎ accent ด้านบน ให้สีและรูปแบบเส้นใน legend ตรงกับกราฟจริง และเก็บ grid ไว้เป็นข้อมูลรอง
-- ใช้ไอคอนตระกูลเดิมตามบทบาท รูปบุคคลใช้เมื่อช่วยระบุผู้รับผิดชอบหรือเจ้าของข้อมูล ไม่เพิ่ม avatar, icon badge หรือภาพประกอบให้ทุก Card โดยอัตโนมัติ
-- สีสด ภาพธรรมชาติ และ texture ใช้เป็นจุดเน้นเฉพาะบริบทที่มีความหมาย ถ้าต้องการเพิ่มให้แยกเป็นงานทดลองของ Product ก่อน ไม่ใช้แทนสีสถานะหรือเพิ่มฉากตกแต่งหลังตารางและฟอร์ม
-- Motion ตอบสนองต่อการกระทำและเคารพ reduced motion พื้นที่อ่านข้อมูลควรนิ่ง ไม่ใช้ข้อความวิ่งหรือเปลี่ยนคำอัตโนมัติในหัวข้อของหน้างาน
+- Make the primary action stand out according to the importance of the task, using the existing variants and brand colors; secondary actions use the existing secondary patterns; do not make every button equally prominent
+- Keep the Button/Input size, padding, radius, icon and focus recipe per Core, both on the page and in a modal; do not copy Awesomic's 49px-tall button, 14/16px radius or glossy black surface in place of the existing contract
+- A status tag uses text and a semantic color that matches the status; do not add a dot before the tag and do not use a middle dot (`·`) to separate metadata
+- A chart must have a readable data-series name, unit and time period; use the data-series colors per the accent rule above, make the colors and line patterns in the legend match the actual chart, and keep the grid as secondary information
+- Use the existing icon family by role; a person image is used when it helps identify the owner or the data owner; do not automatically add an avatar, icon badge or illustration to every Card
+- Vivid colors, natural imagery and texture are used as emphasis only in meaningful contexts; if more is wanted, make it a separate Product experiment first; do not use it in place of status colors or add decorative scenes behind tables and forms
+- Motion responds to actions and respects reduced motion; the data-reading area should stay still, and no scrolling text or automatically changing words in work-page headings
 
-## ขอบเขตที่รับมาจาก Awesomic
+## Scope adopted from Awesomic
 
-รับหลักการใช้พื้นที่ขาว–เทา, การจัดกลุ่มด้วยพื้นผิว, inset shell เฉพาะ controls ที่จำเป็น, เงาเฉพาะจุด และการวางตัวเลขพร้อมบริบท โดยปรับเข้ากับ semantic tokens และ Core ของ Cariva
+Adopted: the principle of using white–gray space, grouping by surface, an inset shell only for controls that need it, shadows only where needed, and placing numbers with context, adapted to Cariva's semantic tokens and Core
 
-ยังไม่รับฟอนต์ใหม่ พาเลทสีใหม่ ขนาดตัวอักษร 13/15px ปุ่มดำมันวาว ขนาดและ radius ของเว็บ marketing ช่องว่างระดับ chapter 128–160px ตลอดจนภาพ terrain/glass/wordmark ขนาดใหญ่เป็นค่าเริ่มต้นของ Dashboard
+Not adopted: the new font, new color palette, 13/15px font sizes, glossy black buttons, the sizes and radius of the marketing web, chapter-level spacing of 128–160px, and large terrain/glass/wordmark imagery as defaults for the Dashboard
 
-การอัปเดตเอกสารนี้กำหนดทิศทางสำหรับงานถัดไป ไม่ใช่หลักฐานว่าโค้ด หน้าทดลอง หรือ Figma ได้ปรับตามแล้ว เมื่อเริ่มนำไปใช้ให้ตรวจของเดิมก่อน แยกการทดลองออกจาก Core และอัปเดต stories/docs พร้อม audit ตาม AGENTS.md
+This document update sets the direction for the next work; it is not evidence that the code, experimental pages or Figma have been adjusted accordingly. When starting to apply it, check what exists first, separate experiments from Core, and update stories/docs with an audit per AGENTS.md.
 
-## ขอบเขตการนำกฎมาใช้
+## Scope of applying the rules
 
-กฎสีและฟอนต์ข้างต้นมีผลกับงานต่อไป ไม่ยก radius 8/12/16px, ขนาดปุ่ม 36px, no-pill หรือ no-card-border จากเอกสารเก่ามาเป็นข้อบังคับใหม่ คง component API/radius/recipe ที่ตกลงและของเดิมไว้ก่อน ผู้ใช้สั่งเริ่ม migrate shadcn แล้วเมื่อ 24 พฤศจิกายน 2026 ดู SHADCN-MIGRATION.md ไม่ถือว่า migration เท่ากับ parity ทุก Figma variant
+The color and font rules above apply to upcoming work; do not carry over the 8/12/16px radius, the 36px button size, no-pill or no-card-border from older documents as new requirements. Keep the agreed component API/radius/recipe and the existing ones first. The user ordered the shadcn migration to start on 24 November 2026; see SHADCN-MIGRATION.md; migration is not treated as parity for every Figma variant.
 
-## Bottom Sheet — ตรวจ 26 พฤศจิกายน 2026
+## Bottom Sheet — checked 26 November 2026
 
-เฉพาะ `SheetContent side="bottom"`: มุมบน 24px, Header Default/Search 72/152px สำหรับ title หนึ่งบรรทัด, title UI 20/28px SemiBold, icon 32/24px, close 32px พร้อม icon 16px. Browser ใช้ `--font-ui` เป็น IBM Plex Sans Thai ตาม active theme; ไม่พบ typography drift ใน scope ที่ตรวจ. Search ประกอบจาก Field/Input lg 48px และ helper 12/16px. พื้นหลังตกแต่งใช้ SVG Figma เดิมเต็ม Header. รายละเอียด API/ข้อค้างและขอบเขต keyboard อยู่ที่ `docs/components/SHEET-FIGMA.md` และ `SHEET-AUDIT.md`; ไม่เปลี่ยน recipes ของ Sheet ด้านอื่น.
+Only `SheetContent side="bottom"`: top corners 24px, Header Default/Search 72/152px for a one-line title, title UI 20/28px SemiBold, icon 32/24px, close 32px with a 16px icon. The browser uses `--font-ui` as IBM Plex Sans Thai per the active theme; no typography drift was found in the scope checked. Search is composed of Field/Input lg 48px and helper 12/16px. The decorative background uses the original Figma SVG filling the Header. API details/outstanding items and the keyboard scope are in `docs/components/SHEET-FIGMA.md` and `SHEET-AUDIT.md`; the recipes of the other Sheet sides are unchanged.
 
-## Card — ตรวจ 26 พฤศจิกายน 2026
+## Card — checked 26 November 2026
 
-CardHorizontal/CardVertical/CardSmallHorizontal ใช้ UI20/28 SemiBold สำหรับ title และ14/20 สำหรับ description; browser active theme เป็น IBM Plex Sans Thai. Horizontal min-height190 และ absolute ซ้อนภาพขวา, Vertical actionsแถวเดียวgap16, Small slots80/40. ไม่แก้ primitive Card กลาง. ผู้ใช้ยืนยันให้ Profile/Metric normal ใช้ bg/subtle #f1f5f9, Tag ภายใน Card padding8, Profile max-width100% และ Unit เปลี่ยนเป็น content/secondary (ต่างจาก Figma เฉพาะจุดนี้). คง abnormal4.41:1 และ shared Button3.50:1 เป็นข้อค้าง ไม่ถือว่า AAผ่านทั้งหมด; รายละเอียดใน `docs/components/CARD-AUDIT.md`.
+CardHorizontal/CardVertical/CardSmallHorizontal use UI20/28 SemiBold for the title and 14/20 for the description; the browser's active theme is IBM Plex Sans Thai. Horizontal has min-height190 with the image positioned absolutely overlapping on the right, Vertical actions in a single row gap16, Small slots80/40. The central Card primitive is not edited. The user confirmed that Profile/Metric normal uses bg/subtle #f1f5f9, Tag inside Card has padding8, Profile has max-width100% and Unit changes to content/secondary (differs from Figma at this point only). abnormal4.41:1 and shared Button3.50:1 are kept as outstanding items; this is not treated as all AA passing; details in `docs/components/CARD-AUDIT.md`.
 
 ### Tabs alignment — 2026-11-26 (Draft)
 
@@ -175,3 +175,8 @@ Credit Badge belongs to Mira Product DS, not Core Progress. Component and icon a
 ### Visualization - 2026-11-26 (Draft)
 
 25 Core recipes reuse ChartContainer/Recharts. Source card radius12px, border/default1px, padding16, gap12, plot220px, UI title/axis/legend14/20 Regular. Source and browser family: IBM Plex Sans Thai. Existing accent blue/teal/violet/orange A04 palette matches source; do not replace global --chart-* roles. Width is responsive, reference560/320px, min-height350 with wrapping legends. No new global token. Renderer/pattern-density/data-fixture differences and pending Code Connect are recorded in docs/components/VISUALIZATION-FIGMA.md.
+
+
+## Product font observations — 2026-11-27
+
+HosXP Homepage 812:34676 (file cc5bDyHoQauXzugSwTH4Wd): UI Aktiv Grotesk Thai, prose Google Sans, display Malila. Mira DS 37MSJL69dK206ouPp4F1xW resolves UI Aktiv Grotesk Thai and display Malila from Product Style modes cariva app/back office. Aktiv/Malila font assets are not installed; previews use explicit Product-local fallbacks and do not claim font parity. Core font tokens remain unchanged. Mira-specific card colors belong to its local Mira Semantic collection, not Core brand overrides.

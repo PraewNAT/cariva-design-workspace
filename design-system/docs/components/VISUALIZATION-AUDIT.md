@@ -1,27 +1,27 @@
 **Component Audit — Core Visualization**
-ผลรวม: เพิ่ม25recipes พร้อม stories/docs; ตรวจ40storiesผ่าน. Code Connectยังค้างเพราะ sourceไม่ได้publish
-ขอบเขต:25recipes +5QA +10existing Chart stories; browser gallery/page/Dialog/keyboard/320px,50Figma specimens. ไม่ใช่ full accessibility certification
+Result: added 25 recipes with stories/docs; 40 stories checked and passing. Code Connect is still outstanding because the source is not published
+Scope: 25 recipes + 5 QA + 10 existing Chart stories; browser gallery/page/Dialog/keyboard/320px, 50 Figma specimens. Not a full accessibility certification
 
-| ระดับ | ผล | รายการ | หลักฐาน | ถัดไป |
+| Severity | Status | Item | Evidence | Next action |
 |---|---|---|---|---|
-| กลาง | ตรวจไม่ได้ | Code Connect discoveryไม่พบpublished components จึงยังไม่มีconnection | source-baseline.json codeConnect | publish source library แล้วจึงเชื่อมตามskill |
-| — | ผ่าน | 25recipes renderข้อมูลจริงและdata table;40/40storiesผ่าน; aria-labelบนpie pathsแก้ตามroleแล้ว | tests.txt | ไม่อ้างfull graphical contrast certification |
-| — | ผ่าน | Page/Dialog recipeตรงกัน:560x350,r12,p16,gap12,fontIBM Plex Sans Thai14/20 | browser computed styles | ใช้compositionเดิม |
-| — | ผ่าน | 320px galleryครบ25,ไม่มีcomponent overflow; donut legendปรับheightตามเนื้อหา | MobileOverview story / browser | คงmin12pxทุกtext |
-| — | ผ่าน | Source25sets/50variants mapped; Figma docs50linked specimens ไม่มีtext<12หรือown horizontal overflow | source-baseline.json / docs-verification.json | คงsource API |
-| — | ผ่าน | Build/tokencheck/scopedlint; lintมีFast Refresh constant-export warningหนึ่งรายการ | output/visualization/ | ไม่เพิ่มdependency |
-| — | ผ่าน | Renderer differences/7area anchors/Code Connect pendingระบุในdocs ไม่อ้างpixel-perfectหรือpublication | VISUALIZATION-FIGMA.md | รีวิวrenderingและpublish prerequisite |
+| Medium | Could not check | Code Connect discovery found no published components, so there is no connection yet | source-baseline.json codeConnect | Publish the source library, then connect per the skill |
+| — | Pass | 25 recipes render real data and a data table; 40/40 stories pass; aria-label on pie paths fixed per role | tests.txt | Do not claim full graphical contrast certification |
+| — | Pass | Page/Dialog recipes match: 560x350, r12, p16, gap12, font IBM Plex Sans Thai 14/20 | browser computed styles | Use the existing composition |
+| — | Pass | 320px gallery complete with 25, no component overflow; donut legend height adjusts to content | MobileOverview story / browser | Keep min 12px for all text |
+| — | Pass | Source 25 sets / 50 variants mapped; Figma docs 50 linked specimens, no text <12 or own horizontal overflow | source-baseline.json / docs-verification.json | Keep the source API |
+| — | Pass | Build / token check / scoped lint; lint has one Fast Refresh constant-export warning | output/visualization/ | Do not add dependencies |
+| — | Pass | Renderer differences / 7 area anchors / Code Connect pending are noted in the docs; no pixel-perfect or publication claim | VISUALIZATION-FIGMA.md | Review rendering and the publish prerequisite |
 
-สรุป: ผ่าน6, ตรวจไม่ได้1; Code Connectยังไม่เสร็จ
-ต่อไป: publish source components เข้าteam libraryเพื่อดำเนิน Code Connect ต่อ
+Totals: 6 passed, 1 could not be checked; Code Connect is not finished
+Next: publish the source components to the team library to continue Code Connect
 
 **Reuse & Duplicate Check — Core Visualization**
-ผลรวม: เพิ่มcompositionหนึ่งตัวบนChart/Rechartsเดิม ไม่สร้างchart engineหรือProduct logic
-ขอบเขต: ChartContainer/Tooltip/Empty/Recharts, TrendChartและexisting stories
+Result: added one composition on top of the existing Chart/Recharts; no chart engine or Product logic created
+Scope: ChartContainer/Tooltip/Empty/Recharts, TrendChart and the existing stories
 
-| ระดับ | ผล | รายการ | หลักฐาน | ถัดไป |
+| Severity | Status | Item | Evidence | Next action |
 |---|---|---|---|---|
-| — | ผ่าน | Dynamic chart recipes reuseCore primitives; fixturesแยกและไม่มีProduct imports; existing Chart exportsไม่เปลี่ยน | visualization-chart.tsx / chart.stories.tsx | รักษาCore boundary |
+| — | Pass | Dynamic chart recipes reuse Core primitives; fixtures are separate with no Product imports; existing Chart exports unchanged | visualization-chart.tsx / chart.stories.tsx | Preserve the Core boundary |
 
-สรุป: ผ่าน1, ต้องแก้0, ตรวจไม่ได้0
-ต่อไป: ไม่ต้องดำเนินการเพิ่มในreuse scope
+Totals: 1 passed, 0 need fixing, 0 could not be checked
+Next: no further action needed within the reuse scope

@@ -1,29 +1,29 @@
 # Chip — Figma specification
 
-อ่านจาก Figma วันที่ 26 พฤศจิกายน 2026: [Chip](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt?node-id=4459-62744) (ไฟล์ Cariva Core Design System) สีทุกจุดในชุดผูกกับตัวแปรในไฟล์ (392 จุด ไม่มี library เก่า ไม่มีสีดิบ)
+Read from Figma on 26 November 2026: [Chip](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt?node-id=4459-62744) (Cariva Core Design System file); every colour in the set is bound to a variable in the file (392 places, no old library, no raw colours)
 
-## ชุดใน Figma (เปลี่ยนชื่อแล้ว ชื่อเดิมสำรองใน plugin data `oldName_2026-11-26` / `oldNames_2026-11-26`)
+## Sets in Figma (renamed; the original names are backed up in plugin data `oldName_2026-11-26` / `oldNames_2026-11-26`)
 
-| ชื่อใหม่ | ชื่อเดิม | instance (ก่อน → หลัง) |
+| New name | Original name | instances (before → after) |
 |---|---|---|
 | `chip` | `crv-chip-action` | 8 → 8 |
 
-ค่า `size` เปลี่ยน medium → `default`, small → `sm`; ส่วน `variant` (filled / outlined / surface), `color` (default / primary), `state` ไม่เปลี่ยน
+The `size` values changed medium → `default`, small → `sm`; `variant` (filled / outlined / surface), `color` (default / primary) and `state` are unchanged
 
-## สเปก
+## Spec
 
-- แคปซูล (มุมโค้ง 9999) padding 4; `default` สูง 32 ตัวอักษร 14/20 Medium; `sm` สูง 24 ตัวอักษร 12/16 Medium; ตัวอักษรมี padding ซ้ายขวา 4
-- thumbnail (avatar) 24 (sm 20); ปุ่มลบ 24 (sm 16) ซ่อนเป็นค่าเริ่มต้น
-- filled default: พื้น `on-surface/subtle` · filled primary: พื้น `brand/primary/on-surface/default` ตัวอักษร `brand/primary/content/on-fill` ไอคอน `content/on-brand`
-- outlined: ขอบ 1px `border/default` (primary: `brand/primary/border/default` ตัวอักษร `brand/primary/content/default`)
-- surface: พื้น `on-surface/default` ไม่มีขอบ (primary: ตัวอักษร `brand/primary/content/default`)
-- hover / pressed: พื้น `on-surface/action/hover` / `…/pressed` (filled primary ใช้ `brand/primary/on-surface/hover` / `pressed`; outlined และ surface primary ใช้ `brand/primary/on-surface/subtle`); pressed มีเงา drop shadow รัศมี 2
-- disabled: พื้น `on-surface/action/disabled` (outlined ไม่มีพื้น) ตัวอักษรและไอคอน `content/disabled`
-- ไอคอนลบ: `content/secondary` (primary: `brand/primary/content/default`, filled primary: `content/on-brand`)
+- Capsule (corner radius 9999) padding 4; `default` height 32 text 14/20 Medium; `sm` height 24 text 12/16 Medium; the text has 4 left and right padding
+- thumbnail (avatar) 24 (sm 20); delete button 24 (sm 16), hidden by default
+- filled default: fill `on-surface/subtle` · filled primary: fill `brand/primary/on-surface/default`, text `brand/primary/content/on-fill`, icon `content/on-brand`
+- outlined: 1px border `border/default` (primary: `brand/primary/border/default`, text `brand/primary/content/default`)
+- surface: fill `on-surface/default`, no border (primary: text `brand/primary/content/default`)
+- hover / pressed: fill `on-surface/action/hover` / `…/pressed` (filled primary uses `brand/primary/on-surface/hover` / `pressed`; outlined and surface primary use `brand/primary/on-surface/subtle`); pressed has a drop shadow with radius 2
+- disabled: fill `on-surface/action/disabled` (outlined has no fill), text and icon `content/disabled`
+- delete icon: `content/secondary` (primary: `brand/primary/content/default`, filled primary: `content/on-brand`)
 
-## ชื่อ Figma ↔ โค้ด
+## Figma names ↔ Code
 
-| Figma | โค้ด |
+| Figma | Code |
 |---|---|
 | `chip` | `Chip` (`ui/chip.tsx`) |
 | `size` default / sm | `size` |
@@ -31,21 +31,21 @@
 | `state` disabled | `disabled` |
 | `state` hover / pressed | CSS (`hover:`, `active:`) |
 | `thumbnailVisible` | prop `thumbnail` |
-| `deleteVisible` | prop `onDelete` (มีปุ่มลบเมื่อส่งฟังก์ชัน) |
+| `deleteVisible` | prop `onDelete` (a delete button appears when a function is passed) |
 | `label` | children |
 
-## โค้ด (26 พ.ย. 2026)
+## Code (26 Nov 2026)
 
-DS เดิมไม่มี Chip (Badge เป็นป้ายแสดงผล ไม่กดได้) จึงสร้างใหม่ใน Core เป็นช่องว่างของ DS ที่รายงานแล้ว ไม่ได้ใช้ `npx shadcn add`
+The existing DS had no Chip (Badge is a display-only label that cannot be pressed), so it was created new in Core as a DS gap that has been reported; `npx shadcn add` was not used
 
-| เรื่อง | สถานะ |
+| Topic | Status |
 |---|---|
-| ความสูง 32 / 24, กว้าง 45 / 41 (ข้อความ "Chip"), มุมโค้งแคปซูล | ตรง (วัดใน story) |
-| สีพื้น filled default / primary / disabled, ขอบ outlined primary | ตรง (วัดใน story) |
-| ปุ่มลบ 24×24 | ตรง (วัดใน story) |
-| สี hover / pressed, สีไอคอน, thumbnail 24/20, ปุ่มลบ sm 16 | ตั้งตาม Figma **ยังไม่ได้วัด** |
-| ไอคอนลบ | ใช้รูป Material "cancel" เส้นเดียวกับ Figma (ไม่ได้คัดลอก path จาก Figma) |
+| Height 32 / 24, width 45 / 41 (text "Chip"), capsule corner radius | matches (measured in story) |
+| Fill for filled default / primary / disabled, outlined primary border | matches (measured in story) |
+| Delete button 24×24 | matches (measured in story) |
+| hover / pressed colours, icon colour, thumbnail 24/20, sm delete button 16 | set per Figma, **not measured** |
+| Delete icon | uses the Material "cancel" shape, the same stroke as Figma (the path was not copied from Figma) |
 
-**ตัดสินใจร่วมกับผู้ใช้:** ตอน pressed ใช้เงา `shadow/sm` จาก token `--cds-shadow-sm` (เพิ่ม 26 พ.ย. 2026 ยังไม่ได้วัดตอนกดจริง); disabled ไม่มีเงา; `surface` พื้นขาวไม่มีขอบตาม Figma (ผู้ใช้ยังไม่ได้ยืนยันว่าตั้งใจ)
+**Decided together with the user:** when pressed, use the `shadow/sm` shadow from token `--cds-shadow-sm` (added 26 Nov 2026, not yet measured while really pressed); disabled has no shadow; `surface` is a white fill with no border per Figma (the user has not yet confirmed that this is intentional)
 
-**เพิ่มเอง:** วงแหวนโฟกัสคีย์บอร์ด 2px `border/system` (Figma ไม่มีสถานะโฟกัส)
+**Added by Claude:** a 2px keyboard focus ring `border/system` (Figma has no focus state)

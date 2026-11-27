@@ -1,67 +1,67 @@
-# Flow setup Product
+# Product Setup Flow
 
-ใช้ร่วมกันสำหรับ Codex และ Claude อัปเดต 25 พฤศจิกายน 2026 เป้าหมายคือรับข้อมูลตั้งต้นเพียง 4 ช่อง แล้วบันทึกแยก Product เพื่อใช้ต่อ ไม่บังคับกรอก requirement/theme/business rules ในขั้น setup
+Shared by Codex and Claude. Updated 25 November 2026. The goal is to collect only 4 starting fields and save them separately per Product for reuse; requirement/theme/business rules are not required at the setup step.
 
-## ข้อมูลที่ขอจาก Designer
+## Information requested from the Designer
 
 ```yaml
-ชื่อ Product:
-Figma DS กลาง URL:
-Figma DS Product URL: # ใช้ของกลางอย่างเดียว / ยังไม่มี / URL
-Figma ไฟล์ออกแบบหน้าจอ URL: # ยังไม่มี / URL
+Product name:
+Central Figma DS URL:
+Product Figma DS URL: # Central only / Not yet created / URL
+Screen-design Figma file URL: # Not yet created / URL
 ```
 
-“ใช้ของกลางอย่างเดียว” เป็นคำตอบที่ยืนยันแล้ว ไม่ใช่ช่องว่าง “ยังไม่มี” เป็นสถานะที่ทราบแล้ว ไม่ต้องถามซ้ำทุกงาน และไม่ใช่คำสั่งให้สร้างไฟล์ใหม่
+“Central only” (Thai: “ใช้ของกลางอย่างเดียว”) is a confirmed answer, not a blank. “Not yet created” (Thai: “ยังไม่มี”) is a known status: do not ask again on every task, and it is not an instruction to create a new file.
 
-## ที่เก็บข้อมูล
+## Where records are stored
 
-- เก็บแต่ละ Product ที่ `docs/products/<product-id>/PRODUCT.md` ใช้ ID แบบ kebab-case ที่ไม่ชนกับของเดิม รักษาชื่อแสดงผลตามผู้ใช้ ไม่เปลี่ยน ID เดิมเพียงเพราะ rename ชื่อแสดงผล
-- ค้นรายการที่ `docs/products/README.md` และไฟล์ Product เดิมก่อนสร้าง หากพบชื่อคล้ายหรือ URL เดียวกัน ให้ตรวจว่าเป็น Product เดิม/ชื่อใหม่หรือไม่ ไม่สร้างรายการซ้ำหรือรวม Product ที่ใช้ DS กลางเดียวกันเอง
-- README เป็นสารบัญลิงก์ไปไฟล์ Product ไม่คัดลอก URL ทั้งชุดอีกครั้ง และไม่เก็บ active Product ของทุกคนไว้ในไฟล์กลางที่เขียนทับกัน
-- หากยังไม่มี Product จริง ให้เก็บเพียง template/สารบัญ ไม่สร้าง Product A/B จำลองเป็นข้อมูลที่ยืนยันแล้ว
+- Store each Product at `docs/products/<product-id>/PRODUCT.md`. Use a kebab-case ID that does not collide with existing ones. Keep the display name as the user gave it; do not change an existing ID just because the display name is renamed.
+- Search the list in `docs/products/README.md` and the existing Product files before creating one. If a similar name or the same URL is found, check whether it is the existing Product or a new name; do not create a duplicate entry, and do not merge Products that share the same central DS on your own.
+- The README is an index linking to the Product files. It does not copy the full set of URLs again, and it does not hold every person's active Product in a central file that people overwrite each other in.
+- If there is no real Product yet, keep only the template/index. Do not create fictional Product A/B as confirmed data.
 
-## ขั้นตอนที่ AI ต้องทำ
+## Steps the AI must take
 
-1. อ่านกฎกลางและดู Product ที่เลือกในงาน/แชต ถ้ารู้ Product แล้ว ให้เปิดไฟล์บันทึกของตัวนั้นก่อนถามข้อมูลใด ๆ
-2. ถ้ามีข้อมูลครบ 4 ช่อง ใช้ต่อทันที ไม่ขอให้กรอกแบบฟอร์มใหม่ ถ้าขาด ให้ถามเฉพาะช่องที่ขาด รวมเป็นคำถามเดียวเท่าที่เหมาะสม
-3. ถ้ายังไม่ได้เลือก Product และมีหลายตัวที่เป็นไปได้ ให้ถามเลือก Product ครั้งเดียว ไม่ใช้ Product ล่าสุดของอีกแชต/อีกคนเป็นคำตอบอัตโนมัติ
-4. ตรวจรูปแบบและปลายทาง Figma ของ URL ที่ให้จริง แยก DS กลาง, DS Product และไฟล์หน้าจอ ไม่เดา file key/node-id และไม่เปลี่ยน query/node ที่ผู้ใช้ระบุโดยไม่มีเหตุผล
-5. ตรวจสิทธิ์/เข้าถึงด้วยเครื่องมือที่มี โดยไม่เขียน Figma ไม่สร้างไฟล์ ไม่ publish library และไม่เริ่ม sync จากการ setup อย่างเดียว ถ้าเข้าไม่ได้ให้บันทึก “ยังตรวจไม่ได้” พร้อมเหตุผล ไม่อ้างว่าลิงก์ผิดแน่นอนหรือขอ URL เดิมซ้ำโดยไม่อธิบายปัญหา
-6. บันทึกคำตอบทั้ง 4 ช่องในไฟล์ Product และสถานะตรวจแยกต่างหาก การมี URL ไม่พิสูจน์ว่ามี library linkage หรือ mapping ไปโค้ดแล้ว
-7. เพิ่มลิงก์ในสารบัญ ส่งสรุปสั้น ๆ ว่า Product ใด บันทึกที่ไหน และมีอะไรตรวจไม่ได้ ไม่ขยายเป็น requirement interview หรือ implementation
-8. งานถัดไปอ่านข้อมูลเดิมก่อน ใช้ “ใช้ของกลางอย่างเดียว/ยังไม่มี” ตามที่บันทึก ไม่ถามให้เลือกซ้ำ ถ้างานจำเป็นต้องเขียนปลายทางที่ยังไม่มี ให้ถามเฉพาะการตัดสินใจ/URL ที่จำเป็นในงานนั้น
-9. เมื่อผู้ใช้เปลี่ยน URL หรือสถานะ ให้อัปเดตไฟล์ Product ตัวเดิม ระบุวันที่และความเปลี่ยนแปลงสั้น ๆ ไม่แก้ Product อื่นหรือเปลี่ยน shared DS URL ให้ทุก Product เอง
+1. Read the central rules and check which Product is selected in the task/chat. If the Product is known, open that Product's record before asking for any information.
+2. If all 4 fields are present, use them immediately and do not ask for the form to be filled in again. If some are missing, ask only for the missing fields, combined into a single question where reasonable.
+3. If no Product has been selected and several are possible, ask once which Product to use. Do not automatically use the latest Product from another chat/another person as the answer.
+4. Check the format and the Figma destination of each URL actually given. Keep the central DS, the Product DS and the screen file separate. Do not guess the file key/node-id, and do not change a query/node the user specified without a reason.
+5. Check permissions/access with the available tools, without writing to Figma, creating files, publishing a library or starting a sync from setup alone. If access is not possible, record “Not yet checked” with the reason. Do not claim the link is definitely wrong or ask for the same URL again without explaining the problem.
+6. Record the answers for all 4 fields in the Product file, and the check status separately. Having a URL does not prove that library linkage or a mapping to code exists.
+7. Add a link in the index. Send a short summary of which Product it is, where it is recorded, and what could not be checked. Do not expand it into a requirement interview or implementation.
+8. The next task reads the existing record first and uses “Central only/Not yet created” as recorded, without asking for the choice again. If the task needs to write to a destination that does not exist yet, ask only for the decision/URL that task needs.
+9. When the user changes a URL or status, update the existing Product file, noting the date and a short description of the change. Do not edit other Products or change the shared DS URL for every Product on your own.
 
-## รูปแบบไฟล์ Product
+## Product file format
 
 ```markdown
-# [ชื่อ Product]
+# [Product name]
 
-## ข้อมูล setup ที่ผู้ใช้ยืนยัน
+## Setup information confirmed by the user
 
-ชื่อ Product: [ชื่อ]
-Figma DS กลาง URL: [URL]
-Figma DS Product URL: [ใช้ของกลางอย่างเดียว / ยังไม่มี / URL]
-Figma ไฟล์ออกแบบหน้าจอ URL: [ยังไม่มี / URL]
+Product name: [name]
+Central Figma DS URL: [URL]
+Product Figma DS URL: [Central only / Not yet created / URL]
+Screen-design Figma file URL: [Not yet created / URL]
 
-## สถานะตรวจโดย AI
+## Status checked by AI
 
-- Product ID: [ID ที่ไม่ชนกับของเดิม]
-- อัปเดตข้อมูล: [วันที่จริง]
-- DS กลาง: [เข้าถึงได้ / ยังตรวจไม่ได้ พร้อมเหตุผลและวันที่ตรวจ]
-- DS Product: [เข้าถึงได้ / ใช้ของกลางอย่างเดียว / ยังไม่มี / ยังตรวจไม่ได้]
-- ไฟล์หน้าจอ: [เข้าถึงได้ / ยังไม่มี / ยังตรวจไม่ได้]
-- ข้อจำกัด: [library linkage / mapping ยังไม่ตรวจ หรือข้อจำกัดที่พบ]
+- Product ID: [ID that does not collide with existing ones]
+- Information updated: [actual date]
+- Central DS: [Accessible / Not yet checked, with the reason and the date checked]
+- Product DS: [Accessible / Central only / Not yet created / Not yet checked]
+- Screen file: [Accessible / Not yet created / Not yet checked]
+- Limitations: [library linkage / mapping not yet checked, or limitations found]
 
-## การเปลี่ยนข้อมูล setup
+## Setup information changes
 
-- [วันที่]: [บันทึกครั้งแรก หรือช่องที่ผู้ใช้เปลี่ยน]
+- [date]: [first record, or the field the user changed]
 ```
 
-สถานะตรวจเป็น metadata ที่ AI บันทึก ไม่ใช่ช่องกรอกเพิ่มเติมของ Designer ห้ามใส่ credentials/tokens ลงไฟล์นี้ การเลือก Product ในแชตไม่เท่ากับการล็อกไฟล์ให้ AI ตัวเดียว หากแก้พร้อมกันต้องตรวจไฟล์ล่าสุดและรักษางานผู้อื่น
+The check status is metadata that the AI records; it is not an extra field for the Designer to fill in. Do not put credentials/tokens in this file. Selecting a Product in chat does not lock the file to a single AI; if edits happen at the same time, check the latest file and preserve other people's work.
 
-## ขอบเขตกับงานออกแบบ
+## Scope relative to design work
 
-Requirement, ผู้ใช้, flow, mock data และ theme คุยตอนเริ่มงานออกแบบตาม UI workflow ไม่ถามทั้งหมดใน setup นี้ หากยังไม่รู้ตำแหน่งสร้าง component เฉพาะ page/frame/section ให้ใช้ flow เลือก Core/Product และขอ URL ตอนต้องสร้างจริง โดย reuse ปลายทางที่ยืนยันแล้วได้
+Requirements, users, flows, mock data and theme are discussed when design work starts, per the UI workflow; they are not all asked about in this setup. If the location for creating a component, or a specific page/frame/section, is not known yet, use the Core/Product selection flow and ask for the URL when it actually needs to be created, reusing a confirmed destination where possible.
 
-การบันทึกช่วยให้ AI ตัวถัดไปอ่านข้อมูลจาก workspace เดียวกันได้ ไม่ใช่ความจำข้ามเครื่องอัตโนมัติ เมื่อนำโปรเจกต์ไปเครื่องอื่นต้องมีไฟล์ Product เหล่านี้และสิทธิ์ Figma ที่ใช้งานได้ด้วย
+Recording lets the next AI read the information from the same workspace; it is not automatic memory across machines. When the project is moved to another machine, these Product files and working Figma permissions must be there as well.

@@ -1,47 +1,47 @@
 # Sortable — Figma specification
 
-อ่านจาก Figma วันที่ 26 พฤศจิกายน 2026: [Sortable](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt?node-id=7204-63931) (ไฟล์ Cariva Core Design System) ผู้ใช้ยืนยันชื่อและการเพิ่ม `@dnd-kit` กรอบเอกสาร `Documentation Card` (node `7223:102514`) สร้างในหน้านี้แล้ว
+Read from Figma on 26 November 2026: [Sortable](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt?node-id=7204-63931) (Cariva Core Design System file). The user confirmed the names and the addition of `@dnd-kit`. The `Documentation Card` doc frame (node `7223:102514`) was created on this page.
 
-## ชุดใน Figma (เปลี่ยนชื่อแล้ว ชื่อเดิมสำรองใน plugin data `oldName_2026-11-26`)
+## Sets in Figma (renamed; original names backed up in plugin data `oldName_2026-11-26`)
 
-| ชื่อใหม่ | ชื่อเดิม | prop |
+| New name | Original name | prop |
 |---|---|---|
 | `sortable-handle` | `crv-sortable-handle` | `state` default / focus / disabled |
 | `sortable-item` | `crv-sortable-item` | `layout` list / grid, `state` default / hover / focus / dragging / placeholder / disabled, `title`, `description`, `showDescription` |
 | `sortable` | `crv-sortable` | `layout` list / grid, `dragging` false / true |
 
-ชื่อ prop และค่าเดิมตรงกับที่ใช้ในโค้ดอยู่แล้วจึงไม่ได้เปลี่ยน instance ไม่ได้นับก่อนเปลี่ยนชื่อ (สคริปต์นับหมดเวลา) แต่การเปลี่ยนชื่อชุดไม่ตัดการเชื่อม
+The original prop names and values already match those used in code, so they were not changed. Instances were not counted before the rename (the counting script timed out), but renaming the sets does not break the connection
 
-## สเปก
+## Spec
 
-- ที่จับ: 32×32 มุม 8 ไอคอน `DragIndicatorRounded` 20 · default / focus `content/secondary` · focus ขอบ 1px `border/system` · disabled `content/disabled`
-- การ์ด list: 400×80 padding 16 ช่องว่าง 8 มุม 12 ขอบ 1px `border/default` พื้น `on-surface/elevated` · หัวข้อ 14/20 Medium `content/primary` คำอธิบาย 14/20 `content/secondary` ช่องว่าง 4
-- การ์ด grid: 200×144 เรียงแนวตั้ง ช่องว่าง 8
-- hover พื้น `on-surface/subtle` · focus และ dragging ขอบ `border/system` · placeholder ขอบประ 4,4 พื้น `on-surface/subtle` เนื้อหาซ่อน · disabled ข้อความ `content/disabled`
-- `sortable`: ช่องว่าง 16 ตอน `dragging=true` รายการที่ลากกลายเป็น placeholder และมีสำเนาลอย (`Drag overlay`) ขอบ `border/system`
+- Handle: 32×32, corner radius 8, icon `DragIndicatorRounded` 20 · default / focus `content/secondary` · focus border 1px `border/system` · disabled `content/disabled`
+- list card: 400×80, padding 16, gap 8, corner radius 12, border 1px `border/default`, fill `on-surface/elevated` · title 14/20 Medium `content/primary`, description 14/20 `content/secondary`, gap 4
+- grid card: 200×144, laid out vertically, gap 8
+- hover fill `on-surface/subtle` · focus and dragging border `border/system` · placeholder dashed border 4,4, fill `on-surface/subtle`, content hidden · disabled text `content/disabled`
+- `sortable`: gap 16; with `dragging=true` the dragged item becomes a placeholder and a floating copy (`Drag overlay`) with a `border/system` border appears
 
-## ชื่อ Figma ↔ โค้ด
+## Figma name ↔ Code
 
-| Figma | โค้ด |
+| Figma | Code |
 |---|---|
 | `sortable` | `Sortable` (`ui/sortable.tsx`; props `items`, `onItemsChange`, `layout`, `renderOverlay`) |
-| `sortable-item` | `SortableItem` (`id`, `title`, `description`, `disabled`) และ `SortableItemView` (สำหรับสำเนาลอย) |
+| `sortable-item` | `SortableItem` (`id`, `title`, `description`, `disabled`) and `SortableItemView` (for the floating copy) |
 | `sortable-handle` | `SortableHandle` |
-| `layout` | prop `layout` ของ `Sortable` |
-| `state` hover / focus / placeholder | CSS และสถานะของ dnd-kit · `dragging` = `SortableItemView state="dragging"` ใน `renderOverlay` · `disabled` = prop |
-| `showDescription`, `dragging` ของชุด `sortable` | เฉพาะ Figma (ไม่ส่ง `description` = ไม่แสดง) |
+| `layout` | prop `layout` of `Sortable` |
+| `state` hover / focus / placeholder | CSS and dnd-kit states · `dragging` = `SortableItemView state="dragging"` in `renderOverlay` · `disabled` = prop |
+| `showDescription`, `dragging` of the `sortable` set | Figma only (omitting `description` = not shown) |
 
-## โค้ด (26 พ.ย. 2026)
+## Code (26 Nov 2026)
 
-เพิ่ม dependency `@dnd-kit/core`, `@dnd-kit/sortable`, `@dnd-kit/utilities` ตามที่ผู้ใช้ยืนยัน ลากได้เฉพาะที่จับ รองรับเมาส์ (ลากเกิน 4px) และคีย์บอร์ด (Space, ลูกศร, Space) ไอคอนที่จับคัดลอก path จาก Figma ไว้ใน `app/icons.tsx` (`DragIndicatorRounded`)
+Added the dependencies `@dnd-kit/core`, `@dnd-kit/sortable`, `@dnd-kit/utilities` as the user confirmed. Dragging works only from the handle; supports mouse (drag beyond 4px) and keyboard (Space, arrow, Space). The handle icon path is copied from Figma into `app/icons.tsx` (`DragIndicatorRounded`)
 
-| เรื่อง | สถานะ |
+| Topic | Status |
 |---|---|
-| list 400×80, padding 16, ช่องว่าง 8, มุม 12 | ตรง (วัดใน story `List`) |
-| ที่จับ 32×32 มุม 8 | ตรง (วัดแล้ว) |
-| grid 200×144 | ตรง (วัดใน story `Grid`) |
-| เรียงใหม่ด้วยคีย์บอร์ด | ผ่าน (ทดสอบ `b,a,c`) |
-| disabled ปิดที่จับ | ผ่าน |
-| สี hover, focus, placeholder, ขอบประ | ตั้งตาม Figma **ยังไม่ได้วัด** |
+| list 400×80, padding 16, gap 8, corner radius 12 | matches (measured in story `List`) |
+| Handle 32×32, corner radius 8 | matches (measured) |
+| grid 200×144 | matches (measured in story `Grid`) |
+| Reorder with keyboard | passes (tested `b,a,c`) |
+| disabled turns off the handle | passes |
+| hover, focus, placeholder colors, dashed border | set per Figma, **Not measured** |
 
-**ยังไม่ได้ตรวจ:** การลากด้วยเมาส์จริงในเบราว์เซอร์, ข้อความประกาศสำหรับ screen reader (ใช้ค่าเริ่มต้นของ dnd-kit), ความสูง 80 / 144 ตั้งเป็นความสูงขั้นต่ำ (Figma ตั้งตายตัว) ถ้าข้อความยาวกว่าจะขยาย
+**Not yet checked:** real mouse dragging in the browser, screen reader announcement text (uses the dnd-kit defaults), and heights 80 / 144 are set as minimum heights (Figma sets them fixed), so they expand if the text is longer

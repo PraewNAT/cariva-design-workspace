@@ -1,52 +1,52 @@
 # Button Mic — Figma specification
 
-อ่านจาก Figma วันที่ 26 พฤศจิกายน 2026: ชุด `button-mic` (เดิม `crv-button-mic`, node `5862:33778`, หน้า Button ในไฟล์ Cariva Core Design System) ผู้ใช้ยืนยันชื่อและ API ตามที่ Claude เสนอ เอกสารการใช้งานอยู่ในกรอบ `Button Doc (Template)` ของหน้า Button (ส่วน mic: ใช้เลือกอุปกรณ์เสียงเท่านั้น ไม่ใช่ปุ่มอัด)
+Read from Figma on 26 November 2026: the `button-mic` set (previously `crv-button-mic`, node `5862:33778`, Button page in the Cariva Core Design System file). The user confirmed the name and API as proposed by Claude. The usage documentation is in the `Button Doc (Template)` frame of the Button page (mic section: used only for selecting an audio device, not a record button)
 
-## ชุดใน Figma (เปลี่ยนชื่อแล้ว ชื่อเดิมสำรองใน plugin data `oldName_2026-11-26` / `oldVariantNames_2026-11-26`)
+## Sets in Figma (renamed; original names backed up in plugin data `oldName_2026-11-26` / `oldVariantNames_2026-11-26`)
 
-| ชื่อใหม่ | ชื่อเดิม | prop ที่เปลี่ยน | instance ก่อน → หลัง |
+| New name | Previous name | Changed prop | instances before → after |
 |---|---|---|---|
 | `button-mic` | `crv-button-mic` | `status` active / `deactive` → active / `inactive` | 1 → 1 |
 
-prop อื่นคงเดิม: `variant` wave / dot, `state` default / hover / pressed
+Other props unchanged: `variant` wave / dot, `state` default / hover / pressed
 
-## สเปก (อ่านจากตัวแปรใน Figma)
+## Spec (read from variables in Figma)
 
-- กว้าง 200 สูง 32 มุม 12 padding 8 gap 4 พื้นโปร่งใส ข้อความ 12/16 Medium `content/secondary`
-- ลำดับ: ตัวบอกสถานะ → ไอคอนไมค์ 16 → ชื่ออุปกรณ์ (ตัดด้วย …) → ลูกศรลง 16
-- `variant=wave`: คลื่นเสียง 28×16 แท่ง 5 อัน กว้าง 4 gap 2 มุมกลม · active สูง 8 / 12 / 16 / 12 / 8 สี `status/active/on-surface/default` · inactive สูง 8 ทุกแท่ง สี `status/error/on-surface/default`
-- `variant=dot`: กล่อง 16×16 มีจุดกลม 8 · active สีเขียว inactive สีแดง (ตัวแปรเดียวกับ wave)
-- hover: พื้น `on-surface/action/hover` · pressed: พื้น `on-surface/action/pressed`
+- Width 200, height 32, corner radius 12, padding 8, gap 4, transparent fill, text 12/16 Medium `content/secondary`
+- Order: status indicator → 16 mic icon → device name (truncated with …) → 16 down arrow
+- `variant=wave`: 28×16 sound wave, 5 bars, each 4 wide, gap 2, rounded corners · active heights 8 / 12 / 16 / 12 / 8 in `status/active/on-surface/default` · inactive all bars 8 tall in `status/error/on-surface/default`
+- `variant=dot`: 16×16 box with an 8 round dot · active green, inactive red (same variables as wave)
+- hover: fill `on-surface/action/hover` · pressed: fill `on-surface/action/pressed`
 
-## ชื่อ Figma ↔ โค้ด
+## Figma names ↔ code
 
-| Figma | โค้ด |
+| Figma | Code |
 |---|---|
-| `button-mic` | `ButtonMic` (`app/button-mic.tsx`) เป็น `<button>` |
+| `button-mic` | `ButtonMic` (`app/button-mic.tsx`) is a `<button>` |
 | `variant` | `variant`: `wave` / `dot` |
 | `status` | `status`: `active` / `inactive` |
-| ชื่ออุปกรณ์ | `label` |
+| device name | `label` |
 | `state=hover / pressed` | CSS (`hover:` / `active:`) |
-| ไอคอนไมค์ | `MicNoneRounded` (คัดลอกจาก Figma ไว้ใน `app/icons.tsx`) |
+| mic icon | `MicNoneRounded` (copied from Figma into `app/icons.tsx`) |
 
-## โค้ด (26 พ.ย. 2026)
+## Code (26 Nov 2026)
 
-| เรื่อง | สถานะ |
+| Topic | Status |
 |---|---|
-| กว้าง 200 สูง 32 มุม 12 padding 8 gap 4, ข้อความ 12/16 Medium `#334155` | ตรง (วัดใน story `FigmaSpecs`) |
-| wave: กรอบ 28×16, แท่งกว้าง 4 สูง 8/12/16/12/8 (active) และ 8 ทั้งหมด (inactive), สีเขียว `#4ADE80` / แดง `#DC2626` | ตรง (วัดแล้ว) |
-| dot: กรอบ 16×16 จุด 8 สีตามสถานะ | ตรง (วัดแล้ว) |
-| hover `#F1F5F9` | ตรง (วัดในเบราว์เซอร์ด้วยเมาส์จริง) |
-| ภาพรวมเทียบ Figma (4 แบบ) | ตรวจด้วยสายตา (ตรง) |
-| focus ด้วยคีย์บอร์ด | ตรวจใน story `Default` |
+| Width 200, height 32, corner radius 12, padding 8, gap 4, text 12/16 Medium `#334155` | Matches (measured in the `FigmaSpecs` story) |
+| wave: 28×16 frame, bars 4 wide with heights 8/12/16/12/8 (active) and all 8 (inactive), green `#4ADE80` / red `#DC2626` | Matches (measured) |
+| dot: 16×16 frame, 8 dot, color per status | Matches (measured) |
+| hover `#F1F5F9` | Matches (measured in the browser with a real mouse) |
+| Overall comparison with Figma (4 kinds) | Checked visually (matches) |
+| keyboard focus | Checked in the `Default` story |
 
-**ตัดสินใจโดย Claude / ผู้ใช้ยืนยัน:** `deactive` เปลี่ยนเป็น `inactive` · คลื่นเสียงเป็นภาพนิ่งตาม Figma ไม่มีแอนิเมชันและไม่อ่านระดับเสียงจริง ผู้เรียกส่ง `status` และ `label` เอง ไม่มีโค้ดเลือกอุปกรณ์หรืออัดเสียง
+**Decided by Claude / user confirmed:** `deactive` renamed to `inactive` · the sound wave is a static image per Figma, with no animation and no reading of real audio levels; the caller passes `status` and `label` itself; there is no code for choosing a device or recording audio
 
-**ผลกระทบ:** เป็น component ใหม่ ไม่กระทบโค้ดเดิม · instance 1 ตัวใน Figma ยังอยู่
+**Impact:** a new component, no effect on existing code · the 1 instance in Figma is still there
 
-**ยังไม่ได้วัด:** สี pressed `#E2E8F0` (ตั้งตาม token), การแสดงเมื่อชื่ออุปกรณ์ยาวมากนอกจากตัดด้วย …, ปุ่มไม่มีเมนูของตัวเอง (เปิดรายการอุปกรณ์เป็นหน้าที่ผู้เรียก)
+**Not yet measured:** pressed color `#E2E8F0` (set from the token), the display when the device name is very long beyond truncation with …, the button has no menu of its own (opening the device list is the caller's job)
 
-## Requested code motion — 27 พฤศจิกายน 2026
+## Requested code motion — 27 November 2026
 
 Supersedes the earlier static-wave decision: active wave bars now scale vertically in staggered 1.6–2s cycles. Layout heights/widths remain 8/12/16/12/8 and 4px; only their visual transform changes. Inactive, disabled, aria-disabled and prefers-reduced-motion stay static. Dot remains static. This remains a device picker; animation is illustrative status feedback, not live audio levels, capture or a recording indicator. All consumers of ButtonMic receive this behavior, including HosXP. API and Figma remain unchanged; Storybook MotionStates covers active/inactive/disabled/dot.
 

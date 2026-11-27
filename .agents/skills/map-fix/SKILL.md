@@ -1,64 +1,64 @@
 ---
 name: map-fix
-description: Map Figma component เข้ากับ Cariva DS และแก้ให้ตรง — ใช้ได้ทั้งตอนเริ่มต้นและหลัง audit ใช้เมื่อพูดว่า map, fix, แก้, แมป, map-fix
+description: Map a Figma component to Cariva DS and fix it to match — usable both at the start and after an audit. Use when the user says map, fix, แก้ (fix), แมป (map), map-fix
 ---
 
 # Map & Fix — Cariva Design System
 
-Use when the user says:
+Use when the user says (Thai trigger phrases are kept so Thai-speaking users can still invoke it):
 
 ```text
-map [ชื่อ] node-id=[id]
-fix [ชื่อ] node-id=[id]
-แก้ [ชื่อ] node-id=[id]
-แมป [ชื่อ] node-id=[id]
-map-fix [ชื่อ] node-id=[id]
+map [name] node-id=[id]
+fix [name] node-id=[id]
+fix [name] node-id=[id]  (Thai: "แก้ [ชื่อ] node-id=[id]")
+map [name] node-id=[id]  (Thai: "แมป [ชื่อ] node-id=[id]")
+map-fix [name] node-id=[id]
 ```
 
 ## Required Context
 
-ก่อน map ทุกครั้ง ให้อ่าน:
+Before every map, read:
 - `shadcn/DESIGN.md` — token names, typography scale
 - `shadcn/tokens.json` — hex values and token mapping
-- `shadcn/rules/components/{ชื่อ component}.md` ถ้ามี — source of truth ของ property และ variant
-- โค้ด component จริงที่ `shadcn/src/lib/app/components/ui/{code-name}.tsx` และ stories — props, variants, sizes ที่มีจริง
-- `shadcn/docs/components/FIGMA-NAMING.md` — ชื่อ component ใน Figma ↔ ชื่อ component ในโค้ด
+- `shadcn/rules/components/{component name}.md` if it exists — source of truth for properties and variants
+- The actual component code at `shadcn/src/lib/app/components/ui/{code-name}.tsx` and its stories — the props, variants and sizes that really exist
+- `shadcn/docs/components/FIGMA-NAMING.md` — component name in Figma ↔ component name in code
 
 ## Mapping Scope
 
-Map และแก้:
+Map and fix:
 
-- Color tokens — เปลี่ยน hardcode hex → semantic token
-- Typography styles — bind text style จาก DS
-- Spacing variables — bind spacing token
-- Radius variables/styles — bind radius token
-- Effect styles — bind shared effect style
+- Color tokens — change hardcoded hex → semantic token
+- Typography styles — bind the DS text style
+- Spacing variables — bind the spacing token
+- Radius variables/styles — bind the radius token
+- Effect styles — bind the shared effect style
 - Component base / shared component when available
 - States and variants to the existing Cariva pattern
-- **Component names** — ตรวจชื่อ component ว่าตรงกับตาราง `FIGMA-NAMING.md` ไหม ถ้าไม่ตรงให้เสนอชื่อและถามยืนยันก่อนแก้
-- **Property names และค่า** — ชื่อ property และค่าใน Figma ต้องเท่ากับ prop และค่าในโค้ด shadcn ของ component นั้น (เช่น Button: `variant` = `default | outline | secondary | ghost | destructive | link`, `size` = `default | sm | lg | icon…`) อ่านจากไฟล์ `.tsx` จริง ไม่ใช่จากความจำ ถ้าไม่ตรงให้เสนอชื่อที่ถูกและถามยืนยันก่อนแก้ ถ้าโค้ดมี prop ที่ Figma ไม่มี หรือกลับกัน ให้รายงานเป็นช่องว่าง ไม่เพิ่มหรือลบเอง
+- **Component names** — check whether the component name matches the `FIGMA-NAMING.md` table; if not, propose a name and ask for confirmation before editing
+- **Property names and values** — the property names and values in Figma must equal the props and values in the shadcn code of that component (e.g. Button: `variant` = `default | outline | secondary | ghost | destructive | link`, `size` = `default | sm | lg | icon…`). Read from the actual `.tsx` file, not from memory. If they do not match, propose the correct name and ask for confirmation before editing. If the code has a prop that Figma lacks, or vice versa, report it as a gap; do not add or remove it yourself
 
-## หมายเหตุ
+## Notes
 
-- ทำได้ทีละ frame เท่านั้น — ถ้าได้รับ section หรือ flow ทั้งหมด ให้ list frame ที่พบก่อน แล้วถามว่าจะเริ่ม frame ไหนก่อน
-- ถ้ามาต่อจาก audit — ใช้ข้อมูลที่ inspect ไปแล้วได้เลย ไม่ต้อง inspect ซ้ำ
+- Work on one frame at a time only — if you are given a whole section or flow, list the frames found first, then ask which frame to start with
+- If continuing from an audit — you can use the data already inspected; no need to inspect again
 
 ## Rules
 
 - Do not use tokens from an old design system.
 - Do not use local styles when a shared style exists.
-- Do not create new tokens or components by default — ถ้าของที่ต้องการยังไม่มีใน DS ให้แจ้ง user ก่อน
+- Do not create new tokens or components by default — if what is needed does not yet exist in the DS, tell the user first
 - Do not invent props or variants that the shadcn component in `shadcn/src/lib/app/components/ui/` does not have.
 - If a component base is missing, or a needed variant/state is incomplete, tell the user what should be created before creating it.
-- ถามยืนยันก่อนแก้ทุกครั้ง ห้ามแก้เองโดยไม่ถาม
+- Always ask for confirmation before editing; never edit on your own without asking
 - Preserve visual intention unless the DS mapping requires a correction.
 
 ## Output
 
-เมื่อรายงานผล ให้ระบุ:
+When reporting results, state:
 
-- สิ่งที่ map/แก้ไปแล้ว
-- Node ที่เกี่ยวข้อง
-- Component names และ property names ที่ตรงกับโค้ดแล้ว และที่ยังไม่ตรง (พร้อมเสนอชื่อที่ถูก)
-- สิ่งที่ขาด — component, variant, state, token, หรือ style ที่ยังไม่มีใน DS
-- คำถามก่อนสร้างสิ่งใหม่ใน DS
+- What was mapped/fixed
+- The related nodes
+- Component names and property names that already match the code, and those that do not yet (with the correct names proposed)
+- What is missing — components, variants, states, tokens, or styles not yet in the DS
+- Questions before creating anything new in the DS

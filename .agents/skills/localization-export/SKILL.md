@@ -1,159 +1,159 @@
 ---
 name: localization-export
-description: ดึงข้อความทั้งหมดจาก Figma screen/flow มาเช็คความพร้อมสำหรับแปลภาษา (i18n readiness) จัดหมวดหมู่ export/update เป็น Excel และแปลภาษาให้ด้วย AI (ต้องมีคนตรวจสอบก่อนใช้จริง) — ใช้เมื่อพูดว่า export ข้อความ, ดึงข้อความไป localization, ทำ localization sheet, อัปเดต localization, แปล localization
+description: Pull all text from a Figma screen/flow to check translation readiness (i18n readiness), categorize and export/update it as Excel, and translate with AI (a person must review before real use) — use when the user says export text ("export ข้อความ"), pull text to localization ("ดึงข้อความไป localization"), make a localization sheet ("ทำ localization sheet"), update localization ("อัปเดต localization"), translate localization ("แปล localization")
 ---
 
 # Localization Export
 
-ใช้เมื่อ user พูดว่า:
+Use when the user says (Thai trigger phrases are kept so Thai-speaking users can still invoke it):
 
 ```
-ดึงข้อความไป localization
-export ข้อความ [ชื่อ] node-id=[id]
-ทำ localization sheet
-อัปเดต localization [ชื่อ] node-id=[id]
-แปล localization ให้หน่อย
-แปลภาษาที่ยังไม่มีให้หน่อย
+Pull the text to localization  (Thai: "ดึงข้อความไป localization")
+export text [name] node-id=[id]  (Thai: "export ข้อความ [ชื่อ] node-id=[id]")
+Make a localization sheet  (Thai: "ทำ localization sheet")
+Update localization [name] node-id=[id]  (Thai: "อัปเดต localization [ชื่อ] node-id=[id]")
+Please translate the localization  (Thai: "แปล localization ให้หน่อย")
+Please translate the languages that are still missing  (Thai: "แปลภาษาที่ยังไม่มีให้หน่อย")
 ```
 
 ---
 
 ## Pre-flight
 
-1. **ถามชื่อ Product ก่อนเสมอ** — ทั้งตอน export ครั้งแรกและตอน update ทุกครั้ง (ไม่เดาว่ามีไฟล์เดียวจึงข้ามได้ — ถามให้ชัวร์เสมอว่าจะไปแก้ไฟล์ไหน)
-2. ไฟล์ output: `localization/localization-[product].xlsx`
-   - ถ้ายังไม่มีไฟล์นี้ → โหมด Export (สร้างใหม่)
-   - ถ้ามีไฟล์นี้อยู่แล้วและ user สั่ง export/update ปกติ → โหมด Update (ดูหัวข้อ "โหมด Update" ด้านล่าง)
-   - ถ้า user สั่ง "แปล" ตรงๆ → โหมด Translate (ดูหัวข้อ "โหมด Translate" ด้านล่าง) — ไม่ต้อง scan Figma ใหม่
-3. รับ node-id (frame/flow/page ที่ต้องการดึงข้อความ)
-4. เดินโครงสร้างหา TEXT layer ที่ **visible เท่านั้น** — ต้อง**เดินแบบไม่จำกัดความลึก (full-depth) ตั้งแต่รอบแรกเสมอ** ไม่ใช้ scan แบบจำกัด depth แล้วค่อยถามว่าจะ "ลึกขึ้นไหม" ทีหลัง เพื่อไม่ให้มีข้อความตกหล่นจาก node ที่ซ้อนลึก (เช่น dialog ที่ซ้อนอยู่ในหลายชั้น)
-5. กรอง mock data ออก — ข้อความที่เป็นค่าตัวอย่างที่ user กรอกในฟอร์ม (ไม่ใช่ static copy ของระบบ) ไม่เอาเข้า sheet ไหนเลย ถ้าไม่แน่ใจว่าเป็น mock data หรือ copy จริง ให้ถาม
-6. เช็ค **i18n Readiness** ระหว่างเดินโครงสร้างเดียวกัน (ดูหัวข้อด้านล่าง) — ผลเช็คนี้กระทบวิธีตั้ง key ในขั้นถัดไปโดยตรง จึงต้องทำก่อนจัดหมวดหมู่
+1. **Always ask for the Product name first** — both on the first export and on every update (do not guess that there is only one file and skip this — always ask to be sure which file will be edited)
+2. Output file: `localization/localization-[product].xlsx`
+   - If this file does not exist yet → Export mode (create new)
+   - If this file already exists and the user gives a normal export/update command → Update mode (see the "Update mode" section below)
+   - If the user directly says "translate" (Thai: "แปล") → Translate mode (see the "Translate mode" section below) — no need to re-scan Figma
+3. Receive the node-id (the frame/flow/page to pull text from)
+4. Walk the structure to find TEXT layers that are **visible only** — you must **always walk at full depth from the first pass**; do not use a depth-limited scan and then ask later whether to "go deeper", so that no text is missed from deeply nested nodes (e.g. a dialog nested several levels deep)
+5. Filter out mock data — text that is sample values the user typed into a form (not the system's static copy) is not put in any sheet. If unsure whether it is mock data or real copy, ask
+6. Check **i18n Readiness** during the same walk (see the section below) — the result of this check directly affects how keys are set in the next step, so it must be done before categorizing
 
 ---
 
-## i18n Readiness Check (ทำระหว่าง scan รอบเดียวกับตอนดึงข้อความ)
+## i18n Readiness Check (done during the same scan pass as pulling the text)
 
-ตรวจแต่ละ text layer ที่เจอ:
+Check each text layer found:
 
-1. **Text container ยืดได้ไหม** — ถ้า text อยู่ใน frame ที่ fix width/height (ไม่ใช่ auto-layout hug/fill) → flag ว่าเสี่ยงข้อความแปลแล้วล้น โดยเฉพาะจุดพื้นที่จำกัด (ปุ่ม, tab, badge, chip)
-2. **ข้อความปนตัวแปร/ข้อมูลจริง** — เช่น "Total : 100 Items" ต้องแยกส่วนที่เป็น static ("Total :", "Items") ออกจากส่วน dynamic ("100") ก่อนตั้ง key — **ห้ามเอาทั้งสตริงที่มีตัวเลข/ชื่อจริงปนมาเป็น key เดียว** เพราะแปลไม่ได้จริงและพังเวลาเปลี่ยนค่า
-3. **ความยาว TH vs EN ต่างกันมากในจุดพื้นที่จำกัด** — ถ้าเห็นว่าอีกภาษายาวกว่าอีกภาษาชัดเจน (ปุ่ม/tab/badge ที่แคบ) → flag ไว้เตือน
-4. **Format ตัวเลข/วันที่/สกุลเงิน hardcode** — ถ้าเจอ format ตายตัว (เช่น "31/12/2026") ในจุดที่ควรปรับตามภาษา → flag ไว้
+1. **Can the text container stretch?** — if the text is in a frame with fixed width/height (not auto-layout hug/fill) → flag that translated text risks overflowing, especially in limited-space spots (button, tab, badge, chip)
+2. **Text mixed with variables/real data** — e.g. "Total : 100 Items" must be split into the static parts ("Total :", "Items") and the dynamic part ("100") before setting keys — **never take a whole string mixed with numbers/real names as a single key**, because it cannot really be translated and breaks when the value changes
+3. **TH vs EN length differs a lot in limited-space spots** — if one language is clearly longer than the other (narrow button/tab/badge) → flag as a warning
+4. **Hardcoded number/date/currency format** — if a fixed format (e.g. "31/12/2026") is found where it should adapt to the language → flag it
 
-**Output ของ readiness check:** แสดงเป็นส่วนแยกต่างหากในรายงานก่อนตาราง Excel เช่น:
+**Output of the readiness check:** show it as a separate section in the report before the Excel table, for example:
 
 ```
 ## i18n Readiness
-🟡 "Total : 100 Items" (Table Footer) — ตัวเลขปนกับ static text ควรแยก key
-🟡 ปุ่ม "Login" (คงที่ 42px) — ถ้าแปลเป็นคำยาว เช่น "เข้าสู่ระบบ" ต้องเช็คว่า container ยืดได้ไหม
-✅ จุดอื่นไม่พบปัญหา
+🟡 "Total : 100 Items" (Table Footer) — number mixed with static text, the key should be split
+🟡 Button "Login" (fixed 42px) — if translated to a longer word such as "เข้าสู่ระบบ" (Thai for "Log in"), check whether the container can stretch
+✅ No problems found elsewhere
 ```
 
-- ไม่ต้องมี rule ตรวจ RTL (right-to-left) เพราะทีมนี้ใช้แค่ไทย/อังกฤษ
+- No RTL (right-to-left) check rule is needed because this team uses only Thai/English
 
 ---
 
 ## Sheet Structure
 
-### กลุ่ม Cross-cutting (ใช้ซ้ำได้ทุก feature)
+### Cross-cutting group (reusable across every feature)
 
-| Sheet | เก็บอะไร | Key format |
+| Sheet | What it holds | Key format |
 |---|---|---|
-| CTA | ปุ่ม/action ทั่วไป | `cta.[description]` |
-| Toast | ข้อความแจ้งเตือนเด้งแล้วหาย | `toast.[type].[description]` |
-| Form Validation | error ใต้ field ที่ใช้ซ้ำได้ทุกฟอร์ม | `validation.[description]` |
-| Empty State | ข้อความตอนไม่มีข้อมูล | `empty.[description]` |
-| Navigation | เมนู/sidebar/breadcrumb | `nav.[description]` |
-| Table/List Controls | คำที่ใช้ในตาราง/list ทุกหน้า | `table.[description]` |
+| CTA | General buttons/actions | `cta.[description]` |
+| Toast | Notification messages that pop up then disappear | `toast.[type].[description]` |
+| Form Validation | Errors under a field that are reusable across every form | `validation.[description]` |
+| Empty State | Messages shown when there is no data | `empty.[description]` |
+| Navigation | Menu/sidebar/breadcrumb | `nav.[description]` |
+| Table/List Controls | Words used in tables/lists on every page | `table.[description]` |
 
-### กลุ่ม Feature-specific
+### Feature-specific group
 
-| Sheet | เก็บอะไร | Key format |
+| Sheet | What it holds | Key format |
 |---|---|---|
-| [ชื่อ feature] | header, body, error เฉพาะของ feature นั้น | `[feature].[type].[description]` |
+| [feature name] | Header, body, errors specific to that feature | `[feature].[type].[description]` |
 
 ---
 
-## กฎการจัดกลุ่ม (เช็คตามลำดับ — เจอข้อไหนก่อนใช้ข้อนั้น ไม่ต้องเช็คต่อ)
+## Grouping rules (check in order — use the first one that matches; do not keep checking)
 
-1. เป็น component Toast/Snackbar/Notification (ลอยจาก layout หลัก, โผล่ชั่วคราว) → **Toast**
-2. เป็น label ของ Button/IconButton/Link ที่กดแล้วเกิด action → **CTA**
-3. อยู่ใต้ field เป็น helper/error text **และ**ข้อความเป็นกฎทั่วไปไม่ผูก business logic เฉพาะ → **Form Validation**
-   - ถ้า error มีเนื้อหาเฉพาะทางธุรกิจ (เช่น ระบุเงื่อนไข/ตัวเลข/ชื่อ feature) → ข้าม ไปข้อ 7 (Feature) แทน
-4. อยู่ใน component Table/DataGrid/Pagination/Toolbar → **Table/List Controls**
-5. อยู่ใน Sidebar/Navbar/Menu/Breadcrumb → **Navigation**
-6. เป็นข้อความ "ไม่มีข้อมูล" ของ list/table ว่าง → **Empty State**
-7. ไม่เข้าเงื่อนไขไหนเลย → **Feature sheet** ตามชื่อ page/frame ที่ข้อความนั้นอยู่
+1. It is a Toast/Snackbar/Notification component (floats above the main layout, appears temporarily) → **Toast**
+2. It is the label of a Button/IconButton/Link that triggers an action when pressed → **CTA**
+3. It is helper/error text under a field **and** the text is a general rule not tied to specific business logic → **Form Validation**
+   - If the error has business-specific content (e.g. states a condition/number/feature name) → skip to rule 7 (Feature) instead
+4. It is inside a Table/DataGrid/Pagination/Toolbar component → **Table/List Controls**
+5. It is inside a Sidebar/Navbar/Menu/Breadcrumb → **Navigation**
+6. It is the "no data" message of an empty list/table → **Empty State**
+7. It matches none of the conditions → **Feature sheet** named after the page/frame the text is in
 
-**กฎเสริม:**
-- เช็ค key ซ้ำก่อนเสมอไม่ว่าจะ sheet ไหน — ข้อความเดียวกันเป๊ะ ใช้ key เดิม ไม่สร้างซ้ำ
-- ถ้าเข้าได้มากกว่า 1 เงื่อนไขและไม่ชัดเจนว่าควรเลือกอันไหน → หยุดถาม user ไม่เดาเอง
-- Key ห้ามใช้เลขนับ (`_1 _2 _3`) — ต้องใช้ short-description ที่สื่อความหมายเฉพาะเสมอ
+**Additional rules:**
+- Always check for duplicate keys first, whichever sheet — exactly the same text uses the existing key; do not create a duplicate
+- If more than 1 condition applies and it is unclear which to choose → stop and ask the user; do not guess
+- Keys must not use counters (`_1 _2 _3`) — always use a short-description that conveys specific meaning
 
 ---
 
-## Output Columns (ทุก sheet ใช้โครงเดียวกัน)
+## Output Columns (every sheet uses the same structure)
 
 | Key | Type | TH | EN | Context | Status |
 |---|---|---|---|---|---|
-| `login.error.locked` | error | บัญชีถูกระงับชั่วคราว 5 นาที | Login has been temporarily disabled for 5 minutes | หน้า Login หลังกรอกผิด 3 ครั้ง | Confirmed |
+| `login.error.locked` | error | บัญชีถูกระงับชั่วคราว 5 นาที | Login has been temporarily disabled for 5 minutes | Login page after 3 wrong attempts | Confirmed |
 
-- **Context** = หน้า/สถานการณ์ที่ข้อความนี้โผล่ (ช่วยนักแปลไม่แปลผิดความหมาย)
-- **Status** = `Confirmed` (ข้อความมาจาก Figma จริง ทั้ง TH/EN) หรือ `AI Draft — Needs Review` (ยังไม่มีคนแปล/ตรวจสอบ)
-- ถ้าไฟล์ Figma มีแค่ภาษาเดียว → **เว้นอีกคอลัมน์ว่างไว้ก่อน** (ไม่แปลตอน export/update) ตั้ง Status เป็นว่าง/`Not Translated` — รอสั่ง "แปล localization ให้หน่อย" แยกทีหลัง (ดูโหมด Translate)
+- **Context** = the page/situation where this text appears (helps translators avoid mistranslating the meaning)
+- **Status** = `Confirmed` (text comes from real Figma, both TH/EN) or `AI Draft — Needs Review` (not yet translated/reviewed by a person)
+- If the Figma file has only one language → **leave the other column empty for now** (do not translate at export/update time), set Status to empty/`Not Translated` — wait for a separate later command "Please translate localization" (Thai: "แปล localization ให้หน่อย") (see Translate mode)
 
-**Dropdown (Data Validation) — ต้องใส่ทุกครั้งตอนสร้างไฟล์ใหม่ (โหมด Export) โดยไม่ต้องถาม:**
-- คอลัมน์ **Status** ทุก sheet ข้อมูล → dropdown list: `Not Translated`, `AI Draft — Needs Review`, `Confirmed`
-- คอลัมน์ **Severity** ใน sheet "i18n Readiness" → dropdown list: `Warning`, `Info`, `Pass`, `Resolved`
-- ตั้ง range ของ dropdown ให้ครอบคลุมเผื่อแถวที่จะเพิ่มทีหลังจากโหมด Update (ไม่ใช่แค่แถวที่มีข้อมูล ณ ตอน export)
+**Dropdown (Data Validation) — must be added every time a new file is created (Export mode), without asking:**
+- The **Status** column of every data sheet → dropdown list: `Not Translated`, `AI Draft — Needs Review`, `Confirmed`
+- The **Severity** column in the "i18n Readiness" sheet → dropdown list: `Warning`, `Info`, `Pass`, `Resolved`
+- Set the dropdown range wide enough to cover rows that will be added later from Update mode (not just the rows with data at export time)
 
-**Conditional Formatting — ต้องใส่ทุกครั้งตอนสร้างไฟล์ใหม่ (โหมด Export) โดยไม่ต้องถาม:**
-- ทุก sheet ข้อมูล: ถ้าคอลัมน์ **Type = "error"** → ตัวหนังสือทั้งแถวเป็นสีแดง (`#DC2626`) เพื่อให้ scan เห็นง่ายว่าแถวไหนเป็น error message
-- ใช้ conditional formatting (ไม่ตั้งสีตายตัว) เพื่อให้ครอบคลุมแถวใหม่ที่เพิ่มทีหลังจากโหมด Update ด้วย
-
----
-
-## โหมด Update (เมื่อพบไฟล์ `localization-[product].xlsx` เดิมอยู่แล้ว)
-
-1. ยืนยันชื่อ Product จาก Pre-flight แล้ว — ไม่ต้องถามซ้ำ
-2. Scan node ใหม่ตามปกติ แล้วเทียบกับ key ที่มีอยู่แล้วในไฟล์:
-   - **ข้อความเดิม ไม่เปลี่ยน** → ข้าม ไม่แตะ
-   - **Key เดิมแต่เนื้อหาเปลี่ยน** (แก้ copy) → อัปเดตเฉพาะคอลัมน์ TH/EN ของแถวนั้น ไม่ลบ key ทิ้ง (เผื่อ dev ยังอ้างอิง key เดิมในโค้ด)
-   - **ข้อความใหม่ที่ไม่เคยมี** → เพิ่มแถวใหม่ต่อท้าย sheet ที่เกี่ยวข้อง (ใช้กฎจัดกลุ่มด้านบน)
-   - **Key ที่มีในไฟล์แต่หาไม่เจอใน Figma แล้ว** → ไม่ลบทิ้งอัตโนมัติ ให้ mark ว่า "ไม่พบใน Figma แล้ว — ต้องการลบไหม?" แล้วถาม user ก่อนทุกครั้ง
-3. **เช็ค sheet "i18n Readiness" ทุกครั้งที่ update ด้วย** — ไม่ใช่แค่ sheet ข้อมูล:
-   - ถ้าปัญหาที่เคย flag ไว้ (เช่น typo, ข้อความปนตัวแปร) ไม่พบใน Figma อีกต่อไปแล้ว (แก้แล้ว) → mark แถวนั้นเป็น **Resolved** อัตโนมัติ พร้อมโน้ตว่าเดิมเป็นอะไร
-   - ถ้าเจอปัญหาใหม่จากข้อความที่เพิ่ม/แก้ → เพิ่มแถวใหม่ใน sheet นี้ตามปกติ
-4. รายงานสรุปท้าย: เพิ่มกี่แถว, แก้กี่แถว, พบ key ที่อาจไม่ใช้แล้วกี่แถว, resolve ปัญหา i18n ไปกี่ข้อ
+**Conditional Formatting — must be added every time a new file is created (Export mode), without asking:**
+- Every data sheet: if the **Type = "error"** column → the whole row's text is red (`#DC2626`) so it is easy to scan which rows are error messages
+- Use conditional formatting (not a fixed color) so it also covers new rows added later from Update mode
 
 ---
 
-## โหมด Translate (สั่งแยกทีหลัง เช่น "แปล localization ให้หน่อย")
+## Update mode (when an existing `localization-[product].xlsx` file is found)
 
-1. ถามชื่อ Product → เปิดไฟล์ `localization/localization-[product].xlsx` ที่มีอยู่แล้ว (ไม่มีไฟล์ → แจ้งว่ายังไม่เคย export ให้ export ก่อน)
-2. หาแถวที่คอลัมน์ TH หรือ EN ยังว่างอยู่ (Status = ว่าง/`Not Translated`)
-3. แปลให้ด้วย AI ตาม tone จาก `shadcn/DESIGN.md` — เติมลงคอลัมน์ที่ขาด
-4. เปลี่ยน Status ของแถวนั้นเป็น **`AI Draft — Needs Review`** เสมอ — **ห้ามตั้งเป็น `Confirmed`** เพราะยังไม่มีคนตรวจ
-5. รายงานสรุปท้าย: แปลไปกี่แถว พร้อมเตือนว่า "คำแปลชุดนี้มาจาก AI ต้องมีคนตรวจสอบก่อนส่งใช้งานจริง"
+1. The Product name was already confirmed in Pre-flight — do not ask again
+2. Scan the new node as usual, then compare with the keys already in the file:
+   - **Existing text, unchanged** → skip, do not touch
+   - **Same key but the content changed** (copy edited) → update only the TH/EN columns of that row; do not delete the key (in case dev still references the old key in code)
+   - **New text that never existed** → add a new row at the end of the relevant sheet (use the grouping rules above)
+   - **A key that is in the file but is no longer found in Figma** → do not delete automatically; mark it "No longer found in Figma — delete?" and always ask the user first
+3. **Also check the "i18n Readiness" sheet on every update** — not just the data sheets:
+   - If a problem flagged earlier (e.g. a typo, text mixed with variables) is no longer found in Figma (fixed) → automatically mark that row **Resolved**, with a note of what it originally was
+   - If new problems are found from added/edited text → add new rows in this sheet as usual
+4. Final summary report: how many rows added, how many edited, how many keys possibly no longer used, how many i18n problems resolved
+
+---
+
+## Translate mode (commanded separately later, e.g. "translate the localization" — Thai: "แปล localization ให้หน่อย")
+
+1. Ask for the Product name → open the existing `localization/localization-[product].xlsx` file (no file → say it has never been exported and export first)
+2. Find rows where the TH or EN column is still empty (Status = empty/`Not Translated`)
+3. Translate with AI following the tone from `shadcn/DESIGN.md` — fill the missing column
+4. Always change that row's Status to **`AI Draft — Needs Review`** — **never set it to `Confirmed`** because no one has reviewed it
+5. Final summary report: how many rows were translated, with a warning that "this set of translations comes from AI and must be reviewed by a person before real use"
 
 ---
 
 ## Export
 
-Export/update เป็น .xlsx ผ่าน skill `xlsx` — ต้องใส่ dropdown (Data Validation) และ conditional formatting (error = ตัวหนังสือแดง) ตามที่ระบุใน "Output Columns" ทุกครั้งที่สร้างไฟล์ใหม่
+Export/update as .xlsx via the `xlsx` skill — must include the dropdown (Data Validation) and conditional formatting (error = red text) as specified in "Output Columns" every time a new file is created
 
 ---
 
 ## Rules
 
-- ไม่แก้ไข Figma ระหว่างทำ — export อย่างเดียว
-- ไม่เดา TH/EN ถ้าไฟล์มีแค่ภาษาเดียว — เว้นว่างไว้
-- ไม่เดาว่าข้อความเป็น mock data หรือ copy จริงถ้าไม่ชัดเจน — ถามก่อน
-- ก่อนตั้ง key ใหม่ ต้องเช็ค key ที่มีอยู่แล้วในไฟล์ก่อนเสมอ (กันสร้างซ้ำ)
-- โหมด Update ต้อง sync sheet "i18n Readiness" ด้วยทุกครั้ง — ห้ามปล่อยปัญหาที่แก้แล้วค้างเป็น Warning
-- Scan ต้องเป็น full-depth เสมอตั้งแต่รอบแรก ห้าม scan แบบจำกัดความลึกแล้วค่อยถามขอ scan ซ้ำทีหลัง
-- ไม่ลบ key ที่หายไปจาก Figma โดยไม่ถาม user ก่อน
-- ถามชื่อ Product ทุกครั้งทั้ง export และ update — ไม่เดาจากบริบท
-- ข้อความที่ปนตัวแปร/ข้อมูลจริง (เช่นมีตัวเลขต่อท้าย) ห้ามตั้งเป็น key เดียวรวมกับส่วน dynamic เสมอ — ต้องแยกก่อน
-- คำแปลที่ AI ทำใน โหมด Translate ต้อง mark Status เป็น `AI Draft — Needs Review` เสมอ ห้ามตั้งเป็น `Confirmed` เอง
+- Do not edit Figma while working — export only
+- Do not guess TH/EN if the file has only one language — leave it empty
+- Do not guess whether text is mock data or real copy if it is unclear — ask first
+- Before setting a new key, always check the keys already in the file first (to avoid duplicates)
+- Update mode must also sync the "i18n Readiness" sheet every time — never leave a fixed problem lingering as a Warning
+- The scan must always be full-depth from the first pass; never scan depth-limited and then ask to re-scan later
+- Do not delete keys that disappeared from Figma without asking the user first
+- Ask for the Product name every time, for both export and update — do not guess from context
+- Text mixed with variables/real data (e.g. with a trailing number) must never be set as a single key combined with the dynamic part — always split it first
+- Translations that AI produces in Translate mode must always be marked with Status `AI Draft — Needs Review`; never set it to `Confirmed` yourself

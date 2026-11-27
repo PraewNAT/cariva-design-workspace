@@ -12,415 +12,416 @@
 
 - Tabs motion: Standard underline and Pills background slide 200ms; Folder color/shadow fade 160ms. Keyboard focus-visible and reduced-motion disable transitions. No new dependency.
 
-- Tabs: เพิ่ม Standard large/small, Pills default/line + stretch และ Folder พร้อม count/dot/icon; แก้ orientation forwarding, เก็บ legacy line alias. อัปเดต10stories, Markdown และ Figma template docs27instances. 15 scoped interactionsผ่าน; primary contrastยังค้าง ดู TABS-AUDIT.md.
+- Tabs: added Standard large/small, Pills default/line + stretch, and Folder with count/dot/icon; fixed orientation forwarding and kept the legacy line alias. Updated 10 stories, Markdown, and Figma template docs (27 instances). 15 scoped interactions pass; primary contrast remains open, see TABS-AUDIT.md.
 
-- Progress scope correction: เพิ่ม Credit Badge สองชุดที่ตกหล่นใน sectionเดิม ทั้ง compact และ remaining/used พร้อมloading/hover/optional parts; ต่อมาย้ายไป Mira Product DS แยกจาก Core Progress ตาม ownership ที่ผู้ใช้ยืนยัน. รักษา12pxขั้นต่ำ ปรับเฉพาะlow text/trackไปใช้tokenเดิมที่contrastดีขึ้น ไม่เปลี่ยนshared tokensหรือbillinglogic. ดู PROGRESS-CREDIT-AUDIT.md.
+- Progress scope correction: added the two missed Credit Badge sets in the existing section, both compact and remaining/used, with loading/hover/optional parts; later moved to the Mira Product DS, separate from Core Progress, per the ownership the user confirmed. Kept the 12px minimum; only the low text/track now use an existing token with better contrast. No shared tokens or billing logic changed. See PROGRESS-CREDIT-AUDIT.md.
 
-- Progress/Radio Group/Rating: ปรับตาม Figma ทั้งสามหน้า; Progress linear/circular/4สีและ reduced motion, RadioField/disabled/focus/error, Rating ดาวต้นฉบับสามขนาด/ครึ่งดาว/keyboard/controlled/readOnly. อัปเดต Storybook20stories, ตรวจผู้ใช้ร่วม15stories, docsตามtemplate75linked instances และ audit. คง main Figma API/geometry; บันทึกข้อจำกัด non-text contrast/Rating targets และ OS/device checks. ดู `PROGRESS-RADIO-RATING-AUDIT.md`; ยังไม่ commit/publish.
+- Progress/Radio Group/Rating: aligned all three pages with Figma; Progress linear/circular/4 colors and reduced motion, RadioField/disabled/focus/error, Rating with the original star in three sizes/half star/keyboard/controlled/readOnly. Updated Storybook (20 stories), checked shared consumers (15 stories), docs per the template (75 linked instances), and the audit. Kept the main Figma API/geometry; recorded the non-text contrast/Rating target limitations and the OS/device checks. See `PROGRESS-RADIO-RATING-AUDIT.md`; not committed/published yet.
 
-- File Upload motion: uploading ใช้ spinner 1s และ progress width transition200ms ตามค่าจริง พร้อม reduced-motion; เพิ่ม storyจำลองและตรวจ9interactionsผ่าน. ไม่เปลี่ยน Progress กลางหรือ transport.
+- File Upload motion: uploading uses a 1s spinner and a 200ms progress width transition per the actual values, with reduced-motion support; added a simulated story and 9 interactions pass. Core Progress and transport unchanged.
 
-- File Upload: เพิ่ม icon/image dropzone, type/size checks, local selection และ controlled item states ด้วย Button/Progress เดิม; import เดิมยังใช้ได้. ผู้ใช้อนุมัติ padding 16px และ aria-disabled; คง contrast error/primary demo เป็นข้อค้าง. อัปเดต Storybook, Markdown และ Figma docs ตาม Document Template; ไม่ส่งไฟล์จริงหรือเปลี่ยน shared token.
+- File Upload: added icon/image dropzone, type/size checks, local selection, and controlled item states using the existing Button/Progress; existing imports still work. The user approved 16px padding and aria-disabled; the error/primary demo contrast remains an open item. Updated Storybook, Markdown, and Figma docs per the Document Template; no real files are sent and no shared token changed.
 
-- Figma docs: อัปเดต Avatar, Combobox/FieldLabel, Badge, Bottom Sheet และ Card บนframesเดิม พร้อมสร้าง Date/Time docs ใหม่จากcode contractจริง. เพิ่มdescriptionsของ16sets/variantsและตรวจ58linked instances; main props/geometry/radiusไม่เปลี่ยน. ซ่อนGBoardเฉพาะ2doc instancesตามคำอนุญาต. ลิงก์และผลตรวจอยู่ใน `shadcn/docs/components/FIGMA-DOCUMENTATION.md`; Date/Time codeยังdraft19/20และรอคำยืนยันแก้ข้อค้าง.
+- Figma docs: updated Avatar, Combobox/FieldLabel, Badge, Bottom Sheet, and Card on the existing frames, and created new Date/Time docs from the actual code contract. Added descriptions for 16 sets/variants and checked 58 linked instances; main props/geometry/radius unchanged. Hid GBoard in only 2 doc instances, as permitted. Links and check results are in `shadcn/docs/components/FIGMA-DOCUMENTATION.md`; Date/Time code is still draft 19/20 and awaits confirmation to fix the open items.
 
-- Storybook: รวมทุก component ใต้ `Core/Components` ทั้ง43กลุ่ม; Card/Checkbox/Chart รวม compositions ไว้ใน Docs เดียว, Button และ Source code อยู่กลุ่มเดียว, แยก Stepper/Rating/File Upload/Date Time Picker จากหน้ารวมตามชื่อ. ไม่เปลี่ยน production components/tokens; ตรวจ32storiesและbuildผ่าน มีข้อค้าง contrast เดิม. กฎและผลตรวจอยู่ใน `shadcn/docs/architecture/STORYBOOK-ORGANIZATION.md`.
+- Storybook: grouped every component under `Core/Components` (43 groups in total); Card/Checkbox/Chart compositions are combined into a single Docs page, Button and Source code are in one group, and Stepper/Rating/File Upload/Date Time Picker are split out of the combined pages by name. No production components/tokens changed; checked 32 stories and the build passes, with the existing contrast open items. Rules and check results are in `shadcn/docs/architecture/STORYBOOK-ORGANIZATION.md`.
 
-- Card: ใช้ compositions เดิม ปรับ Horizontal absolute/เพิ่ม topMessage, Vertical actions1–2ปุ่มแถวเดียว และ Small Horizontal slots80/40 พร้อมข้อความยาว/มือถือ. ผู้ใช้อนุมัติ Tag padding8 เฉพาะ Card, Profile max-width100%, พื้น Profile/Metric normal เป็น bg/subtle และ Unit content/secondary. Storiesรวม9 พร้อม docs/audit; ตรวจ12storiesรวม Card/Chart/catalog เดิมผ่านการรัน. คง abnormal contrast4.41:1 และ Button3.50:1 เป็นข้อค้าง ไม่เปลี่ยน token กลางหรือ primitive Card. งานอยู่ใน working tree branch `praew` ยังไม่ commit/publish.
+- Card: uses the existing compositions; adjusted Horizontal absolute/added topMessage, Vertical actions with 1–2 buttons in a single row, and Small Horizontal slots 80/40, with long-text/mobile cases. The user approved Tag padding 8 for Card only, Profile max-width 100%, the Profile/Metric normal fill as bg/subtle, and Unit as content/secondary. 9 stories in total, with docs/audit; checked 12 stories including the existing Card/Chart/catalog, and the run passes. Kept abnormal contrast 4.41:1 and Button 3.50:1 as open items; no core token or Card primitive changed. The work is in the working tree on branch `praew`, not committed/published yet.
 
-- Bottom Sheet: ปรับเฉพาะ `SheetContent side="bottom"` ตาม Figma เป็นมุมบน 24px พร้อม Header default/search, icon/gradient, `SheetBody` เลื่อนแยก footer และ native input; คง Sheet ด้านอื่น/Sidebar. เพิ่ม Storybook รวม 7 stories และเอกสาร `SHEET-FIGMA.md`/`SHEET-AUDIT.md`. ตรวจ 9 stories ผ่านการรัน; contrast ค้างและ software keyboard บนมือถือจริงยังไม่ตรวจ. งานอยู่ใน working tree branch `praew` ยังไม่ commit/publish.
+- Bottom Sheet: adjusted only `SheetContent side="bottom"` per Figma, with 24px top corners, Header default/search, icon/gradient, a `SheetBody` that scrolls separately from the footer, and a native input; other Sheet sides/Sidebar unchanged. Added Storybook with 7 stories in total and the docs `SHEET-FIGMA.md`/`SHEET-AUDIT.md`. Checked 9 stories and the run passes; contrast remains open and the software keyboard on a real phone is not yet checked. The work is in the working tree on branch `praew`, not committed/published yet.
 
-### 🔀 เปลี่ยน DS จาก MUI เป็น shadcn
+### 🔀 Switching the DS from MUI to shadcn
 
-- **`shadcn/`** เป็น DS ปัจจุบัน: component 79 ไฟล์ (shadcn + Base UI), tokens/theme (`tokens.json` → generated), Storybook 10, Core catalog + Foundations, DESIGN.md และกฎใน `shadcn/rules/` ไม่รวมหน้าตัวอย่าง (Lab, Dashboard, Login) ตามที่ผู้ใช้สั่ง
-- **`legacy/mui/`** เก็บ MUI/Crv เดิมครบ ไม่แก้เนื้อหา: `code/`, Storybook เดิม, test, `tokens.json`, `tokens/`, `rules/` ยุค MUI, `export/` และสคริปต์ generator/export กับ `package.json` ของตัวเอง
-- **Root `package.json`** เหลือเฉพาะ peer bridge กับ Code Connect (ถอด MUI/Emotion/Storybook 8/Vite/React ออก)
-- อัปเดต `CLAUDE.md`, `AGENTS.md`, `README.md`, `rules/skill-routing.md`, `.claude/launch.json`, hook `guard-ds-usage.py` และ skill ที่อ่าน DESIGN.md/tokens ให้ชี้ `shadcn/`; skill `crv-component-code` ติดป้าย legacy
-- Canvas (`sync/canvas`) แสดงใน Storybook ของ shadcn ที่ `Workspace/Canvas`
-- ยังไม่มี dev export ของ shadcn
-- ลบ Code Connect ของ MUI: ไฟล์ map 53 ไฟล์, `code-connect/`, `figma.config.json` และสคริปต์ `code-connect:*` ใน package.json ราก ลอง unpublish ใน Figma 90 รายการ Figma ตอบว่าไม่มี mapping ให้ลบ (ลบสำเร็จ 0) Code Connect ของ shadcn ยังไม่ได้สร้าง
-- Button (Figma ↔ shadcn): เปลี่ยนชื่อค่า 120 variants ใน Figma, เพิ่ม prop `color` และปรับขนาด sm/lg ในโค้ด, ธีมออกตัวแปร `--cds-*` ครบจาก tokens.json ยังไม่มี `elevated` (รอ shadow token)
-- Accordion (Figma ↔ shadcn): เปลี่ยนชื่อชุดเป็น `accordion-item` ใน Figma, โค้ดเป็นการ์ดแยกใบ (padding 16, มุมโค้ง 12 ตาม Figma จากเดิม 24), เพิ่ม prop `icon` ที่ `AccordionTrigger`, หัวข้อ 600, ข้อความรองเยื้อง 56, ตัดเส้นใต้ตอนชี้เมาส์ ยังไม่ลบ property `showBadge` ใน Figma; เปลี่ยนไอคอนเป็นชุด Material เดียวกับ Figma; ผูกสีใน Figma หน้า Accordion จากตัวแปร library เก่าเป็นตัวแปรในไฟล์ 24 จุด
-- Input Field (Figma ↔ shadcn) เฟสแรก: เปลี่ยนชื่อชุดใน Figma (`input`, `input-horizontal`, `textarea`, `combobox`) และค่า size เป็น `default`/`lg`; โค้ด `Input`, `Textarea`, `InputGroup`, `Field` มี prop `size` (40/48), ขอบ 1px สี `border/default` เป็น inset ring โฟกัสและผิดพลาด 2px, ปิดใช้งานเป็นสีเฉพาะ, textarea มุมโค้ง 8/12, ป้ายชื่อ 12/14 ข้อความช่วย 12 และป้ายชื่อรอง ยังไม่ทำ `input-horizontal` และ Combobox
-- Breadcrumb (Figma ↔ shadcn): เปลี่ยนชื่อชุดเป็น `breadcrumb-item` / `breadcrumb` และ `type` เป็น `link`/`page` ใน Figma; โค้ดลิงก์สีน้ำเงิน brand ชี้เมาส์น้ำเงินเข้ม หน้าปัจจุบันสีรอง น้ำหนัก 500 ช่องว่าง 12 ตัวคั่นและจุดไข่ปลาเป็นไอคอน Material (จุดไข่ปลากล่อง 32) เพิ่ม story `FullRow` มีแบบ dropdown
-- Card (Figma ↔ shadcn): เปลี่ยนชื่อชุดเป็น `card-vertical`/`card-horizontal`/`card-small-horizontal`/`card-profile`/`card-metric` และ `type` เป็น `imagePosition` ใน Figma; โค้ด `Card` padding 16 (เล็ก 12) ขอบ 1px หัวข้อ 20/28 คำอธิบาย 14/20 และเพิ่ม `CardVertical`/`CardHorizontal`/`CardSmallHorizontal` ใน `app/content-card.tsx` และ `CardProfile`/`CardMetric`; แก้ป้าย 10px ใน Figma ของ profile/metric 10 จุดเป็น 12/16
-- Checkbox (Figma ↔ shadcn): เปลี่ยนชื่อชุดเป็น `checkbox`/`checkbox-field`/`checkbox-group`/`checkbox-card` และ prop `color` เป็น `error` ใน Figma; โค้ด `Checkbox` มุมโค้ง 4, indeterminate, error, disabled เป็นสีเฉพาะ, โฟกัสเปลี่ยนสี (ไม่มีวงแหวน) และเพิ่ม `CheckboxField`/`CheckboxGroup`/`CheckboxCard` ใน `app/checkbox-patterns.tsx` ยังไม่มีเงาตอนชี้เมาส์ของ card (รอ shadow token)
-- Chip (Figma ↔ shadcn): เปลี่ยนชื่อชุดเป็น `chip` และ `size` เป็น `default`/`sm` ใน Figma; เพิ่ม `Chip` ใหม่ใน Core (`ui/chip.tsx`) variant filled/outlined/surface, color default/primary, thumbnail, onDelete ยังไม่มีเงาตอน pressed (รอ shadow token)
-- Sheet / Drawer (Figma ↔ shadcn): เปลี่ยนชื่อชุดเป็น `sheet` / `sheet-close` และ `direction` เป็น `side` ใน Figma, ผูกสี 133 จุดจากตัวแปร library เก่าเป็นตัวแปรในไฟล์; โค้ด `Sheet` ด้าน right/left/top padding 16 ช่องว่าง 16 ชื่อ 14/20 ปุ่มปิด 32 footer แนวนอน (bottom คงเดิมตาม Bottom Sheet)
-- Select (Figma ↔ shadcn): เปลี่ยนชื่อชุดเป็น `select` และ `size` เป็น `default`/`lg` ใน Figma, แก้ชื่อในกรอบเอกสาร; โค้ด `SelectTrigger` สูง 40/48 ขอบ inset ผูก `--cds-border-*` (โฟกัส/error 2px), disabled เป็นสีเฉพาะ, ลูกศร Material 20/24 ยังไม่แตะรายการที่เปิดออก
-- FAB (Figma ↔ shadcn): เปลี่ยนชื่อชุดเป็น `fab`, `size` เป็น `sm`/`default`/`lg`, `color` neutral เป็น `secondary` ใน Figma และแก้ชื่อในกรอบเอกสาร; เพิ่ม `Fab` ใหม่ใน Core (`ui/fab.tsx`) ขนาด 40/56/64 พร้อมเงา hover/pressed
-- Tag / Toast / Toggle Group (Figma ↔ shadcn, ผู้ใช้ยืนยันตามเสนอ): Figma เปลี่ยนชื่อเป็น `tag` (`size` sm/default/lg, `content` label/count), `tag-color`, `toast` (`severity`/`variant` ตัวพิมพ์เล็ก, `show*`), `toggle-group`, `toggle-group-item`, `language-switcher` และผูก instance/สีของชุด Draft Toggle Group จากไลบรารีเก่ามาเป็นของไฟล์; แก้ตัวเลขและชื่อที่ผิดในกรอบ doc ของ Tag / Toast และสร้างกรอบ doc ของ Toggle Group; โค้ด: ใหม่ `Tag`/`TagColor` (`ui/tag.tsx`), `Toast` ทำครบ 15 แบบ + `ToastCard` (`toast.add({ type: severity, data: { variant } })`, กว้าง 320 มุม 12), `Toggle`/`ToggleGroup` เป็นแคปซูลตาม Figma (variant default/outline/segmented, ลบขนาด sm/lg และ spacing), ใหม่ `SegmentedControl` และ `LanguageSwitcher`
-- Tooltip (Figma ↔ shadcn, ผู้ใช้ยืนยันตามเสนอ): Figma เปลี่ยนชื่อชุดเป็น `tooltip` / `tooltip-with-action` / `credit-tooltip` (instance 5 / 8 / 9 เท่าเดิม, ชื่อเดิมสำรองใน plugin data) และแก้ข้อความในกรอบ doc ให้ตรงของจริง; โค้ดผูก token ตาม Figma (`on-surface/invert`, `on-surface/sunken`), ไอคอนปุ่ม Back/Next ใช้ลูกศรและ chevron ของ Material จาก Figma แทน hugeicons, credit tooltip กลับเป็นค่าตาม Figma (cost-hint 10px, ช่องว่าง 2px, สีข้อความ depleted `status/error/content/default`), เพิ่ม story `FigmaSpecs` วัดขนาด/สีของ tooltip, guide และ credit tooltip
-- เปลี่ยนชื่อชุด `crv-` ที่เหลือ 27 ชุดใน Figma (Avatar, Badge, Bottom Sheet, Date/Time, File Upload, Progress, Radio, Tabs, Browser Scroll; ผู้ใช้ยืนยันตามเสนอ): instance รวม 1,210 ตัว ก่อน/หลังเท่ากัน, ชื่อเดิมสำรองใน plugin data; ค่า prop ตรงกับโค้ด (Avatar size lg/default/sm/xs, Radio color → error, Tabs size default/sm และ pills `stretch`, Progress/Credit badge size, Date/Time `state`/`mode`); เพิ่ม `glow` ให้ Badge (เฉพาะ dot, เงา 0 0 4px สีเดียวกับจุดที่ 36%) พร้อม story `Glow`; แก้ข้อความในกรอบ doc ที่อ้างชื่อ/ค่าเดิม
-- Code Connect ของ shadcn (ผู้ใช้สั่ง "ทำทุกตัว"): สร้าง `figma.config.json` (root), `shadcn/code-connect/` มี 34 ไฟล์ `*.figma.tsx` รวม 114 mapping (รอบแรก 94 + รอบตรวจซ้ำเก็บที่ตกหล่น 20: card-small-horizontal, breadcrumb, pagination-rows/summary/footer, sheet-close, sidebar-rail, step icons, tabs-folder, table-text-cell, time popup/actions, overlay, scrollbar และ Button icon/loading/link/decorative) ครอบคลุมชุดที่เปลี่ยนชื่อแล้วทุกหน้า (Button, Badge, Avatar, Card, Checkbox, Chip, Fab, Input/Select/Combobox, Dialog, Menu, Sheet, Tabs, Table, Tag, Toast, Toggle Group, Tooltip, Progress/Credit badge ฯลฯ) type-check ผ่าน, dry-run ผ่าน, publish แล้ว และตรวจ `get_code_connect_map` กับ node ตัวอย่าง (path import ถูก `@/lib/app/components/ui/...`); เพิ่มสคริปต์ `code-connect:parse|dry-run|publish` ที่ root; เพิ่มกฎ "ทุก component ใหม่ต้องเชื่อม Code Connect" ใน `CLAUDE.md`, `shadcn/rules/agent-rules.md`, `workflow-map.md`, `figma-component-to-code-flow.md`; ยังไม่เชื่อม: `crv-button-mic`, `crv-button-split`, `crv-toggle-*`, `bwc-table`, Chart 25 แบบ (ดู `shadcn/code-connect/README.md`)
-- ลบ BWC ทั้งหมด (ผู้ใช้สั่ง 26 พ.ย. 2026): ลบ section `BWC Table / Draft` (7 ชิ้นส่วน, 163 instance ทั้งหมดอยู่ใน section เดียวกัน ไม่มีที่อื่นใช้) ออกจากหน้า Table ใน Figma — collection ตัวแปร BWC Table Draft ไม่มีใน Figma แล้ว จึงนำออกจาก snapshot `design-references/figma/variables.latest.json` และ `VARIABLES.md` (648 → 635 variables); ลบข้อความ BWC ใน `AGENTS.md`, `CARIVA-COMPONENT-SYNC-FLOW.md`, `TABLE-FIGMA.md`, `FIGMA-NAMING.md`, `code-connect/README.md`, `figma-variable-change-flow.md` และเปลี่ยน title ของ `shadcn/index.html`; เหลือข้อความกันพลาดใน `agent-rules.md` / `control-sizing.md` (ห้ามใช้สี BWC เดิม) ซึ่งเป็นกฎ ไม่ใช่ข้อมูล BWC; กู้คืนได้จาก Version history ของ Figma
-- Button Split / Button Mic (Figma ↔ shadcn, ผู้ใช้ยืนยันตามเสนอ): Figma เปลี่ยนชื่อ `crv-button-split` → `button-split` (`color` error → `destructive`, `size` → `sm`/`default`/`lg`) และ `crv-button-mic` → `button-mic` (`status` deactive → `inactive`) instance 3 / 1 เท่าเดิม; โค้ดใหม่ `ButtonSplit` (`ui/button-split.tsx`, Base UI Button + DropdownMenu) และ `ButtonMic` (`app/button-mic.tsx`) + ไอคอน `MicNoneRounded` จาก Figma; story `Core/Components/Button Split` และ `Button Mic` (มี `FigmaSpecs` วัดขนาด/สี/โครงสร้าง, hover วัดด้วยเมาส์จริง); แก้ชื่อในกรอบ Button Doc; เชื่อม Code Connect เพิ่ม
-- ชุด Button ที่เหลือ (Figma ↔ shadcn, ผู้ใช้ยืนยันตามเสนอ): Figma เปลี่ยนชื่อ `crv-button-icon` → `button-icon`, `crv-button-loading` → `button-loading`, `crv-link` → `button-link`, `crv-button-decorative` → `button-decorative` พร้อมค่า prop ตรงโค้ด (instance 141 / 3 / 1 / 1 เท่าเดิม); โค้ด `Button`: `variant=link` ใช้สี link ขีดเส้นใต้ตลอด ไม่มี padding ข้าง มุม 12, `decorative` เป็น radial gradient ตาม Figma (พื้นนาวี + ไล่สี, hover glow, pressed 85%, disabled พื้นเทา; `--decorative-gradient` ในธีมเปลี่ยนจาก linear เป็น radial), `icon-sm` เป็น 32px (icon 16 + padding 8), `default + secondary` ใช้สี neutral, ghost ปุ่มไอคอน disabled มีพื้น, loading (disabled + aria-busy) outline คงเส้นขอบ ghost โปร่งใส; `Spinner` ใช้ไอคอน `data-usage` จาก Figma (ไอคอน `AddRounded`, `DataUsageRounded` คัดลอกจาก Figma) และ Spinner ใน Button ขยายเป็น 24 / 16; story `IconButtons`, `LoadingButtons`, `LinkButtons`, `DecorativeButtons` วัดขนาด/สี
-- Code Connect ของ Visualization (ผู้ใช้สั่ง): `shadcn/code-connect/visualization.figma.tsx` เชื่อมการ์ด `crv-chart-01…25` และ `Chart plot / …` 25 ชิ้นเข้ากับ `VisualizationChart` ตาม `VISUALIZATION-MAPPING.json` รวม 50 mapping (ทั้งหมด 166 mapping จาก 36 ไฟล์) type-check, dry-run และ publish ผ่าน ตรวจกลับจาก Figma กับ node ตัวอย่าง 2 ตัว
-- Toggle ทั้งสองระบบ (ผู้ใช้ตอบ "ใช้หมด", ยืนยันตามเสนอ): Figma เปลี่ยนชื่อ `crv-toggle-button` → `toggle-button` (instance 40 เท่าเดิม) และ `crv-toggle-group` → `toggle-button-group` (`size` xSmall / small / medium / large → `xs` / `sm` / `default` / `lg`); โค้ด `ToggleGroup` เพิ่ม `variant="joined"` + `size` (ปุ่มสี่เหลี่ยมต่อกัน กรอบ inset 1px มุม 8 เส้นคั่น 1px สีเลือกอยู่ primary hover/pressed ตาม Figma) ระบบแคปซูลเดิมไม่เปลี่ยน; story `JoinedSizesAndOrientation`, `JoinedStatesAndIcon`; เพิ่มบล็อก toggle-button-group ในกรอบ doc และแก้ข้อความที่บอกว่ายังไม่ทำ; เชื่อม Code Connect
-- Divider / Browser Scroll / Keyboard (ผู้ใช้ยืนยันตามเสนอ): Figma รวม `divider-horizontal` + `divider-vertical` เป็นชุด `separator` (`orientation`, instance 7 เท่าเดิม, ผูกสีเส้น `border/default`); `scrollbar` แก้ค่า `orientation` ที่ชื่อสลับ (Horizontal/Orientation → vertical, Vertical/Orientation4 → horizontal), `bg` → `track`, แก้ตำแหน่งแท่งของแบบ horizontal / end / ไม่มี track; โค้ด `ScrollBar` ปรับเป็นช่อง 15px padding 4 แท่ง 7px สี `content-placeholder` พื้น `on-surface-sunken` เมื่อ `track`, `ScrollArea` เพิ่ม `orientation` / `track`; story `Scrollbars` และ `Orientations` วัดค่า; เพิ่มกรอบ doc ใน 3 หน้า (Keyboard ระบุว่าเป็นภาพอ้างอิง G-Board ไม่มีโค้ด); ขอให้ทีม DS พิจารณา token ของ scrollbar; เชื่อม Code Connect
-- เปลี่ยนชื่อ `crv-` ที่ตกหล่น 4 ชิ้นใน Figma: `crv-time-popup` → `time-popup`, `crv-time-actions` → `time-actions`, `crv-tabs-folder` → `tabs-folder`, `crv-table-footer` → `table-footer` (instance 4 / 5 / 4 / 5 เท่าเดิม ชื่อเดิมสำรองใน plugin data) แก้ข้อความที่อ้างชื่อเดิมใน doc ตาราง; Code Connect เดิมใช้ได้ (node เดิม)
-- **Shadow token ใหม่:** เพิ่มหมวด `shadow` ใน `tokens.json` อ่านจาก effect style `shadow/*` ใน Figma (sm, default, md, lg, xl, 2xl, inner, status/*) ออกเป็น `--cds-shadow-*` ใน `semantic.generated.css` และ `glow/*` ออกเป็น `--cds-glow-*`; ใช้แล้วกับ Button `variant="elevated"` (primary/secondary), เงา hover ของ Checkbox Card (shadow/sm, glow) และเงา pressed ของ Chip (shadow/sm)
-- Input OTP (Figma ↔ shadcn): เปลี่ยนชื่อชุดเป็น `input-otp` / `input-otp-slot` และ `state` ของกลุ่มเป็น `error` ใน Figma, แก้ชื่อในกรอบเอกสาร; โค้ด `InputOTP` เป็นช่องแยก 40×40 มุม 12 ห่าง 12, ขอบ inset ผูก `--cds-border-*` (active/error 2px), disabled เป็นสีเฉพาะ, เพิ่ม prop `error` แก้แบบ error ใน Figma ให้ขอบช่องเป็น border/error 2px ตรงกับโค้ด
-- Menu (Figma ↔ shadcn): เปลี่ยนชื่อชุดเป็น `dropdown-menu-item` / `dropdown-menu-content` และแก้ชื่อในกรอบเอกสารใน Figma; เพิ่ม `ui/menu-recipe.ts` สเปกร่วม (พื้นผิวมุม 12 padding บนล่าง 8 ไม่มี padding ซ้ายขวา เงา shadow/lg ขอบ 1px, รายการสูง 40 padding 8/16 มุม 4 14/20 Medium) ใช้กับ DropdownMenu, Select และ Combobox; checkbox item มีช่องติ๊กด้านซ้ายตาม Figma
-- Switch / Stepper (Figma ↔ shadcn, ผู้ใช้ยืนยันตามเสนอ): Figma เปลี่ยนชื่อเป็น `switch` (`size` default/sm), `switch-field` (`color` → `error`), `stepper`, `step`, `step-indicator`, `step-check-icon`, `step-loading-icon` (ค่า `orientation`/`state` ตัวพิมพ์เล็ก) และสร้างกรอบเอกสารในหน้า Stepper; โค้ด: `Switch` เป็น 44×24 / 36×20 สี token ของ DS ใหม่ + `SwitchField` (`app/switch-field.tsx`), ใหม่ `Stepper`/`Step`/`StepIndicator` (`ui/stepper.tsx`) และ `Stepper` ใน `patterns` เปลี่ยนไปใช้ตัวใหม่
-- ไล่ตรวจความครบของทุกหน้า Figma ที่ทำไปแล้ว (`docs/components/COVERAGE-AUDIT.md`): เพิ่ม `Field orientation="labelStart"` (Figma `input-horizontal`), story Dialog align=center / ไม่มีไอคอน และเมนูแบบเลื่อนได้, ย้ายกรอบ doc ของ Sortable ออกจาก section, แก้ชื่อ prop เก่าในกรอบ doc ของ Button / Checkbox / Chip / Dropdown / Input Field / Menu
-- Table (Figma ↔ shadcn, ผู้ใช้ยืนยันตามเสนอ): Figma เปลี่ยนชื่อ `crv-table-head`/`cell`/`tableText-cell`/`scroll-shadow` เป็น `table-head`/`table-cell`/`table-text-cell`/`table-scroll-shadow` (`size` small → sm) และแก้ชื่อใน `Table Doc`; โค้ด: `Table` มี `size`/`striped`, `TableHead` มี `sort`/`sortPosition`/`compact`, `TableCell` ไม่มีเส้นขอบ hover/disabled/striped ตาม token, ใหม่ `TableTextCell`, `TableScrollShadow` และไอคอน `ArrowDownwardFilled`; ลบสิ่งที่ Figma ไม่มี: `TableCaption`, `TableFooter`, สถานะเรียง asc/desc/`onSort` (`TableHead sort` เหลือ left/right); footer ใช้ `TablePagination`, ไม่แตะ BWC Table (Draft)
-- Overlay / Modal / Pagination (Figma ↔ shadcn, ชื่อตัดสินใจโดย Claude ตอนผู้ใช้ไม่อยู่): เปลี่ยนชื่อใน Figma เป็น `overlay/sm`, `overlay/md+`, `dialog` (`type` → `align`), `pagination`, `pagination-link`, `pagination-control`, `pagination-rows`, `pagination-summary` และผูกสี 111 จุดของ Pagination จาก library เก่า; โค้ด: Dialog/Sheet overlay ใช้ `--cds-overlay-backdrop` (ดำ 40% ไม่เบลอ), Dialog มุม 16 + เงา 2xl + ส่วนหัว/ส่วนท้ายตาม Figma (`DialogHeader align icon`, `DialogBody`), Pagination ปุ่มกลม 32px หน้าปัจจุบันพื้นน้ำเงิน + `PaginationFirst/Last/Summary/Rows` และ `TablePagination` ใหม่ · เพิ่มกรอบเอกสาร (Documentation Card) ในหน้า Pagination ของ Figma
-- Rating / Sidebar / Sortable (Figma ↔ shadcn, ผู้ใช้ยืนยันตามเสนอ): Figma เปลี่ยนชื่อเป็น `rating`, `rating-star`, `sidebar`, `sidebar-menu-item` (`expandable`), `sidebar-rail`, `sidebar-rail-item` (`state`), `sortable`, `sortable-item`, `sortable-handle` และสร้างกรอบเอกสารในหน้า Sidebar กับ Sortable; โค้ด: Sidebar กว้าง 240 พื้นขาว ปุ่มเมนูสูง 40 มุม 12 รายการย่อยมีเส้นข้าง 2px ใช้ token `--cds-*`, ใหม่ `AppSidebar` (`app/app-sidebar.tsx` sidebar ประกอบเสร็จ), `SidebarIconRail`/`SidebarIconRailItem` (`app/sidebar-rail.tsx`), ใหม่ `Sortable`/`SortableItem`/`SortableHandle` (`ui/sortable.tsx`, เพิ่ม `@dnd-kit/core`, `sortable`, `utilities`) และไอคอน `DragIndicatorRounded`
-- ผู้ใช้ล้าง Ready for dev ใน Figma "Cariva Core Design System" ครบ 53 โหนด และเปลี่ยนต้นทาง Figma จาก "[Shadcn] Cariva Core Design System" เป็นไฟล์นี้
-- `shadcn/tokens.json` ตาม Figma สด: เพิ่ม `on-fill` 7 ตัว (ทุกตัวสีขาว) `content/secondary` เคยเป็น Slate 500 ชั่วคราว ผู้ใช้ยืนยันเมื่อ 26 พฤศจิกายน 2026 ว่าต้องเป็น Slate 700 จึงเปลี่ยนตัวแปรใน Figma และ tokens.json กลับเป็น Slate 700 (`#334155`)
-- นำ `workflow-map.md` (flow S/U/C/F/D/V/H) เข้า `shadcn/rules/` โดยรักษากฎเดิม เพิ่มตารางชื่อ component `docs/components/FIGMA-NAMING.md` และลำดับอ้างอิงเมื่อไม่มี component (Core → shadcn/ui → ReUI)
-- ติดตั้ง skill `mermaid-diagrams` และ `unslop` ใน `.agents/skills/` (เฉพาะคำสั่งและเอกสารอ้างอิง ไม่เอา scripts) และเพิ่มกฎวาด flow ด้วย `artifact-diagramming`
-- แก้ `agent-rules.md` ที่ล้าสมัย (path, หน้าที่ลบแล้ว, ข้อความรอง Slate 500, กฎ branch)
+- **`shadcn/`** is the current DS: 79 component files (shadcn + Base UI), tokens/theme (`tokens.json` → generated), Storybook 10, Core catalog + Foundations, DESIGN.md, and the rules in `shadcn/rules/`; the example pages (Lab, Dashboard, Login) are not included, as the user instructed
+- **`legacy/mui/`** keeps the original MUI/Crv in full, contents unchanged: `code/`, the original Storybook, tests, `tokens.json`, `tokens/`, the MUI-era `rules/`, `export/`, and the generator/export scripts plus its own `package.json`
+- **Root `package.json`** now keeps only the peer bridge and Code Connect (MUI/Emotion/Storybook 8/Vite/React removed)
+- Updated `CLAUDE.md`, `AGENTS.md`, `README.md`, `rules/skill-routing.md`, `.claude/launch.json`, the hook `guard-ds-usage.py`, and the skills that read DESIGN.md/tokens so they point to `shadcn/`; the `crv-component-code` skill is labeled legacy
+- Canvas (`sync/canvas`) is shown in the shadcn Storybook at `Workspace/Canvas`
+- There is no shadcn dev export yet
+- Removed the MUI Code Connect: 53 map files, `code-connect/`, `figma.config.json`, and the `code-connect:*` scripts in the root package.json. Tried to unpublish 90 entries in Figma; Figma replied that there were no mappings to delete (0 deleted). The shadcn Code Connect has not been created yet
+- Button (Figma ↔ shadcn): renamed the values of 120 variants in Figma, added the `color` prop and adjusted the sm/lg sizes in code; the theme now emits all `--cds-*` variables from tokens.json; `elevated` does not exist yet (waiting for the shadow token)
+- Accordion (Figma ↔ shadcn): renamed the set to `accordion-item` in Figma; in code, each item is a separate card (padding 16, corner radius 12 per Figma, previously 24); added the `icon` prop to `AccordionTrigger`, heading weight 600, secondary text indented 56, and removed the underline on hover; the `showBadge` property in Figma is not removed yet; switched the icons to the same Material set as Figma; rebound 24 colors on the Figma Accordion page from the old library variables to the file's own variables
+- Input Field (Figma ↔ shadcn), phase 1: renamed the sets in Figma (`input`, `input-horizontal`, `textarea`, `combobox`) and the size values to `default`/`lg`; in code, `Input`, `Textarea`, `InputGroup`, and `Field` have a `size` prop (40/48), a 1px `border/default` border as an inset ring, 2px focus and error, disabled with its own colors, textarea corner radius 8/12, label 12/14, helper text 12, and a secondary label; `input-horizontal` and Combobox are not done yet
+- Breadcrumb (Figma ↔ shadcn): renamed the sets to `breadcrumb-item` / `breadcrumb` and `type` to `link`/`page` in Figma; in code, links are brand blue with dark blue on hover, the current page uses the secondary color, weight 500, gap 12, and the separator and ellipsis are Material icons (ellipsis box 32); added the `FullRow` story, which includes a dropdown variant
+- Card (Figma ↔ shadcn): renamed the sets to `card-vertical`/`card-horizontal`/`card-small-horizontal`/`card-profile`/`card-metric` and `type` to `imagePosition` in Figma; in code, `Card` has padding 16 (small 12), a 1px border, title 20/28, description 14/20, and added `CardVertical`/`CardHorizontal`/`CardSmallHorizontal` in `app/content-card.tsx` and `CardProfile`/`CardMetric`; fixed the 10px labels in Figma for profile/metric (10 places) to 12/16
+- Checkbox (Figma ↔ shadcn): renamed the sets to `checkbox`/`checkbox-field`/`checkbox-group`/`checkbox-card` and the `color` prop to `error` in Figma; in code, `Checkbox` has corner radius 4, indeterminate, error, and disabled with its own colors, focus changes color (no ring), and added `CheckboxField`/`CheckboxGroup`/`CheckboxCard` in `app/checkbox-patterns.tsx`; the card has no hover shadow yet (waiting for the shadow token)
+- Chip (Figma ↔ shadcn): renamed the set to `chip` and `size` to `default`/`sm` in Figma; added a new `Chip` in Core (`ui/chip.tsx`) with variant filled/outlined/surface, color default/primary, thumbnail, and onDelete; there is no pressed shadow yet (waiting for the shadow token)
+- Sheet / Drawer (Figma ↔ shadcn): renamed the sets to `sheet` / `sheet-close` and `direction` to `side` in Figma, and rebound 133 colors from the old library variables to the file's own variables; in code, `Sheet` on the right/left/top sides has padding 16, gap 16, title 14/20, close button 32, and a horizontal footer (bottom unchanged, per Bottom Sheet)
+- Select (Figma ↔ shadcn): renamed the set to `select` and `size` to `default`/`lg` in Figma and fixed the names in the doc frame; in code, `SelectTrigger` is 40/48 tall with an inset border bound to `--cds-border-*` (focus/error 2px), disabled with its own colors, and a Material arrow 20/24; the opened list is not touched yet
+- FAB (Figma ↔ shadcn): renamed the set to `fab`, `size` to `sm`/`default`/`lg`, and `color` neutral to `secondary` in Figma, and fixed the names in the doc frame; added a new `Fab` in Core (`ui/fab.tsx`) in sizes 40/56/64 with hover/pressed shadows
+- Tag / Toast / Toggle Group (Figma ↔ shadcn, the user confirmed as proposed): in Figma, renamed to `tag` (`size` sm/default/lg, `content` label/count), `tag-color`, `toast` (`severity`/`variant` lowercase, `show*`), `toggle-group`, `toggle-group-item`, and `language-switcher`, and rebound the instances/colors of the Draft Toggle Group set from the old library to the file's own; fixed the wrong numbers and names in the Tag / Toast doc frames and created the Toggle Group doc frame; code: new `Tag`/`TagColor` (`ui/tag.tsx`), `Toast` covers all 15 variants + `ToastCard` (`toast.add({ type: severity, data: { variant } })`, width 320, corner radius 12), `Toggle`/`ToggleGroup` are capsules per Figma (variant default/outline/segmented, removed the sm/lg sizes and spacing), and new `SegmentedControl` and `LanguageSwitcher`
+- Tooltip (Figma ↔ shadcn, the user confirmed as proposed): renamed the sets in Figma to `tooltip` / `tooltip-with-action` / `credit-tooltip` (instance counts 5 / 8 / 9, unchanged; original names backed up in plugin data) and fixed the text in the doc frames to match the real thing; the code binds tokens per Figma (`on-surface/invert`, `on-surface/sunken`), the Back/Next button icons use the Material arrow and chevron from Figma instead of hugeicons, the credit tooltip reverts to the Figma values (cost-hint 10px, gap 2px, depleted text color `status/error/content/default`), and added the `FigmaSpecs` story, which measures the size/color of the tooltip, guide, and credit tooltip
+- Renamed the remaining 27 `crv-` sets in Figma (Avatar, Badge, Bottom Sheet, Date/Time, File Upload, Progress, Radio, Tabs, Browser Scroll; the user confirmed as proposed): 1,210 instances in total, same count before/after; original names backed up in plugin data; prop values match the code (Avatar size lg/default/sm/xs, Radio color → error, Tabs size default/sm and pills `stretch`, Progress/Credit badge size, Date/Time `state`/`mode`); added `glow` to Badge (dot only, shadow 0 0 4px in the same color as the dot at 36%) with a `Glow` story; fixed the text in the doc frames that referenced the original names/values
+- Code Connect for shadcn (the user instructed "do all of them"): created `figma.config.json` (root) and `shadcn/code-connect/` with 34 `*.figma.tsx` files totaling 114 mappings (94 in the first pass + 20 missed ones picked up in a re-check pass: card-small-horizontal, breadcrumb, pagination-rows/summary/footer, sheet-close, sidebar-rail, step icons, tabs-folder, table-text-cell, time popup/actions, overlay, scrollbar, and Button icon/loading/link/decorative), covering every already-renamed set on every page (Button, Badge, Avatar, Card, Checkbox, Chip, Fab, Input/Select/Combobox, Dialog, Menu, Sheet, Tabs, Table, Tag, Toast, Toggle Group, Tooltip, Progress/Credit badge, etc.); type-check passes, dry-run passes, published, and verified with `get_code_connect_map` on sample nodes (the import path is correct: `@/lib/app/components/ui/...`); added the `code-connect:parse|dry-run|publish` scripts at the root; added the rule "every new component must be connected to Code Connect" in `CLAUDE.md`, `shadcn/rules/agent-rules.md`, `workflow-map.md`, and `figma-component-to-code-flow.md`; not yet connected: `crv-button-mic`, `crv-button-split`, `crv-toggle-*`, `bwc-table`, and the 25 Chart variants (see `shadcn/code-connect/README.md`)
+- Removed all of BWC (the user instructed this on 26 Nov 2026): removed the `BWC Table / Draft` section (7 parts, 163 instances, all in that one section and used nowhere else) from the Table page in Figma — the BWC Table Draft variable collection no longer exists in Figma, so it was removed from the snapshot `design-references/figma/variables.latest.json` and `VARIABLES.md` (648 → 635 variables); removed the BWC text in `AGENTS.md`, `CARIVA-COMPONENT-SYNC-FLOW.md`, `TABLE-FIGMA.md`, `FIGMA-NAMING.md`, `code-connect/README.md`, and `figma-variable-change-flow.md`, and changed the title of `shadcn/index.html`; what remains is the guard text in `agent-rules.md` / `control-sizing.md` (do not use the old BWC colors), which is a rule, not BWC data; recoverable from the Figma Version history
+- Button Split / Button Mic (Figma ↔ shadcn, the user confirmed as proposed): in Figma, renamed `crv-button-split` → `button-split` (`color` error → `destructive`, `size` → `sm`/`default`/`lg`) and `crv-button-mic` → `button-mic` (`status` deactive → `inactive`), instance counts 3 / 1, unchanged; new code `ButtonSplit` (`ui/button-split.tsx`, Base UI Button + DropdownMenu) and `ButtonMic` (`app/button-mic.tsx`) + the `MicNoneRounded` icon from Figma; stories `Core/Components/Button Split` and `Button Mic` (with `FigmaSpecs` measuring size/color/structure, hover measured with a real mouse); fixed the names in the Button Doc frame; added the Code Connect mapping
+- Remaining Button sets (Figma ↔ shadcn, the user confirmed as proposed): in Figma, renamed `crv-button-icon` → `button-icon`, `crv-button-loading` → `button-loading`, `crv-link` → `button-link`, `crv-button-decorative` → `button-decorative`, with prop values matching the code (instance counts 141 / 3 / 1 / 1, unchanged); code `Button`: `variant=link` uses the link color with an always-on underline, no side padding, corner radius 12; `decorative` is a radial gradient per Figma (navy fill + gradient, hover glow, pressed 85%, disabled gray fill; `--decorative-gradient` in the theme changed from linear to radial); `icon-sm` is 32px (icon 16 + padding 8); `default + secondary` uses the neutral color; a disabled ghost icon button has a fill; loading (disabled + aria-busy) keeps the outline border and a transparent ghost; `Spinner` uses the `data-usage` icon from Figma (the `AddRounded` and `DataUsageRounded` icons copied from Figma), and the Spinner in Button grows to 24 / 16; stories `IconButtons`, `LoadingButtons`, `LinkButtons`, `DecorativeButtons` measure size/color
+- Code Connect for Visualization (the user instructed): `shadcn/code-connect/visualization.figma.tsx` connects the `crv-chart-01…25` cards and the 25 `Chart plot / …` parts to `VisualizationChart` per `VISUALIZATION-MAPPING.json`, 50 mappings in total (166 mappings across 36 files overall); type-check, dry-run, and publish pass; verified back from Figma with 2 sample nodes
+- Both Toggle systems (the user answered "use all" and confirmed as proposed): in Figma, renamed `crv-toggle-button` → `toggle-button` (instance count 40, unchanged) and `crv-toggle-group` → `toggle-button-group` (`size` xSmall / small / medium / large → `xs` / `sm` / `default` / `lg`); in code, `ToggleGroup` gains `variant="joined"` + `size` (square buttons joined together, 1px inset frame, corner radius 8, 1px divider, selected color primary with hover/pressed per Figma); the existing capsule system is unchanged; stories `JoinedSizesAndOrientation`, `JoinedStatesAndIcon`; added a toggle-button-group block to the doc frame and fixed the text that said it was not done yet; added the Code Connect mapping
+- Divider / Browser Scroll / Keyboard (the user confirmed as proposed): in Figma, merged `divider-horizontal` + `divider-vertical` into a `separator` set (`orientation`, instance count 7, unchanged, line color bound to `border/default`); `scrollbar` fixed the swapped `orientation` value names (Horizontal/Orientation → vertical, Vertical/Orientation4 → horizontal), `bg` → `track`, and fixed the thumb position for the horizontal / end / no-track variants; in code, `ScrollBar` is adjusted to a 15px lane with padding 4 and a 7px thumb colored `content-placeholder`, with an `on-surface-sunken` fill when `track`, and `ScrollArea` gains `orientation` / `track`; stories `Scrollbars` and `Orientations` measure the values; added doc frames on 3 pages (Keyboard is noted as a G-Board reference image with no code); asked the DS team to consider a scrollbar token; added the Code Connect mapping
+- Renamed 4 missed `crv-` parts in Figma: `crv-time-popup` → `time-popup`, `crv-time-actions` → `time-actions`, `crv-tabs-folder` → `tabs-folder`, `crv-table-footer` → `table-footer` (instance counts 4 / 5 / 4 / 5, unchanged; original names backed up in plugin data); fixed the text that referenced the original names in the table doc; the existing Code Connect still works (same nodes)
+- Code Connect for the MIRA Component Library file (the user instructed): `shadcn/code-connect/mira-library.figma.tsx` connects `mira-recorder` → `MiraRecorder` (verified back) and `crv-card` → `WorkflowCard` (the 5 color variants still have an old incorrect mapping left in Figma, which must be removed first); 170 mappings across 38 files in total
+- **New shadow token:** added a `shadow` category to `tokens.json`, read from the `shadow/*` effect styles in Figma (sm, default, md, lg, xl, 2xl, inner, status/*) and emitted as `--cds-shadow-*` in `semantic.generated.css`, and `glow/*` emitted as `--cds-glow-*`; already used by Button `variant="elevated"` (primary/secondary), the Checkbox Card hover shadow (shadow/sm, glow), and the Chip pressed shadow (shadow/sm)
+- Input OTP (Figma ↔ shadcn): renamed the sets to `input-otp` / `input-otp-slot` and the group's `state` to `error` in Figma, and fixed the names in the doc frame; in code, `InputOTP` has separate 40×40 slots with corner radius 12 and gap 12, an inset border bound to `--cds-border-*` (active/error 2px), disabled with its own colors, and a new `error` prop; fixed the error variant in Figma so the slot border is border/error 2px, matching the code
+- Menu (Figma ↔ shadcn): renamed the sets to `dropdown-menu-item` / `dropdown-menu-content` and fixed the names in the doc frame in Figma; added `ui/menu-recipe.ts`, a shared spec (surface corner radius 12, top/bottom padding 8, no left/right padding, shadow/lg shadow, 1px border; items 40 tall, padding 8/16, corner radius 4, 14/20 Medium) used by DropdownMenu, Select, and Combobox; the checkbox item has a check box on the left per Figma
+- Switch / Stepper (Figma ↔ shadcn, the user confirmed as proposed): in Figma, renamed to `switch` (`size` default/sm), `switch-field` (`color` → `error`), `stepper`, `step`, `step-indicator`, `step-check-icon`, `step-loading-icon` (`orientation`/`state` values lowercase) and created the doc frame on the Stepper page; code: `Switch` is 44×24 / 36×20 using the new DS tokens + `SwitchField` (`app/switch-field.tsx`), new `Stepper`/`Step`/`StepIndicator` (`ui/stepper.tsx`), and `Stepper` in `patterns` now uses the new one
+- Went through every Figma page already done to check completeness (`docs/components/COVERAGE-AUDIT.md`): added `Field orientation="labelStart"` (Figma `input-horizontal`), Dialog stories for align=center / no icon and a scrollable menu, moved the Sortable doc frame out of the section, and fixed old prop names in the doc frames of Button / Checkbox / Chip / Dropdown / Input Field / Menu
+- Table (Figma ↔ shadcn, the user confirmed as proposed): in Figma, renamed `crv-table-head`/`cell`/`tableText-cell`/`scroll-shadow` to `table-head`/`table-cell`/`table-text-cell`/`table-scroll-shadow` (`size` small → sm) and fixed the names in `Table Doc`; code: `Table` has `size`/`striped`, `TableHead` has `sort`/`sortPosition`/`compact`, `TableCell` has no border, with hover/disabled/striped per token, new `TableTextCell`, `TableScrollShadow`, and the `ArrowDownwardFilled` icon; removed what Figma does not have: `TableCaption`, `TableFooter`, the asc/desc sort states, and `onSort` (`TableHead sort` is left with left/right); the footer uses `TablePagination`; BWC Table (Draft) is not touched
+- Overlay / Modal / Pagination (Figma ↔ shadcn, names decided by Claude while the user was away): renamed in Figma to `overlay/sm`, `overlay/md+`, `dialog` (`type` → `align`), `pagination`, `pagination-link`, `pagination-control`, `pagination-rows`, `pagination-summary`, and rebound 111 Pagination colors from the old library; code: the Dialog/Sheet overlay uses `--cds-overlay-backdrop` (black 40%, no blur), Dialog has corner radius 16 + a 2xl shadow + header/footer per Figma (`DialogHeader align icon`, `DialogBody`), Pagination has round 32px buttons with a blue fill on the current page + `PaginationFirst/Last/Summary/Rows` and a new `TablePagination` · added a doc frame (Documentation Card) on the Figma Pagination page
+- Rating / Sidebar / Sortable (Figma ↔ shadcn, the user confirmed as proposed): in Figma, renamed to `rating`, `rating-star`, `sidebar`, `sidebar-menu-item` (`expandable`), `sidebar-rail`, `sidebar-rail-item` (`state`), `sortable`, `sortable-item`, `sortable-handle` and created doc frames on the Sidebar and Sortable pages; code: Sidebar is 240 wide with a white fill, menu buttons are 40 tall with corner radius 12, sub-items have a 2px side line, using `--cds-*` tokens; new `AppSidebar` (`app/app-sidebar.tsx`, a fully assembled sidebar), `SidebarIconRail`/`SidebarIconRailItem` (`app/sidebar-rail.tsx`), new `Sortable`/`SortableItem`/`SortableHandle` (`ui/sortable.tsx`, added `@dnd-kit/core`, `sortable`, `utilities`), and the `DragIndicatorRounded` icon
+- The user cleared Ready for dev in the Figma file "Cariva Core Design System" on all 53 nodes, and switched the Figma source from "[Shadcn] Cariva Core Design System" to this file
+- `shadcn/tokens.json` follows the live Figma: added 7 `on-fill` tokens (all white). `content/secondary` was temporarily Slate 500; the user confirmed on 26 November 2026 that it must be Slate 700, so the variable in Figma and tokens.json were changed back to Slate 700 (`#334155`)
+- Brought `workflow-map.md` (flows S/U/C/F/D/V/H) into `shadcn/rules/` while preserving the existing rules, and added the component name table `docs/components/FIGMA-NAMING.md` and the reference order for when a component does not exist (Core → shadcn/ui → ReUI)
+- Installed the `mermaid-diagrams` and `unslop` skills in `.agents/skills/` (instructions and reference docs only, no scripts) and added the rule to draw flows with `artifact-diagramming`
+- Fixed the outdated `agent-rules.md` (paths, removed pages, Slate 500 secondary text, branch rules)
 
 ---
 
 ## v1.4.1 — 2026-10-26
 
-### 🐛 `CrvTextArea` — ลากตัวชี้หดต่ำกว่า `minRows` ไม่ได้อีกต่อไป
+### 🐛 `CrvTextArea` — dragging the resize handle can no longer shrink it below `minRows`
 
-- **ปัญหา** — กรอบ (`OutlinedInput`) มี `minHeight` 120/104 แต่ `<textarea>` ข้างในไม่มี เวลาลากตัวชี้มุมล่างขวาขึ้นบน textarea หดเหลือ ~16px ขณะที่กรอบยังสูงเท่าเดิม ตัวชี้จึงลอยไปอยู่กลางกรอบ
-- **Code** — ตั้ง `min-height` ของ textarea = `minRows × line-height` (medium 24px, small 20px; ค่าเริ่มต้น 4 บรรทัด) ใน `CrvTextArea.tsx` · ไม่แตะ textarea ที่ MUI ซ่อนไว้วัดความสูง (`aria-hidden`) และไม่กระทบ `sx` ของ consumer
-- เพิ่ม test ยืนยัน style (jsdom ไม่มี layout จึงทดสอบการลากจริงไม่ได้)
-- ตรวจแล้ว: ไม่มี component อื่นใน `code/core` ที่ตั้ง `resize` เอง (`CrvInput` multiline ไม่มี drag handle)
+- **Problem** — the frame (`OutlinedInput`) has a `minHeight` of 120/104 but the `<textarea>` inside does not. When dragging the bottom-right handle upward, the textarea shrinks to ~16px while the frame stays the same height, so the handle ends up floating in the middle of the frame
+- **Code** — set the textarea's `min-height` = `minRows × line-height` (medium 24px, small 20px; default 4 lines) in `CrvTextArea.tsx` · the textarea that MUI hides for measuring height (`aria-hidden`) is not touched, and the consumer's `sx` is not affected
+- Added a test confirming the style (jsdom has no layout, so the actual drag cannot be tested)
+- Checked: no other component in `code/core` sets `resize` itself (`CrvInput` multiline has no drag handle)
 
 ---
 
 ## v1.4.0 — 2026-09-29
 
-### ✨ `body/medium` และ `body/small` — line-height ลงกริด 4px
+### ✨ `body/medium` and `body/small` — line-height snapped to the 4px grid
 
-- **ปัญหา** — Desktop ใช้ 22 / 18 ซึ่งไม่อยู่บนกริด 4px ทุกครั้งที่วาง body ปนกับ control หรือไอคอนในแถวเดียวกันจะเหลื่อม 2px แล้วต้องไปชดที่อื่น (เจอกับตัวเองตอนแก้ checkbox: label ต้องมี line box 20px ขณะที่ description เป็น 22) และความสูงคอมโพเนนต์ยังไม่เท่ากันข้าม breakpoint เพราะ Mobile ใช้ 20 / 16 อยู่แล้ว
-- **Figma** — `typography/body/medium/line-height` และ `typography/body/small/line-height` โหมด Desktop เป็น **20 / 16** เท่ากับ Mobile · `label/*` ไม่ถูกแตะ (alias ไป `font/leading/*` ตามเดิม)
-- **Code** — `typography.lineHeight.body` เป็น `{ large: 24, medium: 20, small: 16 }`
-- **`prose/*` คงไว้ที่ 22 / 18 บน Desktop** — เดิม prose กับ body ต่างกันแค่ typeface ตอนนี้ต่างที่ line-height ด้วย: body สำหรับข้อความสั้นใน UI (field, cell, description, helper — ที่ใช้จริงทั้ง 33 ไฟล์เป็นแบบนี้หมด) · prose สำหรับย่อหน้ายาว
-- ผลที่ตามมา: description ใน `crv-checkbox-standard` / `-card` / `-group`, `crv-card`, `crv-modal` และ cell ใน `crv-table` เตี้ยลง 2px ต่อบรรทัด · ปุ่มและ field ไม่ขยับเพราะความสูงมาจาก token ของตัวเอง
-- อัปเดต doc: `rules/DESIGN.md` (ตาราง typography + หัวข้อ Prose)
+- **Problem** — Desktop used 22 / 18, which is not on the 4px grid. Whenever body text is mixed with a control or icon in the same row, it is off by 2px and has to be compensated elsewhere (encountered firsthand while fixing the checkbox: the label needed a 20px line box while the description was 22), and component heights were not equal across breakpoints because Mobile already used 20 / 16
+- **Figma** — `typography/body/medium/line-height` and `typography/body/small/line-height` in Desktop mode are now **20 / 16**, equal to Mobile · `label/*` is untouched (still aliased to `font/leading/*` as before)
+- **Code** — `typography.lineHeight.body` is now `{ large: 24, medium: 20, small: 16 }`
+- **`prose/*` stays at 22 / 18 on Desktop** — previously prose and body differed only in typeface; now they differ in line-height too: body is for short UI text (field, cell, description, helper — all 33 files that actually use it are like this) · prose is for long paragraphs
+- Consequences: the description in `crv-checkbox-standard` / `-card` / `-group`, `crv-card`, `crv-modal` and the cells in `crv-table` are 2px shorter per line · buttons and fields do not move because their height comes from their own token
+- Updated docs: `rules/DESIGN.md` (typography table + Prose heading)
 
 ---
 
 ## v1.3.9 — 2026-09-28
 
-### ✨ `crv-checkbox-card` — component ใหม่ แยกออกจาก checkbox แบบ outlined
+### ✨ `crv-checkbox-card` — new component, split out from the outlined checkbox
 
-- เดิม checkbox แบบการ์ดเป็น `type=outlined` ใน `crv-checkbox-standard` ซึ่งใช้ `labelPlacement` ไม่ได้จริงและทำสีต่างจาก state อื่นลำบาก
-- **Figma** — `crv-checkbox-card` (node 6697:362) 10 variants: `checked × state(default|hover|disabled) × color` · padding `spacing/lg` radius `radius/16` gap `spacing/md` · ทั้งใบเป็น hit target
-- **Hover** — เปลี่ยนที่ effect ไม่ใช่สี: ยังไม่ติ๊กใช้ `shadow/sm` (ลอยขึ้น) · ติ๊กแล้วใช้ `glow/primary` / `glow/error` (`0 0 4px` 36% สีของตัวเอง วาดหลัง node) · `disabled` ไม่มี hover
-- **Code** — `CrvCheckboxCard` ใหม่พร้อม story/test · เพิ่ม helper `glow()` ใน `theme/shadows.ts` mirror ของ effect style `glow/*` · `crv-checkbox-card.md` + `CrvCheckboxCard.ai.md`
+- Previously the card-style checkbox was `type=outlined` in `crv-checkbox-standard`, which could not really use `labelPlacement` and made it hard to color differently from the other states
+- **Figma** — `crv-checkbox-card` (node 6697:362) 10 variants: `checked × state(default|hover|disabled) × color` · padding `spacing/lg` radius `radius/16` gap `spacing/md` · the whole card is the hit target
+- **Hover** — changes the effect, not the color: unchecked uses `shadow/sm` (lifts up) · checked uses `glow/primary` / `glow/error` (`0 0 4px` at 36% of its own color, drawn behind the node) · `disabled` has no hover
+- **Code** — new `CrvCheckboxCard` with story/test · added a `glow()` helper in `theme/shadows.ts` mirroring the `glow/*` effect styles · `crv-checkbox-card.md` + `CrvCheckboxCard.ai.md`
 
-### ✨ `crv-checkbox-base` — เพิ่ม `color=error`
+### ✨ `crv-checkbox-base` — added `color=error`
 
-- เดิม `color=error` เปลี่ยนแค่สี label ส่วนกล่อง checkbox ยังเป็นเทาปกติ ทั้งที่ `crv-checkbox-card` ใช้กรอบแดงอยู่แล้ว
-- **Figma** — base เป็น 15 variants (เพิ่ม `color=primary|error`): unchecked `status/error/border/strong` · focus `border/error` · checked/indeterminate `status/error/on-surface/default` → focus `.../pressed`
-- **Code** — `CrvCheckboxBase` ส่ง `color` ต่อให้ icon และ focus/hover style ครบทุก state · `CrvCheckbox` `color=error` จึงแดงทั้งกล่องและ label
-- 🐛 แถมแก้ focus ring ของ primary ที่ผิดมาแต่เดิม — ใช้ `brand/primary/on-surface/default` (#1789fa) ทั้งที่ Figma เป็น `color/border/system` (#2563eb)
-- ✨ **focusVisible / hover มี halo** — `glow/primary` · `glow/error` (`0 0 4px` 36% ของสีตัวเอง) วางบน root ของ control ตาม effect style ที่ Figma ใส่ไว้ทั้ง 6 variant · จำเป็นมากกับ `color=error` เพราะลำพังขอบ #ef4444 → #dc2626 มองแทบไม่ออก
-- ✨ **hover ใช้หน้าตาเดียวกับ `state=focusVisible`** — base ไม่มี variant `hover` แยกใน Figma (15 variants) แทนที่จะประดิษฐ์สีใหม่ (ของเดิมโค้ดใช้ `border/strong` ที่ไม่มีใน Figma) ตอนนี้ `:hover` กับ `:focus-visible` แชร์กฎเดียวกัน: ยังไม่ติ๊ก → ขอบ `border/system` / `border/error` บนพื้นขาว · ติ๊กแล้ว → พื้น `.../on-surface/pressed` · `disabled` ไม่มี hover
+- Previously `color=error` only changed the label color while the checkbox box stayed the normal gray, even though `crv-checkbox-card` already used a red border
+- **Figma** — base now has 15 variants (added `color=primary|error`): unchecked `status/error/border/strong` · focus `border/error` · checked/indeterminate `status/error/on-surface/default` → focus `.../pressed`
+- **Code** — `CrvCheckboxBase` passes `color` through to the icon and to the focus/hover styles in every state · `CrvCheckbox` `color=error` is therefore red on both the box and the label
+- 🐛 Also fixed the primary focus ring, which had been wrong all along — it used `brand/primary/on-surface/default` (#1789fa) while Figma uses `color/border/system` (#2563eb)
+- ✨ **focusVisible / hover have a halo** — `glow/primary` · `glow/error` (`0 0 4px` at 36% of its own color) placed on the control's root per the effect style Figma applies on all 6 variants · especially necessary for `color=error`, because the border change #ef4444 → #dc2626 alone is almost impossible to see
+- ✨ **hover uses the same look as `state=focusVisible`** — base has no separate `hover` variant in Figma (15 variants), so instead of inventing a new color (the old code used `border/strong`, which does not exist in Figma), `:hover` and `:focus-visible` now share the same rule: unchecked → `border/system` / `border/error` border on a white fill · checked → `.../on-surface/pressed` fill · `disabled` has no hover
 
-### 🐛 checkbox — จัด control ให้ตรงบรรทัดแรกของ label
+### 🐛 checkbox — align the control with the first line of the label
 
-- เดิมใช้ `alignSelf` ต่างกันระหว่าง `default` / `groupItem` แล้วชด 1px ที่ label ซึ่งเพี้ยนเมื่อ label ขึ้น 2 บรรทัด
-- **Figma** — ทุก variant ของ standard และ card ครอบ control ด้วย line box สูง 20px (`typography/lineHeight/label/medium`)
-- **Code** — `getControlSlotSx()` เป็น 16×20 จัดกึ่งกลางแนวตั้ง · ตัด `pt: 1px` และเงื่อนไข `type` ทิ้ง
+- Previously `alignSelf` differed between `default` / `groupItem` and 1px was compensated on the label, which went off when the label wrapped to 2 lines
+- **Figma** — every variant of standard and card wraps the control in a 20px-tall line box (`typography/lineHeight/label/medium`)
+- **Code** — `getControlSlotSx()` is 16×20, vertically centered · dropped `pt: 1px` and the `type` condition
 
-### 🧹 checkbox — ตัด variant ที่ซ้ำและ prop ที่ไม่ได้ใช้
+### 🧹 checkbox — removed duplicate variants and unused props
 
-- **`disabled` กลบ `color`** ทั้งตระกูล — ลบ `disabled=true + color=error` ออกจาก standard (เหลือ 6), group (เหลือ 3), base (เหลือ 15) และ card (เหลือ 10) เพราะ token เหมือน primary ทุกจุด
-- `crv-checkbox-standard` ตัด variant `type` ออก — แถว compact คือ `descriptionVisible=false` ไม่ใช่ variant แยก · **ฝั่งโค้ดถอด prop `type` / `CrvCheckboxType` ออกด้วย** (`CrvCheckboxGroup` เปลี่ยนไปส่ง `descriptionVisible={false}`) ⚠️ breaking
-- `crv-checkbox-group` ถอด `errorMessage` / `errorMessageVisible` ที่ประกาศไว้แต่ไม่เคยผูกกับเลเยอร์ไหน **ทั้งใน Figma และในโค้ด** (⚠️ breaking — ข้อความ validation ให้วางใต้กลุ่มเองในฟอร์ม) และเพิ่ม `checkBoxSlot` สำหรับแถวที่ 7 ขึ้นไป
-- `crv-checkbox-card` variant `state=disabled` — label/description เปลี่ยนเป็น `content/disabled` (เดิมตัวหนังสือยังเข้มปกติทั้งที่กล่องเทา)
+- **`disabled` overrides `color`** across the whole family — removed `disabled=true + color=error` from standard (6 left), group (3 left), base (15 left), and card (10 left) because the tokens are identical to primary everywhere
+- `crv-checkbox-standard` dropped the `type` variant — the compact row is `descriptionVisible=false`, not a separate variant · **the code side also removed the `type` prop / `CrvCheckboxType`** (`CrvCheckboxGroup` now passes `descriptionVisible={false}`) ⚠️ breaking
+- `crv-checkbox-group` removed `errorMessage` / `errorMessageVisible`, which were declared but never bound to any layer, **in both Figma and code** (⚠️ breaking — place the validation message under the group yourself in the form), and added `checkBoxSlot` for row 7 and beyond
+- `crv-checkbox-card` variant `state=disabled` — label/description now use `content/disabled` (previously the text stayed normally dark even though the box was gray)
 
 ### 🐛 `crv-avatar` size=xSmall — 18px → 20px
 
-- ค่าใน code ไม่ตรงกับ Figma มาตั้งแต่ต้น (Figma เป็น 20×20 ทั้ง 6 variant)
-- **Code** — `AVATAR_SIZE_PX.xSmall` เป็น 20 · icon padding จึงกลายเป็น 4px ตาม Figma · initials ใช้ label scale ตาม size (large 14/20 · medium 12/16 · small 10/16 · xSmall 10/16) พร้อม padding 8/4/4/2 เดิมใช้ `body/small` ค่าเดียวทุกขนาด
-- `crv-chip-action` size=small thumbnail จึงเป็น 20px ตรงกับ Figma
+- The value in code never matched Figma (Figma is 20×20 on all 6 variants)
+- **Code** — `AVATAR_SIZE_PX.xSmall` is now 20 · the icon padding therefore becomes 4px per Figma · initials use the label scale by size (large 14/20 · medium 12/16 · small 10/16 · xSmall 10/16) with padding 8/4/4/2; previously a single `body/small` was used for every size
+- The `crv-chip-action` size=small thumbnail is therefore 20px, matching Figma
 
-### 🐛 `crv-table-head` `compact=true` — เมิน sort icon และ label
+### 🐛 `crv-table-head` `compact=true` — ignores the sort icon and label
 
-- variant `compact=true` ใน Figma มีเลเยอร์เดียวคือ checkbox slot แต่โค้ดยังวาด sort icon ได้ถ้าส่ง `leftSort` / `rightSort` มา
-- **Code** — `compact` ชนะทั้ง `leftSort`, `rightSort` และ `label`
+- The `compact=true` variant in Figma has a single layer, the checkbox slot, but the code could still draw the sort icon if `leftSort` / `rightSort` were passed
+- **Code** — `compact` wins over `leftSort`, `rightSort`, and `label`
 
 ---
 
 ## v1.3.8 — 2026-09-21
 
-### ✨ `crv-chip-action` — เพิ่ม variant พื้นขาว
+### ✨ `crv-chip-action` — added a white-fill variant
 
-- ชิปวางบนพื้นสีหรือรูปภาพไม่ได้ เพราะ `filled` เป็นเทา/น้ำเงิน ส่วน `outlined` พื้นใส สีพื้นข้างหลังทะลุขึ้นมา
-- เพิ่ม `variant=surface` — พื้น `color/on-surface/default` ไม่มีเส้นขอบ ไม่มีเงา (16 variant ใหม่ใน Figma รวมเป็น 48)
-- hover/pressed ใช้สีเดียวกับ variant อื่น · `color=primary` ตัวอักษรเป็นสีน้ำเงิน ไม่ใช่ขาว
-- อัปเดต doc: `rules/components/crv-chip-action.md`, `CrvChipAction.ai.md`
+- The chip could not be placed on a colored or image background, because `filled` is gray/blue and `outlined` has a transparent fill, so the background color behind it shows through
+- Added `variant=surface` — `color/on-surface/default` fill, no border, no shadow (16 new variants in Figma, 48 in total)
+- hover/pressed use the same colors as the other variants · with `color=primary` the text is blue, not white
+- Updated docs: `rules/components/crv-chip-action.md`, `CrvChipAction.ai.md`
 
 ---
 
 ## v1.3.7 — 2026-09-21
 
-### ✨ `crv-menu` — เพิ่ม variant ที่มี scrollbar
+### ✨ `crv-menu` — added a variant with a scrollbar
 
-- เมนูที่มี item เยอะไม่มีสเปกว่าสูงได้แค่ไหน และไม่มีหน้าตา scrollbar ให้ dev ทำตาม
-- **Figma** — `crv-menu` เปลี่ยนจาก single component เป็น component set: `scrollable=false` (สูงตาม item เหมือนเดิม) · `scrollable=true` สูงสุด 6 item = 256px แล้วเลื่อนดู
-- **Scrollbar** — thumb กว้าง 6px radius เต็ม สี `color/border/strong` เว้นขอบขวา 4px หัวท้าย 8px ให้ตรง padding ของ list · track โปร่งใส
-- **Code** — `crvMenuPaperSx` ใส่ `maxHeight` + `overflowY` + สไตล์ scrollbar (รองรับทั้ง WebKit และ Firefox ผ่าน `scrollbar-color`) → `CrvDropdown` กับ `CrvAutocomplete` ได้ผลนี้อัตโนมัติ ไม่ต้องแก้ที่เรียกใช้
-- อัปเดต doc: `rules/components/crv-menu.md`, `CrvMenuItem.ai.md`
+- A menu with many items had no spec for how tall it can get, and no scrollbar appearance for devs to follow
+- **Figma** — `crv-menu` changed from a single component to a component set: `scrollable=false` (height follows the items, as before) · `scrollable=true` is at most 6 items = 256px, then scrolls
+- **Scrollbar** — thumb 6px wide with a full radius, colored `color/border/strong`, with a 4px inset from the right edge and 8px at the top and bottom to match the list's padding · transparent track
+- **Code** — `crvMenuPaperSx` adds `maxHeight` + `overflowY` + scrollbar styling (supports both WebKit and Firefox via `scrollbar-color`) → `CrvDropdown` and `CrvAutocomplete` get this automatically, with no change needed at the call sites
+- Updated docs: `rules/components/crv-menu.md`, `CrvMenuItem.ai.md`
 
 ---
 
 ## v1.3.6 — 2026-09-18
 
-### 🐛 `crv-chip-action` size=small — avatar ใหญ่เท่าตัว chip
+### 🐛 `crv-chip-action` size=small — the avatar is as large as the chip itself
 
-- chip small สูง 24px padding 4px แต่ thumbnail ใช้ avatar `size=small` 24px เท่ากับ chip medium → avatar เต็มความสูงและล้น padding
-- **Figma** — สลับ `crv-avatar` ใน variant `size=small` ทั้ง 20 ตัวเป็น `size=xSmall` (18px) · chip ยังสูง 24px
-- **Code** — `CrvChipAction` เลือกขนาด avatar ตาม size: small → `xSmall` (18px, icon slot 12px) · medium → `small` (24px) เหมือนเดิม
-- อัปเดต doc: `rules/components/crv-chip-action.md`, `CrvChipAction.ai.md`
+- The small chip is 24px tall with 4px padding, but the thumbnail uses a 24px `size=small` avatar, the same as the medium chip → the avatar fills the full height and overflows the padding
+- **Figma** — swapped the `crv-avatar` in all 20 `size=small` variants to `size=xSmall` (18px) · the chip is still 24px tall
+- **Code** — `CrvChipAction` picks the avatar size by size: small → `xSmall` (18px, icon slot 12px) · medium → `small` (24px), as before
+- Updated docs: `rules/components/crv-chip-action.md`, `CrvChipAction.ai.md`
 
 ---
 
 ## v1.3.5 — 2026-09-18
 
-### ✨ `CrvButtonDecorative` — aurora เร็วขึ้น + label/icon เรืองแสง
+### ✨ `CrvButtonDecorative` — faster aurora + glowing label/icon
 
-- aurora ไหลเร็วขึ้นเท่าตัว: เลเยอร์ 2 ชั้นจาก 6s / 8.5s → **3s / 4.25s** (อัตราส่วนเท่าเดิม จังหวะยังไม่ซ้ำรอบให้เห็น)
-- label กับ icon เรืองแสงสี `brand/decorative/gradient/to` — ปกติ glow นุ่ม (text 6px · icon 3px, 70%) · hover เพิ่มชั้น glow แน่นเต็มสี (text 3px + 10px · icon 2px + 5px) ค่อยๆ fade เข้า
-- มีเฉพาะตอน animate — `animated={false}`, `disabled` ไม่มี glow · เฟรมหยุดนิ่งยังตรง Figma
-- ไม่มีสีใหม่ ใช้ token decorative เดิม
+- The aurora flows twice as fast: the 2 layers go from 6s / 8.5s → **3s / 4.25s** (same ratio, so the rhythm still does not visibly repeat)
+- The label and icon glow in `brand/decorative/gradient/to` — normally a soft glow (text 6px · icon 3px, 70%) · hover adds a tight, full-color glow layer (text 3px + 10px · icon 2px + 5px) that fades in gradually
+- Present only while animating — with `animated={false}` or `disabled` there is no glow · the static frame still matches Figma
+- No new colors; uses the existing decorative tokens
 
 ---
 
 ## v1.3.4 — 2026-09-17
 
-### 🐛 ปุ่มกว้างไม่เท่า Figma — ขนาดตัวอักษร label ไม่ตาม size
+### 🐛 Button width does not match Figma — the label font size does not follow size
 
-- Figma ผูก label ของปุ่มกับ `typography/label/small|medium|large` ตาม size (12/16 · 14/20 · 16/24) ทุกแบบ — standard, decorative, split, loading
-- code เดิม: `CrvButton` ใช้ 16/24 ทุก size · `CrvButtonDecorative` กับ `CrvButtonSplit` ใช้ 14/20 ทุก size → ปุ่มที่ hug เนื้อหากว้างเกินหรือแคบเกิน เช่น Restart (medium) ใน Mira กว้าง 116.7 แทน 108
-- เพิ่ม `label` ใน `buttonSizing` แล้วให้ทั้งสามตัวอ่านจากที่เดียว
-- `CrvButton variant="outlined"`: stroke ใน Figma อยู่นอก frame ไม่กินพื้นที่ แต่ CSS border กิน 1px ต่อข้าง → หักออกจาก padding ข้าง (16 → 15 บน medium) ให้ความกว้างรวมเท่า Figma
-- วัดใน browser (Mira › Voice Recorder): ลบ 36 · Restart 107.9 · Transcribe 133.1 เทียบ Figma 36 · 108 · 133
+- Figma binds the button label to `typography/label/small|medium|large` by size (12/16 · 14/20 · 16/24) in every kind — standard, decorative, split, loading
+- Old code: `CrvButton` used 16/24 for every size · `CrvButtonDecorative` and `CrvButtonSplit` used 14/20 for every size → buttons that hug their content came out too wide or too narrow, e.g. Restart (medium) in Mira was 116.7 wide instead of 108
+- Added `label` to `buttonSizing` so all three read from a single place
+- `CrvButton variant="outlined"`: the stroke in Figma sits outside the frame and takes no space, but the CSS border takes 1px per side → subtracted from the side padding (16 → 15 on medium) so the total width equals Figma
+- Measured in the browser (Mira › Voice Recorder): Delete 36 · Restart 107.9 · Transcribe 133.1 vs Figma 36 · 108 · 133
 
 ---
 
 ## v1.3.3 — 2026-09-17
 
-### 🐛 `CrvButton` / `CrvButtonDecorative` — icon ห่างจาก label มากกว่า Figma
+### 🐛 `CrvButton` / `CrvButtonDecorative` — the icon is farther from the label than in Figma
 
-- Figma เว้นระหว่าง icon กับ label **4 / 8 / 12px** (small / medium / large) ทุกแบบ (standard, decorative, action ของ split) และ code ตั้ง `gap` ถูกแล้ว แต่ MUI แถม margin ให้ช่อง icon อีกชั้น (`margin-right: 8px`, `margin-left: -2px/-4px`) → ของจริงห่าง **12 / 16 / 20px** และ padding ฝั่ง icon เหลือ 10 แทน 12 · size=small ยังโดน MUI บังคับ icon เป็น 18px แทน 16
-- ล้าง margin ของ `.MuiButton-startIcon` / `.MuiButton-endIcon` และคุมขนาด icon ให้เป็นของ `buttonSizing` → วัดใน browser แล้ว: gap 4 / 8, icon 16 / 20, padding 12 ตรง Figma
-- `CrvButtonSplit` ไม่โดน (จัด layout เอง ไม่ใช้ slot ของ MUI)
+- Figma spaces the icon and label **4 / 8 / 12px** apart (small / medium / large) in every kind (standard, decorative, the action of split), and the code set `gap` correctly, but MUI adds a further margin to the icon slot (`margin-right: 8px`, `margin-left: -2px/-4px`) → the actual spacing was **12 / 16 / 20px** and the padding on the icon side was left at 10 instead of 12 · size=small was also forced by MUI to an 18px icon instead of 16
+- Cleared the margin of `.MuiButton-startIcon` / `.MuiButton-endIcon` and made `buttonSizing` control the icon size → measured in the browser: gap 4 / 8, icon 16 / 20, padding 12, matching Figma
+- `CrvButtonSplit` is not affected (it lays itself out and does not use MUI's slots)
 
 ---
 
 ## v1.3.2 — 2026-09-17
 
-### 🐛 `crv-avatar` content=icon — icon ใน badge=true ใหญ่กว่า badge=false
+### 🐛 `crv-avatar` content=icon — the icon with badge=true is larger than with badge=false
 
-- **Figma** — variant `content=icon, badge=true` วาง icon (`person`) ลอยนอก `min-width` และใหญ่เกินขนาด: medium 24 (ควรเป็น 20), small 20 (ควรเป็น 16), xSmall 18 (ควรเป็น 12) → ย้ายเข้า `min-width` ให้ layer structure เหมือน `badge=false`, ผูกขนาดกับ `icon/size/*` และจัดกึ่งกลาง · ตอนนี้ต่างกันแค่ badge ที่มุมขวาล่าง
-- **Code** — ตาราง icon size ของ `CrvAvatar` ลอกมาจาก variant ที่ผิดนี้ (24/24/20/18) และ icon default render ที่ขนาด glyph แทน slot → แก้เป็น slot **24 / 20 / 16 / 12** · padding **8 / 6 / 4 / 3** เท่ากันทั้งมี/ไม่มี badge
-- อัปเดต doc: `rules/components/crv-avatar.md`, `CrvAvatar.ai.md` และ `📄 Avatar Doc` ใน Figma (Sizes & Token Usage)
+- **Figma** — the `content=icon, badge=true` variant placed the icon (`person`) floating outside `min-width` and oversized: medium 24 (should be 20), small 20 (should be 16), xSmall 18 (should be 12) → moved it into `min-width` so the layer structure is the same as `badge=false`, bound the size to `icon/size/*`, and centered it · now the only difference is the badge at the bottom-right corner
+- **Code** — the icon size table of `CrvAvatar` was copied from this wrong variant (24/24/20/18) and the default icon rendered at the glyph size instead of the slot → fixed to slot **24 / 20 / 16 / 12** · padding **8 / 6 / 4 / 3**, the same with and without a badge
+- Updated docs: `rules/components/crv-avatar.md`, `CrvAvatar.ai.md` and `📄 Avatar Doc` in Figma (Sizes & Token Usage)
 
 ---
 
 ## v1.3.1 — 2026-09-16
 
-### 🐛 Field ที่ผิดมาตั้งแต่ต้น
+### 🐛 Field issues that had been wrong from the start
 
-- **`CrvDropdown` เส้นขอบหายไปด้านบน** — MUI ยก `.MuiOutlinedInput-notchedOutline` (ซึ่งเป็น `<fieldset>`) ขึ้นไป `top: -5px` เพื่อให้ legend ของ notch คร่อมเส้นขอบบนได้ แต่เราตั้ง `overflow: hidden` ไว้ที่ root มันเลย**ตัด 5px บนทิ้งพร้อมเส้นขอบบนทั้งเส้น** เหลือแค่ซ้าย-ขวา-ล่าง (และมุมบนมนๆ ขาดไปด้วย) · เราซ่อน legend อยู่แล้วจึงไม่ต้องยก — ตั้ง `top: 0`
-- **`CrvDateTimePicker` ไอคอนท้ายช่องเยื้อง** — Figma (`crv-input-standard`) ให้ Field padding **16 เท่ากันทั้งซ้าย-ขวา** และเว้น **8** ระหว่างข้อความกับไอคอน แต่ของเดิม:
-  - padding ขวาเป็น 12 (ซ้าย 16) ไม่สมมาตร
-  - ปุ่มเปิด picker มี padding ของตัวเอง 8 → ดันความสูงช่องจาก 48 เป็น **56**
-  - MUI ใส่ `edge="end"` ให้ปุ่มนั้น ซึ่งแถม `margin-right: -12px` มาอีก → ไอคอนไปจบที่ **4px** จากขอบ แทนที่จะเป็น 16
-  - แก้ครบทั้งสามชั้น และคืนพื้นที่กดให้เป็น 40×40 ด้วย overlay เพื่อไม่ให้ไอคอนขยับ
+- **`CrvDropdown` loses its top border** — MUI lifts `.MuiOutlinedInput-notchedOutline` (which is a `<fieldset>`) up to `top: -5px` so that the notch legend can straddle the top border, but we set `overflow: hidden` on the root, so it **clips off the top 5px together with the entire top border**, leaving only the left, right, and bottom (and the rounded top corners are cut off too) · we already hide the legend, so there is no need to lift it — set `top: 0`
+- **`CrvDateTimePicker` end icon is misaligned** — Figma (`crv-input-standard`) gives the Field **equal 16 padding on both left and right** and **8** between the text and the icon, but the old version had:
+  - right padding of 12 (left 16), which is asymmetric
+  - the button that opens the picker has its own padding of 8 → pushing the field height from 48 up to **56**
+  - MUI applies `edge="end"` to that button, which adds `margin-right: -12px` on top → the icon ends up **4px** from the edge instead of 16
+  - fixed all three layers, and restored the tap area to 40×40 with an overlay so the icon does not move
 
-วัดค่าที่ render จริง: สูง **48** · ข้อความห่างซ้าย **16** · ไอคอนห่างขวา **16** · ระหว่างกัน **8** — ตรงกับ Figma ทั้งสามแบบ (date / time / dateTime)
+Measured the actually rendered values: height **48** · text **16** from the left · icon **16** from the right · **8** between them — matching Figma in all three modes (date / time / dateTime)
 
 ---
 
 ## v1.3.0 — 2026-09-09
 
-### 🏷️ เปลี่ยนชื่อ (มี deprecated alias ให้ ไม่ break ของเดิม)
+### 🏷️ Renames (deprecated aliases provided, so nothing existing breaks)
 
-| เดิม | ใหม่ | เหตุผล |
+| Old | New | Reason |
 |---|---|---|
-| `crv-stepper-icon` | `crv-stepper-marker` | มันไม่ใช่ icon แล้ว — มีทั้งแบบตัวเลขและแบบ icon คำว่า marker ครอบคลุมทั้งสอง |
-| `crv-mobile-stepper` | `crv-stepper-compact` | ชื่อเดิมผูกกับอุปกรณ์ ทั้งที่ใช้ได้ทุกที่ที่พื้นที่จำกัด (dialog, side panel) และ `crv-stepper` มี `smallScreen` จัดการเรื่อง device อยู่แล้ว |
-| `CrvStepperIcon` | `CrvStepperMarker` | ตามชื่อ Figma |
-| `CrvMobileStepper` | `CrvStepperCompact` | ตามชื่อ Figma |
-| `getMobileStepperSx` และเพื่อน | `getStepperCompactSx` ฯลฯ | internal style helper |
+| `crv-stepper-icon` | `crv-stepper-marker` | It is no longer just an icon — there are both number and icon variants, and the word marker covers both |
+| `crv-mobile-stepper` | `crv-stepper-compact` | The old name was tied to a device, even though it can be used anywhere space is limited (dialog, side panel), and `crv-stepper` already has `smallScreen` to handle device concerns |
+| `CrvStepperIcon` | `CrvStepperMarker` | Following the Figma name |
+| `CrvMobileStepper` | `CrvStepperCompact` | Following the Figma name |
+| `getMobileStepperSx` and its siblings | `getStepperCompactSx` etc. | internal style helper |
 
-`CrvStepperIcon`, `CrvMobileStepper`, `CrvStepperIconProps`, `CrvStepperIconState`, `CrvMobileStepperProps`, `CrvMobileStepperProgressType` ยัง export อยู่ในฐานะ deprecated alias — โค้ดเดิมไม่พัง
+`CrvStepperIcon`, `CrvMobileStepper`, `CrvStepperIconProps`, `CrvStepperIconState`, `CrvMobileStepperProps`, `CrvMobileStepperProgressType` are still exported as deprecated aliases — existing code does not break
 
-### 🔧 ปรับโครงสร้าง
+### 🔧 Restructuring
 
-- **รื้อ `crv-stepper-marker` ใหม่ทั้งชุด** — แยกเป็น 2 แกน `content` (`number` / `icon`) × `status` (`Default`, `Active`, `Done`, `Error`, `Warning`, `Info`, `Success`) รวม 14 variants
-- **ลบ layer `Ellipse 1` ออกทั้ง 14 variants** — ย้าย fill (พร้อม variable binding) ขึ้นไปที่ frame ของ component เอง ซึ่งมี `cornerRadius: 9999` + `clipsContent` อยู่แล้ว แล้วเปลี่ยนเป็น auto-layout จัดกึ่งกลาง หน้าตาเหมือนเดิมทุก pixel แต่ลด 14 layer และเลิกมีวงกลมสองชั้นซ้อนกัน
-- **ล้าง `padding: 7px` ที่ค้างอยู่** ในทั้ง 7 variants ฝั่ง `number` — เป็นค่าค้างที่ไม่มีผล (layoutMode เดิมเป็น `NONE`) และไม่มี 7 ใน spacing scale
-- **`crv-stepper-base` ใช้ `crv-stepper-marker` ทั้ง 14 marker** — เดิมเป็น component จาก DS อื่น พร้อม swap glyph ให้ตรง state (Done/Success → `check`, Error → `close`, Warning → `priority-high`, Info → `info`)
-- **`crv-stepper` ทั้ง 12 variants ประกอบจาก `crv-stepper-base`** — เดิมปั้นมือด้วย frame + component จาก DS อื่น ตอนนี้เหลือ remote instance 0 ตัว ขนาด set คงเดิม 2078×916 (variant แนวตั้ง 3 ตัวแคบลง 1px ตามขนาดจริงของ base)
-- **`crv-stepper-compact` เปลี่ยนมาใช้ `crv-button-standard`** แทนปุ่มจาก DS อื่น ทั้ง 6 ปุ่ม
+- **Rebuilt the whole `crv-stepper-marker` set** — split into 2 axes, `content` (`number` / `icon`) × `status` (`Default`, `Active`, `Done`, `Error`, `Warning`, `Info`, `Success`), 14 variants in total
+- **Removed the `Ellipse 1` layer from all 14 variants** — moved the fill (with its variable binding) up to the component's own frame, which already has `cornerRadius: 9999` + `clipsContent`, then switched to a centered auto-layout; it looks identical pixel for pixel, but 14 layers are gone and there are no longer two stacked circles
+- **Cleared the leftover `padding: 7px`** in all 7 `number` variants — a leftover value with no effect (the old layoutMode was `NONE`), and 7 is not in the spacing scale
+- **`crv-stepper-base` now uses `crv-stepper-marker` for all 14 markers** — previously they were components from another DS, with the glyph swapped to match the state (Done/Success → `check`, Error → `close`, Warning → `priority-high`, Info → `info`)
+- **All 12 `crv-stepper` variants are now assembled from `crv-stepper-base`** — previously hand-built with frames + components from another DS; there are now 0 remote instances left, and the set size is unchanged at 2078×916 (the 3 vertical variants are 1px narrower, following the base's real size)
+- **`crv-stepper-compact` now uses `crv-button-standard`** instead of the buttons from another DS, for all 6 buttons
 
-### 🐛 แก้ bug
+### 🐛 Bug fixes
 
-- **`Inactive` กับ `Active` เคยหน้าตาเหมือนกันเป๊ะ** — เพิ่ม `status=Active` ให้ `crv-stepper-marker` (พื้น `color/brand/primary/on-surface/muted` เลข `color/brand/primary/on-surface/default`) ตอนนี้แยกออกจาก `Default` ชัดเจน
-- **step 2 ใน `crv-stepper` เป็น `Inactive` ผิด 9 variants** และเลข step ค้างเป็น "1" อีก 4 จุด — แก้ให้ทุก variant เป็น Complete → Active(2) → Inactive(3) เหมือนกันหมด
+- **`Inactive` and `Active` used to look exactly the same** — added `status=Active` to `crv-stepper-marker` (fill `color/brand/primary/on-surface/muted`, number `color/brand/primary/on-surface/default`), which is now clearly distinct from `Default`
+- **Step 2 in `crv-stepper` was wrongly `Inactive` in 9 variants**, and the step number was stuck at "1" in 4 other places — fixed so every variant is Complete → Active(2) → Inactive(3)
 
 ### 🧰 Tooling
 
-- **`npm run tokens:generate` ไม่มีอยู่จริง** ทั้งที่ README, `tokens.ts` และ `generatedPalette.ts` สั่งให้รัน — เพิ่มแล้ว พร้อม `tokens:check`
-- **`generate-tokens.js` จะลบ typography ทั้งหมดถ้ามีคนรัน** — มันเขียน `tokens.ts` ใหม่ทั้งไฟล์จาก template ที่ค้างมาตั้งแต่ มิ.ย. (ไม่มี `fontFamily.ui`/`prose`, display scale เก่า, label line-height ผิด) แก้ให้แทนที่เฉพาะ block `colors` ส่วนที่เหลือไม่แตะ
-- **`export/cariva-ds-dev-export/` ค้างอยู่ที่ 2026-06-19** — ไม่มี script สร้าง ทำมือครั้งเดียวแล้วไม่มีใคร rebuild อีก เพิ่ม `npm run export:dev` / `export:check` และใส่ใน `pr-checklist`
-- **`package.json` ของ DS ถูกเขียนทับด้วยของ `@agent/peer-bridge` เมื่อ 2026-06-26** (`78b5615`) ทำให้ script `test`, `test:run`, `code-connect:dry-run`, `code-connect:publish` หายไป — skill `crv-component-code` สั่งให้รัน `code-connect:publish` ทุกครั้ง แต่มันไม่มีอยู่ กู้คืนแล้ว
-- **กู้ `@figma/code-connect` คืนเข้า devDependencies** (`^1.5.3`) — หายไปตอน `package.json` โดนทับ ทั้งที่ `.figma.tsx` 44 ไฟล์ยัง import อยู่
-- **ผลตรวจครั้งแรกหลังแก้ทั้งหมด:** `tokens:check` ✅ · `export:check` ✅ · `test:run` ✅ 36 ไฟล์ / 199 test · `typecheck:ds` ❌ 19 error เดิมทั้งหมด ไม่มี error ใหม่จากงานรอบนี้
-- **`npm run typecheck` ไม่เคยตรวจ `code/` เลยตั้งแต่วันนั้น** — `tsconfig.json` ก็ถูกเขียนทับเหมือนกัน ตอนนี้ครอบแค่ `src/` ของ peer-bridge เพิ่ม `tsconfig.ds.json` (config เดิมก่อนถูกทับ) + `npm run typecheck:ds` แยกไว้ ไม่แตะของ peer-bridge
+- **`npm run tokens:generate` did not actually exist**, even though the README, `tokens.ts`, and `generatedPalette.ts` tell you to run it — added now, together with `tokens:check`
+- **`generate-tokens.js` would wipe out all typography if anyone ran it** — it rewrote the whole `tokens.ts` from a template left over since Jun (no `fontFamily.ui`/`prose`, the old display scale, wrong label line-height); changed so it replaces only the `colors` block and touches nothing else
+- **`export/cariva-ds-dev-export/` was stuck at 2026-06-19** — there was no script to generate it; it was made by hand once and nobody rebuilt it again. Added `npm run export:dev` / `export:check` and put them in `pr-checklist`
+- **The DS's `package.json` was overwritten by the one from `@agent/peer-bridge` on 2026-06-26** (`78b5615`), causing the `test`, `test:run`, `code-connect:dry-run`, and `code-connect:publish` scripts to disappear — the `crv-component-code` skill tells you to run `code-connect:publish` every time, but it did not exist. Restored
+- **Restored `@figma/code-connect` to devDependencies** (`^1.5.3`) — it disappeared when `package.json` was overwritten, even though 44 `.figma.tsx` files still import it
+- **First check results after all the fixes:** `tokens:check` ✅ · `export:check` ✅ · `test:run` ✅ 36 files / 199 tests · `typecheck:ds` ❌ 19 errors, all pre-existing, no new errors from this round of work
+- **`npm run typecheck` has never checked `code/` since that day** — `tsconfig.json` was overwritten in the same way and now covers only peer-bridge's `src/`; added `tsconfig.ds.json` (the original config from before it was overwritten) + a separate `npm run typecheck:ds`, leaving peer-bridge's alone
 
-### 🆕 Button ที่ขาดไป — ตอนนี้มีในโค้ดครบแล้ว
+### 🆕 Missing Buttons — now all present in code
 
-Figma มี 7 ปุ่ม แต่โค้ดมีแค่ 4 และ 2 ตัวที่มีก็ขาด axis:
+Figma has 7 buttons, but the code had only 4, and 2 of those were missing axes:
 
-- **`CrvButton` เพิ่ม `color="neutral"` และ `variant="elevated"`** — neutral ใช้ได้กับ outlined / text / elevated เท่านั้น (ตรงกับ Figma ที่ไม่มี contained neutral) บังคับด้วย type ไม่ให้เผลอใช้ผิด · elevated = พื้นขาว + เงา `shadow/sm` → hover `shadow/xl` → pressed `shadow/md`
-- **`CrvButtonIcon` เพิ่ม `color="neutral"`** ครบทั้ง contained / outlined / ghost
-- **`CrvButtonDecorative` (ใหม่)** — ปุ่มไล่เฉดสำหรับ action ของ AI, 3 ขนาด + glow ตอน hover
-- **`CrvButtonMic` (ใหม่)** — ปุ่มเลือกไมโครโฟน พร้อมคลื่นเสียง 5 แท่งที่ขยับได้ (เคารพ `prefers-reduced-motion`)
-- **`CrvButtonSplit` (ใหม่)** — action หลัก + ปุ่มเปิดตัวเลือกอื่น ใช้พื้นเดียวกันทั้งก้อนตาม Figma (ไม่ใช่ `ButtonGroup` ของ MUI) บังคับใส่ `triggerLabel` เพราะฝั่งขวาไม่มีข้อความ
-- ทั้ง 3 ตัวใหม่มีครบชุด: types, styles, stories, test, `.ai.md`, doc ใน `rules/components/` และ Code Connect (ตรวจ dry-run ผ่านแล้วทั้งหมด)
-- **เพิ่ม `code/core/theme/shadows.ts`** — เดิมเงาถูก hardcode กระจายตาม component ตอนนี้มี token `shadows.sm|default|md|lg|xl|2xl|inner` ตรงกับ effect style ใน Figma
-- **sync token เพิ่ม 6 ตัว**: `color/brand/decorative/gradient/{from,via,to}` และ `color/status/active/*` ซึ่งมีใน Figma แต่ไม่เคยถูก export
+- **`CrvButton` gains `color="neutral"` and `variant="elevated"`** — neutral works only with outlined / text / elevated (matching Figma, which has no contained neutral), enforced by the type so it cannot be misused by accident · elevated = white fill + `shadow/sm` shadow → hover `shadow/xl` → pressed `shadow/md`
+- **`CrvButtonIcon` gains `color="neutral"`** for all of contained / outlined / ghost
+- **`CrvButtonDecorative` (new)** — a gradient button for AI actions, 3 sizes + a glow on hover
+- **`CrvButtonMic` (new)** — a microphone selection button with an animated 5-bar sound wave (respects `prefers-reduced-motion`)
+- **`CrvButtonSplit` (new)** — a main action + a button that opens other options, using one fill across the whole block per Figma (not MUI's `ButtonGroup`); `triggerLabel` is required because the right side has no text
+- All 3 new ones come with the full set: types, styles, stories, tests, `.ai.md`, a doc in `rules/components/`, and Code Connect (dry-run passes for all)
+- **Added `code/core/theme/shadows.ts`** — shadows used to be hardcoded and scattered across components; there are now `shadows.sm|default|md|lg|xl|2xl|inner` tokens matching the effect styles in Figma
+- **Synced 6 more tokens**: `color/brand/decorative/gradient/{from,via,to}` and `color/status/active/*`, which exist in Figma but had never been exported
 
-### 🔍 ตรวจกับ Figma อีกรอบแล้วเจอ 4 จุดไม่ตรง
+### 🔍 A second check against Figma found 4 mismatches
 
-- **`CrvButton` ยังไม่มี story ของ `elevated` / `neutral`** — เพิ่มโค้ดแล้วแต่ลืมเปิดให้เห็นใน Storybook เพิ่ม `ElevatedPrimary/Error/Neutral`, `OutlinedNeutral`, `TextNeutral`, ตาราง `ElevatedStates`, `NeutralColor` และใส่ตัวเลือกใหม่ใน control panel · `AllVariants` รวม elevated ด้วยแล้ว
-- **ไล่เฉดของ `CrvButtonDecorative` ผิดทิศ** — ของเดิมเขียนเป็นวงรีสว่างที่ก้นปุ่ม แต่ Figma ไล่จากน้ำเงินเข้มตรงกลางออกไปสว่างที่ขอบซ้าย-ขวา (ถอดจาก `gradientTransform` ได้เป็นวงรี 50% ของความกว้าง × 129.76% ของความสูง จุดกึ่งกลางปุ่ม) แก้ตามค่าจริง และเพิ่ม `opacity: 0.85` ตอน pressed ตามที่ Figma ทำ
-- **เส้นขอบ `standard` ของ toast หนา 2px ทั้งที่ Figma ใช้ 1px** — ทุก variant ใน Figma เป็น 1px เท่ากันหมด แก้แล้วทั้ง status และ notification
-- **`color/status/{severity}/border/default` ใน `tokens.json` ไม่ตรงกับ variable จริง** — บันทึกไว้เป็นเฉด `300` แต่ variable ใน Figma alias ไปที่ `100` ทำให้เส้นขอบ toast เข้มกว่าที่ออกแบบไว้มาก แก้เป็นค่าจาก variable จริง (`#fee2e2` / `#fef3c7` / `#e0f2fe` / `#d1fae5`) พร้อมอัปเดต `rules/DESIGN.md`
-- **พื้นหลัง `outlined` ของ toast เป็น `transparent` แต่ Figma ใช้ `color/bg/white`** — แก้ให้ตรง ไม่งั้นวางบนพื้นสีเข้มแล้วอ่านไม่ออก
+- **`CrvButton` had no story for `elevated` / `neutral`** — the code was added but we forgot to expose it in Storybook. Added `ElevatedPrimary/Error/Neutral`, `OutlinedNeutral`, `TextNeutral`, the `ElevatedStates` table, `NeutralColor`, and put the new options in the control panel · `AllVariants` now includes elevated too
+- **The `CrvButtonDecorative` gradient went in the wrong direction** — the old version was written as a light ellipse at the bottom of the button, but Figma runs from dark blue in the center out to light at the left and right edges (derived from `gradientTransform`: an ellipse of 50% of the width × 129.76% of the height, centered on the button). Fixed to the actual values, and added `opacity: 0.85` when pressed, as Figma does
+- **The `standard` toast border was 2px thick although Figma uses 1px** — every variant in Figma is 1px. Fixed for both status and notification
+- **`color/status/{severity}/border/default` in `tokens.json` did not match the real variable** — it was recorded as the `300` shade, but the variable in Figma aliases to `100`, which made the toast border much darker than designed. Fixed to the values from the real variable (`#fee2e2` / `#fef3c7` / `#e0f2fe` / `#d1fae5`) and updated `rules/DESIGN.md`
+- **The `outlined` toast background was `transparent`, but Figma uses `color/bg/white`** — fixed to match; otherwise it is unreadable when placed on a dark background
 
-### 📏 สเกลขนาดปุ่ม — รวมไว้ที่เดียว และแก้ที่เพี้ยนมานาน
+### 📏 Button size scale — consolidated in one place, and long-standing errors fixed
 
-ไล่เช็คทุก component set ใน Figma แล้วพบว่า **ปุ่มทุกตัวใช้สเกลเดียวกันเป๊ะ** แต่โค้ดจำไว้ผิดมาตลอดและกระจายอยู่ 5 ไฟล์
+Went through every component set in Figma and found that **every button uses exactly the same scale**, but the code had remembered it wrong all along and spread it across 5 files
 
-| Size | สูง | Padding V | Padding H | Gap | Icon |
+| Size | Height | Padding V | Padding H | Gap | Icon |
 |---|---|---|---|---|---|
 | `small` | 32 | 8 | 12 | 4 | 16 |
 | `medium` | **36** | 8 | 16 | 8 | 20 |
 | `large` | 48 | 12 | 24 | 12 | 24 |
 
-- **เพิ่ม `code/core/theme/buttonSizing.ts`** เป็นที่เดียวที่เก็บสเกลนี้ — `CrvButton`, `CrvButtonIcon`, `CrvLink`, `CrvButtonDecorative`, `CrvButtonSplit` ดึงไปใช้ทั้งหมด (export ออกจาก `code/core` แล้ว พร้อม `shadows` / `statusShadow` ที่เพิ่มรอบก่อนแต่ลืม export)
-- **`medium` สูง 40 มาตลอด ทั้งที่ Figma เป็น 36** — ผิดพร้อมกันทั้ง `CrvButton`, `CrvButtonIcon` และ `CrvLink`
-- **padding ซ้าย-ขวาถูก fix ไว้ที่ 16 ทุกขนาด** — ที่จริงต่างกันตามขนาด (12 / 16 / 24) เหมือนที่ padding บน-ล่างต่างกันอยู่แล้ว
-- **`gap` ถูก fix ไว้ที่ 8 ทุกขนาด** — ที่จริงเป็น 4 / 8 / 12
-- **`small` มี padding บน-ล่าง 4 แทนที่จะเป็น 8** — ทำให้ปุ่มเล็กสูงไม่ถึง 32
-- **icon ของปุ่ม small เป็น 20 แทน 16** (`CrvButtonIcon`) และ icon ใน `CrvLink` fix ไว้ที่ 20 ทุกขนาด
-- ตรวจค่าที่เบราว์เซอร์คำนวณจริงแล้ว **ทั้ง 5 component ตรงกับ Figma ครบทุกขนาด**
-- อัปเดตตารางขนาดใน `rules/components/crv-button-{standard,icon,split}.md`, `crv-link.md` และ `.ai.md` ที่เกี่ยวข้องให้ตรงด้วย
+- **Added `code/core/theme/buttonSizing.ts`** as the single place that holds this scale — `CrvButton`, `CrvButtonIcon`, `CrvLink`, `CrvButtonDecorative`, and `CrvButtonSplit` all pull from it (exported from `code/core`, along with `shadows` / `statusShadow`, which were added the previous round but never exported)
+- **`medium` had been 40 tall all along, while Figma is 36** — wrong in `CrvButton`, `CrvButtonIcon`, and `CrvLink` alike
+- **Left-right padding was fixed at 16 for every size** — in reality it differs by size (12 / 16 / 24), just as the top-bottom padding already differs
+- **`gap` was fixed at 8 for every size** — it is actually 4 / 8 / 12
+- **`small` had top-bottom padding of 4 instead of 8** — so the small button was shorter than 32
+- **The icon of the small button was 20 instead of 16** (`CrvButtonIcon`) and the icon in `CrvLink` was fixed at 20 for every size
+- Checked the values the browser actually computes: **all 5 components match Figma at every size**
+- Also updated the size tables in `rules/components/crv-button-{standard,icon,split}.md`, `crv-link.md`, and the related `.ai.md` files to match
 
-### 🧹 เก็บของค้างใน Figma
+### 🧹 Cleaning up leftovers in Figma
 
-- **`crv-button-split` แก้แล้วฝั่ง Figma** — ตรวจครบทั้ง 24 variants: `size=small` frame นอกสูง 32 เท่ากับลูกข้างในแล้ว (เดิม 36 ชนกับ medium) และ padding ของ `trigger` ขนาด medium สมมาตร 8 ทุกด้านแล้ว ตรงกับที่โค้ดเขียนไว้พอดี ไม่ต้องแก้โค้ดเพิ่ม
-- **`crv-stepper-desktop` ถูกลบไปแล้ว** — ทั้งหน้า Stepper ไม่เหลือ `padding: 7` หรือ `Ellipse 1` (ที่เหลือคือ `Ellipse 5` ซึ่งเป็นจุด dot ของ `crv-stepper-compact` ตามดีไซน์)
-- **`crv-stepper-base` state=Info ตรงกันแล้ว** ทั้ง `text=Left` และ `text=Center` ใช้ `color/status/info/on-surface/default`
-- **เงาของ Notification ในโค้ดผิด** — Figma ใช้ `shadow/md` (navy) สำหรับ `filled` และ `shadow/status/notification` (navy โปร่ง 3 ชั้น) สำหรับ `standard` แต่โค้ดย้อมเงาด้วยสี brand ทั้งคู่ · แก้แล้ว พร้อมลบ `statusShadow` ที่เขียนซ้ำไว้ใน `crvToastStyles.ts` ให้ใช้ตัวเดียวจาก `theme/shadows.ts`
-- **แก้ doc ของ Toast ใน Figma** — คำอธิบาย `Variant=Outlined` เขียนว่า "ไม่มีพื้น" ทั้งที่จริงใช้ `color/bg/white`, คำอธิบาย `Variant=Standard` ยังเขียนเส้นขอบ 2px และ Do/Don't ยังเรียกตัวเองว่า "alert" ทั้งที่ component นี้คือ Toast (ข้อห้าม "อย่าใช้ alert แทน Toast" จึงขัดกันเอง) เขียนใหม่ทั้งสามจุด
+- **`crv-button-split` fixed on the Figma side** — checked all 24 variants: in `size=small` the outer frame is now 32 tall, equal to its inner children (previously 36, colliding with medium), and the `trigger` padding at medium is now symmetric at 8 on every side, exactly matching what the code already had, so no further code change is needed
+- **`crv-stepper-desktop` has been deleted** — the whole Stepper page no longer has `padding: 7` or `Ellipse 1` (what remains is `Ellipse 5`, which is the dot of `crv-stepper-compact`, by design)
+- **`crv-stepper-base` state=Info now matches** — both `text=Left` and `text=Center` use `color/status/info/on-surface/default`
+- **The Notification shadow in code was wrong** — Figma uses `shadow/md` (navy) for `filled` and `shadow/status/notification` (3-layer translucent navy) for `standard`, but the code tinted both shadows with the brand color · fixed, and removed the duplicate `statusShadow` in `crvToastStyles.ts` so that the single one from `theme/shadows.ts` is used
+- **Fixed the Toast doc in Figma** — the `Variant=Outlined` description said "no fill" although it actually uses `color/bg/white`, the `Variant=Standard` description still stated a 2px border, and the Do/Don't still called itself "alert" even though this component is the Toast (so the prohibition "do not use alert in place of Toast" contradicted itself). Rewrote all three places
 
-### 🔵 Stepper marker — สีผิดทุก state และขาดไป 5 status
+### 🔵 Stepper marker — wrong colors in every state and 5 statuses missing
 
-เปิดดูใน Storybook แล้วไม่ตรงกับ Figma เลย ทั้งที่ `rules/components/crv-stepper.md` เขียนค่าที่ถูกไว้ตั้งแต่แรก — โค้ดไม่เคยทำตาม
+Opened in Storybook, it did not match Figma at all, even though `rules/components/crv-stepper.md` had the correct values written from the start — the code never followed them
 
-| status | โค้ดเดิม | Figma |
+| status | Old code | Figma |
 |---|---|---|
-| `default` | พื้น `content/disabled` + เลขสีขาว | พื้น `bg/solid` + เลข `content/secondary` |
-| `active` | พื้นน้ำเงินทึบ + เลขขาว (เหมือน done) | พื้น `brand/primary/on-surface/muted` + เลข `brand/primary/on-surface/default` |
-| `error` / `warning` / `info` / `success` | **พื้นโปร่งใส** + ไอคอนสีสถานะ | วงกลมทึบสีสถานะ + ไอคอนขาว |
+| `default` | `content/disabled` fill + white number | `bg/solid` fill + `content/secondary` number |
+| `active` | solid blue fill + white number (same as done) | `brand/primary/on-surface/muted` fill + `brand/primary/on-surface/default` number |
+| `error` / `warning` / `info` / `success` | **transparent fill** + status-colored icon | solid status-colored circle + white icon |
 
-- **`CrvStepperMarker` มีแค่ 2 status จาก 7** และไม่มีแกน `content` เลย — ตอนนี้ตรงกับ Figma 1:1 (`status` 7 ค่า × `content` 2 ค่า = 14 variants) prop `state` เดิมยังใช้ได้ในฐานะ deprecated
-- **ไอคอนคนละตัวกับ Figma** — เดิมใช้ `Error` / `WarningAmber` / `Info` / `CheckCircle` ซึ่งเป็น glyph ที่มีวงกลมในตัวอยู่แล้ว เลยกลายเป็นวงกลมซ้อนวงกลม · Figma ใช้ `close`, `priority-high`, `info` (outlined), `check` แบบ rounded วางบนวงกลมสีเปล่าๆ
-- พบว่า `content=icon` ใน component set ใส่ `panorama-fish-eye` ไว้เป็น **placeholder** — ไอคอนจริงมาจาก `crv-stepper-base` ที่ swap เข้าไปตาม state บันทึกไว้ใน rules แล้ว โค้ดทำตามโครงนี้ (marker ไม่ผูกไอคอนกับ status เอง)
-- Storybook แสดงครบทั้ง 14 variants แล้ว (เดิมมีแค่ 2) · Code Connect map แกนใหม่ครบ ตรวจ parse ผ่าน
-- **เพิ่ม `CrvStepper.test.tsx` (16 test)** ล็อกตารางสีไว้ทั้งหมด — drift แบบนี้จะไม่เงียบอีก
+- **`CrvStepperMarker` had only 2 of the 7 statuses** and no `content` axis at all — it now matches Figma 1:1 (`status` 7 values × `content` 2 values = 14 variants); the old `state` prop still works as deprecated
+- **The icons differed from Figma** — the old version used `Error` / `WarningAmber` / `Info` / `CheckCircle`, which are glyphs that already contain a circle, so it became a circle inside a circle · Figma uses `close`, `priority-high`, `info` (outlined), and `check` in the rounded style, placed on a plain colored circle
+- Found that `content=icon` in the component set uses `panorama-fish-eye` as a **placeholder** — the real icon comes from `crv-stepper-base`, which swaps it in by state; this is recorded in the rules, and the code follows this structure (the marker does not bind an icon to a status itself)
+- Storybook now shows all 14 variants (previously only 2) · the Code Connect map covers the new axes and the parse check passes
+- **Added `CrvStepper.test.tsx` (16 tests)** locking down the whole color table — this kind of drift will no longer go unnoticed
 
-### ✏️ Stepper — สี title ของ Inactive และ Optional ที่ไม่เคยถูก style เลย
+### ✏️ Stepper — the Inactive title color and the Optional text that were never styled
 
-- **แก้ใน Figma: `state=Inactive` ให้ `Step title` เป็น `color/content/primary`** เท่ากับ state อื่น (เดิมเป็น `content/secondary` ทำให้จางกว่าคำว่า Optional ข้างล่างมันเอง) ตอนนี้ทั้ง 14 variants ใช้สีเดียวกันระหว่าง title กับ Optional เสมอ · sync เข้าโค้ดแล้ว
-- **`Optional` ไม่เคยรับ style ที่เขียนไว้เลย** — กฎในโค้ดชี้ไปที่ `.MuiStepLabel-optional` แต่ MUI v7 วางข้อความนั้นเป็น text node เปล่าๆ ไม่มี class ให้จับ ทั้ง block เลยเป็น dead code มาตลอด · ครอบด้วย `<span class="crv-step-optional">` เองแล้ว
-- ผลที่ตามมาจากข้อบน: **`Optional` ใช้ขนาดผิด** — เดิมตั้งใจให้เป็น `body/small` (12/18) แต่ Figma ใช้ `caption/caption` (12/16) และ**ไม่มีระยะห่าง**จาก title (โค้ดใส่ margin-top 2px ไว้) ตอนนี้ตรงแล้ว
-- **น้ำหนักฟอนต์ของ Step title ผิด** — Figma ใช้ `typography/label/medium` ซึ่งเป็น **Medium (500)** โค้ดใช้ Regular (400)
+- **Fixed in Figma: `state=Inactive` now gives `Step title` the `color/content/primary`** color, the same as the other states (previously `content/secondary`, which made it paler than the word Optional below it) — now all 14 variants always use the same color for the title and Optional · synced into the code
+- **`Optional` never received the styles written for it** — the rule in the code targets `.MuiStepLabel-optional`, but MUI v7 places that text as a bare text node with no class to hook onto, so the whole block had been dead code all along · now wrapped in our own `<span class="crv-step-optional">`
+- A consequence of the above: **`Optional` used the wrong size** — it was meant to be `body/small` (12/18), but Figma uses `caption/caption` (12/16) and has **no gap** from the title (the code put in margin-top 2px). It now matches
+- **The font weight of the Step title was wrong** — Figma uses `typography/label/medium`, which is **Medium (500)**; the code used Regular (400)
 
-### ✨ อนิเมชันของ `CrvButtonDecorative` — แสงออโรราไหล
+### ✨ `CrvButtonDecorative` animation — flowing aurora light
 
-ทำตามแนวคิด "Colorful Buttons" (fluid aurora backdrop) จาก freefrontend แต่**เขียนขึ้นใหม่ด้วย token ของเราเอง** ไม่ได้ก๊อปโค้ดต้นฉบับ และไม่ใช้สีนอกชุด
+Follows the "Colorful Buttons" (fluid aurora backdrop) concept from freefrontend, but **rewritten from scratch with our own tokens**; the original code was not copied, and no colors outside the set are used
 
-- เลเยอร์เบลอ 2 ชั้นของ blob วงกลมนุ่มๆ เคลื่อนสวนกันที่ **6s** กับ **8.5s** — คาบไม่หารกันลงตัว จังหวะจึงเหลื่อมกันจนไม่เห็นรอบซ้ำ
-- **ใช้แค่ 3 token เดิม** (`brand/decorative/gradient/{from,via,to}`) · วาง blob สีกรมไว้ชั้นล่างสุดเพื่อ**รักษาแกนสีเข้มตาม Figma** ไม่ให้ปุ่มซีดกลายเป็นฟ้าทั้งใบ
-- ต้นฉบับใช้ `<div>` 12 ตัว — ของเราอยู่บน pseudo-element 2 ตัวที่ `z-index: -1` ใน stacking context ของปุ่มเอง **ไม่เพิ่ม DOM เลยสักตัว** และตัวอักษรไม่ต้องแย่งลำดับการซ้อน
-- **animate เฉพาะ `transform`** อยู่บน compositor ล้วน ไม่มี repaint ต่อเฟรม
-- หยุดนิ่งเมื่อ `animated={false}`, `prefers-reduced-motion: reduce` หรือ `disabled` — ทุกกรณีตกกลับไปเป็นไล่เฉดนิ่งตาม Figma เป๊ะ
-- เพิ่ม prop `animated` (default `true`) ไว้ปิดตอนหน้าจอแน่นหรือมีปุ่มนี้หลายตัวเรียงกัน
-- story ใหม่ `Animated` + test 7 ตัว · **หมายเหตุ: Figma ไม่มีอนิเมชันของ component นี้ เฟรมหยุดนิ่งคือจุดที่สองฝั่งตรงกัน** บันทึกไว้ใน `rules/components/crv-button-decorative.md` แล้ว
+- Two blurred layers of soft circular blobs move against each other at **6s** and **8.5s** — the periods do not divide evenly, so the rhythms drift apart and the loop is never visibly repeated
+- **Uses only the 3 existing tokens** (`brand/decorative/gradient/{from,via,to}`) · a navy blob is placed on the bottom layer to **preserve the dark color core per Figma**, so the button does not wash out to light blue all over
+- The original uses 12 `<div>`s — ours lives on 2 pseudo-elements at `z-index: -1` inside the button's own stacking context, **adding no DOM at all**, and the text does not have to compete for stacking order
+- **Animates only `transform`**, entirely on the compositor, with no repaint per frame
+- Stops when `animated={false}`, `prefers-reduced-motion: reduce`, or `disabled` — in every case it falls back to the static gradient exactly per Figma
+- Added the `animated` prop (default `true`) so it can be turned off when the screen is crowded or several of these buttons sit in a row
+- New `Animated` story + 7 tests · **Note: Figma has no animation for this component; the static frame is where the two sides match** — recorded in `rules/components/crv-button-decorative.md`
 
 ### 🔄 Code
 
-- **`CrvToast` เขียนใหม่ให้ตรงกับ `crv-toast-standard` ตัวใหม่** — เดิมเป็น `variant=primary|secondary` + severity 4 แบบ ไม่มี Description และปุ่ม Action ส่วน Code Connect ยังชี้ไป component ที่ถูกลบไปแล้ว
-  - `variant`: `filled` | `outlined` | `standard` (ค่าเดิม `primary` / `secondary` ยังใช้ได้ map เป็น `filled` / `standard` และ mark deprecated)
-  - `severity`: เพิ่ม `notification` (พื้น/เส้นขอบ neutral + ไอคอน brand)
-  - เพิ่ม `title`, `description`, `action` และ `onClose` — ปุ่มปิดจะแสดงเมื่อส่ง `onClose` เท่านั้น และใช้ `CrvButtonIcon` ของ DS แทน `IconButton` ของ MUI
-  - ไอคอนตรงกับ Figma: Filled/Outlined ใช้แบบเส้น, Standard ใช้แบบทึบ
-  - เงา `shadow/status/*` ทำเป็น box-shadow 3 ชั้นจาก token ของแต่ละ severity
-  - Code Connect ชี้ไป node ใหม่ `6413:55828` พร้อม map ครบทุก property
-  - เพิ่ม `CrvToast.test.tsx` (19 test) และเขียน story ใหม่ครบ 15 combination
-- **เพิ่ม `color/neutral/*` 9 token ลง `tokens.json`** — มีใน Figma มาตลอดแต่ไม่เคยถูก sync ทำให้เขียนสี Notification โดยไม่ hardcode ไม่ได้
+- **`CrvToast` rewritten to match the new `crv-toast-standard`** — previously it was `variant=primary|secondary` + 4 severities, with no Description and no Action button, and Code Connect still pointed to a component that had since been deleted
+  - `variant`: `filled` | `outlined` | `standard` (the old values `primary` / `secondary` still work, mapped to `filled` / `standard` and marked deprecated)
+  - `severity`: added `notification` (neutral fill/border + brand icon)
+  - Added `title`, `description`, `action`, and `onClose` — the close button is shown only when `onClose` is passed, and it uses the DS's `CrvButtonIcon` instead of MUI's `IconButton`
+  - Icons match Figma: Filled/Outlined use the outlined style, Standard uses the solid style
+  - The `shadow/status/*` shadows are built as a 3-layer box-shadow from each severity's token
+  - Code Connect points to the new node `6413:55828`, with every property mapped
+  - Added `CrvToast.test.tsx` (19 tests) and rewrote the stories to cover all 15 combinations
+- **Added 9 `color/neutral/*` tokens to `tokens.json`** — they had always existed in Figma but were never synced, which made it impossible to write the Notification colors without hardcoding
 
 ### 🎨 Icon
 
-- **ไอคอนทั้งไลบรารีเชื่อม Code Connect แล้ว — 1,076 จาก 1,077 ชุด × 5 style** เดิม Dev Mode แสดงไอคอนเป็น instance ที่ไม่มีชื่อ ตอนนี้โชว์เป็น `<ArrowBackRounded />` ตาม style ที่เลือกใน Figma สร้างด้วย `npm run icons:connect` ซึ่งดึงรายชื่อจาก Figma เอง ไอคอนใหม่ไม่ต้อง map มือ ข้ามแค่ `flags` เพราะเป็นชุดธงชาติ ไม่ใช่ไอคอน
-- **`chevron-up` / `chevron-down` → `ExpandLess` / `ExpandMore`** เทียบ path แล้วตรงกันทั้ง filled และ rounded — `chevron-down` ถูกใช้ 25 จุดใน Button, Breadcrumb, Accordion, Dropdown
-- **เพิ่ม `code/core/icons/`** — ไอคอน 9 ชุด × 5 style ที่ Figma ใช้แต่ MUI ไม่มี: 8 ชุดถูกตัดออกจาก MUI ตั้งแต่ v5 (`eco`, `polymer`, `amp-stories`, `exposure-*`) และ `dock-to-right` ที่มาจาก Material Symbols สร้างจาก vector ใน Figma ด้วย `npm run icons:custom` ใช้ `createSvgIcon` ของ MUI สีตาม `currentColor` เหมือนไอคอนอื่น มี test ครอบทั้ง 45 ตัว
-- **`Component 1` / `Component 2` → `picture-in-picture` / `picture-in-picture-alt`** (Design System Owner แก้ใน Figma) — ชุดเดิม style filled/outlined สลับกันระหว่างสองชุด ชุดใหม่ถูกต้องครบ 5 style
-- **จัด 4 ชุดให้เข้ากับไลบรารี** — `picture-in-picture`, `picture-in-picture-alt`, `arrow-circle-up`, `dock-to-right` เปิด "Include stroke in layout" ไว้ ทำให้ set ใหญ่กว่าตัวอื่น 2px และสีเส้นประไม่ตรง ตอนนี้ครบ 1,076 ชุดเหมือนกันหมด
-- `CrvLink` Code Connect เคยแสดง `startIconVisible` ซึ่งไม่มีใน `CrvLink` ตอนนี้แสดง `startIcon={<ไอคอนจริง />}`; `CrvTableTextCell` และ `CrvDrawer` เคยถูกข้ามตอน publish เพราะมีเงื่อนไขในตัวอย่าง แก้แล้ว; `CrvButton` ชี้ไปที่ section แทน component set มาตั้งแต่ มิ.ย. แก้แล้ว
+- **The entire icon library is now connected with Code Connect — 1,076 of 1,077 sets × 5 styles** — previously Dev Mode showed icons as unnamed instances; it now shows `<ArrowBackRounded />` according to the style selected in Figma. Generated with `npm run icons:connect`, which pulls the list of names from Figma itself, so new icons need no manual mapping. Only `flags` is skipped, because it is a set of national flags, not icons
+- **`chevron-up` / `chevron-down` → `ExpandLess` / `ExpandMore`** the paths were compared and match in both filled and rounded — `chevron-down` is used in 25 places across Button, Breadcrumb, Accordion, and Dropdown
+- **Added `code/core/icons/`** — 9 icon sets × 5 styles that Figma uses but MUI does not have: 8 sets were removed from MUI as of v5 (`eco`, `polymer`, `amp-stories`, `exposure-*`) and `dock-to-right`, which comes from Material Symbols. Generated from the vectors in Figma with `npm run icons:custom`, using MUI's `createSvgIcon`, colored by `currentColor` like the other icons, with tests covering all 45
+- **`Component 1` / `Component 2` → `picture-in-picture` / `picture-in-picture-alt`** (the Design System Owner fixed this in Figma) — in the old sets the filled/outlined styles were swapped between the two sets; the new sets are correct in all 5 styles
+- **Aligned 4 sets with the library** — `picture-in-picture`, `picture-in-picture-alt`, `arrow-circle-up`, and `dock-to-right` had "Include stroke in layout" turned on, which made the set 2px larger than the others and the dashed-line color wrong. Now all 1,076 sets are identical
+- `CrvLink` Code Connect used to show `startIconVisible`, which does not exist on `CrvLink`; it now shows `startIcon={<actual icon />}`; `CrvTableTextCell` and `CrvDrawer` used to be skipped at publish because their examples contained conditions, now fixed; `CrvButton` had pointed at a section instead of the component set since Jun, now fixed
 
 ### 🎨 Token
 
-- **Status border tokens ครบชุด — `color/status/{error,warning,info,success}/border/default|strong`** เดิมมีไม่ครบและไม่เป็นแพทเทิร์นเดียวกัน (error มีแค่ `strong`, info ไม่มีเลย, success/warning มีแค่ `default` แต่ใช้ step 700/600 ซึ่งเข้มเท่าพื้นทึบ) ตอนนี้ตามแพทเทิร์นเดียวกับ border ตระกูลอื่นทั้งหมด: `default` = hue/300, `strong` = hue/500 ตั้ง scope เป็น stroke อย่างเดียว
-  - เปลี่ยนค่า 2 ตัว: `success/border/default` emerald/700 → **emerald/300**, `warning/border/default` amber/600 → **amber/300** — ตรวจทั้งไฟล์ Figma และโค้ดแล้ว ไม่มีที่ไหนใช้สองตัวนี้
-  - `error/border/strong` (red/500) มีใน Figma มาตลอดแต่ไม่เคยถูก sync ลง `tokens.json` — เพิ่มแล้ว
-  - แก้กฎข้อ 7 ใน `rules/DESIGN.md` ที่เคยห้ามสร้าง status border token (Design System Owner อนุมัติ)
-- **Effect style ใหม่ `shadow/status/{error,warning,info,success,notification}`** — เงานุ่ม 3 ชั้น (y 8/−2/2, blur 8/8/4, spread 0/2/0, 6%/4%/12%) สีตาม `status/*/on-surface/default`; `notification` ใช้สีฐานเดียวกับ `shadow/*` (`#1e3a8a`) ให้เข้ากับพื้น neutral
+- **Complete set of status border tokens — `color/status/{error,warning,info,success}/border/default|strong`** — previously incomplete and not following one pattern (error had only `strong`, info had none at all, success/warning had only `default` but used steps 700/600, which are as dark as a solid fill). They now follow the same pattern as all the other border families: `default` = hue/300, `strong` = hue/500, with the scope set to stroke only
+  - Changed the values of 2 tokens: `success/border/default` emerald/700 → **emerald/300**, `warning/border/default` amber/600 → **amber/300** — checked the entire Figma file and the code, and nothing uses these two
+  - `error/border/strong` (red/500) had always existed in Figma but was never synced into `tokens.json` — added now
+  - Fixed rule 7 in `rules/DESIGN.md`, which used to forbid creating status border tokens (approved by the Design System Owner)
+- **New effect styles `shadow/status/{error,warning,info,success,notification}`** — a soft 3-layer shadow (y 8/−2/2, blur 8/8/4, spread 0/2/0, 6%/4%/12%) colored by `status/*/on-surface/default`; `notification` uses the same base color as `shadow/*` (`#1e3a8a`) to suit the neutral fill
 
-### 🔔 Alert (แทน `crv-toast-standard` — Figma เท่านั้น ยังไม่มีในโค้ด)
+### 🔔 Alert (replaces `crv-toast-standard` — Figma only, not in code yet)
 
-- **ย้าย `<Alert>` (`6413:55828`) จาก MUI kit มาใช้ของ DS ทั้งหมด** — 15 variants: `Severity` (Error, Warning, Info, Success, Notification) × `Variant` (Filled, Outlined, Standard) ไม่เหลือ component, ตัวแปร หรือ style จาก library อื่นเลย
-  - ไอคอน → ไลบรารีเรา 24px เทียบรูปทรงกับของเดิมทีละเส้น (warning แบบเส้นใช้ `report-problem` outlined ตามค่า default ของ MUI Alert)
-  - ปุ่ม Action → `crv-button-standard` text/neutral/small, ปุ่มปิด → `crv-button-icon` ghost/neutral/small + `close`; ช่องสลับปุ่ม Action รับเฉพาะ `crv-button-standard`
-  - สี, เส้นขอบ (`status/*/border/default|strong`), text style `label/large` + `label/medium`, spacing ทั้งหมด, `radius/12`, padding บน-ล่าง `spacing/xs`
-  - **เพิ่ม `Severity=Notification`** ตามสีของ toast notification เดิม: ไอคอน/ปุ่มปิด `brand/primary`, พื้นและเส้นขอบเป็น neutral — Filled `bg/white` + `shadow/md`, Outlined `neutral/border/strong`, Standard `neutral/on-surface/subtle` + `neutral/border/default`
-- ปุ่มบนพื้นทึบ (Filled) ตั้งสีทับเป็น `content/inverse` เพราะปุ่มใน DS ยังไม่มีสีแบบขาวบนพื้นสี
-- **ตั้งชื่อเป็น `crv-toast-standard` แทนตัวเดิม** (Design System Owner ลบตัวเก่า `4165:5387` แล้ว) และอัปเดต `Doc — crv-toast-standard` (เดิมชื่อ `crv-alert-standard`): เนื้อหาใหม่ทั้งหมด, ส่วน Variant เป็น 3 คอลัมน์, ตัวอย่างครบทั้ง 15 variant + ตัวอย่างที่เปิดทุกส่วน, แทนตัวอย่าง 13 ชิ้นที่ยังชี้ไป component ที่ถูกลบ
-- แก้ bug ที่เกิดตอนเพิ่ม Notification: variant ที่ก็อปมาไม่ได้ต่อกับ property (toggle Action / ปุ่มปิด / Title / Description และช่องสลับปุ่ม) ตอนนี้ทั้ง 15 variant ต่อเหมือนกันหมด
-- ⚠️ **`CrvToast.figma.tsx` ยังชี้ไปที่ `4165:5387` ซึ่งถูกลบแล้ว** — publish Code Connect รอบหน้าจะ fail จนกว่าจะอัปเดตโค้ด `CrvToast` ให้ตรง
+- **Moved `<Alert>` (`6413:55828`) from the MUI kit to the DS's own entirely** — 15 variants: `Severity` (Error, Warning, Info, Success, Notification) × `Variant` (Filled, Outlined, Standard); no component, variable, or style from another library remains
+  - Icons → our library at 24px, with the shapes compared against the old ones one by one (the outlined warning uses outlined `report-problem`, following MUI Alert's default)
+  - Action button → `crv-button-standard` text/neutral/small, close button → `crv-button-icon` ghost/neutral/small + `close`; the Action button swap slot accepts only `crv-button-standard`
+  - Colors, borders (`status/*/border/default|strong`), text styles `label/large` + `label/medium`, all spacing, `radius/12`, top-bottom padding `spacing/xs`
+  - **Added `Severity=Notification`** following the colors of the old toast notification: icon/close button `brand/primary`, fill and border neutral — Filled `bg/white` + `shadow/md`, Outlined `neutral/border/strong`, Standard `neutral/on-surface/subtle` + `neutral/border/default`
+- Buttons on a solid fill (Filled) have their color overridden to `content/inverse`, because the buttons in the DS do not yet have a white-on-colored-fill option
+- **Named it `crv-toast-standard`, replacing the old one** (the Design System Owner deleted the old `4165:5387`) and updated `Doc — crv-toast-standard` (formerly named `crv-alert-standard`): entirely new content, the Variant section is now 3 columns, with examples for all 15 variants + an example with every part turned on, replacing the 13 examples that still pointed at the deleted component
+- Fixed a bug that arose when adding Notification: the copied variants were not connected to the properties (toggles for Action / close button / Title / Description, and the button swap slot). Now all 15 variants are wired identically
+- ⚠️ **`CrvToast.figma.tsx` still points at `4165:5387`, which has been deleted** — the next Code Connect publish will fail until the `CrvToast` code is updated to match
 
-### ⚠️ ยังค้าง
+### ⚠️ Still open
 
-- `CrvStepperMarker` ใน code รองรับแค่ `state='default' | 'done'` แต่ Figma มี `status` 7 ค่า + แกน `content` — Code Connect map เฉพาะ `Default` / `Done`
-- `crv-stepper-base` `state=Info`: `text=Left` ใช้ `color/brand/primary/on-surface/default` แต่ `text=Center` ใช้ `color/status/info/on-surface/default`
-- ~~`crv-stepper-desktop` ยังเป็น instance จาก DS อื่น — เป็นที่เดียวที่เหลือ `padding: 7` (2 จุด) และ `Ellipse 1` (1 จุด) ในหมวด Stepper~~ → **เคลียร์แล้ว 2026-09-16** component ถูกลบออกจาก Figma ทั้งหน้า Stepper ไม่เหลือทั้งสองอย่างแล้ว
-- **type error เดิม 19 จุด** ที่ `typecheck:ds` เจอ — ทั้งหมดมีอยู่ก่อนแล้ว (เทียบกับ `d828de9` ตรงกันทุกจุด) ส่วนใหญ่อยู่ใน `*.stories.tsx` เช่น `CrvModal` ขาด prop `open` 5 จุด, `CrvSidebar.stories.tsx` เรียก `colors.bg.page` ที่ไม่มีแล้ว, `CrvTabs.stories.tsx` 2 จุด และ 1 จุดใน `CrvLink.figma.tsx`
-- **`CrvStepper` ไม่มี test** — `test:run` ผ่านทั้ง 36 ไฟล์ แต่ไม่มีไฟล์ไหนครอบ Stepper
-- **`npm audit` รายงาน 10 ช่องโหว่** (critical 1, high 2) ใน dependency — ยังไม่แก้ เพราะ `audit fix --force` จะอัปเกรดข้าม major version
-- **Code Connect ยัง publish/dry-run ไม่ได้** — ต้องมี `FIGMA_ACCESS_TOKEN` ใน `.env.local` ซึ่งยังไม่มีในเครื่อง
-- **เวอร์ชัน MUI ขัดกันเอง 3 ที่** — `package.json` `^7.1.0`, `code/core/CLAUDE.md` บอก v9, README ของ export บอก `^6.1.6` และ `@mui/x-date-pickers` ถูกลดจาก `^8.29.0` → `^7.23.3` ตอนโดนทับ ต้องให้ dev ยืนยันว่าใช้เวอร์ชันไหน
+- `CrvStepperMarker` in code supports only `state='default' | 'done'`, but Figma has 7 `status` values + a `content` axis — Code Connect maps only `Default` / `Done`
+- `crv-stepper-base` `state=Info`: `text=Left` uses `color/brand/primary/on-surface/default` but `text=Center` uses `color/status/info/on-surface/default`
+- ~~`crv-stepper-desktop` is still an instance from another DS — the only place left with `padding: 7` (2 places) and `Ellipse 1` (1 place) in the Stepper category~~ → **Cleared on 2026-09-16** — the component was deleted from Figma; the whole Stepper page now has neither
+- **19 pre-existing type errors** found by `typecheck:ds` — all of them existed before (compared against `d828de9`, identical at every point), mostly in `*.stories.tsx`, e.g. `CrvModal` missing the `open` prop in 5 places, `CrvSidebar.stories.tsx` calling `colors.bg.page`, which no longer exists, 2 places in `CrvTabs.stories.tsx`, and 1 place in `CrvLink.figma.tsx`
+- **`CrvStepper` has no tests** — `test:run` passes all 36 files, but none of them covers Stepper
+- **`npm audit` reports 10 vulnerabilities** (critical 1, high 2) in dependencies — not fixed yet, because `audit fix --force` would upgrade across major versions
+- **Code Connect cannot yet publish/dry-run** — it needs `FIGMA_ACCESS_TOKEN` in `.env.local`, which is not on this machine yet
+- **MUI versions contradict each other in 3 places** — `package.json` says `^7.1.0`, `code/core/CLAUDE.md` says v9, the export's README says `^6.1.6`, and `@mui/x-date-pickers` was downgraded from `^8.29.0` → `^7.23.3` when it was overwritten; a dev needs to confirm which version is used
 
 ---
 
 ## v1.2.0 — 2026-09-07
 
-### 🐛 แก้ bug
+### 🐛 Bug fixes
 
-- **สี icon ในปุ่มทุกตัวผิดทั้งระบบ (Figma)** — VECTOR ข้างใน icon instance ทุกตัว (459 node ใน 7 component set / 288 variants) ถูก bind กับ `color/content/secondary` เหมือนกันหมด ทำให้ icon ขึ้นเป็นสีเทาไม่ว่าปุ่มจะสีอะไร เช่นปุ่ม contained พื้นน้ำเงินได้ลูกศรเทาแทนที่จะเป็นขาว แก้เป็น **icon ใช้ token เดียวกับ `label` ของ variant นั้น** rebind รวม 804 fill ครอบคลุม `crv-button-standard`, `crv-button-icon`, `crv-button-loading`, `crv-link`, `crv-button-decorative`, `crv-button-mic`, `crv-button-split`
-  (`crv-button-mic` ยังเป็น `color/content/secondary` — ถูกต้องแล้วเพราะ label ของมันใช้ token นี้)
-- **`crv-fab` เป็นบั๊กเดียวกัน** — icon ทั้ง 24 variants bind `color/content/secondary` ทำให้ FAB พื้นน้ำเงินได้ไอคอนเทา FAB ไม่มี label เลยอิงจากสีพื้นแบบเดียวกับ `crv-button-icon`: primary default → `color/content/on-brand`, primary hover/pressed → `color/content/inverse`, neutral ทุก state → `color/neutral/content/default`, disabled → `color/content/disabled`
-- **doc และ token ในโค้ดไม่ตรงกับ Figma ตั้งแต่ v1.1.0** — sync ให้ตรงแล้วทั้งหมด:
+- **The icon color in every button was wrong across the whole system (Figma)** — the VECTOR inside every icon instance (459 nodes in 7 component sets / 288 variants) was bound to `color/content/secondary`, so the icon came out gray no matter what color the button was; e.g. a blue-fill contained button got a gray arrow instead of white. Fixed so that the **icon uses the same token as the `label` of that variant**; rebound 804 fills in total, covering `crv-button-standard`, `crv-button-icon`, `crv-button-loading`, `crv-link`, `crv-button-decorative`, `crv-button-mic`, `crv-button-split`
+  (`crv-button-mic` is still `color/content/secondary` — that is correct, because its label uses this token)
+- **`crv-fab` had the same bug** — the icons in all 24 variants were bound to `color/content/secondary`, so a blue-fill FAB got a gray icon. FAB has no label, so it follows the fill color the same way as `crv-button-icon`: primary default → `color/content/on-brand`, primary hover/pressed → `color/content/inverse`, neutral in every state → `color/neutral/content/default`, disabled → `color/content/disabled`
+- **The docs and the tokens in code have not matched Figma since v1.1.0** — all synced now:
 
-  | รายการ | เดิม | แก้เป็น (ตาม Figma) |
+  | Item | Old | Fixed to (per Figma) |
   |---|---|---|
   | `color/content/secondary` | `#475569` slate/600 | `#64748b` slate/500 |
   | `typography/label/medium` line-height | 22 | 20 |
@@ -428,74 +429,74 @@ Figma มี 7 ปุ่ม แต่โค้ดมีแค่ 4 และ 2 �
   | `typography/label/xsmall` line-height | 14 | 16 |
   | `typography/display/large` | 64/72 · 40/48 | 60/72 · 48/48 |
   | `typography/display/small` | 40/48 · 32/40 | 36/48 · 30/40 |
-  | ชื่อ font-family | `sans` / `serif` | `ui` / `prose` |
-  | `typography/prose/*` | ไม่มีในเอกสาร/โค้ด | เพิ่มครบ 3 ขนาด |
+  | font-family names | `sans` / `serif` | `ui` / `prose` |
+  | `typography/prose/*` | absent from the docs/code | all 3 sizes added |
 
-  แก้ที่ `rules/DESIGN.md`, `tokens.json`, `code/core/tokens.ts`
-  ⚠️ **line-height ของ `label` กระทบทุก component ที่ใช้ label style** (ปุ่ม, tab, chip, menu ฯลฯ) — ค่าเดิมถูกคัดลอกมาจาก `body` โดยไม่ตั้งใจ ควร regression test ก่อน release
+  Fixed in `rules/DESIGN.md`, `tokens.json`, `code/core/tokens.ts`
+  ⚠️ **The `label` line-height affects every component that uses the label style** (button, tab, chip, menu, etc.) — the old values were accidentally copied from `body`; run a regression test before release
 
-### 🆕 เพิ่มใหม่
+### 🆕 Added
 
-- **เติมตัวอย่างใน Figma doc ให้ครบ 65 จุด ใน 12 หน้า** — เดิม doc หลายอันอธิบาย variant ไว้แต่ไม่มีตัวอย่างให้ดู
+- **Filled in the examples in the Figma docs in 65 places across 12 pages** — previously many docs described variants but had no examples to look at
   Progress (16), Toast (8), Tag (7), Button icon neutral (3), Stepper (4), Card (2), Tabs (2), Avatar (1), Switch (1)
-  กติกา: ใส่ครบทุกแกนที่เห็นความต่างทางสายตา (variant/color/type/severity) ส่วนแกนตำแหน่ง (`labelPlacement`, `placement`, `breakpoint`) ใส่ตัวแทน 1 อัน
-- **เพิ่ม doc section ใหม่ 7 อัน** ให้ component ที่ไม่เคยถูก document เลย พร้อมตัวอย่างจริง — `crv-button-decorative`, `crv-button-mic`, `crv-button-split`, `crv-sidebar-rail`, `crv-checkbox-standard`, `crv-checkbox-group`, `crv-radio-standard`
-  ⚠️ ทุก section ยังไม่มี Do/Don't — ใส่ placeholder ไว้ รอ Design System Owner เขียน
-- เพิ่ม variant property **`size`** ให้ `crv-tabs-standard-base` (`4724:141435`) — `large` (เดิม) และ `small` (ใหม่) รวม 8 variants
-  `small`: สูง 32px · icon 16 · `typography/label/small` (12/16) · padding `spacing/sm` · gap `spacing/xs`
-- `CrvTabsStandard` รับ prop **`size?: 'small' | 'large'`** (default `large`) — เดิมไม่มี size เลย
-- เพิ่ม `typography.fontFamily.ui` / `.prose` ใน `code/core/tokens.ts` (`.sans` / `.serif` ยังใช้ได้แต่ mark deprecated แล้ว ยังไม่ได้ migrate 101 จุดที่เรียกใช้)
+  Rule: include every axis with a visible difference (variant/color/type/severity); for position axes (`labelPlacement`, `placement`, `breakpoint`), include 1 representative
+- **Added 7 new doc sections** for components that had never been documented, with real examples — `crv-button-decorative`, `crv-button-mic`, `crv-button-split`, `crv-sidebar-rail`, `crv-checkbox-standard`, `crv-checkbox-group`, `crv-radio-standard`
+  ⚠️ No section has Do/Don't yet — placeholders are in place, waiting for the Design System Owner to write them
+- Added the variant property **`size`** to `crv-tabs-standard-base` (`4724:141435`) — `large` (existing) and `small` (new), 8 variants in total
+  `small`: 32px tall · icon 16 · `typography/label/small` (12/16) · padding `spacing/sm` · gap `spacing/xs`
+- `CrvTabsStandard` accepts the prop **`size?: 'small' | 'large'`** (default `large`) — previously there was no size at all
+- Added `typography.fontFamily.ui` / `.prose` in `code/core/tokens.ts` (`.sans` / `.serif` still work but are now marked deprecated; the 101 call sites have not been migrated yet)
 
-### ✏️ เปลี่ยนแปลง
+### ✏️ Changed
 
-- `crv-tabs-standard` เปลี่ยนจาก **COMPONENT เดี่ยว → COMPONENT_SET** ที่มี variant `size` เพื่อให้สลับขนาดได้จาก dropdown
-  Node ID ของ set คือ **`6086:59`** (variant `size=large` ยังเป็น node เดิม `4838:9365` — instance ที่ใช้อยู่ไม่พัง)
-- อัปเดต Code Connect ของ `CrvTabsStandard` ให้ชี้ set ใหม่ พร้อม map `size`
+- `crv-tabs-standard` changed from a **single COMPONENT → a COMPONENT_SET** with a `size` variant so that the size can be switched from a dropdown
+  The set's Node ID is **`6086:59`** (the `size=large` variant is still the original node `4838:9365` — existing instances do not break)
+- Updated the Code Connect of `CrvTabsStandard` to point to the new set, with `size` mapped
 
-### 📌 ควรรู้ก่อนใช้งาน
+### 📌 Good to know before use
 
-- ถ้ามีที่ไหน reference `crv-tabs-standard` ด้วย node id `4838:9365` ให้เปลี่ยนเป็น `6086:59`
-- `tabs` ของ `crv-tabs-standard` เป็น **SLOT** — `size` คุมเฉพาะ tab เริ่มต้นที่มากับ component ถ้าใส่ `crv-tabs-standard-base` instance เองต้องตั้ง `size` ที่ instance นั้นด้วย (ยังไม่ได้ทดสอบเคสนี้)
-- `size=small` ของ tabs ผูก font-size/line-height กับ variable `typography/label/small/*` ตรงๆ ไม่ได้ใช้ text style เพราะ font `Aktiv Grotesk Thai` โหลดไม่ได้ใน environment ที่แก้ — เลยคง typeface เดิมไว้ให้ตรงกับ `size=large`
-- `color/content/secondary` กับ `color/content/placeholder` ตอนนี้เป็นค่าเดียวกัน (`slate/500` `#64748b`) — **ยืนยันแล้วว่าตั้งใจ**
-- **เส้นขอบ component set มีมาตรฐานแล้ว** — `#ae00ff` · weight 1 · align OUTSIDE · dash 6/4 (ไม่รวม cornerRadius ซึ่งแต่ละ component ใช้ต่างกันได้) อ้างอิงจาก `crv-button-standard`
-  เดิมทั้งไฟล์มี 8 แบบปนกัน ปรับ 21 sets ที่ไม่ตรงแล้ว ตอนนี้ component set ทั้ง 72 อันเหมือนกันหมด (ไม่นับ `Icon/*` 1,076 อันซึ่งเป็นคนละ library)
-- **`crv-menu-item` state disabled** — icon เคยค้างที่ `color/content/secondary` ทั้งที่ label เป็น `color/content/disabled` แก้ให้ตรงกันแล้ว 2 variants
-  ส่วนอีก 6 variants ที่ icon (`content/secondary`) อ่อนกว่า label (`content/primary`) **ไม่ได้แก้** — เป็น pattern ลดน้ำหนัก leading icon ที่น่าจะตั้งใจ ถ้าไม่ใช่ค่อยแจ้ง
+- If anything references `crv-tabs-standard` by node id `4838:9365`, change it to `6086:59`
+- The `tabs` of `crv-tabs-standard` is a **SLOT** — `size` controls only the default tabs that come with the component; if you put in your own `crv-tabs-standard-base` instance, you must also set `size` on that instance (this case has not been tested)
+- `size=small` of tabs binds font-size/line-height directly to the `typography/label/small/*` variables and does not use a text style, because the font `Aktiv Grotesk Thai` could not be loaded in the environment where the fix was made — so the original typeface was kept to match `size=large`
+- `color/content/secondary` and `color/content/placeholder` are now the same value (`slate/500` `#64748b`) — **confirmed as intentional**
+- **The component set border now has a standard** — `#ae00ff` · weight 1 · align OUTSIDE · dash 6/4 (excluding cornerRadius, which each component may use differently), taken from `crv-button-standard`
+  Previously the file had 8 mixed styles; adjusted the 21 sets that did not match. Now all 72 component sets are identical (not counting `Icon/*`, 1,076 of them, which are a different library)
+- **`crv-menu-item` state disabled** — the icon used to stay at `color/content/secondary` although the label was `color/content/disabled`; fixed to match in 2 variants
+  The other 6 variants, where the icon (`content/secondary`) is lighter than the label (`content/primary`), were **not fixed** — it is a pattern of de-emphasizing the leading icon that is probably intentional; if not, let us know
 
 ---
 
 ## v1.1.0 — 2026-08-31
 
-### 🆕 เพิ่มใหม่
-- เพิ่ม text style `typography/prose/large`, `typography/prose/medium`, `typography/prose/small` — ใช้สำหรับเนื้อหาอ่านยาวต่อเนื่อง (ข้อความตอบ AI, บทความ) ขนาด/line-height เท่ากับ `body/*` เป๊ะ ต่างกันแค่ font-family
-- เพิ่ม 9 variables รองรับ `prose/*` (`font-size`, `line-height`, `font-weight` × 3 ไซส์)
+### 🆕 Added
+- Added the text styles `typography/prose/large`, `typography/prose/medium`, `typography/prose/small` — for long continuous reading content (AI replies, articles), with the size/line-height exactly equal to `body/*`, differing only in font-family
+- Added 9 variables to support `prose/*` (`font-size`, `line-height`, `font-weight` × 3 sizes)
 
-### ✏️ เปลี่ยนแปลง
-- เปลี่ยนชื่อ token `font-family/sans` → **`font-family/ui`**
-- เปลี่ยนชื่อ token `font-family/serif` → **`font-family/prose`**
-  (ค่าฟอนต์แต่ละ mode เหมือนเดิมทุกอย่าง เปลี่ยนแค่ชื่อให้สื่อความหมายตรงขึ้น)
-- แก้ font-family ของ `typography/body/large·medium·small` — เดิมผูกผิดเป็น `prose` แก้เป็น `ui` ให้ถูกต้อง (ดู 🐛 ด้านล่าง)
-- ปรับขนาด `typography/display/large`: Desktop 64px → 60px, Mobile 40px → 48px
-- ปรับขนาด `typography/display/small`: Desktop 40px → 36px, Mobile 32px → 30px
-- ปรับ `typography/label/xsmall` line-height (Mobile): 14px → 16px — ให้ตรง ratio เดิมและปลอดภัยกับสระ/วรรณยุกต์ไทยที่ font-size เล็กสุดในระบบ
-- ปรับ `color/content/secondary`: `#475569` → **`#64748b`** — ให้ต่างจาก `content/primary` ชัดเจนขึ้น ยังผ่าน WCAG AA (contrast ~4.76:1)
+### ✏️ Changed
+- Renamed the token `font-family/sans` → **`font-family/ui`**
+- Renamed the token `font-family/serif` → **`font-family/prose`**
+  (the font values in each mode are all unchanged; only the names changed, to be more meaningful)
+- Fixed the font-family of `typography/body/large·medium·small` — it had been wrongly bound to `prose`; corrected to `ui` (see 🐛 below)
+- Adjusted the size of `typography/display/large`: Desktop 64px → 60px, Mobile 40px → 48px
+- Adjusted the size of `typography/display/small`: Desktop 40px → 36px, Mobile 32px → 30px
+- Adjusted the `typography/label/xsmall` line-height (Mobile): 14px → 16px — to match the existing ratio and to be safe for Thai vowels/tone marks at the smallest font-size in the system
+- Adjusted `color/content/secondary`: `#475569` → **`#64748b`** — to differ more clearly from `content/primary`, while still passing WCAG AA (contrast ~4.76:1)
 
-### 🐛 แก้ bug
-- `body/*` text style เคยผูก font-family ผิด (ใช้ `prose` แทน `ui`) ทำให้ **help-text และ placeholder ในทุก input component** (crv-input-standard, crv-input-horizontal, crv-text-area-standard) แสดงผลด้วยฟอนต์ผิด — แก้ไขแล้ว
+### 🐛 Bug fixes
+- The `body/*` text styles used to bind the wrong font-family (`prose` instead of `ui`), causing the **help-text and placeholder in every input component** (crv-input-standard, crv-input-horizontal, crv-text-area-standard) to render in the wrong font — fixed
 
-### 📌 ควรรู้ก่อนใช้งาน
-- ถ้ามีที่ไหน reference ชื่อ token `font-family/sans` หรือ `font-family/serif` ตรงๆ (เช่นในโค้ด หรือ plugin อื่น) ต้องเปลี่ยนเป็น `font-family/ui` / `font-family/prose` ตามชื่อใหม่
-- ปุ่ม (`crv-button-standard`) ยังมีปัญหาเรื่อง label size ผิด (small/medium ควรเป็น `label/medium` แต่ยังเป็น `label/large`) — ยังแก้ไม่ได้เพราะ font `Aktiv Grotesk Thai` โหลดไม่ได้ใน environment ปัจจุบัน รอตัดสินใจเรื่อง font ต่อ
+### 📌 Good to know before use
+- If anything references the token names `font-family/sans` or `font-family/serif` directly (e.g. in code or another plugin), change them to `font-family/ui` / `font-family/prose` per the new names
+- The button (`crv-button-standard`) still has a wrong label size (small/medium should be `label/medium` but are still `label/large`) — it cannot be fixed yet because the font `Aktiv Grotesk Thai` cannot be loaded in the current environment; waiting for a decision on the font
 
 ---
 
 ## v1.0.1 — 2026-08-28
 
-### 🐛 แก้ bug
+### 🐛 Bug fixes
 
-- แก้ `CrvDropdown` — field ขนาด `size="small"`/`size="medium"` ไม่ apply จริง เรนเดอร์เป็นค่า default ของ MUI (สูง 57px, ตัวหนังสือ 16px) ทุกที่ที่ใช้แทนที่จะเป็นขนาดตาม Figma (`small` 38px/14px, `medium` 48px/16px) — สาเหตุคือ MUI `Select` clone `input` element แล้วเอา `sx` ของ `Select` เองทับ `sx` ที่ตั้งไว้บน `<OutlinedInput>` ทั้งก้อน ย้าย style ขนาด/สี/border ทั้งหมดไปรวมไว้ที่ `sx` ของ `Select` แทน
-- เช็ค `CrvPagination` (ใช้ `CrvDropdown` ภายใน) แล้ว — ไม่โดนบั๊กเดียวกัน เพราะ customize ผ่าน prop `sx` สาธารณะของ `CrvDropdown` (ลงที่ `FormControl` ไม่ใช่ `Select` โดยตรง)
+- Fixed `CrvDropdown` — fields with `size="small"`/`size="medium"` were not actually applied and rendered at MUI's defaults (57px tall, 16px text) everywhere they were used, instead of the Figma sizes (`small` 38px/14px, `medium` 48px/16px) — the cause was that MUI `Select` clones the `input` element and then overrides the `sx` set on `<OutlinedInput>` wholesale with `Select`'s own `sx`. Moved all the size/color/border styling into the `sx` of `Select` instead
+- Checked `CrvPagination` (which uses `CrvDropdown` internally) — it does not have the same bug, because it customizes through the public `sx` prop of `CrvDropdown` (which lands on `FormControl`, not directly on `Select`)
 
 ---
 
@@ -505,7 +506,7 @@ Figma มี 7 ปุ่ม แต่โค้ดมีแค่ 4 และ 2 �
 
 **Components**
 
-| Component | หมายเหตุ |
+| Component | Notes |
 |---|---|
 | `crvButton` | Primary action button |
 | `crvButtonIcon` | Icon-only button |
@@ -513,8 +514,8 @@ Figma มี 7 ปุ่ม แต่โค้ดมีแค่ 4 และ 2 �
 | `crvCheckbox` | Checkbox input |
 | `crvSelect` | Dropdown select |
 | `crvTabs` | Tab navigation (Standard) |
-| `crvTabsPills` | Tab navigation แบบ pill |
-| `crvTabsFolder` | Tab navigation ชั้นนอกสุด |
+| `crvTabsPills` | Tab navigation, pill style |
+| `crvTabsFolder` | Outermost-level tab navigation |
 | `crvTagStandard` | Status/category label |
 | `crvAvatar` | User avatar |
 | `crvBreadcrumb` | Breadcrumb navigation |
@@ -524,3 +525,16 @@ Figma มี 7 ปุ่ม แต่โค้ดมีแค่ 4 และ 2 �
 | `crvTableCell` | Table cell |
 | `crvTableHead` | Table header cell |
 | `crvCard` | Content card container |
+
+## Draft — 2026-11-27 · Product prototypes and Mira DS
+
+- Added CarivaSpace HosXP homepage prototype in its Product folder, standalone localhost5174, Product Storybook/Canvas and shared collapsible workspace sidebar. Removed DS mock example projects/stories from navigation.
+- Required reading create-project before every new project/prototype; restored sidebar/shortcut contract and daily repository update guidance.
+- Added Mira Workflow Card five colors and Recorder four states, with25 Product-only Mira Semantic tokens and local Figma assets. Documented12px minimum deviations, font fallbacks, source contrast findings and pending library publication/Code Connect/Figma docs.
+- Local builds and focused Storybook tests recorded in Product audits. No release numbered, deployment, Figma canvas write, library publication, commit or push performed for these changes.
+
+### Draft — 2026-11-27 · HosXP consumes Mira Recorder
+
+- Start Record now mounts the real Mira Product DS Recorder in HosXP; the user authorized this cross-Product dependency. HosXP owns pause/resume/stop, demo playback/seek, local discard confirmation and transcription feedback.
+- Added recording-only waveform animation with reduced-motion support; paused and transport states remain static. Removed duplicate HosXP header recording controls and the old microphone pulse.
+- Updated HosXP/Mira contracts and stories for recording, pause, stopped, playback, mobile and discard. No real microphone, audio upload or transcription API added.

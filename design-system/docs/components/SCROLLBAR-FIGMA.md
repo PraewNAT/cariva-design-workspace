@@ -1,37 +1,37 @@
 # Scrollbar — Figma specification
 
-อ่านจาก Figma วันที่ 26 พฤศจิกายน 2026: หน้า Browser Scroll (`4164:182`) ชุด `scrollbar` (`4164:476`) ในไฟล์ Cariva Core Design System ผู้ใช้ยืนยันตามที่ Claude เสนอ กรอบเอกสาร `Documentation Card` (`7308:122015`) อยู่ในหน้านี้
+Read from Figma on 26 November 2026: the Browser Scroll page (`4164:182`), set `scrollbar` (`4164:476`) in the Cariva Core Design System file. The user confirmed as Claude proposed. The `Documentation Card` doc frame (`7308:122015`) is on this page
 
-## ชุดใน Figma (แก้ค่าแล้ว 26 พ.ย. 2026 ชื่อเดิมสำรองใน plugin data `oldVariantNames_2026-11-26`)
+## Set in Figma (values fixed 26 Nov 2026; original names backed up in plugin data `oldVariantNames_2026-11-26`)
 
-| ชื่อชุด | ค่า | instance ก่อน → หลัง |
+| Set name | Values | instance before → after |
 |---|---|---|
-| `scrollbar` (เดิม `crv-browser-scroll`) | `orientation` vertical / horizontal, `end` false / true, `track` true / false (เดิม `bg`) | 6 → 6 |
+| `scrollbar` (originally `crv-browser-scroll`) | `orientation` vertical / horizontal, `end` false / true, `track` true / false (originally `bg`) | 6 → 6 |
 
-ค่า `orientation` เดิมชื่อเพี้ยน: `Horizontal` / `Orientation` คือแถบแนวตั้ง (15×200) → `vertical`, `Vertical` / `Orientation4` คือแถบแนวนอน (200×15) → `horizontal` และแก้ตำแหน่งแท่งของ `horizontal / end=true / track=false` (เดิมอยู่ต้นแถบ ตอนนี้อยู่ปลายแถบเหมือนแบบอื่น)
+The original `orientation` values were misnamed: `Horizontal` / `Orientation` was the vertical bar (15×200) → `vertical`, and `Vertical` / `Orientation4` was the horizontal bar (200×15) → `horizontal`. Also fixed the thumb position of `horizontal / end=true / track=false` (it was at the start of the bar; it is now at the end of the bar like the other variants)
 
-## สเปก
+## Spec
 
-ช่อง 15px (แนวตั้ง 15×200, แนวนอน 200×15) padding 4px แท่งกว้าง 7px สี `slate/500` (`#64748B`) มุมกลม · `track=true` พื้นช่อง `slate/100` (`#F1F5F9`) · `end` คือแท่งอยู่ปลายแถบ (เลื่อนสุด)
+Track 15px (vertical 15×200, horizontal 200×15), padding 4px, thumb 7px wide, color `slate/500` (`#64748B`), fully rounded · `track=true` track fill `slate/100` (`#F1F5F9`) · `end` means the thumb is at the end of the bar (scrolled to the end)
 
-## ชื่อ Figma ↔ โค้ด
+## Figma names ↔ Code
 
-| Figma | โค้ด |
+| Figma | Code |
 |---|---|
-| `scrollbar` | `ScrollBar` และ `ScrollArea` (`ui/scroll-area.tsx`) |
-| `orientation` | `orientation` ของ `ScrollBar` (`vertical` / `horizontal`); `ScrollArea orientation` `vertical` / `horizontal` / `both` |
-| `track` | `track` (พื้นหลัง `--cds-on-surface-sunken`) |
-| `end` | ไม่มี prop (ตำแหน่งที่เลื่อนถึง) |
+| `scrollbar` | `ScrollBar` and `ScrollArea` (`ui/scroll-area.tsx`) |
+| `orientation` | `orientation` of `ScrollBar` (`vertical` / `horizontal`); `ScrollArea orientation` `vertical` / `horizontal` / `both` |
+| `track` | `track` (background `--cds-on-surface-sunken`) |
+| `end` | No prop (the scroll position reached) |
 
-## โค้ด (26 พ.ย. 2026)
+## Code (26 Nov 2026)
 
-| เรื่อง | สถานะ |
+| Item | Status |
 |---|---|
-| ช่อง 15px, padding 4px, แท่งกว้าง 7px มุมกลม, แท่งสี `#64748B`, พื้นช่อง `#F1F5F9` เมื่อ `track` (แนวตั้งและแนวนอน) | ตรง (วัดใน story `Scrollbars`) |
-| ภาพรวมเทียบ Figma | ตรวจด้วยสายตา (ตรง) |
+| Track 15px, padding 4px, thumb 7px wide fully rounded, thumb color `#64748B`, track fill `#F1F5F9` when `track` (vertical and horizontal) | matches (measured in story `Scrollbars`) |
+| Overall comparison with Figma | checked visually (matches) |
 
-**ผลกระทบ:** เดิมกว้าง 10px แท่งสีเทาอ่อน ตอนนี้กว้าง 15px แท่งเข้มขึ้น `ScrollArea` เพิ่ม prop `orientation` (ค่าเริ่มต้น `vertical` เหมือนเดิม) และ `track` ทุกที่ที่ใช้ `ScrollArea` หน้าตาแถบเลื่อนเปลี่ยน
+**Impact:** it was previously 10px wide with a light gray thumb; it is now 15px wide with a darker thumb. `ScrollArea` gains the `orientation` prop (default `vertical` as before) and `track`; the scrollbar appearance changes everywhere `ScrollArea` is used
 
-**ตัดสินใจโดย Claude / ผู้ใช้ยืนยัน:** Figma ผูกสี `slate/500` และ `slate/100` กับตัวแปร Foundation โดยตรง (ไม่มี semantic) โค้ดใช้ semantic ที่ค่าเท่ากัน (`--cds-content-placeholder`, `--cds-on-surface-sunken`) **ขอให้ทีม DS ตัดสินใจสร้าง token ของ scrollbar** (ผมไม่สร้างเอง ตามกฎสีใหม่ต้องแจ้งทีมก่อน)
+**Decided by Claude / confirmed by the user:** Figma binds the colors `slate/500` and `slate/100` directly to Foundation variables (no semantic). The code uses semantics with equal values (`--cds-content-placeholder`, `--cds-on-surface-sunken`). **Asking the DS team to decide on creating scrollbar tokens** (I do not create them myself; per the new color rule, the team must be told first)
 
-**ยังไม่ได้วัด:** hover และการซ่อนแท่งอัตโนมัติ (ไม่มีดีไซน์), การทำงานเมื่อมีทั้งสองแถบพร้อมกัน (`orientation="both"`) มุมที่แถบสองแนวมาชนกัน
+**Not yet measured:** hover and auto-hiding of the thumb (no design), behavior when both bars are present at once (`orientation="both"`), the corner where the two bars meet

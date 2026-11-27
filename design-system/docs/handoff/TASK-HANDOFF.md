@@ -1,16 +1,16 @@
-# Task handoff (กรอกก่อนใช้)
+# Task handoff (fill in before use)
 
 - Workspace / Product:
-- Objective และผลลัพธ์ของงานนี้:
-- ขอบเขตที่อนุญาต (code / Figma / docs):
-- Source of truth และกฎที่ต้องอ่าน:
-- DS กลาง / DS Product / screen-design URLs (ใช้ Product record หากมี):
-- ข้อจำกัดและสิ่งที่ยกเลิก/พักไว้:
-- ไฟล์ที่เปลี่ยนและงานที่ทำแล้ว:
-- เคสยืนยันแล้ว / เสนอ / ต้องถาม:
-- Checks ที่รันจริง พร้อมผลและวันที่:
-- สิ่งที่ยังไม่ได้ตรวจ / blocker / การตัดสินใจที่ค้าง:
-- งานถัดไป:
-- เจ้าของไฟล์หรือจุดเสี่ยงชนกับงานคนอื่น:
+- Objective and the outcome of this task:
+- Permitted scope (code / Figma / docs):
+- Source of truth and rules to read:
+- Central DS / Product DS / screen-design URLs (use the Product record if there is one):
+- Constraints and what is cancelled/on hold:
+- Files changed and work already done:
+- Cases confirmed / proposed / needing a question:
+- Checks actually run, with results and dates:
+- Not yet checked / blockers / pending decisions:
+- Next task:
+- File owner or risk of colliding with others' work:
 
-ก่อนทำต่อ ให้อ่าน source และ working changes ปัจจุบัน เทียบรายงานนี้กับหลักฐานจริง ไม่ถือว่า handoff เป็นคำอนุมัติ publish หรือแก้สิ่งนอก scope
+Before continuing, read the current source and working changes and compare this report against the real evidence; a handoff is not approval to publish or to change anything outside the scope

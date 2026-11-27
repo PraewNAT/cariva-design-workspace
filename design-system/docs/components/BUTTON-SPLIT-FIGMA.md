@@ -1,52 +1,52 @@
 # Button Split — Figma specification
 
-อ่านจาก Figma วันที่ 26 พฤศจิกายน 2026: ชุด `button-split` (เดิม `crv-button-split`, node `5981:34184`, หน้า Button ในไฟล์ Cariva Core Design System) ผู้ใช้ยืนยันชื่อและ API ตามที่ Claude เสนอ เอกสารการใช้งานอยู่ในกรอบ `Button Doc (Template)` ของหน้า Button (ส่วน split)
+Read from Figma on 26 November 2026: set `button-split` (previously `crv-button-split`, node `5981:34184`, Button page in the Cariva Core Design System file). The user confirmed the name and API as proposed by Claude. Usage documentation is in the `Button Doc (Template)` frame on the Button page (split section).
 
-## ชุดใน Figma (เปลี่ยนชื่อแล้ว ชื่อเดิมสำรองใน plugin data `oldName_2026-11-26` / `oldVariantNames_2026-11-26`)
+## Sets in Figma (renamed; the original names are backed up in plugin data `oldName_2026-11-26` / `oldVariantNames_2026-11-26`)
 
-| ชื่อใหม่ | ชื่อเดิม | prop ที่เปลี่ยน | instance ก่อน → หลัง |
+| New name | Original name | Changed prop | Instances before → after |
 |---|---|---|---|
 | `button-split` | `crv-button-split` | `color` primary / error → `primary` / `destructive`; `size` large / medium / small → `lg` / `default` / `sm` | 3 → 3 |
 
-prop อื่นคงเดิม: `state` default / hover / pressed / disabled, `startIconVisible`, `startIcon`, `endIcon`, `children` (ข้อความ)
+Other props are unchanged: `state` default / hover / pressed / disabled, `startIconVisible`, `startIcon`, `endIcon`, `children` (text)
 
-## สเปก (อ่านจากตัวแปรใน Figma)
+## Spec (read from Figma variables)
 
-- รูปทรง pill (มุมกลม) ประกอบจากปุ่มหลัก (`action`) + เส้นแบ่ง 1px (`divider`) + ปุ่มเมนู (`trigger`) สูง 48 / 40 / 32 (lg / default / sm)
-- ปุ่มหลัก: lg padding 12/24 gap 12 ข้อความ 16/24 Medium ไอคอน 24 · default padding 8/16 gap 8 ข้อความ 16/24 ไอคอน 24 · sm padding 8/12 gap 4 ข้อความ 12/16 ไอคอน 16
-- ปุ่มเมนู: สี่เหลี่ยมจัตุรัสเท่าความสูง (48 / 40 / 32) padding 12 / 8 / 8 ไอคอน 24 / 24 / 16
-- สี primary: พื้น `brand/primary/on-surface/default` (hover `/hover`, pressed `/pressed`) ตัวอักษรและไอคอน `brand/primary/content/on-fill` เส้นแบ่ง `brand/primary/border/strong`
-- สี destructive (Figma error): พื้น `status/error/on-surface/default` (hover / pressed ตามชื่อ) ตัวอักษร `status/error/content/on-fill` เส้นแบ่ง `status/error/border/strong`
-- hover / pressed ทำให้ทั้ง pill เปลี่ยนสี (ไม่ใช่เฉพาะครึ่งที่ชี้)
-- disabled: พื้น `on-surface/action/disabled` ตัวอักษรและไอคอน `content/disabled` เส้นแบ่ง `border/disabled`
+- Pill shape (fully rounded corners) composed of the main button (`action`) + a 1px divider (`divider`) + the menu button (`trigger`), height 48 / 40 / 32 (lg / default / sm)
+- Main button: lg padding 12/24 gap 12 text 16/24 Medium icon 24 · default padding 8/16 gap 8 text 16/24 icon 24 · sm padding 8/12 gap 4 text 12/16 icon 16
+- Menu button: a square the same as the height (48 / 40 / 32), padding 12 / 8 / 8, icon 24 / 24 / 16
+- primary colour: fill `brand/primary/on-surface/default` (hover `/hover`, pressed `/pressed`), text and icon `brand/primary/content/on-fill`, divider `brand/primary/border/strong`
+- destructive colour (Figma error): fill `status/error/on-surface/default` (hover / pressed per the names), text `status/error/content/on-fill`, divider `status/error/border/strong`
+- hover / pressed change the colour of the whole pill (not only the half being pointed at)
+- disabled: fill `on-surface/action/disabled`, text and icon `content/disabled`, divider `border/disabled`
 
-## ชื่อ Figma ↔ โค้ด
+## Figma names ↔ Code
 
-| Figma | โค้ด |
+| Figma | Code |
 |---|---|
-| `button-split` | `ButtonSplit` (`ui/button-split.tsx`) ใช้ Base UI `Button` + `DropdownMenu` เดิม |
+| `button-split` | `ButtonSplit` (`ui/button-split.tsx`), uses the existing Base UI `Button` + `DropdownMenu` |
 | `color` | `color`: `primary` / `destructive` |
 | `size` | `size`: `sm` / `default` / `lg` |
 | `state=disabled` | `disabled` |
 | `children` | `children` |
 | `startIcon` | `startIcon` |
-| `endIcon` | `endIcon` (ค่าเริ่มต้น `ChevronDownRounded`) |
-| รายการในเมนู | `menu` (ผู้เรียกส่ง `DropdownMenuItem`) |
-| `state=hover / pressed` | CSS (`hover:` / `active:` ที่ตัว pill) |
+| `endIcon` | `endIcon` (default `ChevronDownRounded`) |
+| menu items | `menu` (the caller passes `DropdownMenuItem`) |
+| `state=hover / pressed` | CSS (`hover:` / `active:` on the pill) |
 
-## โค้ด (26 พ.ย. 2026)
+## Code (26 Nov 2026)
 
-| เรื่อง | สถานะ |
+| Topic | Status |
 |---|---|
-| ความสูง 48 / 40 / 32, ปุ่มเมนูจัตุรัส, padding และขนาดข้อความของปุ่มหลักทุกขนาด, ไอคอน 24 / 16 | ตรง (วัดใน story `FigmaSpecs`) |
-| สีพื้น primary `#1789FA` / destructive `#DC2626`, สีเส้นแบ่ง `#2DA4FF` / `#EF4444` กว้าง 1px, ตัวอักษรขาว | ตรง (วัดแล้ว) |
-| disabled: พื้น `#F1F5F9`, ตัวอักษร `#94A3B8`, เส้นแบ่ง `#F1F5F9` | ตรง (วัดแล้ว) |
-| hover primary `#0F70E6` ทั้ง pill | ตรง (วัดในเบราว์เซอร์ด้วยเมาส์จริง) |
-| ภาพรวมเทียบ Figma | ตรวจด้วยสายตา (ตรง) |
-| เปิดเมนู, เลือกด้วยคีย์บอร์ด, Escape ปิด, กดปุ่มหลักเรียก `onAction` | ตรวจใน story `Default` / `Action` |
+| Height 48 / 40 / 32, square menu button, padding and text size of the main button at every size, icon 24 / 16 | matches (measured in story `FigmaSpecs`) |
+| primary fill `#1789FA` / destructive `#DC2626`, divider colour `#2DA4FF` / `#EF4444` 1px wide, white text | matches (measured) |
+| disabled: fill `#F1F5F9`, text `#94A3B8`, divider `#F1F5F9` | matches (measured) |
+| hover primary `#0F70E6` on the whole pill | matches (measured in the browser with a real mouse) |
+| Overall comparison against Figma | checked visually (matches) |
+| Open the menu, select with the keyboard, Escape closes, pressing the main button calls `onAction` | checked in stories `Default` / `Action` |
 
-**ตัดสินใจโดย Claude / ผู้ใช้ยืนยัน:** ไอคอนปุ่มเมนูเริ่มต้นเป็น chevron ลง (Figma ใช้ลูกศรไปขวาเป็นตัวอย่างที่สลับได้ผ่าน `endIcon`) · `error` เปลี่ยนชื่อเป็น `destructive` ให้ตรง `Button` · ไม่มีสถานะ `loading` (Figma ไม่มี)
+**Decided by Claude / user confirmed:** the default menu button icon is a down chevron (Figma uses a right arrow as a sample that can be swapped via `endIcon`) · `error` is renamed to `destructive` to match `Button` · there is no `loading` state (Figma has none)
 
-**ผลกระทบ:** เป็น component ใหม่ ไม่กระทบโค้ดเดิม · ชื่อชุดใน Figma เปลี่ยน instance ทั้ง 3 ตัวยังอยู่
+**Impact:** this is a new component and does not affect existing code · renaming the sets in Figma, all 3 instances are still in place
 
-**ยังไม่ได้วัด:** สี pressed และ hover ของ destructive (ตั้งตาม token), การแสดงผลเมื่อข้อความยาวมาก (Figma ไม่มีดีไซน์), ตำแหน่งเมนูที่เปิดเมื่อชิดขอบจอ
+**Not measured:** the pressed colour and hover of destructive (set per token), rendering with very long text (Figma has no design for it), the position of the opened menu when it sits at the screen edge

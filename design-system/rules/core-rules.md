@@ -2,60 +2,60 @@
 
 For copied/external components, follow [Component adoption flow](component-adoption-flow.md). Reuse our existing components and Product recipes, including radius and geometry, rather than retaining the source library's shape and only changing colors/fonts. Respect explicit task constraints and report remaining gaps before claiming complete adoption.
 
-ปรับใช้จาก `/Users/natthaphorna/Cariva DS/rules/core-rules.md` และ `rules/DESIGN.md` วันที่ 24 พฤศจิกายน 2026 ใช้ร่วมกับ AGENTS.md และ [DESIGN.md](../DESIGN.md) ของ workspace นี้ ไม่อ่านข้อกำหนดเก่าเป็นการอนุมัติ migrate หรือ sync ทุกอย่าง
+Adapted from `/Users/natthaphorna/Cariva DS/rules/core-rules.md` and `rules/DESIGN.md` dated 24 November 2026. Used together with AGENTS.md and the [DESIGN.md](../DESIGN.md) of this workspace; older requirements are not read as approval to migrate or sync everything
 
-## ใช้ของเดิมก่อน
+## Reuse existing first
 
-- ค้น Core และ Product components ผ่าน Component Reuse Check ก่อนสร้าง UI รวม sidebar, header, modal, table และองค์ประกอบประกอบ ไม่ยกเว้นเพราะเขียนเองจัด layout ได้เร็วกว่า
-- ใช้ existing props/variants/tokens ก่อน ถ้าประกอบไม่ได้จริงให้บอกข้อจำกัดและเสนอการขยาย ไม่สร้างของซ้ำเงียบ ๆ
-- ใช้ semantic colors และ font roles ตาม DESIGN.md ไม่สร้าง palette จากเอกสารทดลองทับ Core
-- Core ไม่ขึ้นกับ routing/API/business logic ของ Product; ส่วนเฉพาะ Product อยู่ในพื้นที่ Product
+- Search Core and Product components through the Component Reuse Check before creating UI, including sidebar, header, modal, table and composed elements; no exception because writing the layout yourself is faster
+- Use existing props/variants/tokens first; if it truly cannot be composed, state the limitation and propose an extension; do not silently create duplicates
+- Use semantic colors and font roles per DESIGN.md; do not create a palette from experimental documents over Core
+- Core does not depend on a Product's routing/API/business logic; Product-specific parts live in the Product area
 
-## Naming และ contract
+## Naming and contract
 
-- Figma components ใช้ kebab-case และ code ใช้ PascalCase; ปัจจุบันใช้ `crv-*` / `Crv*` ไม่เริ่ม prefix `cv-*` / `Cv*` ชุดใหม่หรือ rename ของเดิมอัตโนมัติ
-- Screen frame ใช้ `{Flow}/{Screen Name}` แบบ Title Case; state ใช้ ` - {State}` ไม่ใช้กฎตั้งชื่อหน้าจอกับ component
-- อ่าน props จริง ห้ามสร้าง unsupported props จากชื่อใน Figma ถ้ามี mapping ให้ reuse component ที่ map ไว้
-- ถ้าต้องประกอบหลาย primitive ให้แยก wrapper/composition เช่น button + badge ไม่ส่ง badge props ไป Button
-- คง API และ radius เดิม โดยเฉพาะงานปรับ Figma ไม่เพิ่ม props/variables หรือใช้ padding ค่าพิเศษเพื่อฝืนขนาด
+- Figma components use kebab-case and code uses PascalCase; currently `crv-*` / `Crv*` is used; do not start a new `cv-*` / `Cv*` prefix set or automatically rename existing ones
+- Screen frames use `{Flow}/{Screen Name}` in Title Case; state uses ` - {State}`; do not apply screen naming rules to components
+- Read the actual props; do not create unsupported props from names in Figma; if there is a mapping, reuse the mapped component
+- If several primitives must be composed, separate a wrapper/composition, e.g. button + badge; do not pass badge props to Button
+- Keep the existing API and radius, especially for Figma alignment work; do not add props/variables or use special padding values to force a size
 
-## Stack และ implementation
+## Stack and implementation
 
-- Runtime ปัจจุบันเป็น React/shadcn Base UI ตามคำสั่งเริ่ม 24 พฤศจิกายน 2026; MUI/Crv อยู่ใน legacy reference
-- หน้าใหม่ใช้ shadcn API จริง; migration-adapters ของ Lab แปลงเฉพาะ props ที่มี consumer ไม่ใช้ MUI sx หรือ ThemeProvider
-- React ปัจจุบันเป็น 19; ไม่อ้างข้อห้ามจาก React 18 เป็นเหตุผลถาวร และไม่ rewrite forwardRef ที่ยังใช้งานได้โดยไม่มีงานรองรับ
-- เมื่อแตะ component ให้ตรวจจุด selector/contract ที่มีอยู่ ใช้ marker ที่ component เป็นเจ้าของ เช่น `data-ui` หรือ `data-slot` ตาม implementation; ห้ามประกาศว่าทุก component มี attributes/variant table ครบโดยไม่ตรวจ
-- defaults และ metrics ควรมาจาก recipe เดียว เมื่อปรับให้รวมตามขอบเขต ไม่ rewrite ทุกตัวเพื่อให้เป็นโครงสร้างในเอกสาร
+- The current runtime is React/shadcn Base UI per the start order of 24 November 2026; MUI/Crv is in legacy reference
+- New pages use the actual shadcn API; the Lab's migration-adapters convert only props that have consumers and do not use MUI sx or ThemeProvider
+- React is currently 19; do not cite React 18 prohibitions as a permanent reason, and do not rewrite forwardRef that still works without work that calls for it
+- When touching a component, check the existing selector/contract points; use markers owned by the component such as `data-ui` or `data-slot` according to the implementation; do not declare that every component has complete attributes/variant table without checking
+- Defaults and metrics should come from a single recipe; when adjusting, consolidate within scope and do not rewrite every one to match the structure in the docs
 
-## UI และ accessibility
+## UI and accessibility
 
-- Label ไม่ใช่ placeholder; input ต้องมี accessible name เมื่อซ่อน label
-- Error ต้องมีข้อความ ไม่ใช้เปลี่ยนสีอย่างเดียว ปุ่มไอคอนต้องมี accessible name
-- ไม่ใช้จุดนำหน้า status tag และไม่ใช้ middle dot คั่นข้อความ
-- Font ทุกจุดที่ render ต้อง >=12px; ตรวจ long Thai, mobile, keyboard และ focus restoration ของ modal
-- ใช้ state/touch area ที่เหมาะกับบริบท โดยไม่บังคับเปลี่ยน visual height ของปุ่มตามตัวเลขตัวอย่างเก่า
-- Border/shadow/radius ใช้ recipe ของ component หรือ Product ที่ตกลง ไม่ใช้กฎ no-border/no-pill จาก reference ทับของที่ผู้ใช้เลือกไว้
-- ทุกการแก้ UI ต้องตรวจ consumer บนหน้าและ portal และทำ Component Audit พร้อมหลักฐาน
+- Label is not a placeholder; an input must have an accessible name when its label is hidden
+- Errors must have text and not rely on color change alone; icon buttons must have an accessible name
+- Do not use a leading dot on status tags and do not use a middle dot to separate text
+- Every rendered font must be >=12px; check long Thai, mobile, keyboard and modal focus restoration
+- Use state/touch areas appropriate to the context, without forcing a change to the button's visual height to match old example numbers
+- Border/shadow/radius use the agreed component or Product recipe; do not let the reference's no-border/no-pill rules override what the user chose
+- Every UI change must check consumers on pages and portals and run a Component Audit with evidence
 
-## เอกสารและการเปลี่ยน variables
+## Documentation and variable changes
 
-- เมื่อผู้ใช้บอกว่าปรับ variables ให้ทำ [Figma variable change flow](figma-variable-change-flow.md) โดยอ่านครบทุก collection/mode/type
-- หลังแก้ component/token ตรวจ docs และ stories ที่เกี่ยวข้อง แล้ว audit ก่อนจบ ไม่บังคับสร้าง .md ทุกตัวหรือเอกสารเจ็ดชนิด
-- Code ระบุ props/behavior ที่ implement จริง; Figma/ข้อตกลงระบุ visual specification แยก gap ที่ยังไม่ implement
-- การแก้ Markdown ไม่อนุญาตให้เขียน Figma ทุกครั้งโดยอัตโนมัติ อัปเดตเฉพาะปลายทางที่มี mapping และอยู่ใน scope พร้อมรายงานส่วนที่ค้าง
-- ไม่เริ่ม release numbering, publish, merge หรือลบ source/branch โดยอัตโนมัติ
+- When the user says variables were adjusted, run the [Figma variable change flow](figma-variable-change-flow.md), reading every collection/mode/type completely
+- After changing a component/token, check the related docs and stories, then audit before finishing; do not require creating a .md for every component or seven document types
+- Code states the props/behavior actually implemented; Figma/agreements state the visual specification, with unimplemented gaps separated out
+- Editing Markdown does not automatically permit writing to Figma; update only destinations that have a mapping and are in scope, and report what remains
+- Do not start release numbering, publish, merge or delete source/branches automatically
 
-## จุดที่ไม่รับจากต้นฉบับ
+## Points not accepted from the original
 
-| ข้อความเดิม | ข้อตกลงที่ใช้ที่นี่ |
+| Original statement | Agreement used here |
 |---|---|
-| content/secondary = Slate 500 | Slate 700 จาก Figma ปัจจุบัน |
-| border/default/strong/disabled = Slate 300/400/200 | Slate 200/300/100 จาก Figma ปัจจุบัน |
-| cariva app = Aktiv/Google Sans | IBM Plex Thai/Looped ตาม Product Style ปัจจุบัน; HosXP แยก mode |
-| label/xsmall 10px | ไม่อนุญาตให้ใช้ต่ำกว่า 12px |
-| บังคับ MUI ถาวร / React 18 | React 19 / shadcn Base UI active; MUI frozen |
-| บังคับ radius, no-pill, button medium 36px | คง contract ล่าสุดของ component; ไม่เปลี่ยนจากเอกสารนำเข้า |
-| ห้าม border บน card ทุกกรณี | ใช้ Product recipe ที่ตกลง ไม่ล้าง table trial ที่ผู้ใช้ชอบ |
-| warning on-fill ต้องเข้ม แต่ token ยังขาว | รายงาน conflict/contrast ไม่เปลี่ยนสีต้นทางหรือ override เงียบ ๆ |
-| ทุก component มี data-slot/variant table แล้ว | ตรวจ implementation จริงก่อนอ้าง |
-| ทุก doc edit ต้อง sync Figma ทันที | ทำเฉพาะ mapping/scope ที่อนุญาต ไม่อ้าง automation ที่ยังไม่มี |
+| content/secondary = Slate 500 | Slate 700 from current Figma |
+| border/default/strong/disabled = Slate 300/400/200 | Slate 200/300/100 from current Figma |
+| cariva app = Aktiv/Google Sans | IBM Plex Thai/Looped per the current Product Style; HosXP is a separate mode |
+| label/xsmall 10px | Not allowed below 12px |
+| Mandatory permanent MUI / React 18 | React 19 / shadcn Base UI active; MUI frozen |
+| Mandatory radius, no-pill, button medium 36px | Keep the latest component contract; not changed from imported documents |
+| No border on any card | Use the agreed Product recipe; do not wipe the table trial the user likes |
+| warning on-fill must be dark but the token is still white | Report the conflict/contrast; do not change the source color or override silently |
+| Every component already has a data-slot/variant table | Check the actual implementation before claiming |
+| Every doc edit must sync Figma immediately | Do only the permitted mapping/scope; do not claim automation that does not yet exist |

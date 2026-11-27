@@ -1,27 +1,27 @@
 **Component Audit — Core Tooltip / Mira Credit Tooltip / Tabs correction**
-ผลรวม: แยก Core/Mira และเพิ่มครบ22 Figma variants; แก้เส้นใต้ Tabs และลดความเร็ว animation; interaction ผ่าน22/22 โดยมี contrast ค้าง
-ขอบเขต: 8Core Tooltip + 5Mira + 7Tabs + 2catalog stories; native browser guide keyboard, source geometry/props และ template docs; ไม่ใช่ full Product accessibility certification
+Result: separated Core/Mira and added all 22 Figma variants; fixed the Tabs underline and slowed the animation; interaction passes 22/22 with contrast still outstanding
+Scope: 8 Core Tooltip + 5 Mira + 7 Tabs + 2 catalog stories; native browser guide keyboard, source geometry/props and template docs; not a full Product accessibility certification
 
-| ระดับ | ผล | รายการ | หลักฐาน | ถัดไป |
+| Severity | Status | Item | Evidence | Next action |
 |---|---|---|---|---|
-| กลาง | ต้องแก้ | Guide primary Back/Next และ Tabs ยังมีcontrastประมาณ3.2–3.5:1; catalogมีข้อค้างของcontrolอื่น | output/tooltip/tests.txt | ตัดสินใจ shared primary token แยก |
-| — | ผ่าน | Standard tooltip role/id/aria-describedby เชื่อมเมื่อเปิด; hover/focus/Escape ทดสอบได้ | tooltip.tsx; Default/Keyboard stories | คง text-only semantics |
-| — | ผ่าน | Action guide ใช้Popover: Next/Backเปลี่ยนตัวอย่าง; native Enterเพิ่มstep, Escapeคืนfocus | WithAction; browser | ไม่ใส่ปุ่มในrole tooltip |
-| — | ผ่าน | Core Standard12/16px,p4/8,r4; guide240x168,r16; Mira text≥12และปรับgap4 | CSS recipes; rendered stories | ให้ข้อความยาวขยายได้ |
-| — | ผ่าน | Core13/Mira9 linked specimens แยกdocs; ไม่มีtext<12หรือown horizontal overflow; 3setsprops/geometryคงเดิม | figma-verification.json | ใช้mappednodesเดิม |
-| — | ผ่าน | Tabs underlinez2อยู่เหนือhover; pointer350ms/Folder320ms; keyboard0ms | tabs.css; native click screenshot; regression | รีวิวความเร็วตามfeedback |
-| — | ผ่าน | Build, scopedlint, tokencheck และstory-filecoverageผ่าน | output/tooltip/; coverage44/44Core modules | ไม่ถือเป็นทุกstatecoverage |
+| Medium | Needs fix | Guide primary Back/Next and Tabs still have contrast of about 3.2–3.5:1; the catalog has outstanding items for other controls | output/tooltip/tests.txt | Decide on the shared primary token separately |
+| — | Pass | Standard tooltip role/id/aria-describedby are connected when open; hover/focus/Escape are testable | tooltip.tsx; Default/Keyboard stories | Keep text-only semantics |
+| — | Pass | Action guide uses Popover: Next/Back change the example; native Enter adds a step, Escape returns focus | WithAction; browser | Do not put buttons inside role tooltip |
+| — | Pass | Core Standard 12/16px, p4/8, r4; guide 240x168, r16; Mira text ≥12 and gap adjusted to 4 | CSS recipes; rendered stories | Let long text expand |
+| — | Pass | Core 13 / Mira 9 linked specimens separated in docs; no text <12 or own horizontal overflow; 3 sets' props/geometry unchanged | figma-verification.json | Use the existing mapped nodes |
+| — | Pass | Tabs underline z2 sits above hover; pointer 350ms / Folder 320ms; keyboard 0ms | tabs.css; native click screenshot; regression | Review the speed based on feedback |
+| — | Pass | Build, scoped lint, token check and story-file coverage pass | output/tooltip/; coverage 44/44 Core modules | Not counted as coverage of every state |
 
-สรุป: ผ่าน6, ต้องแก้1กลุ่ม; ไม่อ้างcontrastผ่านทั้งหมด
-ต่อไป: รีวิวTooltip/Miraและความเร็วTabs ก่อนตัดสินใจprimarycontrastที่ต้นทาง
+Totals: 6 passed, 1 group needs fixing; does not claim contrast passes everywhere
+Next: review Tooltip/Mira and the Tabs speed before deciding on the primary contrast at the source
 
 **Reuse & Duplicate Check — Core / Mira**
-ผลรวม: ขยายTooltipเดิมและประกอบPopover/Badge/Button; Miraไม่คัดลอกprimitive
-ขอบเขต: CoreTooltip/Popover/Badge/Button และ Product Mira folder; ไม่ตรวจทุกProductในrepository
+Result: extended the existing Tooltip and composed Popover/Badge/Button; Mira does not copy primitives
+Scope: Core Tooltip/Popover/Badge/Button and the Product Mira folder; not every Product in the repository
 
-| ระดับ | ผล | รายการ | หลักฐาน | ถัดไป |
+| Severity | Status | Item | Evidence | Next action |
 |---|---|---|---|---|
-| — | ผ่าน | Mira imports Core Tooltip; Coreไม่มีMira import. Guide reusesPopover/Button/Badge; Storybookแยก Core/Products | sourceimports; Storybook titles | คงdependencyจากProductไปCore |
+| — | Pass | Mira imports Core Tooltip; Core has no Mira import. Guide reuses Popover/Button/Badge; Storybook separates Core/Products | source imports; Storybook titles | Keep the dependency from Product to Core |
 
-สรุป: ผ่าน1, ต้องแก้0, ตรวจไม่ได้0
-ต่อไป: ไม่ต้องดำเนินการเพิ่ม
+Totals: 1 passed, 0 need fixing, 0 could not be checked
+Next: no further action needed

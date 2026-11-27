@@ -1,71 +1,71 @@
 ---
 name: rename-frame
-description: Batch rename screen/page frame ใน Figma ให้ตรง naming convention ของ Cariva DS — ใช้เมื่อพูดว่า rename frame, จัดชื่อ frame, ตั้งชื่อ frame ให้ถูก, rename screen
+description: Batch rename screen/page frames in Figma to match the Cariva DS naming convention — use when the user says rename frame, จัดชื่อ frame (organize frame names), ตั้งชื่อ frame ให้ถูก (name frames correctly), rename screen
 ---
 
 # Rename Frame — Cariva Design System
 
-Use when the user says:
+Use when the user says (Thai trigger phrases are kept so Thai-speaking users can still invoke it):
 
 ```text
 rename frame [page/section name]
 rename-frame [page/section name]
-จัดชื่อ frame ใน [page name]
-ตั้งชื่อ frame ให้ถูก [page/section]
+Organize frame names in [page name]  (Thai: "จัดชื่อ frame ใน [page name]")
+Name the frames correctly [page/section]  (Thai: "ตั้งชื่อ frame ให้ถูก [page/section]")
 ```
 
 ## Scope
 
-- ทำงานกับ **screen/page frame เท่านั้น** — top-level frame ที่เป็นหน้าจอ ไม่ใช่ component
-- ทำงานเป็น **batch ต่อ page หรือ section** เท่านั้น — ไม่รับ node-id เดี่ยว ถ้า user ให้ node-id เดี่ยวมา ให้ถามว่าจะสแกนทั้ง page/section ที่ node นั้นอยู่ไหม
-- ถ้า node ที่เจอเป็น `COMPONENT`, `COMPONENT_SET`, หรือ `INSTANCE` → ข้ามและไม่แตะ แจ้งว่าต้องใช้ skill `audit`/`map-fix` แทน (naming convention คนละแบบ: `crv-{name}` kebab-case)
+- Works with **screen/page frames only** — top-level frames that are screens, not components
+- Works as a **batch per page or section** only — does not accept a single node-id; if the user gives a single node-id, ask whether to scan the whole page/section that node is in
+- If a node found is a `COMPONENT`, `COMPONENT_SET`, or `INSTANCE` → skip it and do not touch it; say that the `audit`/`map-fix` skill must be used instead (a different naming convention: `crv-{name}` kebab-case)
 
 ## Required Context
 
-อ่านก่อนทุกครั้ง:
+Read every time:
 - `legacy/mui/rules/core-rules.md` — section "Screen/Page Frame Naming Convention"
 
 ## Naming Convention
 
 ```text
-{Flow}/{Screen Name}          Title Case, เช่น Auth/Login, Dashboard/Overview
-{Flow}/{Screen Name} - {State} เช่น Auth/Login - Error, Auth/Login - Loading
+{Flow}/{Screen Name}          Title Case, e.g. Auth/Login, Dashboard/Overview
+{Flow}/{Screen Name} - {State} e.g. Auth/Login - Error, Auth/Login - Loading
 ```
 
-- `/` ใช้ group flow ใน Figma layer outline อัตโนมัติ — ห้ามใส่ space รอบ `/`
-- Flow มาจากชื่อ section/page ที่ frame อยู่ ถ้าไม่ชัดเจนให้ถาม user ก่อน ห้ามเดา
-- Screen Name แปลงจากชื่อ frame เดิม → Title Case, ตัดคำที่ไม่มีความหมาย (เช่น "Copy", "Frame 12", ตัวเลข auto-generated)
-- ถ้ามีตัวเลข/ชื่อ auto-generated ล้วน (เช่น "Frame 4821") และเดา Screen Name จากเนื้อหาไม่ได้ → ถาม user แทนการเดา
+- `/` automatically groups flows in the Figma layer outline — never put spaces around `/`
+- The Flow comes from the name of the section/page the frame is in; if unclear, ask the user first; never guess
+- The Screen Name is converted from the original frame name → Title Case, dropping meaningless words (e.g. "Copy", "Frame 12", auto-generated numbers)
+- If the name is entirely numbers/auto-generated (e.g. "Frame 4821") and the Screen Name cannot be guessed from the content → ask the user instead of guessing
 
 ## Workflow
 
-1. Confirm scope — page name หรือ section name ที่จะสแกน (ถ้า user ไม่ได้ระบุ ให้ถามก่อน)
-2. Inspect เฉพาะ **top-level children** ของ page/section นั้น — ห้ามลงลึกเข้าไปใน frame (นั่นคือ layer ภายในของ screen เอง ไม่ใช่ screen อื่น)
-3. คัดกรอง: เก็บเฉพาะ `FRAME` type ที่ไม่ใช่ instance ของ component และไม่ใช่ decorative/divider frame (เช่นชื่อที่เป็น `---...`)
-4. สร้างตารางเทียบ: ชื่อปัจจุบัน → ชื่อที่เสนอ ตาม convention ด้านบน — ถ้า frame ไหนชื่อตรง convention อยู่แล้ว ให้ mark "ไม่ต้องแก้"
-5. แสดงตารางให้ user ยืนยัน **ครั้งเดียวสำหรับทั้ง batch** ก่อนแก้จริง — ห้าม rename ทีละตัวโดยไม่ถาม
-6. เมื่อ confirm แล้ว rename ทุก frame ที่ต้องแก้ผ่าน Figma tool ในครั้งเดียว (หรือแบ่งเป็นชุดย่อยถ้าจำนวนมาก)
-7. Screenshot หรือ list ชื่อหลัง rename เพื่อ verify แล้วรายงานผล
+1. Confirm scope — the page name or section name to scan (if the user did not specify, ask first)
+2. Inspect only the **top-level children** of that page/section — do not go deeper into a frame (those are the screen's own inner layers, not other screens)
+3. Filter: keep only `FRAME` types that are not component instances and not decorative/divider frames (e.g. names like `---...`)
+4. Build a comparison table: current name → proposed name per the convention above — if a frame's name already matches the convention, mark it "no change needed"
+5. Show the table to the user for confirmation **once for the whole batch** before actually editing — never rename one at a time without asking
+6. Once confirmed, rename every frame that needs it through the Figma tool in one go (or split into smaller batches if there are many)
+7. Take a screenshot or list the names after the rename to verify, then report the result
 
 ## Report Format
 
 ```
 ## Rename Frame: [page/section name]
 
-| Node ID | ชื่อเดิม | ชื่อใหม่ | สถานะ |
+| Node ID | Original name | New name | Status |
 |---|---|---|---|
 | 123:456 | Login Page | Auth/Login | ✅ renamed |
-| 123:789 | Test 1 | — | ⏭️ skip (component/instance, ไม่ใช่ scope นี้) |
-| 123:900 | Frame 4821 | — | ❓ ต้องถาม Screen Name |
+| 123:789 | Test 1 | — | ⏭️ skip (component/instance, not in this scope) |
+| 123:900 | Frame 4821 | — | ❓ need to ask for Screen Name |
 
-### ต้องถามเพิ่ม
-- [รายการที่เดา Screen Name ไม่ได้]
+### Additional questions needed
+- [items whose Screen Name could not be guessed]
 ```
 
 ## Rules
 
-- ห้ามเดา Flow name ถ้าไม่ชัดเจนจาก context ของ page/section
-- ห้าม rename component, component set, หรือ instance — คนละ convention (ดู `legacy/mui/rules/core-rules.md` ส่วน Naming Convention เดิม)
-- ห้ามแก้ layer ภายใน screen (เช่น sub-frame, group ย่อยในหน้า) — เฉพาะ top-level screen frame เท่านั้น
-- ยืนยันก่อนแก้เสมอ ห้าม batch-apply โดยไม่ให้ user เห็นตารางก่อน
-- ถ้า user บอกว่า "ไม่ต้องถาม rename ไปเลย" ให้ยังคงแสดงตารางสรุปหลังทำเสร็จ (เพื่อ audit trail) แต่ข้ามการถามยืนยันก่อน
+- Do not guess the Flow name if it is not clear from the context of the page/section
+- Do not rename components, component sets, or instances — a different convention (see the original Naming Convention section of `legacy/mui/rules/core-rules.md`)
+- Do not edit layers inside a screen (e.g. sub-frames, small groups within the page) — top-level screen frames only
+- Always confirm before editing; never batch-apply without letting the user see the table first
+- If the user says "don't ask, just rename" (Thai: "ไม่ต้องถาม rename ไปเลย"), still show the summary table after finishing (for an audit trail) but skip the confirmation question beforehand

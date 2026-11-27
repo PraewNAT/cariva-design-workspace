@@ -2,7 +2,7 @@
 
 # Active source structure
 
-ปรับ 25 พฤศจิกายน 2026 อิง /Users/natthaphorna/structure-lab-interpret โดยใช้ Vite / React 19 / shadcn Base UI เดิม
+Adapted 25 November 2026 from /Users/natthaphorna/structure-lab-interpret, using the existing Vite / React 19 / shadcn Base UI
 
 ```text
 src/

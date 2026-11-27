@@ -1,11 +1,11 @@
 ---
 name: audit
-description: ตรวจ token binding และ naming ของ Figma node เท่านั้น ไม่ใช่ component-audit ของ React หรือการหาของซ้ำ
+description: Checks token binding and naming of Figma nodes only; not the React component-audit or duplicate finding
 ---
 
-## ขอบเขตตามแพลนล่าสุด
+## Scope per the latest plan
 
-อ่าน AGENTS.md และ rules/skill-routing.md ก่อนใช้ กฎล่าสุดมีผลเหนือขั้นตอนเก่าที่ขัดกัน สกิลนี้ไม่อนุญาตให้ publish, push, deploy หรือเริ่มเลขเวอร์ชันโดยอัตโนมัติ ดำเนินการภายนอกเฉพาะที่ผู้ใช้มอบหมายจริง
+Read AGENTS.md and rules/skill-routing.md before using this skill. The latest rules take precedence over any older conflicting steps. This skill does not allow publishing, pushing, deploying, or starting version numbers automatically. Perform external actions only when the user has actually assigned them.
 
 
 # Audit Cariva Design System Integration
@@ -13,25 +13,25 @@ description: ตรวจ token binding และ naming ของ Figma node �
 Use when the user says:
 
 ```text
-audit [ชื่อ] node-id=[id]
-ช่วย audit [component/page name] นี้ให้หน่อย
-เช็ค component [ชื่อ]
+audit [name] node-id=[id]
+please audit this [component/page name]   (Thai: "ช่วย audit [component/page name] นี้ให้หน่อย")
+check component [name]   (Thai: "เช็ค component [ชื่อ]")
 ```
 
 ## Required Context
 
 - Read `shadcn/DESIGN.md` — token names, typography scale
 - Read `shadcn/tokens.json` — hex values and token mapping
-- Read `shadcn/rules/components/{ชื่อ}.md` ถ้ามี
+- Read `shadcn/rules/components/{name}.md` if it exists
 - Use Figma inspection tools for the target node/page.
 
 ## Audit Scope
 
 Check only:
 
-- **Naming convention** — ชื่อ component ตรง format `crv[Component]/[variantName]` (camelCase) ไหม
+- **Naming convention** — does the component name match the format `crv[Component]/[variantName]` (camelCase)?
 - Uses component base / shared component correctly
-- Colors are bound to current semantic color tokens — ไม่มี hardcode hex
+- Colors are bound to current semantic color tokens — no hardcoded hex
 - Typography uses text styles / typography variables
 - Spacing uses current spacing variables
 - Radius/effect uses shared styles or variables
@@ -48,28 +48,28 @@ Check only:
 
 ## Report Format
 
-รายงานผลในรูปแบบนี้:
+Report results in this format:
 
 ```
-## Audit: [ชื่อ component]
+## Audit: [component name]
 
-### ❌ พบปัญหา
-| # | ปัญหา | Node | ควรเป็น |
+### ❌ Issues found
+| # | Issue | Node | Should be |
 |---|---|---|---|
-| 1 | hardcode #2563EB | contained/primary fill | semantic/color/primary/default |
+| 1 | hardcoded #2563EB | contained/primary fill | semantic/color/primary/default |
 
-### ⚠️ ไม่แน่ใจ
-- [สิ่งที่ต้องถามก่อนตัดสิน]
+### ⚠️ Unsure
+- [things to ask before deciding]
 
-### ✅ ผ่าน
-- [สิ่งที่ถูกต้อง]
+### ✅ Passed
+- [things that are correct]
 ```
 
-หลังรายงานเสร็จ **ถามทันทีว่า:** "อยากให้แก้ปัญหาที่พบไหม?"
-- ถ้า **ใช่** → โหลด skill `map-fix` ต่อเลย โดยส่งข้อมูลที่ inspect ไปแล้วให้ด้วย ไม่ต้อง inspect ซ้ำ
-- ถ้า **ไม่** → จบแค่ report
+After the report is done, **ask immediately:** "Do you want me to fix the issues found?"
+- If **yes** → load the `map-fix` skill right away, passing along the data already inspected so nothing is inspected again
+- If **no** → end with just the report
 
-If no issues are found, say the audit passed and mention any residual uncertainty. แล้วถามว่าอยากให้ทำอะไรต่อ
+If no issues are found, say the audit passed and mention any residual uncertainty. Then ask what the user wants to do next
 
 ## Rules
 
@@ -77,4 +77,4 @@ If no issues are found, say the audit passed and mention any residual uncertaint
 - Do not create tokens/components.
 - If a point is ambiguous, ask before recommending a structural change.
 - Keep findings grounded in node IDs, component names, token/style names, or exact property names.
-- ถ้า user บอกว่า "ห้ามแก้" หรือ "report อย่างเดียว" → ไม่ต้องถามท้าย report
+- If the user says "do not fix" (Thai: "ห้ามแก้") or "report only" (Thai: "report อย่างเดียว") → do not ask the closing question after the report

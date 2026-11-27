@@ -1,297 +1,297 @@
-# Workflow สร้างและแก้ UI
+# Workflow for creating and changing UI
 
-ใช้ร่วมกันสำหรับ Codex และ Claude Code ใน workspace นี้ อัปเดต 25 พฤศจิกายน 2026
+Shared by Codex and Claude Code in this workspace. Updated 25 November 2026
 
-## เมื่อไหร่ต้องใช้
+## When to use
 
-รวม flow และตำแหน่งเอกสารที่ [Workflow index](../docs/UI-WORKFLOW-INDEX.md) สำหรับกรณีแก้ component ใน Figma แล้วอัปเดตโค้ดตาม ใช้ [Figma component → Code](figma-component-to-code-flow.md) ร่วมกับขั้นตอนหลักด้านล่าง
+The flows and document locations are collected in the [Workflow index](../docs/UI-WORKFLOW-INDEX.md). When a component is changed in Figma and the code is updated to match, use [Figma component → Code](figma-component-to-code-flow.md) together with the main steps below
 
-ใช้เมื่อสร้างหน้าจอ/component, ประกอบหน้าจอจาก DS, แก้ดีไซน์หรือบั๊ก UI, เปลี่ยน styles/tokens หรือ refactor โค้ด UI แม้ตั้งใจคงหน้าตาเดิม ไม่ใช้กับงานเอกสารอย่างเดียวหรือ backend ที่ไม่กระทบ UI
+Use when creating a screen/component, composing a screen from the DS, fixing a design or UI bug, changing styles/tokens, or refactoring UI code, even when the intent is to keep the current look. Do not use for documentation-only work or backend work that does not affect the UI
 
-อ่าน `rules/agent-rules.md` เป็นกฎโครงการ, `DESIGN.md` เป็นแนวทางหน้าตา และ `rules/core-rules.md` เป็นกฎ implementation ไม่คัดลอกค่าดีไซน์มาสร้างชุดใหม่ใน workflow นี้
+Read `rules/agent-rules.md` for the project rules, `DESIGN.md` for visual guidance and `rules/core-rules.md` for implementation rules. Do not copy design values here to create a new set in this workflow
 
-## 1. เข้าใจงานและตรวจสภาพปัจจุบัน
+## 1. Understand the work and check the current state
 
-- ระบุ Product/mode, หน้าหรือ component, ผลลัพธ์ที่ขอ (code, Figma หรือทั้งคู่) และข้อจำกัดจากคำสั่งล่าสุด ใช้สิ่งที่ทราบในแชตและ source ก่อน ถามเมื่อข้อมูลที่ขาดทำให้ตัดสินใจต่อไม่ได้จริง
-- อ่านไฟล์เป้าหมาย, imports, stories และ docs ที่เกี่ยวข้อง ตรวจ working changes ก่อนเขียน และรักษางานของอีกคน/อีก AI ไม่ไล่ refactor ของนอกขอบเขต
-- บอกทิศทางสั้น ๆ และสิ่งที่จะทำ งาน UI ที่อนุญาตแล้วให้เดินหน้าตามขอบเขตได้ ไม่เพิ่มจุดขออนุมัติทุกขั้น
-- ตรวจสกิลและเครื่องมือที่มีจริงตามตารางท้ายไฟล์ **อ่านสกิล Stories เป็นตัวแรกก่อนแก้ UI** ถ้ามีอยู่ใน session/เครื่องนั้น ทำตาม CLI help ของเวอร์ชันที่ติดตั้ง ห้ามเดา payload, props หรือ story IDs
+- Identify the Product/mode, the page or component, the requested output (code, Figma or both) and the constraints from the latest instruction. Use what is already known from the chat and the source first. Ask only when the missing information genuinely prevents further decisions
+- Read the target files, imports, stories and related docs. Check the working changes before writing, and preserve the work of the other person/AI. Do not chase refactors outside the scope
+- State the direction and what will be done in a few words. For UI work that is already permitted, proceed within the scope; do not add an approval point at every step
+- Check the skills and tools that actually exist against the table at the end of the file. **Read the Stories skill first before changing any UI** if it exists in that session/machine. Follow the CLI help of the installed version; do not guess payloads, props or story IDs
 
-## 2. วางเคสตามขนาดของงาน
+## 2. Plan cases according to the size of the work
 
-- งานหน้าจอ/flow ใหม่ใช้ `case-planning` ดู happy path และเฉพาะ loading, empty, error/retry, validation, disabled, success, permissions และข้อมูลยาว/ขาดที่เกี่ยวข้อง งานแก้จุดเล็กตรวจเคสที่พังและ consumer ใกล้เคียง ไม่ต้องขยายเป็น flow ใหม่
-- แยก **ยืนยันแล้ว / เสนอเพิ่ม / ต้องถาม** จากหลักฐาน requirement และพฤติกรรมเดิม ไม่สร้าง business rule, สิทธิ์ผู้ใช้ หรือ backend outcome เอง
-- กำหนด expected result ที่สังเกตได้และทางเปิดดูแต่ละเคสผ่าน stories/preview ใช้ IDs เดิมเมื่อมี ไม่อ้างว่ามี board รวมทุกเคสถ้ายังไม่ได้สร้าง
-- ถ้าต้องถาม business rule ให้ทำส่วนที่ไม่ขึ้นกับคำตอบต่อได้ แต่ไม่เดาคำตอบหรือถือว่าเงียบเท่ากับอนุมัติ
+- For a new screen/flow use `case-planning`: look at the happy path and only the relevant loading, empty, error/retry, validation, disabled, success, permissions and long/missing data cases. For a small spot fix, check the broken case and nearby consumers; do not expand it into a new flow
+- Separate **confirmed / proposed addition / must ask** based on evidence from the requirements and existing behavior. Do not invent business rules, user permissions or backend outcomes
+- Define an observable expected result and a way to open each case through stories/preview. Use existing IDs when they exist. Do not claim there is a board covering every case if one has not been built
+- If a business rule must be asked about, continue with the parts that do not depend on the answer, but do not guess the answer or treat silence as approval
 
-## 3. หาของเดิมก่อนสร้าง
+## 3. Find existing things before creating
 
-- ใช้ `component-reuse-check` ค้น Core → Product ปัจจุบัน → ของ Product อื่นที่เข้าถึงได้ตาม ownership รวมส่วนประกอบย่อย เช่น sidebar, field, modal, pagination และ icons
-- ใช้ Storybook documentation tools ดู props/ตัวอย่างจริงเมื่อมี และตาม imports ไปยัง implementation เพื่อยืนยันว่า reuse ของจริง ไม่ใช่ component หน้าตาเหมือน
-- เลือก existing component → composition → extension ที่จำเป็น → component ใหม่พร้อมเหตุผล ใช้ลำดับแหล่งอ้างอิงและกฎรับ component ภายนอกจาก `rules/agent-rules.md` และ `rules/component-adoption-flow.md`
+- Use `component-reuse-check` to search Core → current Product → other Products that are reachable according to ownership, including sub-parts such as sidebar, field, modal, pagination and icons
+- Use the Storybook documentation tools to see real props/examples when available, and follow imports to the implementation to confirm that you are actually reusing the component, not one that merely looks the same
+- Choose existing component → composition → necessary extension → new component with a reason. Use the order of reference sources and the rules for adopting external components from `rules/agent-rules.md` and `rules/component-adoption-flow.md`
 
-## 4. ออกแบบและเขียนโค้ด
+## 4. Design and write code
 
-- อ่าน `skills/unslop/SKILL.md` อัตโนมัติเพื่อจัด hierarchy, spacing และความเรียบร้อย ใช้ทิศทางจาก Product และ DS ที่มี ไม่ให้ generic recipe ทับกฎกลาง หากเป็นการแก้เฉพาะจุดให้ปรับเฉพาะส่วนนั้น
-- งาน shadcn ใช้สกิล `shadcn` และ contract จริงของ Base UI ยึดตำแหน่ง Core/composed/Product และการแยก hook/model/fixtures ตามกฎโครงการและโครงสร้างที่ใช้งานอยู่
-- ใช้ props, tokens, fonts, geometry และ spacing scale ที่อนุมัติแล้ว ไม่เปลี่ยน Core กว้างขึ้นเพียงเพื่อแก้หน้าเดียว ถ้าจำเป็นต้องเปลี่ยน shared component ให้ไล่ consumer และแจ้งผลกระทบข้าม Product
-- คง behavior/content เมื่อเป็นงานแก้หน้าตาหรือ refactor ไม่เริ่ม UX writing, ย้าย stack, เพิ่ม dependencies หรือเปลี่ยน API จากคำแนะนำของ reference โดยอัตโนมัติ
-- ถ้าแก้ Figma variables ให้ทำ `rules/figma-variable-change-flow.md` สำหรับการอ่าน/เทียบ/อัปเดต แล้วใช้ขั้นตรวจและรายงานของ workflow นี้ต่อโดยไม่รัน audit ซ้ำชุดเดิม
-- Figma output ใช้เฉพาะปลายทางและทิศทางที่อยู่ในงาน ค่าเริ่มต้นเมื่อขอ sync คือ code → Figma แต่การแก้ UI code ไม่ได้สั่งให้เขียน Figma ทุกครั้ง งาน Figma-first ไม่บังคับเขียน code โดยไม่ขอ ตรวจสกิล Figma ที่เกี่ยวข้องก่อนใช้เครื่องมือ
+- Read `skills/unslop/SKILL.md` automatically to organize hierarchy, spacing and tidiness. Use the direction from the Product and the DS you have; do not let a generic recipe override the central rules. For a spot fix, adjust only that part
+- For shadcn work use the `shadcn` skill and the real Base UI contract. Follow the Core/composed/Product locations and the split into hook/model/fixtures according to the project rules and the structure in use
+- Use approved props, tokens, fonts, geometry and spacing scale. Do not change Core more broadly just to fix one page. If a shared component must change, trace its consumers and report the cross-Product impact
+- Keep behavior/content when the work is a visual fix or refactor. Do not automatically start UX writing, move stacks, add dependencies or change APIs because a reference suggests it
+- If Figma variables are changed, follow `rules/figma-variable-change-flow.md` for reading/comparing/updating, then continue with this workflow's check and report steps without re-running the same audit
+- Use Figma output only for the destination and direction that are part of the task. The default when a sync is requested is code → Figma, but a UI code change does not mean Figma must be written every time. Figma-first work does not force writing code unless asked. Check the relevant Figma skill before using the tools
 
-## 5. อัปเดต stories และเอกสาร
+## 5. Update stories and docs
 
-- หลังแก้ component ตรวจ docs ที่เกี่ยวข้องทุกครั้ง ใช้ `document` อัปเดต contract/ตัวอย่าง/ข้อจำกัดที่เปลี่ยน ไม่สร้าง Markdown ใหม่ทุก component หากมีปลายทางที่เหมาะอยู่แล้ว
-- เพิ่มหรือปรับ colocated stories ของ component ที่เปลี่ยนให้เปิดดูได้ พร้อม interaction สำหรับ behavior สำคัญ ใช้ case coverage จากขั้น 2 และรักษา story IDs เดิม
-- ถ้าเพิ่ม/ลบ Core ให้ปรับรายการ coverage และตรวจ `npm run storybook:coverage` ตรวจว่า stories ลงทะเบียนใน Storybook จริง ไม่ถือว่าแค่มีไฟล์เท่ากับเปิดได้
-- เอกสารต้องแยกสิ่งที่ implement แล้วกับ proposal/mock/Figma-only และ gap ที่ยังไม่ตรง ไม่รายงานว่าทุก case หรือทุก surface sync แล้วโดยไม่มีหลักฐาน
+- After changing a component, always check the related docs. Use `document` to update the contract/examples/limitations that changed. Do not create new Markdown for every component when a suitable destination already exists
+- Add or adjust colocated stories for the changed component so it can be opened, with interactions for important behavior. Use the case coverage from step 2 and keep existing story IDs
+- If Core is added/removed, update the coverage list and check `npm run storybook:coverage`. Verify the stories are actually registered in Storybook; having the file does not mean it can be opened
+- Docs must separate what is implemented from proposal/mock/Figma-only and from gaps that are not yet matched. Do not report that every case or every surface is synced without evidence
 
-## 6. ตรวจผลจริงและแก้สิ่งที่พบ
+## 6. Check the real result and fix what is found
 
-- ตรวจ reuse หลังเขียนว่ามี component ซ้ำหรือ hand-built equivalent หลุดมาหรือไม่ จากนั้นทำ `component-audit` กับผลสุดท้ายและ consumer ที่ได้รับผล รวมหน้าและ portal เช่น modal/popover เมื่อเกี่ยวข้อง
-- ตรวจ render ตามขอบเขต: desktop/mobile, ภาษาไทยยาว, wrapping/overflow, missing data, keyboard/focus, icon/text alignment และ state transitions เปรียบเทียบ role/variant/size เดียวกัน ไม่บังคับทุกขนาดให้หน้าตาเท่ากัน
-- งาน UI code ใช้ checks ที่กฎกลางกำหนด: build, token check, Storybook build และ interaction tests ผ่าน Storybook `test-run` ที่ติดตั้ง เพิ่ม coverage check เมื่อ Core เปลี่ยน อย่ารัน checks เดิมซ้ำเมื่อไม่มีไฟล์เปลี่ยนหรือข้อสงสัยใหม่ งาน Figma-only ใช้การตรวจ node/variables/render ที่เกี่ยวข้องและบอกว่าไม่ได้ตรวจ code
-- ทดสอบเคสเสี่ยงหรือบั๊กจริง ไม่เขียน test ที่ตรวจแค่ค่าคงที่หรือ import เดียวกัน หากไม่ผ่านให้แก้และทดสอบซ้ำในขอบเขตที่อนุญาต ห้ามปิด test/a11y หรือลดเกณฑ์เพื่อให้ผ่าน
-- ปัญหา contrast/token ที่ต้องตัดสินใจต้นทางให้รายงาน ไม่ override สีเฉพาะหน้าเพื่อให้ผ่าน และไม่เรียก interaction tests ผ่านว่า accessibility ผ่านทั้งหมด
-- ใช้ผลตรวจเดียวกันร่วมกันได้ ไม่รัน audit ซ้ำเพียงเพราะสกิลอีกตัวอ้างถึง ให้แยกงานค้นหาของซ้ำ, QA ของ code และ parity กับ Figma ชัดเจน
+- After writing, check reuse for duplicate components or hand-built equivalents that slipped in, then run `component-audit` on the final result and the affected consumers, including pages and portals such as modal/popover when relevant
+- Check rendering within scope: desktop/mobile, long Thai text, wrapping/overflow, missing data, keyboard/focus, icon/text alignment and state transitions. Compare the same role/variant/size; do not force every size to look identical
+- For UI code work use the checks the central rules specify: build, token check, Storybook build and interaction tests through the installed Storybook `test-run`. Add the coverage check when Core changes. Do not re-run existing checks when no files changed and there is no new doubt. For Figma-only work use the relevant node/variables/render checks and say that code was not checked
+- Test risky cases or real bugs; do not write tests that only check constants or the same import. If a test fails, fix it and re-test within the permitted scope. Never disable tests/a11y or lower the threshold to make them pass
+- Report contrast/token problems that need an upstream decision; do not override colors per page to make them pass, and do not call passing interaction tests a full accessibility pass
+- The same check results can be shared; do not re-run an audit just because another skill references it. Keep duplicate-search work, code QA and Figma parity clearly separate
 
-## 7. ส่งงานพร้อมหลักฐาน
+## 7. Deliver with evidence
 
-- บอกสั้น ๆ ว่าเปลี่ยนอะไร, ใช้ component เดิมตัวไหน, อัปเดต doc/story ใด, ตรวจอะไรผ่าน/ไม่ผ่าน/ตรวจไม่ได้ และอะไรค้าง
-- รายงานของ skills ใช้ format ที่ `.agents/skills/component-audit/references/report-format.md` อ้างไฟล์หรือผลจริง ไม่แต่งคะแนนหรือผลตรวจ
-- เมื่อมี UI code เปลี่ยน ใช้ Stories workflow ค้น story IDs จากเครื่องมือและเผยแพร่ review ของรอบล่าสุด รวม stories ใหม่ทั้งหมด ส่งลิงก์ตามคำแนะนำเครื่องมือ ห้ามใช้ review เก่าหรือแต่ง URL
-- ไม่อ้างว่าเสร็จสมบูรณ์หากยังมี test fail หรือส่วนสำคัญตรวจไม่ได้ รายงาน blocker พร้อมงานที่เสร็จแล้ว การส่ง preview ไม่ใช่การ publish
-- การสร้าง UI ไม่อนุญาต push/deploy/publish, release numbering, ลบ legacy หรือกลับไปทำงานที่ผู้ใช้พับไว้ เว้นแต่ผู้ใช้ขอในงานนั้น กฎ workflow ไม่ข้าม permissions หรือการปฏิเสธของเครื่องมือ
+- Briefly state what changed, which existing component was used, which doc/story was updated, what checks passed/failed/could not be run, and what is pending
+- Skill reports use the format in `.agents/skills/component-audit/references/report-format.md`. Cite real files or results; do not invent scores or check results
+- When UI code changes, use the Stories workflow to look up story IDs from the tools and publish a review of the latest round, including all new stories. Send the link as the tool instructs. Do not use an old review or make up a URL
+- Do not claim completion if a test still fails or an important part could not be checked. Report the blocker together with the finished work. Sending a preview is not publishing
+- UI creation does not permit push/deploy/publish, release numbering, deleting legacy or returning to work the user has shelved, unless the user asks for it in that task. Workflow rules do not bypass permissions or tool denials
 
-## สกิลที่เรียกตามขั้น
+## Skills called by step
 
-| เรื่อง | สกิล/ตำแหน่ง | เรียกเมื่อ |
+| Topic | Skill/location | Call when |
 |---|---|---|
-| Storybook docs, stories, tests และ review | `stories` จากสกิลที่ติดตั้งใน session | ก่อนแก้ UI เป็นตัวแรก และใช้ต่อในขั้นตรวจ |
-| Case coverage | `.agents/skills/case-planning/SKILL.md` | วาง flow/เคสใหม่หรือ requirement เปลี่ยน |
-| Flowchart/decision tree ของงาน | `skills/mermaid-diagrams/SKILL.md` | เมื่อขอแผนภาพ อ่านขอบเขตและข้อจำกัดจากกฎกลาง ไม่วาดทุกงานโดยอัตโนมัติ |
-| Reuse และของซ้ำ | `.agents/skills/component-reuse-check/SKILL.md` | ก่อนเขียนและตรวจหลังเขียน |
-| ความเรียบร้อยของ UI | `skills/unslop/SKILL.md` | สร้าง/ปรับ UI ตาม scope |
-| React/shadcn | `.agents/skills/shadcn/SKILL.md` | implement code ที่ใช้ shadcn |
-| เอกสาร component | `.agents/skills/document/SKILL.md` | ตรวจ/อัปเดตเอกสารที่ได้รับผล |
-| QA code และ cross-surface | `.agents/skills/component-audit/SKILL.md` | ก่อนส่ง UI code ที่แก้ |
-| Figma | สกิล Figma ตามงานที่ติดตั้งใน session | เมื่องานมี Figma output/read ที่ต้องใช้เครื่องมือ |
+| Storybook docs, stories, tests and review | `stories` from the skills installed in the session | First, before changing UI, and used again in the check step |
+| Case coverage | `.agents/skills/case-planning/SKILL.md` | Planning a new flow/cases or when requirements change |
+| Flowchart/decision tree for the work | `skills/mermaid-diagrams/SKILL.md` | When a diagram is requested. Read the scope and limits from the central rules; do not draw one automatically for every task |
+| Reuse and duplicates | `.agents/skills/component-reuse-check/SKILL.md` | Before writing and checking after writing |
+| UI tidiness | `skills/unslop/SKILL.md` | Creating/adjusting UI within scope |
+| React/shadcn | `.agents/skills/shadcn/SKILL.md` | Implementing code that uses shadcn |
+| Component docs | `.agents/skills/document/SKILL.md` | Checking/updating the affected docs |
+| Code QA and cross-surface | `.agents/skills/component-audit/SKILL.md` | Before sending changed UI code |
+| Figma | The Figma skill for the task, as installed in the session | When the work has Figma output/read that needs tools |
 
-ตำแหน่ง `.agents/skills` ปัจจุบันเป็น symlink ไปชุดกลางของโปรเจกต์เก่า อย่าเขียนผ่าน symlink เพื่อแก้ workflow นี้ หากเครื่องของอีก AI ไม่มีสกิล ให้ค้นจากรายการติดตั้งและตำแหน่งจริงก่อน ไม่สมมติว่า slash command, MCP หรือ host path ของ Codex ใช้กับ Claude ได้ทั้งหมด
+The current `.agents/skills` location is a symlink to the old project's central set. Do not write through the symlink to change this workflow. If the other AI's machine lacks the skills, search the installed list and real locations first. Do not assume that every slash command, MCP or host path of Codex works with Claude
 
-ถ้าไม่พบสกิลหรือเครื่องมือ ให้ระบุสิ่งที่ขาด ทำส่วนที่ทำได้ด้วยกฎกลางและคำสั่งที่มีจริง และระบุขั้นที่ตรวจไม่ได้ ห้ามอ้างว่าเรียกสกิล/ทดสอบ/sync สำเร็จ ไม่ติดตั้งสกิลหรือเปลี่ยน configuration ของอีก AI เงียบ ๆ
+If a skill or tool is not found, state what is missing, do the parts that can be done with the central rules and the commands that exist, and state which steps could not be checked. Do not claim that a skill was called/tested/synced successfully. Do not quietly install skills or change the other AI's configuration
 
-## ดูแลกฎต่อไป
+## Maintaining the rules going forward
 
-แก้ข้อจำกัดโครงการที่ `rules/agent-rules.md`, ลำดับงานที่ไฟล์นี้, หน้าตาที่ `DESIGN.md` และรายละเอียด specialist flow ที่ไฟล์เจ้าของเรื่อง อัปเดตด้วยการอ้างอิงข้ามไฟล์ ไม่คัดลอกเป็นกฎอีกชุดใน AGENTS.md หรือ CLAUDE.md นี่เป็นคำสั่งให้ AI ทำตาม ไม่ใช่ background automation, hook หรือหลักฐานว่า AI ทั้งสองรันทดสอบ workflow นี้แล้ว
+Fix project constraints in `rules/agent-rules.md`, the order of work in this file, the look in `DESIGN.md` and specialist-flow details in the file that owns them. Update by cross-referencing files; do not copy them as another set of rules in AGENTS.md or CLAUDE.md. This is an instruction for the AI to follow, not background automation, a hook, or evidence that both AIs have run and tested this workflow
 
-## คู่มือปฏิบัติ: เลือกงานและโปรเจกต์
+## Practical guide: choosing work and projects
 
-ส่วนนี้ขยายขั้น 1–7 ด้านบน ไม่ใช่ workflow อีกชุด ผู้อ่านคือ designer, developer, Codex และ Claude เพื่อให้รู้ว่างานถัดไปต้องทำอะไร อ่าน flowchart จากบนลงล่าง กล่องคือการทำงาน ข้าวหลามตัดคือคำถามที่ต้องแยกทาง ลูกศรมีข้อความระบุเงื่อนไข ไม่ใช้สีเป็นตัวบอกสถานะอย่างเดียว
+This section expands steps 1–7 above; it is not another workflow. Readers are designers, developers, Codex and Claude, so that they know what the next task requires. Read the flowchart from top to bottom. Boxes are actions, diamonds are questions that branch the path, and arrows carry text stating the condition. Color is not used as the only status indicator
 
-### แยกคำว่าโปรเจกต์ให้ชัด
+### Be clear about the word “project”
 
-| คำ | ความหมาย | AI ต้องตรวจ |
+| Term | Meaning | What AI must check |
 |---|---|---|
-| Workspace/repository | โฟลเดอร์โค้ดที่เปิดอยู่ | absolute path, package.json, entry rules และ Git ที่มีจริง |
-| Product | ผลิตภัณฑ์ภายใน workspace เช่น A/B | feature path, theme/mode และเจ้าของงาน |
-| Core | component/token ที่หลาย Product ใช้ร่วม | consumers และผลกระทบข้าม Product |
-| Figma DS file | library ของ Product | file key/node และ mapping ที่มีจริง |
-| Figma design file | หน้าจอที่ใช้ DS นั้น | file key/page/node ปลายทาง ไม่เดาจากไฟล์ DS |
+| Workspace/repository | The open code folder | absolute path, package.json, entry rules and the Git that actually exists |
+| Product | A product inside the workspace, e.g. A/B | feature path, theme/mode and work owner |
+| Core | Components/tokens shared by several Products | consumers and cross-Product impact |
+| Figma DS file | A Product's library | file key/node and the mappings that actually exist |
+| Figma design file | Screens that use that DS | destination file key/page/node; do not guess from the DS file |
 
-Product ไม่เท่ากับ theme mode และชื่อที่อยู่ในโฟลเดอร์เก่าไม่ใช่หลักฐานว่าเป็น Product ปัจจุบัน ห้ามสมมติว่า A/B มีอยู่แล้วใน source
+A Product is not the same as a theme mode, and a name found in an old folder is not evidence that it is a current Product. Do not assume that A/B already exist in source
 
-### ข้อมูลที่ต้องรู้ก่อนเริ่ม
+### Information needed before starting
 
-AI สรุปภายในงานให้ได้ว่า workspace ไหน, Product ไหน, แก้หน้า/เคสอะไร, ส่งออกฝั่งไหน, ใช้ theme ใด, ห้ามเปลี่ยนอะไร และจะใช้หลักฐานใดตรวจงาน ไม่ต้องให้ผู้ใช้กรอกฟอร์มทุกครั้ง
+AI should be able to summarize internally which workspace, which Product, which page/case is being changed, which side the output goes to, which theme is used, what must not change, and what evidence will be used to check the work. The user does not have to fill in a form every time
 
-1. ใช้คำสั่งล่าสุดก่อน จากนั้นใช้บริบทที่เลือกไว้ในแชต แล้วตรวจ source/config เพื่อยืนยัน
-2. ถ้ามี Product เดียวที่สอดคล้องกับไฟล์เป้าหมาย ให้บอกสมมติฐานสั้น ๆ แล้วทำต่อ
-3. ถ้ามีหลาย Product และระบุไม่ได้ว่าจะเขียนที่ไหน ให้ถามครั้งเดียวว่าเลือก Product ใด พร้อมทำการค้นหาแบบอ่านอย่างเดียวต่อได้
-4. จำ Product ภายในงาน/แชตจนผู้ใช้สลับ ไม่ถามซ้ำทุกขั้น แต่ไม่อ้างว่า session ใหม่จะจำได้เอง
-5. ถ้าระบุชื่อ Product แต่ path หรือ Figma mapping ขัดกัน ต้องแก้ความคลุมเครือก่อนเขียนปลายทางนั้น
-6. การเปิด workspace ใหม่ต้องอ่านกฎของ workspace นั้นใหม่ ไม่ยก runtime, branch, tokens หรือข้อยกเว้นของ workspace นี้ไปใช้โดยอัตโนมัติ
+1. Use the latest instruction first, then the context selected in the chat, then check source/config to confirm
+2. If there is only one Product consistent with the target files, state the assumption briefly and continue
+3. If there are several Products and it cannot be determined where to write, ask once which Product to choose, and continue read-only searching meanwhile
+4. Remember the Product within the task/chat until the user switches; do not ask again at every step, but do not claim that a new session will remember it by itself
+5. If a Product name is given but the path or Figma mapping conflicts, resolve the ambiguity before writing to that destination
+6. Opening a new workspace requires reading that workspace's rules anew; do not automatically carry over this workspace's runtime, branch, tokens or exceptions
 
-ภาพรวมการรับงานและส่งงาน:
+Overview of receiving and delivering work:
 
 ```mermaid
 flowchart TD
-  Start["รับคำสั่งและอ่านกฎกลาง"] --> Context["ตรวจ workspace และ Product"]
-  Context --> Known{"ปลายทางชัดเจนหรือไม่"}
-  Known -->|ไม่ชัด| Ask["ถามเฉพาะข้อมูลที่ขาด"]
+  Start["Receive the instruction and read the central rules"] --> Context["Check workspace and Product"]
+  Context --> Known{"Is the destination clear?"}
+  Known -->|Not clear| Ask["Ask only for the missing information"]
   Ask --> Context
-  Known -->|ชัด| Scope["ระบุเคสและขอบเขตผลกระทบ"]
-  Scope --> Reuse["ค้น component และ contract เดิม"]
-  Reuse --> Work["สร้างหรือแก้ตามขอบเขต"]
-  Work --> Docs["อัปเดต stories และเอกสาร"]
-  Docs --> Check["ทดสอบ render และ audit"]
-  Check --> Good{"ผลพร้อมส่งหรือไม่"}
-  Good -->|พบข้อผิดพลาดที่แก้ได้| Work
-  Good -->|ติดข้อจำกัด| Pending["ส่งผลที่ทำแล้วและระบุสิ่งที่ค้าง"]
-  Good -->|พร้อม| Done["ส่งผลและลิงก์ตรวจรอบล่าสุด"]
+  Known -->|Clear| Scope["Identify cases and impact scope"]
+  Scope --> Reuse["Search existing components and contracts"]
+  Reuse --> Work["Build or change within scope"]
+  Work --> Docs["Update stories and docs"]
+  Docs --> Check["Test rendering and audit"]
+  Check --> Good{"Is the result ready to deliver?"}
+  Good -->|Found fixable errors| Work
+  Good -->|Blocked by a limitation| Pending["Deliver what is done and state what is pending"]
+  Good -->|Ready| Done["Deliver the result and the latest review link"]
 ```
 
-### หลาย Product ใน workspace เดียว
+### Multiple Products in one workspace
 
-- ใช้โครงสร้างจริงจากกฎกลาง ไม่สร้างโฟลเดอร์ Core/Product ชุดใหม่เพียงเพื่อให้ตรงตัวอย่างในแผน
-- ส่วนประกอบที่มี business logic, รูปแบบข้อมูล หรือข้อความเฉพาะ Product อยู่ใน feature นั้น ใช้ Core ผ่าน dependency ที่อนุญาต
-- ส่วนกลางต้องเป็นกลางต่อ Product ไม่ import screen/API ของ A เข้า Core และไม่ import internals ของ B เข้า A เพียงเพราะหน้าตาเหมือน
-- ถ้าเจอของคล้ายใน B ให้รายงาน candidate และตรวจ contract ก่อน เสนอการย้ายเป็น shared composition เฉพาะเมื่อมีเหตุผล ไม่ promote เองจากจำนวนครั้งที่เห็น
-- งานเฉพาะ A เริ่มตรวจและแก้ A ถ้าต้นเหตุอยู่ Core ให้ทำ impact analysis ก่อน ไม่แอบแก้ B หรือเปลี่ยน theme ทุก Product
-- หากต้องเปลี่ยน Core แบบ compatible เพื่อแก้บั๊กที่อยู่ในงาน ให้แจ้งผลกระทบและตรวจ consumer ที่ได้รับผล หากต้องเปลี่ยน public API หรือ behavior ของ Product อื่นซึ่งไม่ได้อนุญาต ให้เสนอทางเลือกและถามก่อนส่วนที่ขยาย scope
-- ถ้าเข้าถึง B ไม่ได้ ให้บอกว่าตรวจได้เฉพาะ A/Core อย่าอ้างว่า B ไม่กระทบ
+- Use the real structure from the central rules; do not create a new Core/Product folder set just to match the example in the plan
+- Components with business logic, data formats or text specific to a Product live in that feature; they use Core through allowed dependencies
+- The shared layer must be neutral toward Products; do not import A's screens/APIs into Core, and do not import B's internals into A just because they look alike
+- If something similar is found in B, report it as a candidate and check the contract first. Propose moving it to a shared composition only when there is a reason; do not promote it on your own based on how many times it has been seen
+- A-only work starts by checking and fixing A. If the root cause is in Core, do an impact analysis first; do not quietly change B or change the theme for every Product
+- If a compatible Core change is needed to fix a bug within the task, report the impact and check the affected consumers. If a public API or another Product's behavior must change and that was not permitted, propose options and ask before the part that expands the scope
+- If B cannot be accessed, say that only A/Core could be checked; do not claim B is unaffected
 
-การเลือกขอบเขตของ component:
+Choosing the scope of a component:
 
 ```mermaid
 flowchart TD
-  Need["ต้องเพิ่มหรือแก้ component"] --> Existing{"มีของเดิมที่ใช้ได้หรือไม่"}
-  Existing -->|มี| Compose["ใช้ของเดิมหรือประกอบร่วมกัน"]
-  Existing -->|ไม่มี| Specific{"มี business rule เฉพาะ Product หรือไม่"}
-  Specific -->|มี| Local["ทำใน Product ที่เลือก"]
-  Specific -->|ไม่มี| Shared["ตรวจ contract และการใช้ร่วมก่อนเสนอ Core"]
-  Compose --> CoreChange{"ต้องแก้ Core หรือไม่"}
-  CoreChange -->|ไม่ต้อง| Local
-  CoreChange -->|ต้อง| Impact["ไล่ consumers และผลกระทบทุก Product ที่เข้าถึงได้"]
-  Impact --> Scope{"อยู่ในขอบเขตที่อนุญาตหรือไม่"}
-  Scope -->|ใช่| Shared
-  Scope -->|ไม่ใช่| Propose["เสนอผลกระทบและถามก่อนขยายงาน"]
+  Need["Need to add or change a component"] --> Existing{"Is there an existing one that works?"}
+  Existing -->|Yes| Compose["Use the existing one or compose together"]
+  Existing -->|No| Specific{"Is there a Product-specific business rule?"}
+  Specific -->|Yes| Local["Build it in the selected Product"]
+  Specific -->|No| Shared["Check the contract and shared use before proposing Core"]
+  Compose --> CoreChange{"Does Core need to change?"}
+  CoreChange -->|Not needed| Local
+  CoreChange -->|Needed| Impact["Trace consumers and impact on every reachable Product"]
+  Impact --> Scope{"Within the permitted scope?"}
+  Scope -->|Yes| Shared
+  Scope -->|No| Propose["Propose the impact and ask before expanding the work"]
 ```
 
-### หลาย repository หรือหลายแชต
+### Multiple repositories or multiple chats
 
-1. ระบุชื่อ/path ของ repository ที่เป็นเจ้าของการเปลี่ยน ตรวจวิธีรับ DS ของโปรเจกต์ปลายทางจาก imports/package config จริง ไม่สมมติว่าทุกแอปรับการแก้ Core ทันที
-2. การแก้ DS repo ไม่ใช่การอัปเดต application repo ให้บันทึกทั้งสองสถานะแยกกัน เช่น DS แก้แล้ว / A ทดลองแล้ว / B ยังไม่ได้ตรวจ
-3. หากใช้ package ให้ตรวจเวอร์ชัน/lockfile จริง หากเป็น source import ให้ตรวจ path จริง ช่วง Draft ยังไม่สร้าง release number เอง
-4. ข้ามแชตหรือเปลี่ยน AI ให้ส่ง handoff ที่ระบุ workspace, Product, task scope, ไฟล์ที่เปลี่ยน, ข้อจำกัด, ผลตรวจ และขั้นตอนค้าง ไม่ใช้คำว่า “ทำต่อจากเดิม” เป็นข้อมูลเพียงอย่างเดียว
-5. อย่าใช้ไฟล์ selected-product กลางเพียงไฟล์เดียวให้ทุกคนเขียนทับ การเลือก Product ต้องเป็นบริบทของงานแต่ละคน
-6. ถ้าทำงานพร้อมกัน ให้แบ่งพื้นที่ไฟล์/งานก่อน งาน shared Core ที่ชนกันต้องประสานเจ้าของ ไม่ให้ AI อีกตัวเขียนทับเพื่อให้ผ่าน test
+1. Identify the name/path of the repository that owns the change, and check how the target project receives the DS from the real imports/package config. Do not assume that every app picks up a Core change immediately
+2. Changing the DS repo is not updating an application repo; record both statuses separately, e.g. DS changed / A tried / B not yet checked
+3. If using a package, check the actual version/lockfile; if using source imports, check the real path. During the Draft period do not create a release number yourself
+4. When moving across chats or switching AI, send a handoff stating the workspace, Product, task scope, changed files, constraints, check results and pending steps. Do not use “continue from before” as the only information
+5. Do not use a single central selected-product file that everyone overwrites. The Product selection must be the context of each person's work
+6. If working at the same time, divide the file/work areas first. Colliding shared Core work must be coordinated with the owner; do not let another AI overwrite it just to make tests pass
 
-## คู่มือปฏิบัติ: เมื่อมีคำขอปรับแก้
+## Practical guide: when there is a revision request
 
-คำขอใหม่ระหว่างทำงานเป็นการปรับงานเดิม เว้นแต่ผู้ใช้ยกเลิกหรือเปลี่ยนเป้าหมายอย่างชัดเจน ไม่เริ่มใหม่ทั้งหมดและไม่ทิ้งข้อจำกัดก่อนหน้า
+A new request during the work is an adjustment to the existing work, unless the user cancels or clearly changes the goal. Do not start over and do not drop earlier constraints
 
-### แยกชนิดคำขอก่อนแก้
+### Classify the request before changing
 
-| คำขอ | ทำอะไรต่อ | สิ่งที่ต้องรักษา |
+| Request | What to do next | What to preserve |
 |---|---|---|
-| “ตรงนี้ล้น/พัง/ไอคอนผิด” | reproduce ด้วยเคสจริง แล้ว trace ถึงต้นเหตุ | API, business behavior และจุดอื่นที่ไม่เกี่ยว |
-| “ปรับดีไซน์หน้านี้” | ตรวจ Product recipe และใช้ Unslop เฉพาะ scope | tokens และ component contracts ตามกฎกลาง |
-| “เปลี่ยน component กลาง” | ตรวจ variant/state/consumer และ cross-Product impact | compatibility หรือแจ้ง breaking change |
-| “เปลี่ยนสี/ฟอนต์/variables ใน Figma แล้ว” | เข้า variable-change flow ที่มีอยู่ | snapshot เดิม, provenance และข้อจำกัดล่าสุด |
-| “เพิ่มเคส” | เพิ่มใน case coverage และ state/fixture/story ที่เหมาะ | ไม่แต่ง business rule ให้ครบเอง |
-| “refactor” | เปลี่ยนวิธีเขียนตามโครงสร้าง แล้วเทียบ behavior/render | หน้าตา, API และ transitions ที่ไม่ได้ขอเปลี่ยน |
-| “ย้อนกลับ” | ระบุการแก้ที่ต้องถอยและทำ targeted revert | งานก่อนหน้าและงานของผู้อื่น |
-| “ทำเหมือนตัวอย่าง” | แยก reference aesthetics ออกจาก contract | component และ theme ของเรา |
-| “หยุด/พับไว้ก่อน” | หยุดงานนั้นและบันทึกสิ่งที่ค้าง | ห้าม publish หรือเริ่มต่อจากบริบทเก่า |
+| “This overflows / is broken / the icon is wrong” | reproduce with the real case, then trace to the root cause | API, business behavior and unrelated areas |
+| “Adjust this page's design” | check the Product recipe and use Unslop only within scope | tokens and component contracts per the central rules |
+| “Change the shared component” | check variants/states/consumers and cross-Product impact | compatibility, or report a breaking change |
+| “I changed colors/fonts/variables in Figma” | enter the existing variable-change flow | earlier snapshot, provenance and latest limitations |
+| “Add a case” | add to case coverage and a suitable state/fixture/story | do not invent the business rule to make it complete |
+| “refactor” | change how it is written following the structure, then compare behavior/render | look, API and transitions that were not asked to change |
+| “Revert” | identify the change to undo and do a targeted revert | earlier work and other people's work |
+| “Make it like the example” | separate reference aesthetics from the contract | our components and theme |
+| “Stop / shelve it for now” | stop that work and record what is pending | do not publish or resume from old context |
 
-### ลำดับการแก้แต่ละรอบ
+### Order of each revision round
 
-1. อ่านคำขอใหม่ร่วมกับข้อจำกัดเดิม เช่น ไม่เปลี่ยน border/radius/props อย่าให้ข้อแก้ล่าสุดลบข้อจำกัดอื่นโดยไม่มีคำสั่ง
-2. ระบุ scope ที่เปลี่ยนจากรอบก่อน ใช้ภาพ/ไฟล์/node เป็นหลักฐาน หากภาพยังระบุตัวจริงไม่ได้ให้ค้น consumer ก่อนถาม
-3. reproduce และแยกสาเหตุ: token/theme ผิด, primitive recipe ผิด, consumer override ผิด, layout ผิด, fixture ไม่ตรง หรือ state logic ผิด ไม่เดาสาเหตุจากรูปอย่างเดียว
-4. เก็บ baseline ที่พอเทียบได้ เช่น story, ขนาด viewport, fixture, computed styles และผลทดสอบ ไม่จำเป็นต้องสำรองทั้งโปรเจกต์ทุกครั้ง
-5. แก้ที่ระดับต้นเหตุที่เล็กที่สุด การแก้ระดับหน้าไม่ควรสร้าง recipe ซ้ำ การแก้ Core ต้องตรวจผลกระทบกว้างขึ้นตาม dependency จริง
-6. เพิ่ม regression test เมื่อเป็นบั๊กที่มี behavior/geometry สำคัญและทดสอบได้จริง ไม่เขียน test เพียงเพื่อยืนยัน literal ที่เพิ่งแก้
-7. อัปเดตเอกสารและ stories ตาม final behavior ลบคำอธิบายที่หมดอายุภายในขอบเขตงาน ไม่เขียนประวัติการลองทุกแบบลง usage docs
-8. รัน focused tests และตรวจ surface ที่ได้รับผล จากนั้น required checks ตามขั้น 6 ถ้าแก้อีกหลังตรวจ ต้องทดสอบส่วนที่ได้รับผลใหม่
-9. ส่ง review รอบใหม่ สรุป “สาเหตุ / แก้อะไร / ตรวจอะไร / ค้างอะไร” ไม่ส่งภาพหรือ review ก่อนแก้มาแทนของล่าสุด
+1. Read the new request together with the earlier constraints, e.g. do not change border/radius/props. Do not let the latest fix erase other constraints without an instruction
+2. Identify the scope that changed from the previous round. Use the image/file/node as evidence. If the image cannot identify the real element, search consumers before asking
+3. Reproduce and isolate the cause: wrong token/theme, wrong primitive recipe, wrong consumer override, wrong layout, mismatched fixture or wrong state logic. Do not guess the cause from the image alone
+4. Keep a comparable baseline, e.g. story, viewport size, fixture, computed styles and test results. There is no need to back up the whole project every time
+5. Fix at the smallest root-cause level. A page-level fix should not create a duplicate recipe. A Core fix must check wider impact according to the real dependencies
+6. Add a regression test when it is a bug with important behavior/geometry that can really be tested. Do not write a test merely to confirm the literal that was just fixed
+7. Update docs and stories to match the final behavior; remove outdated descriptions within the task scope. Do not write the history of every attempt into usage docs
+8. Run focused tests and check the affected surfaces, then the required checks per step 6. If anything is changed again after checking, test the newly affected parts again
+9. Send a new review round, summarizing “cause / what was fixed / what was checked / what is pending”. Do not send an image or review from before the fix in place of the latest one
 
-วงรอบนี้ใช้กับคำขอแก้ระหว่างงานและหลังส่งงาน:
+This loop applies to revision requests during the work and after delivery:
 
 ```mermaid
 flowchart TD
-  Request["รับคำขอปรับแก้"] --> Constraints["รวมข้อจำกัดเดิมกับคำสั่งล่าสุด"]
-  Constraints --> Reproduce["ทำให้เห็นปัญหาและหา baseline"]
-  Reproduce --> Cause["หาต้นเหตุและ consumers"]
-  Cause --> Authorized{"แนวแก้อยู่ใน scope หรือไม่"}
-  Authorized -->|ไม่อยู่| Question["เสนอทางเลือกและถามเฉพาะส่วนที่ขยาย"]
+  Request["Receive a revision request"] --> Constraints["Merge earlier constraints with the latest instruction"]
+  Constraints --> Reproduce["Make the problem visible and find a baseline"]
+  Reproduce --> Cause["Find the root cause and consumers"]
+  Cause --> Authorized{"Is the fix within scope?"}
+  Authorized -->|Not within scope| Question["Propose options and ask only about the expanded part"]
   Question --> Cause
-  Authorized -->|อยู่| Fix["แก้ต้นเหตุและอัปเดต docs กับ stories"]
-  Fix --> Verify["ทดสอบและ audit ผลล่าสุด"]
-  Verify --> Pass{"ยังมีข้อผิดพลาดหรือไม่"}
-  Pass -->|มีและแก้ได้| Cause
-  Pass -->|ไม่มี| Deliver["ส่ง review และผลตรวจรอบใหม่"]
-  Pass -->|ตรวจต่อไม่ได้| Block["ระบุข้อจำกัดและส่วนที่ค้าง"]
+  Authorized -->|Within scope| Fix["Fix the root cause and update docs and stories"]
+  Fix --> Verify["Test and audit the latest result"]
+  Verify --> Pass{"Are there still errors?"}
+  Pass -->|Yes and fixable| Cause
+  Pass -->|None| Deliver["Send the review and the new round's check results"]
+  Pass -->|Cannot continue checking| Block["State the limitation and what is pending"]
 ```
 
-### แก้เฉพาะตัวอย่างกับแก้ทั้งระบบ
+### Fixing only an example vs. fixing the whole system
 
-- “หน้านี้” หมายถึง target surface ไม่ได้อนุญาต redesign Core ทั้งหมด
-- “ทุกปุ่ม” ต้องระบุขอบเขตจากบริบทว่า Product นี้หรือ Core ถ้าคำตอบต่างกันแล้วกระทบการเขียน ให้ถามก่อน
-- “ให้เหมือนกัน” ให้เทียบ semantic role/variant/size เดียวกัน ไม่ปรับทุก variant ให้เหมือนกันจนสูญเสียสถานะ
-- ถ้าแก้ใน Figma ให้ตรวจ component set, main component, instances และ overrides ที่เกี่ยวข้องตามสิทธิ์ ห้ามบอกว่าแก้ทุก instance จากการแก้ตัวอย่างเดียว
-- ถ้าแก้เฉพาะ code อย่ารายงานว่า Figma อัปเดตแล้ว และกลับกัน หากไม่มี mapping ให้บอกว่าตรวจ parity ไม่ได้
-- เมื่อ code กับ Figma ขัดกัน ต้องแยก implemented behavior กับ approved visual spec ไม่เลือกฝั่งชนะทุกเรื่องแบบตายตัว
+- “This page” means the target surface; it does not permit redesigning all of Core
+- “Every button” must have its scope determined from context as this Product or Core. If the answers differ and it affects the writing, ask first
+- “Make them the same” means compare the same semantic role/variant/size; do not make every variant identical to the point of losing states
+- If fixing in Figma, check the component set, main component, instances and overrides concerned, as permitted. Never say every instance was fixed from fixing a single example
+- If only code was changed, do not report that Figma is updated, and vice versa. If there is no mapping, say that parity cannot be checked
+- When code and Figma conflict, separate implemented behavior from the approved visual spec; do not rigidly pick one side to win on everything
 
-### ย้อนกลับและทดลองแบบไม่รับเข้า Core
+### Reverting and experimenting without adopting into Core
 
-การขอ “ลอง” อนุญาต prototype ตาม scope แต่ไม่ใช่การ adopt เข้า Core หรือเผยแพร่ ใช้พื้นที่ทดลองที่มีอยู่และบอกว่าเป็น draft หากยังไม่มี sandbox ให้แยกไฟล์ Product/experiment อย่างชัดเจน ไม่อ้างว่ามีระบบ save slots/playground อัตโนมัติแล้ว
+A request to “try” permits a prototype within scope but is not adoption into Core or publication. Use the existing experiment area and say it is a draft. If there is no sandbox yet, separate the Product/experiment files clearly; do not claim that an automatic save slots/playground system already exists
 
-เมื่อผู้ใช้ไม่เอา ให้ถอยเฉพาะ diff ของการทดลอง ตรวจ working changes ล่าสุดก่อน ห้าม reset ทั้ง repo หรือคืนไฟล์ทับงานอีก AI หลังถอยต้องตรวจว่า imports/stories/docs ไม่อ้างสิ่งที่ถอดออก หากระบุจุดย้อนกลับไม่ได้ให้ถาม ไม่เดา slot/commit
+When the user does not want it, back out only the experiment's diff. Check the latest working changes first. Never reset the whole repo or restore files over another AI's work. After backing out, verify that imports/stories/docs do not reference what was removed. If the revert point cannot be identified, ask; do not guess a slot/commit
 
-## ตัวอย่างวิธีสั่งงาน
+## Examples of how to give instructions
 
-ผู้ใช้ไม่ต้องระบุรายชื่อสกิลหรือคำสั่งทดสอบ AI ต้อง route ให้เอง ตัวอย่างต่อไปนี้เป็นแม่แบบ ไม่ใช่ Product ที่สร้างไว้แล้ว:
+The user does not need to name skills or test commands; the AI must route by itself. The following examples are templates, not Products that have been created:
 
-| กรณี | ตัวอย่างคำสั่ง |
+| Case | Example instruction |
 |---|---|
-| เริ่ม Product | “รอบนี้ทำ Product A ในโฟลเดอร์ … ใช้ theme … ทำหน้ารายการนัดหมายในโค้ด” |
-| ทำต่อใน Product เดิม | “เพิ่มเคส empty กับโหลดไม่สำเร็จในหน้านี้” |
-| สลับ Product | “เปลี่ยนไป Product B ก่อน แก้หน้า dashboard ไม่แตะของ A” |
-| หลาย repository | “แก้ Core ใน repo … แล้วลองนำไปใช้ใน A ที่ … ส่วน B ยังไม่ต้องแก้” |
-| แก้เฉพาะจุด | “แก้ชื่อไทยยาวแล้วล้นบนมือถือ คงหน้าตาเดิมส่วนอื่น” |
-| เปลี่ยน Core | “ปรับ Button กลาง แล้วตรวจทุก consumer ที่ได้รับผลทั้ง A และ B” |
-| ปรับ Figma | “แก้เฉพาะ Figma ตาม node นี้ ใช้ DS เดิม ไม่เปลี่ยนโค้ด” |
-| Sync สองฝั่ง | “sync component นี้จาก code ไปไฟล์ DS … และหน้าตัวอย่างใน design file …” |
-| ลองดีไซน์ | “ทำแบบทดลองอีกแนว เทียบกับเดิม ยังไม่เอาเข้า Core” |
-| หยุด/ย้อน | “หยุดเรื่องนี้ไว้ก่อน” หรือ “ถอยเฉพาะการปรับรอบล่าสุด เก็บการแก้ก่อนหน้าไว้” |
-| ส่งต่อ AI | “อ่าน handoff งานนี้แล้วทำต่อเฉพาะขั้นที่ค้าง อย่าเริ่ม implementation ใหม่” |
+| Start a Product | “This round, work on Product A in the folder … use theme … build the appointment list page in code” |
+| Continue in the same Product | “Add the empty and load-failed cases to this page” |
+| Switch Product | “Switch to Product B first, fix the dashboard page, do not touch A's” |
+| Multiple repositories | “Fix Core in repo … then try it in A at … B does not need changes yet” |
+| Spot fix | “Fix the long Thai name overflowing on mobile; keep the rest of the look unchanged” |
+| Change Core | “Adjust the shared Button and check every affected consumer in both A and B” |
+| Adjust Figma | “Edit only Figma per this node, use the existing DS, do not change code” |
+| Two-way sync | “Sync this component from code to the DS file … and the example page in the design file …” |
+| Try a design | “Make an experimental version in another direction, compare with the original, do not adopt it into Core yet” |
+| Stop/revert | “Shelve this for now” or “Back out only the latest round of adjustments, keep the earlier fixes” |
+| Hand off to another AI | “Read this task's handoff and continue only the pending steps; do not start a new implementation” |
 
-## บันทึกส่งต่อและสถานะงาน
+## Handoff notes and work status
 
-สำหรับงานใหญ่ หลาย Product หรือส่งต่อข้าม AI ให้เก็บบันทึกใน `docs/work-in-progress/<task-name>.md` เมื่อจำเป็น เป็น task-specific ไม่ใช่ไฟล์กฎกลาง และไม่ต้องสร้างสำหรับทุกคำถามสั้น ๆ ชื่อเป็นตัวอย่างของตำแหน่งที่จะสร้างเมื่อมีงาน ไม่ใช่ claim ว่ามีระบบ task tracking แล้ว
+For large work, several Products or handoff across AIs, keep a note at `docs/work-in-progress/<task-name>.md` when needed. It is task-specific, not a central rules file, and need not be created for every short question. The name is an example of where it would be created when there is work, not a claim that a task tracking system exists
 
-ข้อมูลขั้นต่ำของบันทึก:
+Minimum information in the note:
 
 ```text
-งาน / วันที่อัปเดต:
-Workspace และ Product/mode:
-เจ้าของงานและพื้นที่ไฟล์ที่รับผิดชอบ:
-เป้าหมาย / สิ่งที่ไม่อยู่ใน scope:
-ข้อจำกัดและคำตัดสินของผู้ใช้:
-Code paths / Figma DS และ design destination:
-เคสที่ยืนยัน / เสนอ / ยังต้องถาม:
-ไฟล์และสิ่งที่เปลี่ยนแล้ว:
-ผลตรวจล่าสุด พร้อมคำสั่ง/หลักฐานและเวลาที่ตรวจ:
-ข้อผิดพลาดเดิม / ข้อผิดพลาดจากงานนี้:
-สิ่งที่ค้าง / ขั้นถัดไป:
-สถานะ: กำลังทำ / รอคำตอบ / พัก / พร้อมตรวจ / เสร็จตาม scope
+Task / date updated:
+Workspace and Product/mode:
+Work owner and file areas responsible:
+Goal / out of scope:
+Constraints and user decisions:
+Code paths / Figma DS and design destination:
+Cases confirmed / proposed / still to ask:
+Files and what has changed:
+Latest check results, with command/evidence and time checked:
+Pre-existing errors / errors from this work:
+Pending / next step:
+Status: in progress / awaiting answer / paused / ready for check / done within scope
 ```
 
-อย่าใส่ secrets หรือ credentials ในบันทึก ก่อน AI ตัวถัดไปแก้ต้องอ่าน source จริงและตรวจว่าตรงกับ handoff หรือไม่ Handoff ไม่ใช่ lock และไม่ใช่สิทธิ์ขยายงาน ถ้ามีความต่างให้ reconcile ก่อน ไม่ใช้สถานะ “เสร็จ” แทนผลทดสอบ
+Do not put secrets or credentials in the note. Before the next AI makes changes, it must read the real source and check whether it matches the handoff. A handoff is not a lock and is not permission to expand the work. If there is a difference, reconcile it first. Do not use the status “done” in place of test results
 
-## เมื่อใดต้องถาม และเมื่อใดทำต่อได้
+## When to ask and when to continue
 
-| เหตุการณ์ | การดำเนินการ |
+| Situation | Action |
 |---|---|
-| รู้อยู่แล้วว่า Product/ปลายทางใด | ทำต่อ ไม่ถามซ้ำ |
-| ปรับ implementation ปกติภายในงานที่อนุญาต | แจ้งทิศทางสั้น ๆ แล้วทำต่อ |
-| มีค่าจาก DS และ contract ที่ชัด | ใช้ค่าที่มี ไม่ให้ผู้ใช้คิดตัวเลขใหม่ |
-| ไม่รู้ว่าจะเขียน Product A หรือ B | ค้นบริบทก่อน ถ้ายังแยกไม่ได้ให้ถาม |
-| ต้องตัดสิน business rule หรือเปลี่ยนสิทธิ์ | ถามและรอส่วนที่ขึ้นกับคำตอบ |
-| ต้องขยาย API/เปลี่ยน behavior ของ Product อื่น | เสนอผลกระทบและขอขอบเขตก่อน |
-| เข้าถึง Figma/skill/consumer ไม่ได้ | ทำส่วนอิสระต่อและระบุสิ่งที่ตรวจไม่ได้ |
-| เครื่องมือปฏิเสธ action | รักษาเหตุผลการปฏิเสธ ไม่เปลี่ยนวิธีเพื่อเลี่ยง permissions |
-| ต้อง publish แต่ผู้ใช้สั่งแค่ลอง UI | ไม่ publish |
-| ผู้ใช้พักงาน | หยุดงานนั้น เก็บสถานะ ไม่ทำต่อเอง |
+| Already know which Product/destination | Continue; do not ask again |
+| Normal implementation adjustments within permitted work | Briefly state the direction and continue |
+| There is a value from the DS and a clear contract | Use the existing value; do not make the user come up with new numbers |
+| Do not know whether to write to Product A or B | Search the context first; if still undecidable, ask |
+| A business rule must be decided or permissions changed | Ask and wait for the parts that depend on the answer |
+| Need to extend the API/change another Product's behavior | Propose the impact and ask for the scope first |
+| Cannot access Figma/skill/consumer | Continue the independent parts and state what could not be checked |
+| A tool denies an action | Respect the reason for the denial; do not change the method to get around permissions |
+| Need to publish but the user only said to try the UI | Do not publish |
+| User pauses the work | Stop that work, keep the status, do not resume by yourself |
 
-## หลักฐานก่อนถือว่าจบงาน
+## Evidence before considering the work finished
 
-งานสร้าง/แก้ UI ต้องระบุ target ที่ส่งจริง, coverage ที่ตกลง, reuse ที่ตรวจ, docs/stories ที่อัปเดต และผลตรวจสุดท้าย ถ้าเหลือข้อจำกัดให้ตั้งสถานะตามจริง การที่หน้าหลักดูดีไม่พิสูจน์ว่า modal/mobile/ทุก Product ผ่าน ส่วน Figma-only ไม่ต้องอ้างว่า code build ผ่านจากรอบก่อน
+UI creation/change work must state the target actually delivered, the agreed coverage, the reuse checked, the docs/stories updated and the final check results. If limitations remain, set the status truthfully. The main page looking good does not prove that the modal/mobile/every Product passes. Figma-only work does not need to claim that the code build passed from an earlier round
 
-งานนี้เป็นเอกสารคำสั่งและแผนภาพ ไม่ได้ติดตั้ง watcher, board, auto-sync, task lock หรือ orchestration ระหว่าง AI โดยอัตโนมัติ
+This is a document of instructions and diagrams; it does not install a watcher, board, auto-sync, task lock or automatic orchestration between AIs
 
-### บันทึกการตรวจแผนภาพ
+### Diagram review record
 
-ผู้เขียน: Codex ตามสกิล mermaid-diagrams / วันที่: 25 พฤศจิกายน 2026 / ผู้อ่าน: ทีม DS และ AI ทั้งสอง / เป้าหมาย: Markdown ที่รองรับ Mermaid / รูปแบบ: flowchart TD แยกสามคำถาม / ข้อความสำรอง: ตารางและขั้นตอนในส่วนเดียวกัน / แหล่งข้อมูล: workflow และข้อกำหนดใน workspace นี้ / ความไม่แน่นอน: Product A/B และ path ตัวอย่างเป็นแม่แบบ ไม่ใช่ระบบที่ implement แล้ว / สถานะตรวจ: ตรวจโครงสร้างและเส้นทางด้วยการอ่าน ยังไม่ได้ยืนยัน parser หรือ render ใน renderer เป้าหมาย ห้ามอ้างว่าภาพ render ผ่านจนกว่าจะทดสอบจริง
+Author: Codex following the mermaid-diagrams skill / Date: 25 November 2026 / Readers: DS team and both AIs / Goal: Markdown that supports Mermaid / Format: flowchart TD split into three questions / Alternative text: the tables and steps in the same section / Sources: the workflow and requirements in this workspace / Uncertainty: Product A/B and example paths are templates, not an implemented system / Check status: structure and paths checked by reading; parser or render in the target renderer not yet confirmed. Do not claim the rendered diagram passes until it has actually been tested

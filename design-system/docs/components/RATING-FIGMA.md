@@ -13,6 +13,6 @@ Shared RadioGroup + Base UI Radio.Root handle1–5 or0.5–5 choices. Pointer pr
 Known limits: original amber/empty outlines have low non-text contrast on white; compact18px and half-star pointer targets are below24px. Preserve source visuals and report these instead of claiming complete WCAG conformance. For display-only use readOnly (or disabled when gray is intended); Product defines meaning. No clinical severity semantics or backend persistence are implemented. Page/Dialog and long Thai cases are checked; physical touch hardware and screen readers remain unverified.
 
 
-## เปลี่ยนชื่อใน Figma — 26 พฤศจิกายน 2026
+## Renamed in Figma — 26 November 2026
 
-เปลี่ยนชื่อชุดและ prop ใน Figma ให้ตรงโค้ด (ชื่อเดิมสำรองใน plugin data `oldName_2026-11-26`, instance 6 และ 75 เท่าเดิม): `<Rating>` → `rating` (`size` lg/default/sm, `disabled` false/true) และ `Star` → `rating-star` (`size`, `value` empty/half/full เดิม `Active` False/Half/Full, `state` default/hover เดิม `Hovered`) ข้อความในกรอบเอกสาร Figma ของ Rating ยังใช้ชื่อเดิม
+Renamed the sets and props in Figma to match the code (original names backed up in plugin data `oldName_2026-11-26`; the instance counts 6 and 75 are the same as before): `<Rating>` → `rating` (`size` lg/default/sm, `disabled` false/true) and `Star` → `rating-star` (`size`, `value` empty/half/full, previously `Active` False/Half/Full, `state` default/hover, previously `Hovered`). The text in the Rating Figma doc frame still uses the original names

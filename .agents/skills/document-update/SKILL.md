@@ -1,6 +1,6 @@
 ---
 name: document-update
-description: อัปเดตเอกสาร component เป็นชื่อเรียกเดิมที่ส่งต่อไป document ใช้ workflow และแหล่งอ้างอิงเดียวกัน
+description: Update component documentation; this is the previous name that forwards to document, using the same workflow and sources
 ---
 
 # Update Component Documentation

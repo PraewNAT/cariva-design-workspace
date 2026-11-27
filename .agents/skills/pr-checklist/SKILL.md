@@ -1,6 +1,6 @@
 ---
 name: pr-checklist
-description: ตรวจความพร้อมของ PR Cariva จาก diff และผล reuse/audit/docs ที่เกี่ยวข้อง ไม่ merge และไม่บังคับ MUI หรือ 7-file scaffold กับ shadcn
+description: Check Cariva PR readiness from the diff and the related reuse/audit/docs results. Does not merge and does not force MUI or the 7-file scaffold on shadcn
 ---
 
 # PR Readiness

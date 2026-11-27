@@ -33,15 +33,15 @@ Verification: 10 Tabs + 5 catalog interaction stories passed; accessibility repo
 
 Standard underline and Pills background use Base UI Indicator with interruptible 350ms transform/size transitions, cubic-bezier(.4,0,.2,1). Folder color/shadow transition for 320ms. Panel selection stays immediate. Keyboard focus-visible and prefers-reduced-motion disable transitions. The existing Figma template Callout documents this code motion decision; specimens remain static linked instances. No new dependency or public prop.
 
-## เปลี่ยนชื่อชุดใน Figma (26 พ.ย. 2026, ผู้ใช้ยืนยันตามเสนอ)
+## Figma set renames (26 Nov 2026, the user confirmed as proposed)
 
-| ชื่อใหม่ | ชื่อเดิม | prop ที่เปลี่ยน | instance |
+| New name | Original name | Changed prop | instances |
 |---|---|---|---|
 | `tabs-standard` (`TabsList variant="standard"`) | `crv-tabs-standard` | `size` large / small → `default` / `sm` | 4 → 4 |
-| `tabs-standard-trigger` | `crv-tabs-standard-base` | `size` เหมือนกัน | 22 → 22 |
+| `tabs-standard-trigger` | `crv-tabs-standard-base` | `size` same | 22 → 22 |
 | `tabs-pills` (`TabsList variant="pills"`) | `crv-tabs-pills` | `variant` fullWidth / standard → `stretch` true / false | 8 → 8 |
 | `tabs-pills-trigger` | `crv-tabs-base` | — | 76 → 76 |
 | `tabs-folder-trigger` | `crv-tabs-folder-base` | `selected` yes / no → true / false | 19 → 19 |
-| `tabs-folder` (ชิ้นเดี่ยว) | `crv-tabs-folder` | — | 4 → 4 |
+| `tabs-folder` (standalone) | `crv-tabs-folder` | — | 4 → 4 |
 
-ตัวแท็บเดี่ยวลงท้าย `-trigger` (= `TabsTrigger`) ตัวกลุ่มใช้ชื่อเดียว (= `TabsList`)
+Individual tab items end with `-trigger` (= `TabsTrigger`); the group uses the bare name (= `TabsList`)

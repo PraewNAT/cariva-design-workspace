@@ -1,49 +1,49 @@
 # Sidebar — Figma specification
 
-อ่านจาก Figma วันที่ 26 พฤศจิกายน 2026: [Sidebar](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt?node-id=4716-62177) (ไฟล์ Cariva Core Design System) ผู้ใช้ยืนยันชื่อตามที่ Claude เสนอ รวมถึงการเปลี่ยนความกว้างเป็น 240 กรอบเอกสาร `Documentation Card` (node `7223:102132`) สร้างในหน้านี้แล้ว หน้านี้ยังมีตัวอย่างหน้าจอทั้งหน้ากับโน้ต "ปัญหา" ของดีไซเนอร์ ไม่ได้แตะ
+Read from Figma on 26 November 2026: [Sidebar](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt?node-id=4716-62177) (Cariva Core Design System file). The user confirmed the names as proposed by Claude, including changing the width to 240. The `Documentation Card` doc frame (node `7223:102132`) was created on this page. The page also has a full-page screen example and the designer's "ปัญหา" (Issues) note, which were not touched.
 
-## ชุดใน Figma (เปลี่ยนชื่อแล้ว ชื่อเดิมสำรองใน plugin data `oldName_2026-11-26`)
+## Sets in Figma (renamed; original names backed up in plugin data `oldName_2026-11-26`)
 
-| ชื่อใหม่ | ชื่อเดิม | prop | instance (ก่อน → หลัง) |
+| New name | Original name | prop | instances (before → after) |
 |---|---|---|---|
-| `sidebar` | `crv-sidebar` | `filled` (เดิม `with bg`), ช่อง `logo` | 10 → 10 |
-| `sidebar-menu-item` | `crv-sidebar-menu` | `active`, `expandable` true/false (เดิม `type` expand/default) | 62 → 62 |
+| `sidebar` | `crv-sidebar` | `filled` (previously `with bg`), `logo` slot | 10 → 10 |
+| `sidebar-menu-item` | `crv-sidebar-menu` | `active`, `expandable` true/false (previously `type` expand/default) | 62 → 62 |
 | `sidebar-rail` | `crv-sidebar-rail` | — | 3 → 3 |
-| `sidebar-rail-item` | `crv-sidebar-rail-item` | `state` default/hover/selected/disabled (เดิม `stage`), `badge`, `label` | 36 → 36 |
+| `sidebar-rail-item` | `crv-sidebar-rail-item` | `state` default/hover/selected/disabled (previously `stage`), `badge`, `label` | 36 → 36 |
 
-## สเปก
+## Spec
 
-- Sidebar กว้าง 240 พื้น `on-surface/default` padding บน/ล่าง 24 ช่องว่าง 16
-- เมนู: สูง 40 มุม 12 padding 8/12 ช่องว่าง 12 ข้อความ 14/20 Medium `content/primary` ไอคอน 20 `content/secondary` · active: พื้น `on-surface/action/selected` ข้อความ `brand/primary/content/default` ไอคอน `brand/primary/on-surface/default`
-- เมนูขยาย: รายการย่อยเยื้อง 24 เส้นข้าง 2px `border/default` (รายการที่เลือกเส้น `brand/primary/on-surface/default`) รายการย่อยสูง 40 มุม 8 padding 8/16
-- Rail: กว้าง 64 ช่วงโลโก้ 64, Primary Nav, Secondary Nav, Profile ช่องว่าง 8 · item 64×60 กล่องไอคอน 32×32 มุม 8 ข้อความ 10/16 Medium ช่องว่าง 4 · badge จุดแดง 8px `status/error/on-surface/default`
-- สี rail item: default `content/secondary` พื้น `bg/subtle` · hover พื้น `on-surface/action/hover` · selected พื้น `on-surface/action/selected-strong` ตัวอักษรและไอคอน `brand/primary/content/default` · disabled `content/disabled`
+- Sidebar width 240, fill `on-surface/default`, padding top/bottom 24, gap 16
+- Menu: height 40, corner radius 12, padding 8/12, gap 12, text 14/20 Medium `content/primary`, icon 20 `content/secondary` · active: fill `on-surface/action/selected`, text `brand/primary/content/default`, icon `brand/primary/on-surface/default`
+- Expandable menu: sub-items indented 24, side line 2px `border/default` (the selected item's line is `brand/primary/on-surface/default`), sub-item height 40, corner radius 8, padding 8/16
+- Rail: width 64, logo section 64, Primary Nav, Secondary Nav, Profile gap 8 · item 64×60, icon box 32×32 corner radius 8, text 10/16 Medium, gap 4 · badge is an 8px red dot `status/error/on-surface/default`
+- rail item colors: default `content/secondary` fill `bg/subtle` · hover fill `on-surface/action/hover` · selected fill `on-surface/action/selected-strong`, text and icon `brand/primary/content/default` · disabled `content/disabled`
 
-## ชื่อ Figma ↔ โค้ด
+## Figma name ↔ Code
 
-| Figma | โค้ด |
+| Figma | Code |
 |---|---|
-| `sidebar` (ประกอบเสร็จ) | `AppSidebar` (`app/app-sidebar.tsx`: `logo`, `sections[{label, items[{label, icon, href, active, disabled, children}]}]`; item ที่มี `children` = `expandable` เปิด/ปิดได้ ลูกศรชี้ขึ้นตอนเปิด) ประกอบจาก `Sidebar` + `SidebarContent`, `SidebarGroup`, `SidebarGroupLabel` |
+| `sidebar` (assembled) | `AppSidebar` (`app/app-sidebar.tsx`: `logo`, `sections[{label, items[{label, icon, href, active, disabled, children}]}]`; an item with `children` = `expandable`, can open/close, arrow points up when open), composed of `Sidebar` + `SidebarContent`, `SidebarGroup`, `SidebarGroupLabel` |
 | `sidebar-menu-item` | `SidebarMenuItem` + `SidebarMenuButton` (`isActive`) |
 | `expandable` | `SidebarMenuSub` + `SidebarMenuSubItem` + `SidebarMenuSubButton` (`isActive`) |
 | `sidebar-rail` | `SidebarIconRail` (`app/sidebar-rail.tsx`, props `logo`, `secondary`, `profile`) |
 | `sidebar-rail-item` | `SidebarIconRailItem` (`icon`, `label`, `badge`, `isActive`, `disabled`) |
-| `filled`, `state` hover | `filled` เป็นเฉพาะ Figma (โค้ดใช้พื้นขาวเสมอ) · hover เป็น CSS |
+| `filled`, `state` hover | `filled` is Figma only (code always uses a white fill) · hover is CSS |
 
-`SidebarRail` เดิมของ shadcn คือตัวลากปรับความกว้าง ไม่ใช่ rail ของ Figma จึงตั้งชื่อใหม่ว่า `SidebarIconRail`
+The original shadcn `SidebarRail` is a drag handle for resizing the width, not the Figma rail, so the new one is named `SidebarIconRail`
 
-## โค้ด (26 พ.ย. 2026)
+## Code (26 Nov 2026)
 
-| เรื่อง | สถานะ |
+| Topic | Status |
 |---|---|
-| ความกว้าง 240, พื้น `#FFFFFF` | ตรง (วัดใน story `FigmaSidebar`) |
-| ปุ่มเมนูสูง 40, มุม 12, ช่องว่าง 12, padding ซ้าย 12 | ตรง (วัดแล้ว) |
-| รายการย่อยสูง 40, มุม 8 | ตรง (วัดแล้ว) |
-| rail item 64×60, กล่องไอคอน 32 มุม 8 | ตรง (วัดแล้ว) |
-| `AppSidebar` กว้าง 240, padding บน 24, ปุ่มกว้าง 224 สูง 40, เปิด/ปิดเมนูขยาย, disabled | ผ่าน (story `Assembled`) |
-| ช่องว่างและขนาดหัวข้อกลุ่ม (12/18), ช่วงโลโก้ | ตั้งตาม Figma **ยังไม่ได้วัด** |
-| สี hover / pressed, focus ของ rail, เส้นข้าง 2px ของรายการย่อย | ตั้งตาม Figma **ยังไม่ได้วัด** |
+| Width 240, fill `#FFFFFF` | matches (measured in story `FigmaSidebar`) |
+| Menu button height 40, corner radius 12, gap 12, left padding 12 | matches (measured) |
+| Sub-item height 40, corner radius 8 | matches (measured) |
+| rail item 64×60, icon box 32 corner radius 8 | matches (measured) |
+| `AppSidebar` width 240, top padding 24, button width 224 height 40, expandable menu open/close, disabled | passes (story `Assembled`) |
+| Group heading spacing and size (12/18), logo section | set per Figma, **Not measured** |
+| hover / pressed colors, rail focus, 2px side line of sub-items | set per Figma, **Not measured** |
 
-**ผลกระทบ:** `Sidebar` ที่ใช้อยู่ทุกหน้ากว้างจาก 256 เป็น 240 พื้นเป็นสีขาวแทน `bg-sidebar` ปุ่มเมนูสูง 40 (เดิม 36) มุม 12 ตัวหนังสือ medium; hover/active ใช้ token `--cds-*` แทน `sidebar-accent`; `disabled` ใช้สีตัวหนังสือแทนลด opacity; รายการย่อยมีเส้นข้าง 2px และสูง 40 (เดิม 28)
+**Impact:** the `Sidebar` used on every page goes from width 256 to 240, with a white fill instead of `bg-sidebar`; menu buttons are height 40 (previously 36), corner radius 12, medium text; hover/active use `--cds-*` tokens instead of `sidebar-accent`; `disabled` uses a text color instead of reduced opacity; sub-items have a 2px side line and height 40 (previously 28)
 
-**ยังไม่ได้ตรวจ:** โหมดย่อเหลือไอคอน (`collapsible="icon"`) และ Sheet บนมือถือ (ใช้พื้นเดียวกันแต่ไม่ได้ดูด้วยตา), ตัว `SidebarMenuAction`/`Badge`/`Skeleton` ที่ Figma ไม่มี, โลโก้
+**Not yet checked:** the icon-only collapsed mode (`collapsible="icon"`) and the mobile Sheet (uses the same fill but not viewed visually), `SidebarMenuAction`/`Badge`/`Skeleton` which Figma does not have, and the logo

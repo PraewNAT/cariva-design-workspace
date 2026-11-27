@@ -1,6 +1,6 @@
 ---
 name: doc-coverage
-description: ตรวจ coverage เอกสารเทียบ components และ stories จริงของ Cariva รวม Figma เฉพาะที่มี mapping ไม่บังคับทุก component ต้องมีไฟล์ 7 ชนิด
+description: Check documentation coverage against Cariva's actual components and stories, including Figma only where a mapping exists. Does not require every component to have 7 file types
 ---
 
 # Documentation Coverage

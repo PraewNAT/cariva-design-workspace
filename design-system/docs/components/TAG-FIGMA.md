@@ -1,47 +1,47 @@
 # Tag — Figma specification
 
-อ่านจาก Figma วันที่ 26 พฤศจิกายน 2026: [Tag](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt?node-id=3918-824) (ไฟล์ Cariva Core Design System) ผู้ใช้ยืนยันชื่อตามที่ Claude เสนอ หน้านี้มีกรอบ `Documentation Card` อยู่แล้ว แก้ชื่อ prop และตัวเลขที่ผิดจาก Figma จริงแล้ว (ข้อความเดิมสำรองใน `docText_2026-11-26`)
+Read from Figma on 26 November 2026: [Tag](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt?node-id=3918-824) (Cariva Core Design System file). The user confirmed the names as proposed by Claude. This page already has a `Documentation Card` frame; prop names and numbers that were wrong against the real Figma were fixed (original text backed up in `docText_2026-11-26`)
 
-## ชุดใน Figma (เปลี่ยนชื่อแล้ว ชื่อเดิมสำรองใน plugin data `oldName_2026-11-26`)
+## Sets in Figma (renamed; original names backed up in plugin data `oldName_2026-11-26`)
 
-| ชื่อใหม่ | ชื่อเดิม | prop | instance (ก่อน → หลัง) |
+| New name | Original name | prop | instances (before → after) |
 |---|---|---|---|
-| `tag` | `crv-tag-standard` | `variant` filled / outlined, `color` default / secondary / error / success / warning, `content` label / count (เดิม `children` label / number), `size` sm / default / lg (เดิม small / medium / large), `startIconVisible`, `endIconVisible`, `label`, `badgeContent` | 13 → 13 |
+| `tag` | `crv-tag-standard` | `variant` filled / outlined, `color` default / secondary / error / success / warning, `content` label / count (previously `children` label / number), `size` sm / default / lg (previously small / medium / large), `startIconVisible`, `endIconVisible`, `label`, `badgeContent` | 13 → 13 |
 | `tag-color` | `crv-tag-color` | `color` primary / sky / cyan / pink / purple / emerald / amber / orange | 9 → 9 |
 
-## สเปก
+## Spec
 
-- `tag` ป้ายข้อความ: sm สูง 20, default สูง 24, lg สูง 36 · padding แนวนอน 8 (lg 12) ช่องว่าง 4 · 12/16 Medium (lg 14/20) · ไอคอน 12
-- `tag` ป้ายตัวเลข (`content=count`): วงกลม 20 / 24 / 32 padding 2/4
+- `tag` text label: sm height 20, default height 24, lg height 36 · horizontal padding 8 (lg 12), gap 4 · 12/16 Medium (lg 14/20) · icon 12
+- `tag` number label (`content=count`): circle 20 / 24 / 32, padding 2/4
 - filled: default `brand/primary/on-surface/default` + `brand/primary/content/on-fill` · secondary `on-surface/sunken` + `content/primary` · error / success / warning `status/*/on-surface/default` + `status/*/content/on-fill`
-- outlined (มีเฉพาะสี default): โปร่ง ขอบ 1px `border/default` ตัวอักษร `content/primary`
-- `tag-color`: สูง 20 padding 2/8 ช่องว่าง 4 12/16 Medium · พื้น `accent/{สี}/A02` ตัวอักษร `accent/{สี}/A05` · primary ใช้ `brand/primary/on-surface/muted` และ `brand/primary/content/strong`
+- outlined (only in the default color): transparent, border 1px `border/default`, text `content/primary`
+- `tag-color`: height 20, padding 2/8, gap 4, 12/16 Medium · fill `accent/{color}/A02`, text `accent/{color}/A05` · primary uses `brand/primary/on-surface/muted` and `brand/primary/content/strong`
 
-**แก้ doc ที่ผิดจาก Figma:** doc เดิมเขียนว่า tag-color สูง 22, พื้น A01, ตัวอักษร A04, มีสี grey และขนาด tag 20 / 26 / 38 Figma จริงคือ 20, A02, A05, ไม่มี grey และ 20 / 24 / 36
+**Fixed docs that were wrong against Figma:** the old doc said tag-color height 22, fill A01, text A04, has a grey color and tag sizes 20 / 26 / 38; the real Figma is 20, A02, A05, no grey and 20 / 24 / 36
 
-## ชื่อ Figma ↔ โค้ด
+## Figma name ↔ Code
 
-| Figma | โค้ด |
+| Figma | Code |
 |---|---|
 | `tag` | `Tag` (`ui/tag.tsx`; `variant`, `color`, `size`, `content`, `startIcon`, `endIcon`) |
-| `content=count` | `content="count"` (วงกลม ไม่แสดงไอคอน) |
+| `content=count` | `content="count"` (circle, no icon shown) |
 | `tag-color` | `TagColor` (`color`, `startIcon`, `endIcon`) |
 | `label`, `badgeContent` | children |
-| `startIconVisible`, `endIconVisible` | ใส่หรือไม่ใส่ `startIcon` / `endIcon` |
+| `startIconVisible`, `endIconVisible` | include or omit `startIcon` / `endIcon` |
 
-## โค้ด (26 พ.ย. 2026)
+## Code (26 Nov 2026)
 
-story ที่ `Core/Components/Tag`: `Filled` (สีทั้ง 5 × ขนาด 3), `Outlined`, `Count`, `WithIcons`, `ColorTags`
+Stories under `Core/Components/Tag`: `Filled` (all 5 colors × 3 sizes), `Outlined`, `Count`, `WithIcons`, `ColorTags`
 
-| เรื่อง | สถานะ |
+| Topic | Status |
 |---|---|
-| สูง 20 / 24 / 36, padding 8 / 12, 12/16 และ 14/20 | ตรง (วัดแล้ว) |
-| สี filled ทั้ง 5, ขอบ outlined, ตัวอักษร outlined | ตรง (วัดแล้ว) |
-| ตัวเลขกลม 20 / 24 / 32 | ตรง (วัดแล้ว) |
-| ไอคอน 12 และช่องว่าง 4 | ตรง (วัดแล้ว) |
-| tag-color: สูง 20, สีพื้น primary และ sky, สีตัวอักษร sky | ตรง (วัดแล้ว) |
-| ขนาดไอคอนของ lg (ผมตั้ง 16), สีของสี tag-color 6 สีที่เหลือ | ตั้งตาม token **ยังไม่ได้วัด** |
+| Height 20 / 24 / 36, padding 8 / 12, 12/16 and 14/20 | matches (measured) |
+| All 5 filled colors, outlined border, outlined text | matches (measured) |
+| Round count 20 / 24 / 32 | matches (measured) |
+| Icon 12 and gap 4 | matches (measured) |
+| tag-color: height 20, fill colors for primary and sky, text color for sky | matches (measured) |
+| lg icon size (I set it to 16), colors of the remaining 6 tag-color colors | set per token, **Not measured** |
 
-**ผลกระทบ:** Component ใหม่ ไม่กระทบของเดิม (Badge เป็นตัวนับ/จุด Chip เป็นแบบกดได้)
+**Impact:** a new component, so existing ones are not affected (Badge is a counter/dot; Chip is the clickable kind)
 
-**ยังไม่ได้ตรวจ:** ไอคอนจริงจาก Figma (ใช้ svg ที่ผู้ใช้ส่งเข้ามา), ข้อความยาวที่ตัดบรรทัด
+**Not yet checked:** the real icons from Figma (uses the svg the user supplied), long text that wraps

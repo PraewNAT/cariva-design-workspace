@@ -1,134 +1,134 @@
-# แผนสร้าง Design System จาก Code ไป Figma
+# Plan for building a Design System from Code to Figma
 
-> **สถานะ 26 พฤศจิกายน 2026:** เอกสารนี้เป็นบันทึกตามวันที่ที่เขียน ไม่ได้อัปเดตตามทุกการตัดสินใจหลังจากนั้น ส่วน Playground/panel แบบ Figma ถูกยกเลิกแล้ว (ดู agent-rules) Canvas เป็นแบบดูอย่างเดียวและใช้ `sync/canvas` ลำดับขั้นและจุดตัดสินใจปัจจุบันอยู่ที่ `rules/workflow-map.md` ของ `shadcn/`
+> **Status as of 26 November 2026:** This document is a dated record as written and has not been updated for every decision made since. The Figma-style Playground/panel has been cancelled (see agent-rules). The Canvas is view-only and uses `sync/canvas`. The current order of steps and decision gates are in `rules/workflow-map.md` of `shadcn/`.
 
-## การตัดสินใจล่าสุด — 24 พฤศจิกายน 2026
+## Latest decision — 24 November 2026
 
-ปรับ component ใน Figma Design System ให้ลงตัวก่อน เมื่อผู้ใช้สั่งเริ่มจึงเปลี่ยนโค้ดทั้งหมดไปใช้ shadcn โดยอิงโครงสร้าง `/Users/natthaphorna/structure-lab-interpret/` และทำ visual ฝั่งโค้ดให้ตรง Figma ที่ตกลงแล้ว เก็บของเก่าไว้จนกว่าจะอนุญาตให้แทนหรือลบ MUI ปัจจุบันเป็นฐานชั่วคราวเท่านั้น ยังไม่เริ่ม migration และไม่สร้าง skills ใหม่
+Settle the components in the Figma Design System first. When the user gives the go-ahead, switch all code to shadcn, based on the structure of `/Users/natthaphorna/structure-lab-interpret/`, and make the code-side visuals match the agreed Figma. Keep the old code until replacement or deletion is permitted. The current MUI is a temporary base only. The migration has not started and no new skills are created.
 
-รายละเอียดโครงสร้างที่พบจริง โครงสร้างที่เสนอ และสกิลเดิมที่ใช้ได้อยู่ใน [SHADCN-STRUCTURE-AND-SKILLS.md](./SHADCN-STRUCTURE-AND-SKILLS.md) ข้อตกลงใหม่นี้มีผลเหนือข้อความเลือก stack/ลำดับเก่าด้านล่างเฉพาะส่วนที่ขัดกัน ไม่ถือว่าอนุมัติ Next.js หรือ Radix โดยอัตโนมัติ
+Details of the structure actually found, the proposed structure, and the existing skills that can be used are in [SHADCN-STRUCTURE-AND-SKILLS.md](./SHADCN-STRUCTURE-AND-SKILLS.md). This new agreement overrides the old stack-selection/ordering text below only where they conflict; it does not automatically approve Next.js or Radix.
 
-บันทึกวันที่ 21 พฤศจิกายน 2026 สำหรับทีม Design 2–3 คน เป้าหมายคือใช้ Design System ร่วมกันระหว่าง Design และ Dev โดยเริ่มจากโค้ด การตัดสินใจล่าสุด: ให้ AI สร้างหน้าจอเป็นโค้ด พร้อมหน้า board รวมทุกเคสเพื่อดูภาพรวม ไม่ต้องนำดีไซน์หน้าจอทุกเคสไปทำซ้ำใน Figma ส่วนแนวคิดสร้าง component library ใน Figma ยังเก็บไว้พิจารณาแยกต่างหาก สถานะล่าสุด 22 พฤศจิกายน 2026: ตั้ง React + TypeScript และ Storybook starter แล้ว มี shadcn, Impeccable และ Prototype → Figma ระดับโปรเจกต์ และสร้าง skills เฉพาะ component-reuse-check, case-planning, component-audit แล้ว ส่วน board/canvas และ playground ตามแผนยังไม่ได้พัฒนา
+Note dated 21 November 2026 for a Design team of 2–3 people. The goal is a Design System shared between Design and Dev, starting from code. Latest decision: have AI build screens as code, together with a board page collecting every case for an overview, without duplicating every case's screen design in Figma. The idea of building a component library in Figma is kept for separate consideration. Status as of 22 November 2026: the React + TypeScript and Storybook starter is set up, with shadcn, Impeccable and project-level Prototype → Figma, and the dedicated skills component-reuse-check, case-planning and component-audit have been created. The board/canvas and playground in the plan have not yet been developed.
 
-# แนวทางที่ต้องการ
+# Desired approach
 
-Workflow หน้าจอล่าสุด: ให้ AI ทำรายการเคสจาก requirements และ logic ให้ผู้ใช้ตรวจความครบ แล้วเขียนหน้าจอพร้อมข้อมูลจำลองและหน้า board รวมทุกเคส วางแต่ละเคสข้างกัน จัดกลุ่มตามหน้าจอหรือ flow พร้อมชื่อและรหัสเคส เช่น default, loading, empty, error, success, validation และ permission ตามที่เกี่ยวข้อง Board ต้อง render จาก component และ tokens จริงของโปรเจกต์ เพื่อให้การแก้ component สะท้อนบน board เมื่อ render ใหม่ ทุกเคสต้องเปิดตรวจได้โดยไม่ต้องกดผ่าน flow เพื่อเข้าถึง state นั้น ความครบอ้างอิงรายการเคสที่ตกลงกัน และต้องอัปเดตรายการเมื่อมี requirement ใหม่ สำหรับงานหน้าจอไม่ต้องสร้างชุดดีไซน์ซ้ำใน Figma
+Latest screen workflow: have AI list cases from requirements and logic for the user to check for completeness, then write the screens with mock data and a board page collecting every case, placing each case side by side, grouped by screen or flow with a case name and code, e.g. default, loading, empty, error, success, validation and permission as relevant. The board must render from the project's real components and tokens, so that component changes show on the board when re-rendered. Every case must be openable for inspection without clicking through the flow to reach that state. Completeness refers to the agreed case list, and the list must be updated when new requirements arrive. For screen work, do not recreate the design set in Figma.
 
-# หน้าลองสไตล์จาก DESIGN.md
+# Style trial page from DESIGN.md
 
-ก่อนใช้ DESIGN.md จากแหล่งอื่น ให้ AI อ่านและสรุปสไตล์ที่จะเปลี่ยน เช่น ฟอนต์ สี ระยะ ขนาด ความโค้ง และเงา แยกค่าที่ระบุในไฟล์ออกจากค่าที่ AI เลือกเพิ่มเมื่อข้อมูลไม่ครบ แล้วสร้าง style preview เป็น draft แยกจาก Core ปัจจุบัน โดยใช้ component เดิมของระบบที่ต่อยอดจาก shadcn เป็นฐาน
+Before using a DESIGN.md from another source, have AI read it and summarize the styles that would change, such as fonts, colors, spacing, sizes, corner radius and shadow, separating values specified in the file from values AI chose to add where the information was incomplete, then build a style preview as a draft separate from the current Core, using the system's existing components built on shadcn as the base.
 
-Preview ต้องแสดงทั้งชุด component เช่น Button, Input, Select, Card และ Dialog พร้อม states ที่เกี่ยวข้อง และหน้าจอจริงของ Product อย่างน้อยหนึ่งหน้าที่มีเนื้อหาและความหนาแน่นใกล้งานจริง เพื่อประเมินว่าสไตล์เข้ากับผลิตภัณฑ์หรือไม่
+The preview must show the full set of components, such as Button, Input, Select, Card and Dialog with relevant states, and at least one real Product screen with content and density close to real work, to judge whether the style suits the product.
 
-บน canvas วางแบบเดิมและแบบทดลองข้างกัน ใช้หน้าจอ ข้อมูล เคส และขนาด viewport เดียวกัน ถ้าลองหลาย DESIGN.md ให้ใช้ชุดตัวอย่างเดียวกันเพื่อเทียบอย่างตรงไปตรงมา ผู้ใช้ปรับ draft ต่อใน playground หรือทิ้งได้โดย Core ไม่เปลี่ยน
+On the canvas, place the original and the experiment side by side, using the same screens, data, cases and viewport size. If trying several DESIGN.md files, use the same sample set so the comparison is direct. The user can keep adjusting the draft in the playground or discard it, with the Core unchanged.
 
-เมื่อผู้ใช้เลือกว่าสไตล์เหมาะสมแล้ว จึงแสดงรายการเปลี่ยน tokens/styles และผลกระทบ บันทึกจุดพัก แล้วให้ AI นำการเปลี่ยนแปลงที่เลือกเข้า Core ตรวจ component และ board ทุกเคสที่เกี่ยวข้องตามแผน Component Audit ไม่สร้าง component ซ้ำเพื่อเปลี่ยนสไตล์โดยไม่จำเป็น และไม่เริ่มนับเวอร์ชัน Design System จากการทดลองหรือการนำไปใช้
+Once the user picks a style that fits, show the list of token/style changes and their impact, save a checkpoint, then have AI bring the selected changes into the Core, and check every related component and board case according to the Component Audit plan. Do not create duplicate components just to change styles unnecessarily, and do not start counting Design System versions from the experiment or its adoption.
 
-ฟีเจอร์นี้เป็นส่วนหนึ่งของแผนการทดลองดีไซน์ ยังไม่ได้สร้างหน้าลองสไตล์หรือแก้ Core
+This feature is part of the design experimentation plan. The style trial page has not been built and the Core has not been changed.
 
-# Playground และ panel แบบ Figma (ยกเลิก)
+# Figma-style playground and panels (cancelled)
 
-**Canvas ที่อนุมัติแทน:** หน้า Storybook วางหลายหน้าข้างกัน ซูม/เลื่อนและ fit ทั้งหมดได้ ไม่มี panel แก้ดีไซน์ ไม่มี draft หรือ Apply flow ดู `Workspace/Canvas board`.
+**Approved Canvas instead:** a Storybook page placing several screens side by side, with zoom/pan and fit-all. There is no design-editing panel, no draft and no Apply flow. See `Workspace/Canvas board`.
 
-**การตัดสินใจล่าสุด 25 พฤศจิกายน 2026:** ผู้ใช้ยกเลิก Playground editor และอนุญาตให้ลบ implementation แล้ว ต้องการเพียงหน้า Canvas ใน Storybook สำหรับดูหน้าจอ ดู [Canvas](docs/canvas/README.md) รายละเอียด editor ด้านล่างเป็นประวัติแผนที่ยกเลิก ไม่ต้องนำกลับมาสร้างจนกว่าจะขอใหม่
+**Latest decision 25 November 2026:** the user cancelled the Playground editor and permitted its implementation to be deleted. Only a Canvas page in Storybook for viewing screens is wanted. See [Canvas](docs/canvas/README.md). The editor details below are the history of the cancelled plan and should not be rebuilt until requested again.
 
-เพิ่ม playground สำหรับทดลองแก้หน้าจอจาก board และทดลองแก้ component ใน Design System โดยมี panel และรูปแบบการใช้งานคุ้นเคยแบบ Figma เพื่อลดการเรียนรู้ใหม่
+Add a playground for trying edits to screens from the board and to components in the Design System, with panels and usage patterns familiar from Figma to reduce relearning.
 
-- ซ้าย: Layers สำหรับเลือก element
+- Left: Layers for selecting elements
 
-- กลาง: หน้าจอหรือ component ที่ทดลอง คลิกเลือก element ซูมและเลื่อนได้
+- Center: the screen or component under experiment; click to select elements, zoom and pan
 
-- ขวา: Properties เช่น Layout, Size, Padding, Gap, Typography, Fill, Stroke, Radius และการผูก token
+- Right: Properties such as Layout, Size, Padding, Gap, Typography, Fill, Stroke, Radius and token binding
 
-- ด้านบน: Undo/Redo, Reset, ยกเลิก และนำไปใช้
+- Top: Undo/Redo, Reset, Cancel and Apply
 
-การทดลองเก็บเป็น draft แยกจาก source code จริง พร้อมค่าตั้งต้น ผู้ใช้ปรับแล้วเห็นผลทันที ถ้าไม่ชอบสามารถยกเลิกและทิ้ง draft ได้โดยโค้ดจริงไม่เปลี่ยน หากออกขณะมีการแก้ที่ยังไม่ยืนยัน ต้องให้เลือกว่าจะทิ้งหรือกลับไปทดลองต่อ
+Experiments are kept as a draft separate from the real source code, with default values. The user adjusts and sees the result immediately; if they dislike it, they can cancel and discard the draft with the real code unchanged. If they leave while there are unconfirmed edits, they must be able to choose between discarding and going back to keep experimenting.
 
-เมื่อชอบผลลัพธ์ ให้กดนำไปใช้ แสดงรายการเปลี่ยนแปลงและขอบเขต เฉพาะหน้านี้หรือ component กลาง แล้วให้ AI อ่านรายการนั้นและแก้ source code จริง จากนั้น render board ใหม่และตรวจทุกเคสที่ได้รับผลกระทบ แสดงสถานะสำเร็จเมื่อโค้ดถูกแก้และตรวจแล้ว หากทำไม่สำเร็จให้คง draft และรายงานสิ่งที่ยังทำไม่ได้
+When they like the result, they press Apply, which shows the list of changes and the scope, this screen only or the shared component, then AI reads that list and edits the real source code, then re-renders the board and checks every affected case. Show a success status once the code has been edited and checked. If it fails, keep the draft and report what could not be done.
 
-เก็บการเปลี่ยนแปลงเป็นข้อมูลที่มีตัวระบุ element, component และ source ที่เกี่ยวข้อง พร้อมค่าเดิม ค่าใหม่ และ token reference เพื่อให้ AI ไม่ต้องเดาจากภาพก่อนและหลัง การแก้ Design System ต้องแสดงผลกระทบต่อผู้ใช้ component กลางก่อนนำไปใช้
+Store the changes as data carrying identifiers of the related element, component and source, with the old value, new value and token reference, so AI does not have to guess from before-and-after images. A Design System edit must show the impact on users of the shared component before being applied.
 
-ขอบเขตเริ่มต้น: panel ปรับ properties ที่สามารถนำกลับไปแก้โค้ดได้แน่นอน ช่องที่ไม่รองรับต้องระบุชัด การลากวางและแก้โครงสร้าง layers อิสระแบบ Figma เต็มรูปแบบเป็นส่วนขยายภายหลัง ยังไม่ได้เริ่มพัฒนา playground หรือ panel
+Initial scope: a panel that adjusts properties that can reliably be written back to code. Unsupported fields must be clearly marked. Drag-and-drop and free-form restructuring of layers in full Figma style are later extensions. Development of the playground or panel has not started.
 
-# UX Writing ที่จะทำภายหลัง
+# UX Writing to be done later
 
-ต้องการเพิ่มงาน UX Writing ให้กับ Design System และแต่ละ Product ในอนาคต ขณะนี้บันทึกไว้เป็นงานภายหลังเท่านั้น ยังไม่เริ่มออกแบบ workflow สร้างหรือติดตั้ง skill หรือแก้ข้อความในผลิตภัณฑ์จนกว่าผู้ใช้จะสั่งเริ่ม
+UX Writing work is wanted for the Design System and each Product in the future. For now it is only recorded as later work: do not design a workflow, create or install a skill, or edit product copy until the user orders it to start.
 
-# Skills ที่ต้องเตรียม
+# Skills to prepare
 
-สถานะ 22 พฤศจิกายน 2026: สร้างและติดตั้ง component-reuse-check, case-planning และ component-audit ใน .agents/skills แล้ว พร้อม metadata สำหรับเลือกใช้งาน และเพิ่มกติกาใน AGENTS.md ทั้งสามใช้รูปแบบรายงานเดียวกัน: ผลรวม ขอบเขต ตารางระดับ/ผล/รายการ/หลักฐาน/ถัดไป สรุปจำนวน และหนึ่งขั้นตอนถัดไป แสดงไม่เกิน 8 รายการ หากมีมากกว่านั้นแจ้งจำนวนที่เหลือ ไม่ซ่อนข้อจำกัดการตรวจ แยกโหมดตรวจและรายงานออกจากการแก้จริง โครงสร้าง skill และ metadata ผ่านตัวตรวจมาตรฐานแล้ว ยังต้องประเมินผลกับงานจริง Skills ส่วนอื่นยังอยู่ในแผน โดยมี upstream skills และ Storybook workflows เป็นฐานตามที่ติดตั้งไว้
+Status as of 22 November 2026: component-reuse-check, case-planning and component-audit have been created and installed in .agents/skills with metadata for selecting them, and rules added to AGENTS.md. All three use the same report format: overall result, scope, a table of level/result/item/evidence/next, count summary, and one next step; show no more than 8 items, and if there are more, state the number remaining; do not hide audit limitations. Audit and report modes are separate from actual fixing. The skill structure and metadata pass the standard validator. They still need to be evaluated on real work. Other skills remain in the plan, with upstream skills and Storybook workflows as the base as installed.
 
-1. **Design–Code Parity & Sync** เทียบ tokens, properties, variants และหน้าตาระหว่างโค้ดกับ Figma พร้อมหลักฐานและสถานะตรง ไม่ตรง หรือตรวจไม่ได้ ค่าเริ่มต้นคือ Code → Figma ไม่ต้องระบุทิศทางซ้ำทุกครั้ง ซิงก์เฉพาะ component หรือหน้าที่อยู่ในขอบเขตคำสั่ง หากผู้ใช้ปรับ Figma แล้วต้องการนำกลับ ต้องสั่ง Figma → Code อย่างชัดเจน เก็บ baseline เพื่อรู้ว่าฝั่งไหนเปลี่ยน หากทั้งสองฝั่งแก้ส่วนเดียวกัน ให้แสดง conflict เพื่อเลือกก่อนเขียนทับ ไม่ตัดสินจากวันที่ล่าสุดอย่างเดียว รองรับการสั่งให้ซิงก์โดยอัตโนมัติภายในทิศทางและขอบเขตที่กำหนด การตรวจตามเวลาหรือทุก PR ต้องมี automation/CI เพิ่ม
+1. **Design–Code Parity & Sync** compares tokens, properties, variants and appearance between code and Figma, with evidence and a status of matches, does not match, or cannot be checked. The default is Code → Figma, without restating the direction each time. Sync only the components or screens within the scope of the command. If the user adjusts Figma and wants it brought back, they must explicitly order Figma → Code. Keep a baseline to know which side changed. If both sides edited the same part, show the conflict for a choice before overwriting, and do not decide by latest date alone. Supports ordering sync to run automatically within a stated direction and scope. Time-based checks or checks on every PR need added automation/CI.
 
-2. **Component Reuse & Duplicate Check** เน้นค้นหาและนำ component เดิมมาใช้ก่อนสร้างใหม่ ทั้งใน Core, catalog กลาง และโปรเจกต์ที่เข้าถึงได้ หลังเขียนให้ตรวจโค้ดที่เพิ่มหรือเปลี่ยนว่า AI สร้าง component หรือประกอบ UI ซ้ำกับของเดิมหรือไม่ เทียบหน้าที่ โครงสร้าง และพฤติกรรม ไม่ยึดชื่ออย่างเดียว พร้อมระบุ component เดิมที่ควรใช้และตำแหน่งที่ต้องแก้ หากใช้แทนไม่ได้ให้บอกเหตุผลและเสนอเพิ่ม variant หรือแยกตัวใหม่ ไม่รวมให้โดยอัตโนมัติ การตรวจใช้ tokens เป็นส่วนเสริม ไม่ถือว่า hardcode ทุกกรณีผิด
+2. **Component Reuse & Duplicate Check** focuses on finding and reusing existing components before creating new ones, across the Core, the central catalog and accessible projects. After writing, check the added or changed code for whether AI created a component or assembled UI that duplicates an existing one, comparing function, structure and behavior rather than name alone, naming the existing component that should be used and where to fix. If the existing one cannot be substituted, give the reason and propose adding a variant or splitting out a new one, without merging automatically. Token-usage checking is supplementary; not every hardcode counts as wrong.
 
-3. **Case Planning** อ่าน requirements และ logic แล้ววางรายการเคส เช่น loading, empty, error, permission, validation และข้อมูลยาว แยกเคสยืนยันแล้วกับข้อเสนอหรือคำถามให้ผู้ใช้ตัดสินใจ
+3. **Case Planning** reads requirements and logic and lays out a case list, e.g. loading, empty, error, permission, validation and long data, separating confirmed cases from proposals or questions for the user to decide.
 
-4. **Code → Figma** สร้างหรืออัปเดตเฉพาะ component หรือหน้าที่เลือก โดยใช้ library และ Variables เดิม เก็บ mapping กับ source และ baseline เพื่อรองรับการนำการแก้ใน Figma กลับเข้าโค้ดภายหลัง ตรวจ Auto Layout, properties, variants และการใช้ instances
+4. **Code → Figma** creates or updates only the selected components or screens, using the existing library and Variables, keeping a mapping to source and a baseline to support bringing Figma edits back into code later, and checking Auto Layout, properties, variants and use of instances.
 
-5. **Board Maintenance** สร้างและอัปเดต board จากรายการเคส ตรวจความครบ เคสที่เปิดไม่ได้ และข้อมูลจำลองไม่ตรงเงื่อนไข โดยใช้ component และ tokens จริง
+5. **Board Maintenance** creates and updates the board from the case list, checking completeness, cases that cannot be opened, and mock data that does not match conditions, using real components and tokens.
 
-6. **Apply Playground Changes** อ่านรายการเปลี่ยนแปลงใน draft ที่ผู้ใช้เลือกนำไปใช้ พร้อมขอบเขตเฉพาะหน้าหรือ component กลาง แก้โค้ดจริงแล้วตรวจ board และเคสที่ได้รับผลกระทบ ตัว panel, draft, Undo/Redo และปุ่มทิ้ง/นำไปใช้เป็นฟีเจอร์ที่ต้องพัฒนาแยกจาก skill
+6. **Apply Playground Changes** reads the list of changes in the draft the user chose to apply, with the scope of this screen only or the shared component, edits the real code, then checks the board and affected cases. The panel itself, drafts, Undo/Redo and the discard/apply buttons are a feature to develop separately from the skill.
 
-7. **Component Catalog Maintenance** อัปเดตรายการ component กลางและของ A/B ให้ AI ค้นพบของเดิมก่อนสร้างใหม่ พร้อมเสนอสิ่งที่ควรย้ายเข้า Core โดยทีมรีวิวก่อน
+7. **Component Catalog Maintenance** updates the list of shared and A/B components so AI discovers what exists before creating new, proposing what should move into the Core, reviewed by the team first.
 
-8. **Component Audit** ตรวจคุณภาพหลังสร้างหรือแก้ component และก่อนนำเข้า Core: การใช้ tokens และ Core components, ความชัดเจนของ props/variants, states ที่เกี่ยวข้อง, layout เมื่อข้อความยาว ข้อมูลว่าง และขนาดหน้าจอเปลี่ยน, keyboard/focus และ accessible names, ตัวอย่าง states บน board และผลกระทบต่อเคสที่ใช้อยู่ รายงานผ่าน / ต้องแก้ / ตรวจไม่ได้ พร้อมหลักฐานและลำดับความสำคัญ ตรวจจากโค้ดและตัวอย่างที่รันจริงตามที่เข้าถึงได้ ไม่ถือว่าดูโค้ดอย่างเดียวพิสูจน์พฤติกรรมครบ แยกโหมด audit/report จากการแก้จริง ให้ Reuse & Duplicate Check รับผิดชอบการหาของเดิมและตรวจของซ้ำ ส่วน Design–Code Parity รับผิดชอบความตรงกันกับ Figma
+8. **Component Audit** checks quality after creating or editing a component and before bringing it into the Core: use of tokens and Core components, clarity of props/variants, relevant states, layout with long text, empty data and changing screen sizes, keyboard/focus and accessible names, state examples on the board, and impact on the cases that use it. Reports pass / needs fixing / cannot check with evidence and priority. Checks from code and from running examples as far as accessible; reading code alone is not taken as proof of full behavior. Separate audit/report mode from actual fixing. Reuse & Duplicate Check is responsible for finding existing items and checking for duplicates, while Design–Code Parity is responsible for agreement with Figma.
 
-ลำดับเริ่มต้นที่เสนอ: Component Reuse & Duplicate Check → Case Planning → Board Maintenance แล้วพัฒนา playground ร่วมกับ Apply Playground Changes ส่วน Code → Figma และ Parity & Sync เพิ่มเมื่อเริ่มนำบางหน้าไปแก้ใน Figma ใช้ catalog แบบเบาตั้งแต่ A/B เริ่มใช้ของร่วมกัน
+Proposed initial order: Component Reuse & Duplicate Check → Case Planning → Board Maintenance, then develop the playground together with Apply Playground Changes. Code → Figma and Parity & Sync are added when some screens start being edited in Figma. Use a lightweight catalog from when A/B start sharing.
 
-# เทคโนโลยีเริ่มต้นและการเปลี่ยนภายหลัง
+# Initial technology and later changes
 
-เริ่มด้วย React + shadcn/ui เป็นฐาน component ของ Design System ส่วน app framework/build tooling, library เสริม และวิธีส่ง component ให้ Dev เลือกเท่าที่จำเป็นต่อการทดลองก่อน แล้วปรับภายหลังได้โดยลดการผูกส่วนต่าง ๆ เข้าด้วยกัน ไม่สร้างระบบรองรับทุกทางเลือกไว้ล่วงหน้า
+Start with React + shadcn/ui as the component base of the Design System. The app framework/build tooling, supplementary libraries and the way components are delivered to Dev are chosen only as far as needed for the experiment first, and can be adjusted later by keeping the parts loosely coupled, without building a system that supports every option in advance.
 
-- **Core:** React components และ tokens ที่ไม่ผูกกับ router, API, server features หรือ business logic ของ app framework/Product รับข้อมูลและ callbacks ผ่าน props และรวมจุด export/import ที่ชัดเจน
+- **Core:** React components and tokens not bound to the router, API, server features or business logic of the app framework/Product. They take data and callbacks through props and have clear export/import points.
 
-- **Product:** screens, cases, ข้อมูล และ logic เฉพาะ Product รวมส่วนเชื่อม routing และ API ที่จำเป็น
+- **Product:** screens, cases, data and logic specific to the Product, including the necessary routing and API wiring.
 
-- **Board/Playground:** เครื่องมือทำงานของทีมแยกจาก components ที่ Dev นำไปใช้ เพื่อไม่บังคับให้แอปจริงติดตั้ง editor หรือ board ไปด้วย
+- **Board/Playground:** the team's working tools, separate from the components Dev takes into use, so a real app is not forced to install an editor or board.
 
-- **Library เสริม:** แยกการเชื่อม form, table, chart หรือบริการอื่นไว้ใน component/module ที่รับผิดชอบ เพื่อจำกัดจุดแก้เมื่อเปลี่ยน ไม่เพิ่ม wrapper ทุกตัวโดยไม่มีเหตุผล
+- **Supplementary libraries:** keep the integration with forms, tables, charts or other services inside the component/module responsible for it, to limit where changes are needed when swapping, without adding a wrapper to every one for no reason.
 
-- **วิธีส่งต่อ:** เริ่มเรียก Core ภายใน repository ผ่านทาง import ที่กำหนดไว้ แล้วค่อยจัดเป็น shared package เมื่อจำเป็น ให้ Dev ได้เอกสารและตัวอย่างใช้งานตามวิธีที่ใช้จริง
+- **Delivery method:** start by calling the Core inside the repository through the defined import, then organize it as a shared package when needed. Give Dev documentation and usage examples that match how it is actually used.
 
-- **Theme:** Core มี theme ตั้งต้นหนึ่งชุดสำหรับสี ฟอนต์ ระยะ และค่าพื้นฐาน ทุก Product ใช้เป็นฐาน แล้ว override ฟอนต์และสีผ่าน products/<product>/theme/ ได้ รวมถึงเพิ่มสีหรือ tokens เฉพาะ Product โดยไม่ต้องเปลี่ยน Core หรือสร้าง component ซ้ำเพียงเพราะหน้าตาต่างกัน ชื่อและหน้าที่ของ semantic tokens กลาง เช่น primary, background, text และ danger ใช้ร่วมกัน แต่ค่าแตกต่างตาม theme ได้ ตั้งชื่อสีเฉพาะตามหน้าที่และเก็บใน Product นั้น Core components อ้าง tokens และไม่ผูกกับชื่อ Product ต้องแยกขอบเขต theme ให้ preview ของ A/B บน board ไม่รบกวนกัน เมื่อเปลี่ยน theme ให้ตรวจ contrast และความหมายของสี รวมถึง layout ข้อความยาวและภาษาไทยเมื่อเปลี่ยนฟอนต์บน board ทุกเคสที่เกี่ยวข้อง
+- **Theme:** the Core has one default theme for colors, fonts, spacing and base values. Every Product uses it as a base, then can override fonts and colors through products/<product>/theme/, including adding colors or tokens specific to the Product, without changing the Core or recreating components merely because the appearance differs. The names and roles of shared semantic tokens such as primary, background, text and danger are used in common, but their values can differ per theme. Name Product-specific colors by role and keep them in that Product. Core components reference tokens and are not bound to a Product name. Theme scope must be separated so A/B previews on the board do not interfere with each other. When a theme changes, check contrast and color meaning, including layout with long text and Thai when fonts change, across every related case on the board.
 
-การย้ายตัวแอปภายใน React เช่น Vite ไป Next.js ยังต้องปรับส่วน routing/build/server ที่เกี่ยวข้องและทดสอบใหม่ การเปลี่ยนไป framework คนละตระกูลกับ React อาจต้องเขียน components ใหม่ แม้ tokens, cases และข้อกำหนดยังนำไปใช้ต่อได้ จึงไม่ได้รับประกันว่าเปลี่ยนเทคโนโลยีได้โดยไม่มีงาน migration
+Moving the app within React, e.g. from Vite to Next.js, still requires adjusting the related routing/build/server parts and retesting. Changing to a framework outside the React family may require rewriting the components, even though tokens, cases and requirements can still be carried over, so there is no guarantee that the technology can be changed without migration work.
 
-ขณะนี้เป็นการบันทึกการเลือกเทคโนโลยีและหลักการออกแบบ ยังไม่ได้ติดตั้งหรือสร้างโปรเจกต์จากการตัดสินใจนี้
+For now this records technology choices and design principles; no project has been installed or created from this decision.
 
-# ขั้นตอนตั้งระบบ
+# Setup steps
 
-1. สร้างที่เก็บ Design System กลาง เก็บ Core components และ tokens ส่วน component เฉพาะ A/B อยู่ในโปรเจกต์นั้น
+1. Create the central Design System repository, holding the Core components and tokens, while the components specific to A/B live in that project.
 
-2. กำหนด tokens กลาง เช่น สี ฟอนต์ ระยะ และมุมโค้ง ให้โค้ดอ้างอิงค่าเหล่านี้
+2. Define the central tokens, such as color, fonts, spacing and corner radius, for the code to reference.
 
-3. เชื่อม coding agent ที่อ่านโค้ดได้กับเครื่องมือเขียน Figma เช่น Figma Console MCP และ Desktop Bridge แล้วเปิดไฟล์ Figma ปลายทาง
+3. Connect a coding agent that can read code with a tool that writes to Figma, such as Figma Console MCP and Desktop Bridge, then open the destination Figma file.
 
-# ขั้นตอนสร้าง component
+# Component creation steps
 
-4. ทำ component ในโค้ดให้พร้อม ระบุ props, variants และ states ชัดเจน
+4. Get the component in code ready, specifying props, variants and states clearly
 
-5. ทำหน้า preview หรือ Storybook เพื่อแสดงตัวอย่างแต่ละ variant/state
+5. Build a preview page or Storybook showing an example of each variant/state
 
-6. ให้ AI อ่านโค้ดและ dependencies ที่เกี่ยวข้อง แล้วสร้าง Figma component พร้อม Auto Layout, variants, properties และ Variable bindings
+6. Have AI read the code and related dependencies, then create the Figma component with Auto Layout, variants, properties and Variable bindings
 
-7. เทียบกับ preview จริง ลองเปลี่ยนข้อความ ยืดขนาด และสลับ variants แล้วแก้ให้เรียบร้อย
+7. Compare with the real preview, try changing the text, stretching the size and switching variants, then fix until tidy
 
-8. เก็บ mapping ระหว่าง code component กับ Figma component แล้ว publish library เมื่อพร้อม Code Connect เพิ่มได้เพื่อเชื่อม component และ properties กับ workflow ของ Dev
+8. Keep the mapping between the code component and the Figma component, then publish the library when ready. Code Connect can be added to link components and properties to the Dev workflow
 
-# ขั้นตอนดูแลเมื่อโค้ดเปลี่ยน
+# Maintenance steps when code changes
 
-9. ให้ AI ตรวจโค้ดและ Figma แล้วรายงานความต่าง พร้อมหลักฐาน แยกเป็นตรง ไม่ตรง และตรวจไม่ได้
+9. Have AI check the code and Figma and report the differences with evidence, split into matches, does not match and cannot be checked
 
-10. ให้ AI อัปเดต component เดิมใน Figma ตรวจว่า instances ที่ใช้อยู่ยังถูกต้อง แล้ว publish library รุ่นใหม่
+10. Have AI update the existing component in Figma, check that the instances in use are still correct, then publish the new library version
 
-Skill กำหนดขั้นตอนให้ AI ตรวจได้ แต่ไม่ทำงานตามเวลาเอง หากต้องการตรวจทุก PR หรือตามเวลา ต้องเพิ่ม CI หรือ automation
+Skills define the steps for AI to check but do not run on a schedule by themselves. To check on every PR or on a schedule, CI or automation must be added.
 
-# จัดการโปรเจกต์ A และ B
+# Managing projects A and B
 
-เริ่มแบบง่ายโดยเก็บ Core และแต่ละ Product ในโปรเจกต์/repository เดียวกัน แต่แยกโฟลเดอร์ ไม่จำเป็นต้องแยกหลาย repository ตั้งแต่ต้น Product ใช้ Core ได้ แต่ Core ไม่อ้างอิงของ Product ของใหม่ที่ยังไม่ชัดว่าใช้ร่วมกันให้เริ่มใน Product ก่อน แล้วค่อยย้ายเข้า Core เมื่อเหมาะสม ใช้ variant เมื่อหน้าที่เดียวกัน แยก component เมื่อหน้าที่ต่างกัน และใช้ theme/tokens ของ Product เมื่อแตกต่างเพียงค่าพื้นฐาน
+Start simply by keeping the Core and each Product in the same project/repository but in separate folders, with no need to split into multiple repositories at the start. A Product can use the Core, but the Core does not reference anything of a Product. New items not yet clear to be shared start in the Product, then move into the Core when appropriate. Use a variant when the function is the same, split into separate components when the function differs, and use the Product's theme/tokens when they differ only in base values.
 
-## โครงสร้างโฟลเดอร์เริ่มต้น
+## Initial folder structure
 
 ```text
 design-system/
@@ -147,111 +147,111 @@ design-system/
 └── board/
 ```
 
-แต่ละ Product มี canvas แยกของตัวเองแบบ Figma สำหรับวาง frames ของหน้าจอและเคส จัดกลุ่มตาม flow พร้อมชื่อ ลากย้ายตำแหน่ง frame ซูมและเลื่อนพื้นที่ทำงานได้ บันทึกตำแหน่งและการจัดกลุ่มแยกตาม Product ไม่ปะปนกัน เมื่อสลับ Product ให้เปิด canvas และบริบทของ Product นั้น Core มีพื้นที่ดู component กลางแยกต่างหาก และทุก Product ยังใช้ Core ร่วมกัน Canvas เป็นพื้นที่แสดง board รวมทุกเคสจากโค้ดจริง ส่วนการแก้ดีไซน์ภายใน frame ใช้ playground และ properties panel ตามแผน การย้าย frame บน canvas เปลี่ยนการจัดวางเพื่อรีวิว ไม่เปลี่ยน layout ในหน้าจอจริง โครงสร้างนี้ยังต้องรองรับการทดลองรับ Core ก่อนนำเข้า Product; การแยกโฟลเดอร์อย่างเดียวไม่ทำให้แยก snapshot ที่ใช้ได้ ต้องออกแบบกลไกเมื่อพัฒนา
+Each Product has its own Figma-style canvas for placing frames of its screens and cases, grouped by flow with names, with frames draggable, and the workspace zoomable and pannable. Positions and grouping are saved per Product without mixing. When switching Product, open that Product's canvas and context. The Core has a separate area for viewing shared components, and every Product still shares the Core. The Canvas is the area that shows the board collecting every case from real code, while design editing inside a frame uses the playground and properties panel per the plan. Moving a frame on the canvas changes the arrangement for review, not the layout in the real screen. This structure must also support trialing an incoming Core before bringing it into a Product; separate folders alone do not make a usable separate snapshot, so a mechanism must be designed when developing.
 
-## เลือก Product และจำบริบทงาน
+## Choosing a Product and remembering work context
 
-เมื่อเริ่มงาน ให้ใช้ Product จาก board หน้าจอหรือไฟล์ที่เลือกอยู่ หากยังไม่ชัดจึงถามให้เลือกครั้งแรก แล้วจำ Product ไว้ตลอดงานนั้น ไม่ถามซ้ำทุกคำสั่งจนกว่าผู้ใช้จะเปลี่ยน Product แสดง Product ที่กำลังทำงานบน board ให้เห็นและเปลี่ยนได้ชัดเจน เก็บบริบทแยกตามงานหรือ session ไม่ใช้ค่ากลางตัวเดียวจนรบกวนงานของอีกคน
+When starting work, use the Product from the board, the screen or the file currently selected. If it is not clear, ask the user to choose the first time, then remember that Product for the whole task and do not ask again on every command until the user changes Product. Show the Product being worked on clearly on the board, with a clear way to change it. Keep context separate per task or session, and do not use a single global value that disturbs another person's work.
 
-เมื่อมี Product ที่เลือกแล้ว AI ต้องสร้างหรือแก้ components, screens และ cases ในโฟลเดอร์ของ Product นั้น และเรียกใช้ Core เดิมก่อน การเลือก Product ไม่ได้อนุญาตให้แก้ Core ทุกอย่าง หากงานต้องเปลี่ยน Core ให้แสดงขอบเขตและผลกระทบข้าม Product ชัดเจน
+Once a Product is selected, AI must create or edit components, screens and cases in that Product's folder and use the existing Core first. Selecting a Product does not permit editing everything in the Core. If the work needs a Core change, show the scope and cross-Product impact clearly.
 
-เก็บรายชื่อผู้ดูแล Product และ Core ในไฟล์กลางเพื่อใช้เป็นค่าเริ่มต้นและระบุผู้รีวิว โดยให้บริบทของงานที่เลือกเป็นหลัก ผู้ดูแลสามารถข้ามไปช่วย Product อื่นได้ ไม่จำกัด Product ตายตัวตามตัวบุคคล
+Keep the list of maintainers for the Products and the Core in a central file, to use as defaults and to name reviewers, with the context of the selected work taking priority. Maintainers can cross over to help on another Product; there is no fixed limit tying Products to individual people.
 
-ผู้ทำ A ไม่จำเป็นต้องติดตามงาน B เอง ใช้ catalog กลางใน Git repository ให้ AI ทั้งสองฝั่งอ่านก่อนสร้าง component และอัปเดตเมื่อเพิ่มของใหม่ แต่ละรายการระบุชื่อ หน้าที่ สถานะ Core/project-only ที่อยู่ source ผู้ดูแล และ mapping Figma แยกเป็นไฟล์ต่อ component ได้
+The person working on A does not have to follow B's work themselves. Use a central catalog in the Git repository for AI on both sides to read before creating a component and to update when adding something new. Each entry states the name, function, status (Core/project-only), source location, maintainer and Figma mapping; this can be split into a separate file per component.
 
-แต่ละคนมี branch ประจำของตัวเองและทำงานแก้โค้ดเฉพาะใน branch นั้น AI ต้องตรวจ branch ปัจจุบันให้ตรงกับผู้ทำงานก่อนแก้ ไม่แก้ branch ของอีกคนหรือ branch กลางโดยตรง เก็บ branch ประจำไว้ใช้ต่อ ไม่ปิดหรือลบ branch อัตโนมัติเมื่อจบงานหรือหลังรวมการเปลี่ยนแปลง การเลือก Product เป็นบริบทโฟลเดอร์แยกจากการเลือก branch ของผู้ทำงาน คนเดียวช่วยหลาย Product ใน branch ตัวเองได้
+Each person has their own standing branch and does code edits only in that branch. AI must check that the current branch matches the person working before editing, and must not edit another person's branch or the central branch directly. Keep the standing branch for reuse; do not close or delete the branch automatically when the work ends or after changes are merged. Choosing a Product is a folder context, separate from choosing the worker's branch; one person can help on several Products in their own branch.
 
-การเปลี่ยนแปลงที่พร้อมแชร์ โดยเฉพาะ Core และ catalog กลาง ส่งผ่าน PR เพื่อรีวิวและรวมเข้าจุดกลาง โดยไม่ลบ branch ประจำหลัง merge จากนั้นรับการเปลี่ยนแปลงที่เลือกจากจุดกลางกลับเข้า branch ของแต่ละคน หากมี conflict ให้แสดงและแก้ก่อนรวม ไม่เขียนทับงานอีกคน การแยก branch ป้องกันงานทับกันระหว่างทำ แต่ไม่ได้กำจัด conflict ตอนรวม และไม่ได้ทำให้ A/B เห็นงานกันทันที การอ่าน source ของอีกโปรเจกต์ต้องมีสิทธิ์เข้าถึง
+Changes ready to share, especially the Core and the central catalog, go through a PR for review and merging into the central point, without deleting the standing branch after the merge, then take the chosen changes from the central point back into each person's branch. If there is a conflict, show it and resolve it before merging, and do not overwrite another person's work. Separating branches prevents work from colliding while in progress, but does not eliminate conflicts at merge time and does not make A/B see each other's work immediately. Reading the source of another project needs access permission.
 
-# สถานะ Draft และการอัปเดต Design System บน board
+# Draft status and Design System updates on the board
 
-ช่วงแรก Design System อยู่ในสถานะ Draft และยังไม่เริ่มนับเวอร์ชันหรือออก numbered release จนกว่าผู้ใช้จะสั่งให้เริ่มอย่างชัดเจน เนื่องจากยังทดลองและเปลี่ยนบ่อย เก็บประวัติและ snapshot/commit ภายในเพื่อเทียบและย้อนกลับได้ โดยไม่ถือเป็นเลขเวอร์ชัน Design System เมื่อผู้ใช้ให้เริ่มนับเวอร์ชัน จึงค่อยกำหนดรูปแบบเลขและเวอร์ชันแรก
+At first the Design System is in Draft status and does not start counting versions or issuing numbered releases until the user explicitly orders it to start, as it is still experimental and changes often. Keep history and internal snapshots/commits for comparison and rollback, without treating them as Design System version numbers. When the user tells it to start counting versions, then define the number format and the first version.
 
-## บันทึกจุดพักหลายจุดและย้อนกลับ
+## Saving multiple checkpoints and rolling back
 
-มีปุ่มบันทึกจุดพัก โดยแต่ละครั้งสร้างจุดใหม่และตั้งชื่อได้ เช่น ก่อนเปลี่ยน navigation หรือลองปรับสีแล้ว ไม่เซฟทับจุดเดิมโดยอัตโนมัติ ผู้ใช้เปิดดูจุดเก่าก่อนเลือกคืนค่าได้
+There is a button to save a checkpoint, where each save creates a new point that can be named, e.g. before changing navigation or after trying a color adjustment, and does not automatically save over an earlier point. The user can open an old point and view it before choosing to restore.
 
-เมื่อย้อนกลับจากจุดที่ 3 ไปจุดที่ 1 จุดที่ 2 และ 3 ยังอยู่และกลับไปดูหรือคืนค่าได้ การคืนค่าเป็นสถานะปัจจุบันใหม่โดยไม่ลบประวัติที่ใหม่กว่า หากรองรับการเซฟทับ ต้องเป็นคำสั่งแยกที่ผู้ใช้ตั้งใจเลือก
+When rolling back from point 3 to point 1, points 2 and 3 remain and can still be viewed or restored. A restore becomes the new current state without deleting newer history. If overwriting is supported, it must be a separate command the user deliberately chooses.
 
-แต่ละจุดต้องอ้างอิงโค้ด Product, Core components และ tokens ชุดที่ใช้ขณะนั้น รวมถึงตำแหน่งและการจัดกลุ่มบน canvas เพื่อให้เปิดกลับมาได้ครบ แยกจุดพักตาม Product การย้อน Product หนึ่งไม่ย้อน Core ที่แชร์กับทุก Product โดยเงียบ ๆ ให้คืนการอ้างอิงชุด Core ของ Product นั้นและแจ้งผลกระทบตามขอบเขต
+Each point must reference the Product code, Core components and tokens in use at that time, including positions and grouping on the canvas, so it can be reopened completely. Separate checkpoints per Product. Rolling back one Product does not silently roll back the Core shared with every Product; restore that Product's reference to its Core set and report the impact according to scope.
 
-ใช้ประวัติ Git และข้อมูล canvas/draft ที่จำเป็นแทนการคัดลอกทั้งโปรเจกต์ทุกครั้ง เพื่อลดพื้นที่ ภาพ preview เก็บเฉพาะจุดที่จำเป็น การมีหลายจุดพักไม่ถือเป็นการเริ่มนับเวอร์ชัน Design System และยังต้องรอผู้ใช้สั่งก่อนเริ่มนับเลขเวอร์ชัน
+Use Git history and the necessary canvas/draft data instead of copying the whole project each time, to reduce space. Keep preview images only for the points that need them. Having multiple checkpoints does not count as starting Design System versioning, which still waits for the user's order before numbering starts.
 
-เมื่อ Design System กลางมีการเปลี่ยนแปลง ให้ board แจ้งว่ามีการเปลี่ยนแปลงใหม่ พร้อมรายการ component และ tokens ที่เปลี่ยน ผลกระทบต่อโปรเจกต์ ภาพก่อนและหลังเมื่อเกี่ยวข้อง และคำแนะนำ migration หากวิธีใช้งานเปลี่ยน ช่วง Draft ไม่แสดงเลขเวอร์ชัน AI ช่วยสรุป changelog ได้และต้องตรวจความถูกต้องก่อนเผยแพร่
+When the central Design System changes, have the board announce that there are new changes, with the list of components and tokens changed, the impact on projects, before and after images where relevant, and migration advice if usage changes. During Draft, do not show version numbers. AI can help summarize the changelog, which must be checked for accuracy before being published.
 
-ผู้ใช้กดดูการเปลี่ยนแปลงและทดลองอัปเดตได้ โดยสร้าง preview จาก snapshot ที่เลือก แยกจากชุดที่โปรเจกต์ใช้อยู่ แล้ว render board ทุกเคสที่เกี่ยวข้อง เปรียบเทียบก่อนและหลัง และรายงานเคสที่มีปัญหา
+The user can open the changes and try an update by creating a preview from the chosen snapshot, separate from the set the project is currently using, then render every related board case, compare before and after, and report the cases with problems.
 
-ถ้าไม่ต้องการ ให้ทิ้งการทดลองและใช้ชุดเดิมต่อ ถ้าโอเค ให้เลือกนำมาใช้ในโปรเจกต์ จากนั้น AI อัปเดต source หรือ dependency ตามโครงสร้างจริง พร้อม migration ที่จำเป็นผ่าน branch/PR ตรวจ build และเคสที่ได้รับผลกระทบก่อนรวมตาม workflow ของทีม การนำการเปลี่ยนแปลงมาใช้ระหว่าง Draft ไม่ทำให้เริ่มนับเวอร์ชัน
+If they do not want it, discard the experiment and keep using the original set. If it is fine, choose to adopt it in the project, then AI updates the source or dependency according to the real structure, with the necessary migration, through a branch/PR, checking the build and affected cases before merging per the team's workflow. Adopting changes during Draft does not start version counting.
 
-สถานะแยกเป็นมีการเปลี่ยนแปลงใหม่ กำลังทดลอง และนำมาใช้แล้ว เก็บว่า A/B อ้างอิง snapshot/commit ใดภายในเพื่อทราบสิ่งที่ใช้อยู่และย้อนกลับได้ อัปเดตสถานะหลังนำเข้าโปรเจกต์สำเร็จ โดยยังไม่ตั้งเลขเวอร์ชันจนกว่าผู้ใช้จะสั่ง
+Statuses are split into new changes available, being trialed and adopted. Record which snapshot/commit A/B reference internally to know what is in use and to allow rollback. Update the status after a successful import into the project, still without setting a version number until the user orders it.
 
-การตรวจการเปลี่ยนแปลง แจ้งเตือนบน board และทดลองอัปเดตเป็นฟีเจอร์ที่ต้องพัฒนาเพิ่ม ปัจจุบันบันทึกเป็นแผน ยังไม่ได้สร้างหรือเปิดใช้
+Detecting changes, notifying on the board and trial updates are features that need further development. For now this is recorded as a plan, not yet built or enabled.
 
-# เริ่ม GitHub และเตรียมย้ายไป GitLab
+# Start on GitHub and prepare to move to GitLab
 
-เริ่มเก็บโปรเจกต์บน GitHub ก่อน โดยออกแบบให้ย้ายไป GitLab ภายหลังได้ง่าย ไม่ผูก logic หลักของ Design System, board, playground และ skills กับ GitHub โดยตรง
+Start by keeping the project on GitHub, designed so it can move to GitLab easily later, without binding the core logic of the Design System, board, playground and skills directly to GitHub.
 
-- แยกส่วนเชื่อม Git provider ออกจาก logic หลัก เช่น การอ่าน repository, การแจ้งการเปลี่ยนแปลง และการสร้าง PR/MR โดยเริ่ม implement เฉพาะ GitHub ก่อน ไม่ต้องสร้าง integration GitLab เต็มรูปแบบตอนนี้
+- Separate the Git provider integration from the core logic, e.g. reading the repository, change notifications, and creating PRs/MRs, implementing only GitHub first, with no need to build a full GitLab integration now
 
-- เก็บ catalog, cases, canvas layout, mapping และจุดพักในรูปแบบที่ส่งออกหรือย้ายได้ ข้อมูลอ้างอิง source เก็บ repository identity, path และ commit โดย URL ของ GitHub เป็นลิงก์สำหรับเปิดดู ไม่ใช่ตัวระบุเพียงอย่างเดียว และไม่เก็บ credentials ในข้อมูลเหล่านี้
+- Keep the catalog, cases, canvas layout, mapping and checkpoints in an exportable or movable format. Source reference data stores the repository identity, path and commit, with the GitHub URL as a link for viewing, not the only identifier, and no credentials are kept in this data
 
-- เก็บคำสั่ง build/test และงานหลักเป็น scripts ที่รันในเครื่องได้ ให้ GitHub Actions เรียก scripts เหล่านั้น เพื่อปรับไป GitLab CI/CD ได้สะดวก
+- Keep build/test commands and main tasks as scripts that run locally, and have GitHub Actions call those scripts, so they can be adapted to GitLab CI/CD conveniently
 
-- ตั้งค่า repository URL, provider, webhooks และ credentials แยกเป็น configuration เพื่อลดการแก้โค้ดเมื่อย้าย
+- Set the repository URL, provider, webhooks and credentials apart as configuration to reduce code changes when moving
 
-- ก่อนเลือก integration เพิ่ม โดยเฉพาะ Figma, hosting หรือ package registry ให้พิจารณาความสามารถในการเปลี่ยน provider และบันทึกข้อจำกัด
+- Before choosing additional integrations, especially Figma, hosting or package registry, consider the ability to switch provider and record the limitations
 
-เมื่อย้าย ต้องตรวจโค้ด ประวัติ commit และ branches ประจำของแต่ละคน รวมถึงจุดพักและไฟล์ที่อยู่นอก Git ให้ครบ ตั้งสิทธิ์และการเชื่อมต่อใหม่ ย้าย CI และปรับลิงก์ส่งต่อให้ Dev โดยตรวจข้อจำกัดของ importer สำหรับ issues/PRs และข้อมูลอื่นตามเครื่องมือจริง ไม่ถือว่าการย้าย repository จะย้ายบริการเชื่อมต่อทั้งหมดให้อัตโนมัติ
+When moving, check that the code, commit history and each person's standing branches are complete, along with checkpoints and files outside Git. Set up permissions and connections anew, move CI, and adjust the links handed to Dev, checking the importer's limits for issues/PRs and other data according to the actual tool. A repository move is not assumed to move all connected services automatically.
 
-# การส่งต่อให้ Dev
+# Handoff to Dev
 
-เตรียมชุดส่งต่อที่มีลิงก์ GitHub repository พร้อมสิทธิ์เข้าถึง ลิงก์ board ของ Product ที่เกี่ยวข้อง และคู่มือเริ่มใช้งานสั้น ๆ โดยยังไม่มีการส่งลิงก์หรือเชิญบุคคลจริงในขั้นวางแผนนี้
+Prepare a handoff package containing the GitHub repository link with access permission, links to the boards of the relevant Products, and a short getting-started guide, with no links sent and no real people invited during this planning stage.
 
-- **GitHub:** โค้ด Core components, tokens และส่วนเฉพาะ Product ระบุ branch/commit หรือจุดพักที่ต้องการให้ Dev ใช้อ้างอิง เพื่อไม่สับสนกับงานทดลองที่เปลี่ยนอยู่
+- **GitHub:** Core components code, tokens and Product-specific parts, stating the branch/commit or checkpoint that Dev should use as reference, to avoid confusion with experimental work that keeps changing.
 
-- **Board:** เปิดดูหน้าตา ทุกเคสที่ตกลงกัน และทดลองพฤติกรรม พร้อมระบุชุดโค้ดเดียวกับที่ส่งต่อ
+- **Board:** view the appearance and every agreed case and try the behavior, stating the same code set as the one handed over.
 
-- **วิธีเริ่มใช้งาน:** สิ่งที่ต้องติดตั้ง คำสั่งติดตั้ง dependencies และรันโปรเจกต์/board ตัวอย่าง import และใช้ component และตำแหน่งไฟล์ที่เกี่ยวข้อง ใช้คำสั่งจริงที่ตรวจแล้วเมื่อมี implementation
+- **Getting started:** what to install, the dependency install command and the commands to run the project/sample board, how to import and use a component, and the relevant file locations. Use the real, verified commands once an implementation exists.
 
-ก่อนสร้างเพื่อใช้งานจริง ให้ตกลงกับ Dev เรื่อง framework, library เดิมที่ต้องต่อยอด, props/states/accessibility และวิธีนำ Core เข้าโปรเจกต์ หากอยู่ repository เดียวกัน ใช้ import จาก Core ตามโครงสร้างที่ตั้งไว้ หากอยู่คนละ repository ช่วงทดลองให้ Dev clone และรันเพื่อตรวจร่วมกัน แล้วค่อยเตรียม Core เป็น package เมื่อพร้อมใช้หลายโปรเจกต์ โดยไม่เริ่มนับเวอร์ชัน Design System จนกว่าผู้ใช้จะสั่ง
+Before building for real use, agree with Dev on the framework, existing libraries to build on, props/states/accessibility and how to bring the Core into the project. If in the same repository, import from the Core according to the structure set. If in a different repository, during the experiment Dev clones and runs it to review together, then prepare the Core as a package when it is ready for use across multiple projects, without starting Design System version counting until the user orders it.
 
-Dev นำ components และ tokens ไปใช้ในแอปจริงได้หลังตรวจคุณภาพ ส่วน board และ playground เป็นเครื่องมือทำงานของทีม แยกจากตัวแอปที่ส่งให้ผู้ใช้จริง หน้าจอที่ใช้ข้อมูลจำลองต้องเชื่อม API, สิทธิ์ผู้ใช้ และ business logic ให้ครบก่อนใช้งานจริง
+Dev can take the components and tokens into the real app after a quality check, while the board and playground are the team's working tools, separate from the app delivered to real users. Screens using mock data must be wired to the API, user permissions and business logic completely before real use.
 
-# Workflow Code to Figma และคู่ไฟล์ของแต่ละ Product
+# Code to Figma workflow and the file pair of each Product
 
-Product เดียวมีไฟล์ Figma 2 ไฟล์เป็นคู่กัน: DS file เก็บ component หลัก variants และ variables; Design file เก็บหน้าจอที่ประกอบด้วย instances จาก DS file ไม่ใช่ไฟล์ของคนละ Product
+One Product has 2 Figma files as a pair: the DS file holds the main components, variants and variables; the Design file holds screens composed of instances from the DS file, not files of different Products.
 
-ครั้งแรกที่ตั้งค่า Product ให้ถามลิงก์ DS file และ Design file พร้อมกัน แล้วบันทึกคู่ปลายทางไว้ใน mapping กลางของ repo ครั้งต่อไปใช้คู่เดิมของ Product ที่เลือกโดยไม่ถามซ้ำ ถามใหม่เฉพาะเมื่อยังไม่มีข้อมูล ปลายทางกำกวม เข้าถึงไม่ได้ หรือผู้ใช้สั่งเปลี่ยนไฟล์ โดยไม่เลือกไฟล์อื่นแทนเอง
+The first time a Product is set up, ask for the DS file link and the Design file link together, then record the destination pair in the repo's central mapping. Next time, use the same pair for the selected Product without asking again. Ask again only when the information is missing, the destination is ambiguous, inaccessible, or the user orders the file changed, and do not choose another file on your own.
 
-1. ผู้ใช้เลือกหน้าจอหรือ component ในโค้ดที่ต้องการนำเข้า Figma
+1. The user selects the screen or component in code to bring into Figma
 
-2. AI ตรวจ component และ tokens ที่หน้านั้นใช้ เทียบกับ DS file และ mapping เดิม ใช้ของเดิมก่อน เติมหรืออัปเดตเฉพาะตัวที่จำเป็น ไม่ต้องทำ library ทั้งหมดก่อนเริ่มหน้าแรก
+2. AI checks the components and tokens that page uses against the DS file and the existing mapping, using what exists first and adding or updating only what is needed, with no need to build the whole library before the first page
 
-3. ตรวจความพร้อมและสิทธิ์การ publish/ใช้ Library ข้ามไฟล์ เมื่อ Library พร้อม จึงประกอบหน้าจอใน Design file ด้วย instances จริงและ layout ที่แก้ไขได้ ส่วน component เฉพาะ Product เก็บเป็น local component ได้ตามขอบเขตที่ตกลง
+3. Check readiness and permissions for publishing/using the Library across files. When the Library is ready, compose the screen in the Design file with real instances and an editable layout, while Product-specific components can be kept as local components within the agreed scope
 
-4. จำ mapping ของ code component กับ DS node และหน้าจอ/เคสกับ Design node เพื่ออัปเดตของเดิมแทนสร้างซ้ำ
+4. Remember the mapping of code components to DS nodes and of screens/cases to Design nodes, so existing ones are updated instead of recreated
 
-5. เมื่อนำดีไซน์กลับเข้าโค้ด แยกการปรับ instance หรือ layout เฉพาะหน้าออกจากการเปลี่ยนตัวหลักใน DS ซึ่งอาจกระทบหลายหน้า/Product ค่าเริ่มต้น sync ยังเป็น Code → Figma; Figma → Code ใช้เมื่อผู้ใช้สั่งทิศทางนั้น
+5. When bringing a design back into code, separate adjustments to an instance or a layout on one screen from changes to the main component in the DS, which may affect many screens/Products. The default sync direction is still Code → Figma; Figma → Code is used when the user orders that direction
 
-นี่เป็น workflow ที่ตกลงไว้ ยังไม่ได้ตั้งคู่ลิงก์ของ Product จริงหรือสร้างระบบบันทึก mapping อัตโนมัติ การ publish Library และการรับอัปเดตข้ามไฟล์ต้องตรวจความสามารถและสิทธิ์จริง ไม่ถือว่าซิงก์อัตโนมัติจากการติดตั้งสกิลเพียงอย่างเดียว
+This is an agreed workflow. No real Product link pair has been set and no automatic mapping-recording system built. Publishing the Library and receiving updates across files must be checked against real capabilities and permissions; automatic syncing is not assumed from installing skills alone.
 
-# เครื่องมือและขอบเขต
+# Tools and scope
 
-Coding agent อ่าน code/styles/tokens; Figma Console MCP ของ Southleft ร่วมกับ Desktop Bridge ใช้เขียน native components และ Variables; Figma Desktop เปิดไฟล์ปลายทาง; Storybook/preview ช่วยตรวจหน้าตาจริง
+A coding agent reads code/styles/tokens; Southleft's Figma Console MCP together with Desktop Bridge is used to write native components and Variables; Figma Desktop opens the destination file; Storybook/preview helps check the real appearance.
 
-Code Connect จับคู่ component และ properties กับโค้ด ไม่ใช่ระบบซิงก์หน้าตาทุกอย่างอัตโนมัติ Tokens ซิงก์ได้เมื่อมี pipeline ที่ตั้งไว้ การเพิ่ม variant หรือเปลี่ยนโครงสร้างต้องอัปเดต Figma ด้วย
+Code Connect pairs components and properties with code; it is not a system that syncs every aspect of appearance automatically. Tokens can sync when a pipeline is set up. Adding a variant or changing structure requires updating Figma too.
 
-การมีเครื่องมือพร้อมไม่ได้รับประกันคุณภาพการแปลง ต้องทดลองและตรวจผลจริง
+Having the tools ready does not guarantee conversion quality; it must be tried and the real results checked.
 
-# การทดลองแรกและคำถามต่อไป
+# First experiment and next questions
 
-เริ่ม Button หนึ่งตัว ก่อนขยายเป็น Input และ library ทั้งชุด วัดว่าผลลัพธ์นำไปใช้ต่อได้ไหม ใช้เวลาเก็บงานเทียบกับสร้างเองเท่าไร และอัปเดตของเดิมโดยไม่ทำลาย instances ได้ไหม
+Start with one Button, before expanding to Input and the whole library. Measure whether the result can be reused, how much time cleanup takes versus building by hand, and whether the existing one can be updated without breaking instances.
 
-ประเด็นที่ยังต้องตัดสินใจ: รูปแบบ tokens, ขอบเขต variants ที่ต้องแสดงใน Figma, วิธีเก็บ mapping และ baseline, วิธีจัดการ conflict เมื่อสองฝั่งแก้พร้อมกัน, กลไกทดลองรับ Core snapshot แยกจากชุดที่ Product ใช้อยู่ และขั้นตอนตรวจ/publish โครงสร้างเริ่มต้นตกลงให้ใช้ repository เดียวแยก core/ และ products/ ค่าเริ่มต้นซิงก์ Code → Figma และยังไม่เริ่มนับเวอร์ชันจนกว่าผู้ใช้จะบอก
+Issues still to decide: token format, the scope of variants to show in Figma, how to keep the mapping and baseline, how to handle conflicts when both sides edit at once, the mechanism for trialing a Core snapshot separate from the set a Product is using, and the check/publish steps. The initial structure is agreed as a single repository separating core/ and products/. The default sync is Code → Figma, and version counting does not start until the user says so.
 
-Component Reuse & Duplicate Check, Case Planning และ Component Audit ได้รับคำสั่งให้สร้างและติดตั้งแล้ว ส่วน Design–Code Parity & Sync, workflow board/playground และทักษะเฉพาะส่วนอื่นยังไม่ได้สร้าง UX Writing บันทึกเป็นงานภายหลัง ยังไม่เริ่มทำ
+Component Reuse & Duplicate Check, Case Planning and Component Audit have been ordered built and installed. Design–Code Parity & Sync, the board/playground workflow and other specific skills have not yet been built. UX Writing is recorded as later work and has not been started.
 
-# แหล่งอ้างอิง
+# References
 
 [Figma Console MCP](https://github.com/southleft/figma-console-mcp)
 
@@ -259,27 +259,27 @@ Component Reuse & Duplicate Check, Case Planning และ Component Audit ไ�
 
 [Code Connect](https://github.com/figma/code-connect)
 
-ตัวอย่างบริษัทที่คุยกันเป็นการเชื่อมและดูแล Design System สองฝั่ง ไม่ใช่หลักฐานว่าซิงก์ทุกอย่างอัตโนมัติ: [Spotify](https://www.youtube.com/watch?v=SmarocuBv6c), [Atlassian](https://www.youtube.com/watch?v=-qlAjXbbn6k)
+The example companies discussed are about connecting and maintaining a Design System across two sides, not evidence that everything syncs automatically: [Spotify](https://www.youtube.com/watch?v=SmarocuBv6c), [Atlassian](https://www.youtube.com/watch?v=-qlAjXbbn6k)
 
 
-## อัปเดต 24 พฤศจิกายน 2026: เริ่ม shadcn
-ผู้ใช้สั่ง “เปลี่ยนเลย” หลังยืนยันว่า runtime เดิมยังเป็น MUI จึงเริ่ม migration ในโฟลเดอร์นี้แล้ว ใช้ React/Vite เดิม + shadcn Base UI แยก ui/app/core/features ตาม SHADCN-STRUCTURE-AND-SKILLS.md ไม่เปลี่ยนเป็น Next.js หรือ Radix ไม่แก้ remote Figma/Code Connect อัตโนมัติ ผลจริงและข้อจำกัดอยู่ใน SHADCN-MIGRATION.md เก็บ legacy และ checkpoint ไว้ก่อน
-# เป้าหมายปัจจุบัน — 25 พฤศจิกายน 2026
+## Update 24 November 2026: starting shadcn
+The user ordered “เปลี่ยนเลย” (switch now) after confirming that the existing runtime was still MUI, so the migration has started in this folder, using the existing React/Vite + shadcn Base UI, split into ui/app/core/features per SHADCN-STRUCTURE-AND-SKILLS.md, without changing to Next.js or Radix and without automatically changing remote Figma/Code Connect. Actual results and limitations are in SHADCN-MIGRATION.md. Keep the legacy and checkpoint first.
+# Current goal — 25 November 2026
 
-คำตัดสินล่าสุดนี้มีผลเหนือส่วนแผนเดิมด้านล่างที่กำหนดให้ Dev ต้องนำโค้ดไปใช้จริง ไม่ลบแผนเก่า แต่พัก package/distribution และ developer adoption จนกว่าจะขอใหม่
+This latest ruling overrides the earlier plan sections below that required Dev to take the code into real use. The old plan is not deleted, but package/distribution and developer adoption are paused until requested again.
 
-1. **AI ออกแบบด้วยโค้ด:** ใช้ code DS ที่มีประกอบเว็บ prototype ให้กดจริง ทดลอง flow, mock data และ responsive ได้ ตรวจ stories/docs/audit ตาม workflow เมื่อผู้ใช้ออกแบบผ่านและสั่งนำไป Figma จึงประกอบ editable frames ด้วย component จาก Figma DS ให้ตรง prototype
-2. **ผู้ใช้ออกแบบใน Figma:** ผู้ใช้ส่ง URL พร้อมขอทำเป็น prototype ให้ AI อ่านดีไซน์ ตรวจ mapping และประกอบด้วย code DS เดิมก่อน ไม่สร้าง component ซ้ำหรือเปลี่ยน library จากหน้าตา reference
+1. **AI designs with code:** use the existing code DS to assemble a web prototype that can be clicked for real, to try flows, mock data and responsive behavior, checking stories/docs/audit per the workflow. When the user approves the design and orders it taken to Figma, assemble editable frames with components from the Figma DS to match the prototype
+2. **The user designs in Figma:** the user sends a URL with a request to make it a prototype; AI reads the design, checks the mapping and assembles with the existing code DS first, without creating duplicate components or changing the library based on the reference's appearance
 
-Dev ไม่จำเป็นต้องอยู่ในวงรอบนี้ และไม่รับประกันว่า prototype code ใช้ตรงกับ production stack ของทุก Product ไม่ต้องเตรียม package หรือให้ Dev pull/update เป็นขั้นบังคับ การเปลี่ยน objective ไม่อนุญาตเปลี่ยน stack ลบของเก่า หรือ publish เว็บ
+Dev does not need to be in this loop, and it is not guaranteed that the prototype code matches the production stack of every Product. There is no need to prepare a package or have Dev pull/update as a mandatory step. The change of objective does not permit changing the stack, deleting old things, or publishing the web.
 
-ข้อจำกัดที่ต้องแจ้งตามงาน: Figma library/สิทธิ์ข้ามไฟล์, component/variant ที่ขาด, overrides, ความต่าง typography/layout, prototype interactions และ responsive constraints ที่ไม่เท่าพฤติกรรม CSS จริง การอนุมัติเบื้องต้นไม่เท่ากับ sync สองฝั่งอัตโนมัติ หากต้องเพิ่ม DS/API เกิน scope ให้เสนอและยืนยันก่อน ไม่ใช้ภาพแปะหรือ detach แทน reusable instances โดยไม่แจ้ง
+Limitations to report per task: Figma library/cross-file permissions, missing components/variants, overrides, typography/layout differences, prototype interactions and responsive constraints that are not equal to real CSS behavior. Initial approval does not equal automatic two-way sync. If DS/API must be added beyond scope, propose and confirm first; do not use pasted images or detach in place of reusable instances without telling.
 
-เอกสาร workflow: [รวม flow](docs/UI-WORKFLOW-INDEX.md), [UI](rules/ui-workflow.md), [Code → Design](rules/code-to-design-flow.md), [Figma → Code](rules/figma-component-to-code-flow.md) กฎใช้ร่วมทั้ง Codex และ Claude ที่ [agent-rules](rules/agent-rules.md)
+Workflow documents: [unified flow](docs/UI-WORKFLOW-INDEX.md), [UI](rules/ui-workflow.md), [Code → Design](rules/code-to-design-flow.md), [Figma → Code](rules/figma-component-to-code-flow.md). Rules shared by both Codex and Claude are in [agent-rules](rules/agent-rules.md)
 
 ---
 
-# ขนาดหน้าจอ Figma ที่ยืนยัน — 25 พฤศจิกายน 2026
+# Confirmed Figma screen sizes — 25 November 2026
 
-สำหรับเป้าหมาย prototype ↔ Figma ล่าสุด ทำ Figma เฉพาะ **desktop/tablet หนึ่งขนาด และ mobile อีกหนึ่งขนาด รวม 2 ขนาดต่อหน้าจอ/เคสที่ตกลง** ไม่สร้าง tablet แยกเป็นขนาดที่สาม และไม่แตกทุก state เอง เว็บต้นแบบยังใช้ดู responsive ระหว่างความกว้างได้ ยังไม่ได้กำหนดตัวเลข px: ใช้ขนาด Product/reference ที่ยืนยันแล้ว หรือเสนอให้ยืนยันก่อนตั้งเป็นมาตรฐาน รายละเอียดและเงื่อนไขอยู่ใน `rules/code-to-design-flow.md` และกฎกลาง
+For the latest prototype ↔ Figma goal, do Figma for only **one desktop/tablet size and one mobile size, 2 sizes per agreed screen/case**, do not create tablet as a separate third size, and do not expand every state on your own. The web prototype can still be used to view responsive behavior between widths. No px numbers have been set: use the confirmed Product/reference sizes, or propose them for confirmation before setting them as the standard. Details and conditions are in `rules/code-to-design-flow.md` and the central rules.
 

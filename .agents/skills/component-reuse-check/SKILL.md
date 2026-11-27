@@ -39,4 +39,4 @@ Mira is an example, not an exception: use `shadcn/src/lib/products/mira/componen
 
 ## Report emphasis
 
-Each action row identifies the new/changed implementation and the existing candidate. Include searched scope and inaccessible Products in ขอบเขต. State ไม่พบของซ้ำในขอบเขตที่ตรวจ rather than claiming repository-wide uniqueness without evidence. Delegate broader robustness/accessibility defects to Component Audit and avoid duplicate findings.
+Each action row identifies the new/changed implementation and the existing candidate. Include searched scope and inaccessible Products in ขอบเขต (scope). State ไม่พบของซ้ำในขอบเขตที่ตรวจ (no duplicates found in the checked scope) rather than claiming repository-wide uniqueness without evidence. Delegate broader robustness/accessibility defects to Component Audit and avoid duplicate findings.

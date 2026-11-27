@@ -1,30 +1,30 @@
 **Component Audit — Core / Tabs**
-ผลรวม: เพิ่ม Standard/Pills/Folder ครบและอัปเดตเอกสารแล้ว; interaction ผ่าน ยังมี contrast ค้าง
-ขอบเขต: Tabs recipes, 10 dedicated stories, CatalogNavigation และ 5 Core catalog stories; browser desktop/320px และ Dialog. ไม่ใช่การรับรอง accessibility ทุก Product
+Overall: Standard/Pills/Folder all added and docs updated; interaction passes, contrast issues remain
+Scope: Tabs recipes, 10 dedicated stories, CatalogNavigation and 5 Core catalog stories; browser desktop/320px and Dialog. Not an accessibility certification for every Product
 
-| ระดับ | ผล | รายการ | หลักฐาน | ถัดไป |
+| Level | Result | Item | Evidence | Next |
 |---|---|---|---|---|
-| กลาง | ต้องแก้ | Primary blue/white 3.5:1 ต่ำกว่า 4.5:1; รวม selected labels/counts | output/tabs/tests.txt; Figma Callout | ตัดสินใจสีที่ต้นทาง; ไม่เปลี่ยน token กลางในงานนี้ |
-| กลาง | ต้องแก้ | Catalog ยังมี contrast และ label-content-name-mismatch ของ controls อื่น | tests.txt, catalog sections | แยกแก้ component เจ้าของ; ไม่อ้าง catalog a11y ผ่าน |
-| — | ผ่าน | Standard 48/32, Pills 36/48, Folder 56; text ขั้นต่ำ12; ไอคอน SVG เดิม | Browser computed styles, tabs.css | ใช้ recipes กลาง |
-| — | ผ่าน | Keyboard จริง: disabled โฟกัสได้แต่ Enter ไม่เลือก; ถัดไป Enter เปิด panel; Dialog Escape คืน focus | Browser native keyboard + KeyboardAndDisabled / PageAndDialog | คง Base UI contract |
-| — | ผ่าน | Page/Dialog ใช้ padding/radius/font/height ตรงกัน; 320px page width320 และ Folder scroll ภายใน | Browser computed geometry; MobileThai | คง wrapper |
-| — | ผ่าน | 15/15 interaction stories, build/token/coverage ผ่าน; lint มี warning export cva เดิมหนึ่งรายการ | output/tabs/; 43/43 story-file coverage | ไม่ถือเป็น full-state coverage |
-| — | ผ่าน | Markdown, Storybook และ Figma template docs ครบ27 linked specimens; own text≥20 ไม่ล้นแนวนอน | figma-verification.json; mapped4838:64978 | ใช้ node เดิมครั้งต่อไป |
+| Medium | Needs fix | Primary blue/white 3.5:1 is below 4.5:1; includes selected labels/counts | output/tabs/tests.txt; Figma Callout | Decide the color at the source; the central token is not changed in this work |
+| Medium | Needs fix | Catalog still has contrast and label-content-name-mismatch issues in other controls | tests.txt, catalog sections | Fix separately in the owning component; do not claim catalog a11y passes |
+| — | Pass | Standard 48/32, Pills 36/48, Folder 56; minimum text 12; original SVG icons | Browser computed styles, tabs.css | Use the central recipes |
+| — | Pass | Real keyboard: disabled is focusable but Enter does not select; on the next tab Enter opens the panel; Dialog Escape restores focus | Browser native keyboard + KeyboardAndDisabled / PageAndDialog | Keep the Base UI contract |
+| — | Pass | Page/Dialog use matching padding/radius/font/height; at 320px page width320 and Folder scrolls internally | Browser computed geometry; MobileThai | Keep the wrapper |
+| — | Pass | 15/15 interaction stories, build/token/coverage pass; lint has one existing cva export warning | output/tabs/; 43/43 story-file coverage | Not counted as full-state coverage |
+| — | Pass | Markdown, Storybook and Figma template docs complete with 27 linked specimens; own text≥20 does not overflow horizontally | figma-verification.json; mapped4838:64978 | Reuse the existing node next time |
 
-สรุป: ผ่าน5, ต้องแก้2กลุ่ม; ไม่มี runtime test fail ใน scope ที่รัน
-ต่อไป: ตัดสินใจ contrast ต้นทางก่อนอ้าง normal-text AA
+Summary: 5 pass, 2 groups need fixes; no runtime test failures in the scope that was run
+Next: decide the contrast at the source before claiming normal-text AA
 
 **Reuse & Duplicate Check — Core / Tabs**
-ผลรวม: ขยาย Tabs เดิม ไม่สร้าง primitive หรือ Badge ซ้ำ
-ขอบเขต: ค้น source consumers และตรวจหลังแก้; Base UI Tabs + Badge เดิม
+Overall: extends the existing Tabs; no duplicate primitive or Badge created
+Scope: searched source consumers and checked after the change; existing Base UI Tabs + Badge
 
-| ระดับ | ผล | รายการ | หลักฐาน | ถัดไป |
+| Level | Result | Item | Evidence | Next |
 |---|---|---|---|---|
-| — | ผ่าน | สามตระกูลอยู่ใน tabs.tsx / Core/Components/Tabs เดียว; CatalogNavigation reuse export เดิม | src/lib/app/components/ui/tabs.tsx; CatalogNavigation.tsx | ไม่ต้องดำเนินการเพิ่ม |
+| — | Pass | All three families live in a single tabs.tsx / Core/Components/Tabs; CatalogNavigation reuses the existing export | src/lib/app/components/ui/tabs.tsx; CatalogNavigation.tsx | No further action needed |
 
-สรุป: ผ่าน1, ต้องแก้0, ตรวจไม่ได้0
-ต่อไป: ไม่ต้องดำเนินการเพิ่ม
+Summary: 1 pass, 0 need fixes, 0 unverifiable
+Next: no further action needed
 
 ### Motion follow-up - 2026-11-26
 

@@ -1,0 +1,36 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="293" height="120" viewBox="0 0 293 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Sound wave">
+<path d="M0 8C0 3.58172 3.58172 6.55759e-08 8 6.55759e-08H285C289.418 6.55759e-08 293 3.58172 293 8V112C293 116.418 289.418 120 285 120H8C3.58172 120 0 116.418 0 112V8Z" fill="#F1F5F9"/>
+<rect id="Sound wave bar" x="146" y="59.5" width="2" height="1" rx="0.5" fill="#CAD5E2"/>
+<rect id="Sound wave bar_2" x="151" y="59.5" width="2" height="1" rx="0.5" fill="#CAD5E2"/>
+<rect id="Sound wave bar_3" x="156" y="59.5" width="2" height="1" rx="0.5" fill="#CAD5E2"/>
+<rect id="Sound wave bar_4" x="161" y="58" width="2" height="4" rx="1" fill="#CAD5E2"/>
+<rect id="Sound wave bar_5" x="166" y="53" width="2" height="14" rx="1" fill="#CAD5E2"/>
+<rect id="Sound wave bar_6" x="171" y="58" width="2" height="4" rx="1" fill="#CAD5E2"/>
+<rect id="Sound wave bar_7" x="176" y="53" width="2" height="14" rx="1" fill="#CAD5E2"/>
+<rect id="Sound wave bar_8" x="181" y="53" width="2" height="14" rx="1" fill="#CAD5E2"/>
+<rect id="Sound wave bar_9" x="186" y="57" width="2" height="6" rx="1" fill="#CAD5E2"/>
+<rect id="Sound wave bar_10" x="191" y="57" width="2" height="6" rx="1" fill="#CAD5E2"/>
+<rect id="Sound wave bar_11" x="196" y="57" width="2" height="6" rx="1" fill="#CAD5E2"/>
+<rect id="Sound wave bar_12" x="201" y="55" width="2" height="10" rx="1" fill="#CAD5E2"/>
+<rect id="Sound wave bar_13" x="206" y="46" width="2" height="28" rx="1" fill="#CAD5E2"/>
+<rect id="Sound wave bar_14" x="211" y="42" width="2" height="36" rx="1" fill="#CAD5E2"/>
+<rect id="Sound wave bar_15" x="216" y="42" width="2" height="36" rx="1" fill="#CAD5E2"/>
+<rect id="Sound wave bar_16" x="221" y="55" width="2" height="10" rx="1" fill="#CAD5E2"/>
+<rect id="Sound wave bar_17" x="226" y="55" width="2" height="10" rx="1" fill="#CAD5E2"/>
+<rect id="Sound wave bar_18" x="231" y="42" width="2" height="36" rx="1" fill="#CAD5E2"/>
+<rect id="Sound wave bar_19" x="236" y="42" width="2" height="36" rx="1" fill="#CAD5E2"/>
+<rect id="Sound wave bar_20" x="241" y="58" width="2" height="4" rx="1" fill="#CAD5E2"/>
+<rect id="Sound wave bar_21" x="246" y="59.5" width="2" height="1" rx="0.5" fill="#CAD5E2"/>
+<rect id="Sound wave bar_22" x="251" y="59.5" width="2" height="1" rx="0.5" fill="#CAD5E2"/>
+<rect id="Sound wave bar_23" x="256" y="59.5" width="2" height="1" rx="0.5" fill="#CAD5E2"/>
+<rect id="Sound wave bar_24" x="261" y="59.5" width="2" height="1" rx="0.5" fill="#CAD5E2"/>
+<rect id="Sound wave bar_25" x="266" y="59.5" width="2" height="1" rx="0.5" fill="#CAD5E2"/>
+<rect id="Sound wave bar_26" x="271" y="58" width="2" height="4" rx="1" fill="#CAD5E2"/>
+<rect id="Sound wave bar_27" x="276" y="59.5" width="2" height="1" rx="0.5" fill="#CAD5E2"/>
+<rect id="Sound wave bar_28" x="281" y="59.5" width="2" height="1" rx="0.5" fill="#CAD5E2"/>
+<rect id="Sound wave bar_29" x="286" y="59.5" width="2" height="1" rx="0.5" fill="#CAD5E2"/>
+<rect id="Sound wave bar_30" x="291" y="59.5" width="2" height="1" rx="0.5" fill="#CAD5E2"/>
+<path id="Line 39" d="M147 6.55788e-08L147 120" stroke-width="1.5" stroke="#2DA4FF"/>
+</g>
+</svg>

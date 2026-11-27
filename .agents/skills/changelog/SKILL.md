@@ -1,6 +1,6 @@
 ---
 name: changelog
-description: บันทึกหรือสรุปการเปลี่ยนแปลง component/token จากหลักฐานจริง ช่วง Draft ใช้วันที่และ commit ไม่เริ่มเลข release เอง
+description: Records or summarizes component/token changes from real evidence; during Draft it uses dates and commits and does not start release numbering on its own
 ---
 
 # Changelog

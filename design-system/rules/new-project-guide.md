@@ -1,121 +1,121 @@
-# AI-guided onboarding สำหรับโปรเจกต์ใหม่
+# AI-guided onboarding for new projects
 
-ใช้คู่กับ [Product setup](product-setup-flow.md) และ [UI workflow](ui-workflow.md) เป้าหมายคือให้ designer เริ่มงานโดยไม่ต้องรู้โครงสร้างโค้ดหรือชื่อสกิล AI ต้องนำทางเป็นขั้นสั้น ๆ ไม่ถามทุกอย่างพร้อมกัน ไม่บังคับให้ทุก Product มี repo ใหม่
+Use together with [Product setup](product-setup-flow.md) and [UI workflow](ui-workflow.md). The goal is for designers to start work without needing to know the code structure or skill names. The AI must guide in short steps, not ask everything at once, and not force every Product to have a new repo
 
-## วิธีเริ่มที่ผู้ใช้พูดได้
+## How the user can start
 
-> เริ่มโปรเจกต์ใหม่ ช่วย setup และไกด์ฉันทีละขั้นตาม workflow ของเรา
+> Start a new project; help me set up and guide me step by step according to our workflow (Thai: "เริ่มโปรเจกต์ใหม่ ช่วย setup และไกด์ฉันทีละขั้นตาม workflow ของเรา")
 
-## หลักการสนทนา
+## Conversation principles
 
-- เริ่มด้วย “ตอนนี้อยู่ขั้นไหน / ต้องการอะไรจากคุณ / หลังได้แล้วจะทำอะไร” ใช้ภาษางานออกแบบ ไม่ให้ผู้ใช้เลือก config ที่ AI ตรวจเองได้
-- แต่ละรอบถามเฉพาะสิ่งที่จำเป็นต่อขั้นถัดไป รวมคำถามที่เกี่ยวข้องกัน ไม่ถาม requirement ทั้งหมดตอนรับข้อมูล setup
-- อ่านบันทึกก่อนถาม ใช้ข้อมูลเดิมและสถานะ “ยังไม่มี” ต่อได้ หากยังไม่มีคำตอบที่จำเป็นให้รอ ไม่ตีความความเงียบว่าอนุมัติ
-- แยกข้อมูลที่ผู้ใช้ให้, สิ่งที่ตรวจพบ, ข้อเสนอ และสิ่งที่ยังไม่ยืนยัน ไม่สร้างชื่อ/URL/stack/ธุรกิจจำลองเป็นข้อเท็จจริง
-- หลังจบแต่ละขั้น บันทึกสถานะที่มีสาระและบอกขั้นถัดไป ไม่สร้าง release number หรือ task system ใหม่
+- Start with “which step we are at now / what is needed from you / what will be done once it is received”; use design-work language and do not make the user pick configs that the AI can check itself
+- Each round, ask only what is needed for the next step, grouping related questions; do not ask for all requirements when receiving the setup information
+- Read the records before asking; reuse existing information and the status “Not yet created” (Thai: “ยังไม่มี”); if a necessary answer is still missing, wait and do not interpret silence as approval
+- Separate information the user gave, what was found, proposals and what is still unconfirmed; do not create fictional names/URLs/stacks/businesses as fact
+- After each step, record the substantive status and name the next step; do not create release numbers or a new task system
 
-## ขั้น 0 — เลือกพื้นที่ทำงาน
+## Step 0 — Choose the workspace
 
-AI ตรวจ cwd, entry instructions, files, package config และ Product records ก่อน ถ้ามี workspace อยู่แล้ว ไม่ scaffold ทับ หากไม่ชัดว่าเป็น Product ใหม่ใน workspace เดิมหรือ repo ใหม่ ให้ถามให้เลือกสองทางนี้ก่อน
+The AI checks cwd, entry instructions, files, package config and Product records first. If a workspace already exists, do not scaffold over it. If it is unclear whether this is a new Product in the existing workspace or a new repo, ask the user to choose between these two options first
 
-ถ้าคุณยังไม่ได้ให้โฟลเดอร์และต้องสร้าง repo ใหม่ AI ขอชื่อ/ตำแหน่งโฟลเดอร์หรือใช้ workspace ที่เปิดอยู่ตามที่ยืนยัน ไม่ย้าย/ลบ source เดิม การคัดลอก template ไม่อนุญาตสร้างแอป ติดตั้ง dependencies เชื่อมบัญชี หรือ deploy โดยอัตโนมัติ
+If you have not given a folder and a new repo must be created, the AI asks for the folder name/location or uses the open workspace as confirmed, and does not move/delete existing source. Copying a template does not authorize creating an app, installing dependencies, linking accounts or deploying automatically
 
-ผลลัพธ์: รู้ว่าจะบันทึกที่ไหนและเป็นงานใหม่หรือทำต่อ
+Result: know where to record and whether this is new work or a continuation
 
-## ขั้น 1 — รับข้อมูลตั้งต้น 4 ช่อง
+## Step 1 — Receive the 4 starting fields
 
-ใช้แบบฟอร์มและวิธีบันทึกใน product-setup-flow.md โดยไม่เพิ่มช่องบังคับ:
+Use the form and recording method in product-setup-flow.md without adding mandatory fields:
 
 ```yaml
-ชื่อ Product:
-Figma DS กลาง URL:
-Figma DS Product URL: # ใช้ของกลางอย่างเดียว / ยังไม่มี / URL
-Figma ไฟล์ออกแบบหน้าจอ URL: # ยังไม่มี / URL
+Product name:
+Central Figma DS URL:
+Product Figma DS URL: # Central only / Not yet created / URL
+Screen-design Figma file URL: # Not yet created / URL
 ```
 
-ถ้ามีข้อมูลแล้วให้ใช้ต่อ ไม่ให้กรอกใหม่ หาก DS กลางยังไม่มีด้วย ให้บันทึกว่ารอข้อมูลและถามเฉพาะว่าจะใช้ DS ใดหรือออกแบบฐานใหม่ อย่าเดาว่าใช้ Cariva และอย่าสร้าง library จากคำว่า “ยังไม่มี”
+If the information already exists, keep using it and do not have it filled in again. If there is no central DS either, record that information is pending and ask only which DS to use or whether to design a new base. Do not guess that Cariva is used, and do not create a library from the answer “Not yet created” (Thai: “ยังไม่มี”)
 
-ผลลัพธ์: Product record จริงและรายการปลายทางที่ยังขาด
+Result: an actual Product record and the list of destinations still missing
 
-## ขั้น 2 — ตรวจความพร้อมโดย AI
+## Step 2 — AI checks readiness
 
-AI ตรวจไฟล์/URL/สิทธิ์ที่เข้าถึงได้, DS code และ Storybook ที่มีจริง, mapping, fonts/tokens และ tools/skills ที่ติดตั้ง ใช้คำสั่งอ่านอย่างเดียวก่อน ไม่ขอให้ designer ติดตั้งทุกอย่างเอง
+The AI checks accessible files/URLs/permissions, the DS code and Storybook that actually exist, mappings, fonts/tokens and installed tools/skills. Use read-only commands first and do not ask the designer to install everything themselves
 
-รายงานสั้น ๆ เป็น “มีแล้ว / ยังไม่มี / ตรวจไม่ได้” แล้วเสนอสิ่งที่จำเป็นต่องานแรก แยกการมี URL ออกจากการเข้าถึงและ library linkage ถ้าเครื่องมือขาด ให้บอกทางเลือกที่ทำได้และขอการเชื่อมต่อเฉพาะเมื่อจำเป็น ไม่อ้างว่า setup สำเร็จครบ
+Report briefly as “exists / does not exist yet / could not be checked” and then propose what is needed for the first task. Separate having a URL from access and library linkage. If tools are missing, state the options available and request a connection only when necessary; do not claim setup fully succeeded
 
-ถ้าเป็น repo ว่างและผู้ใช้ขอให้สร้าง prototype ต่อ ให้ AI เสนอ stack สำหรับ prototype พร้อมเหตุผลก่อนดำเนินการ ไม่ต้องตรง production stack แต่ไม่ย้าย stack ที่มีโดยไม่มีเหตุผล ไม่คัดลอก package/node_modules/credentials จากโปรเจกต์เก่ามาเป็นค่าเริ่มต้น
+If it is an empty repo and the user asks to continue creating a prototype, the AI proposes a prototype stack with reasons before proceeding; it need not match the production stack but does not move an existing stack without reason, and does not copy package/node_modules/credentials from old projects as defaults
 
-ผลลัพธ์: รู้ว่างานแรกทำอะไรได้และมี blocker ใด
+Result: know what the first task can do and what blockers there are
 
-## ขั้น 3 — เตรียมฐานและโครงก่อนเริ่มออกแบบ
+## Step 3 — Prepare the base and structure before starting design
 
-หลังตรวจความพร้อมและยืนยันฐาน component แล้ว ให้ตรวจ/เตรียมกฎ DESIGN.md และโครง tokens/theme จาก DS ที่เลือก รวมโครง component, docs, Storybook และ mapping โดย reuse ของเดิมก่อน ยังไม่สร้าง component ทั้งชุด ไม่คัดลอกค่าของบริษัทอื่นมาเป็นค่าเริ่มต้น
+After checking readiness and confirming the component base, check/prepare the DESIGN.md rules and the tokens/theme structure from the selected DS, including the component, docs, Storybook and mapping structure, reusing existing items first. Do not yet create the whole component set and do not copy another company's values as defaults
 
-ถามข้อกำหนดฐานที่จำเป็น เช่น theme/font ที่ยังขัดกันหรือไม่ชัดในขั้นนี้ ไม่เดาแล้วรอแก้ตอนทำหน้าจอ สำหรับงาน setup-only การเสนอ scaffold/dependencies ที่จำเป็นต้องอยู่ในขอบเขตที่อนุญาต และต้องบอกสิ่งที่ยังไม่ได้ติดตั้งจริง
+Ask for necessary base requirements, such as theme/font that conflicts or is unclear, at this step; do not guess and then wait to fix it during screen work. For setup-only work, proposing scaffold/dependencies that are needed must fall within the permitted scope, and state what has not actually been installed
 
-ผลลัพธ์: ฐานและโครงที่มีจริง พร้อมสถานะส่วนที่ยังขาด แยกโครงเปล่าออกจาก component ที่ implement แล้ว
+Result: the base and structure that actually exist, with the status of the parts still missing, separating empty structure from components already implemented
 
-## ขั้น 4 — สรุป setup แล้วเลือกงานแรก
+## Step 4 — Summarize setup, then choose the first task
 
-ก่อนถามเรื่องหน้า/flow ให้สรุป setup ว่าข้อมูล Product, DS/สิทธิ์, ฐาน component, กฎดีไซน์, tokens/theme และโครง component/docs/Storybook/mapping ส่วนใดพร้อม ส่วนใดไม่มี และส่วนใดตรวจไม่ได้ ไม่อ้างว่าพร้อมครบหากยังมี blocker
+Before asking about the page/flow, summarize the setup: which of Product information, DS/permissions, component base, design rules, tokens/theme and the component/docs/Storybook/mapping structure are ready, which are missing, and which could not be checked. Do not claim everything is ready while a blocker remains
 
-**การถามว่าจะเริ่มหน้า/flow ไหนเป็นขั้นสุดท้ายของ setup** หลังสรุปข้างต้นแล้ว ไม่ใช่เงื่อนไขให้ผู้ใช้ตอบก่อนเตรียมโครง หากผู้ใช้ระบุงานแรกมาแล้ว ให้ใช้คำตอบเดิม ไม่ถามซ้ำ
+**Asking which page/flow to start is the final step of setup**, after the summary above; it is not a condition that the user must answer before the structure is prepared. If the user has already specified the first task, use the earlier answer and do not ask again
 
-ถามว่า “setup ตามขอบเขตพร้อมแล้ว อยากเริ่มหน้า/flow ไหน และให้ออกแบบให้หรือมี Figma แล้ว?” โดยปรับคำว่าพร้อมตามสถานะจริง หากยังไม่พร้อมให้บอกข้อจำกัดก่อน
+Ask “setup within scope is ready; which page/flow do you want to start with, and should I design it or do you already have Figma?”, adjusting the word “ready” to the actual status; if it is not yet ready, state the limitations first
 
-- AI ออกแบบ: ขอเป้าหมาย ผู้ใช้และงานสำคัญเฉพาะที่ยังไม่ทราบตอนเริ่มงานจริง
-- Designer ออกแบบ: ใช้ URL หน้าจอเดิมหรือขอเฉพาะที่ขาด แล้วถาม business behavior ที่ภาพอธิบายไม่ได้
-- ใช้ mock data ที่ระบุว่าเป็นสมมติ ไม่ต้องขอข้อมูลผู้ป่วย/ลูกค้าจริง
+- AI designs: ask for the goal, users and key tasks only where not yet known when work actually starts
+- Designer designs: use the existing screen URL or ask only for what is missing, then ask about business behavior that the image cannot explain
+- Use mock data stated to be simulated; there is no need to ask for real patient/customer data
 
-ผลลัพธ์: setup จบเป็นช่วงชัดเจน และมีงานแรกสำหรับการออกแบบ จากนั้นค่อยสร้าง component เฉพาะที่หน้านั้นต้องใช้
+Result: setup ends as a clear phase and there is a first task for design; then create only the components that page needs
 
-## ขั้น 5 — เสนอแผนเล็กก่อนลงมือ
+## Step 5 — Propose a small plan before starting
 
-AI สรุปหน้า/เคสที่จะทำ, components ที่ reuse, ข้อมูลหรือ behavior ที่ต้องถาม และสิ่งที่ไม่อยู่ในงาน ใช้ case-planning และ reuse workflow ตามความเหมาะสม ถ้าต้องเพิ่ม component ให้เสนอ Core/Product พร้อมเหตุผลและใช้ flow เดิม ไม่ขอ Figma destination ก่อนจำเป็นต้องเขียน Figma
+The AI summarizes the pages/cases to be done, the components to reuse, the data or behavior that must be asked about, and what is out of scope. Use the case-planning and reuse workflows as appropriate. If a component must be added, propose Core/Product with reasons and use the existing flow; do not ask for a Figma destination until Figma actually has to be written
 
-คำขอให้ทำงานถือเป็น authorization ภายใน scope ไม่เพิ่ม approval ทุกขั้น ถ้าต้องขยาย API/ธุรกิจ/ปลายทางเกินงาน ให้ถามเฉพาะส่วนนั้น
+A request to do the work counts as authorization within scope; no approval is added at every step. If the API/business/destination must be expanded beyond the task, ask only about that part
 
-ผลลัพธ์: แผนที่ทำต่อได้โดยไม่เดา business rules
+Result: a plan that can proceed without guessing business rules
 
-## ขั้น 6 — ทำ prototype และให้ทดลอง
+## Step 6 — Build the prototype and let you try it
 
-ดำเนินตาม UI workflow ไม่คัดลอกขั้นทดสอบมาสร้างเกณฑ์ใหม่ ให้เปิด preview ที่ใช้ได้จริงตามเครื่องมือ พร้อมเคสและข้อมูล mock ที่ตกลง อัปเดต docs/stories และตรวจ/audit ตามผลกระทบ ส่งจุดที่คุณทดลองได้และข้อจำกัด ไม่ถือว่าต้องเผยแพร่ URL สาธารณะ
+Follow the UI workflow; do not copy the testing steps to create new criteria. Open a preview that actually works with the available tools, with the agreed cases and mock data. Update docs/stories and check/audit according to the impact. Hand over the points you can try and the limitations; publishing a public URL is not required
 
-รับ feedback แล้วใช้วงรอบปรับแก้เดิม ถ้าคุณพักงานให้หยุดและเก็บสถานะ ไม่เริ่มใหม่ทั้งหมดเมื่อเปลี่ยน AI
+Take feedback and use the existing revision loop. If you pause work, stop and keep the status; do not start over entirely when switching AI
 
-ผลลัพธ์: เว็บ prototype ที่ตรวจแล้วตาม scope หรือรายงานสิ่งที่ยังติด
+Result: a web prototype checked within scope, or a report of what is still blocked
 
-## ขั้น 7 — นำไป Figma เมื่อคุณสั่ง
+## Step 7 — Bring it to Figma when you ask
 
-เมื่อผู้ใช้อนุมัติ prototype และขอนำไป Figma จึงเข้า code-to-design flow ใช้ปลายทางที่บันทึกไว้ ถ้าขาดให้ถามพร้อมขอ URL สร้างหน้าจอจาก Figma components/instances ไม่ใช่ภาพแปะ ตรวจทั้งโครงสร้างและ visual parity พร้อมรายงานข้อจำกัด
+When the user approves the prototype and asks to bring it to Figma, enter the code-to-design flow. Use the recorded destination; if it is missing, ask and request the URL. Build screens from Figma components/instances, not pasted images. Check both structure and visual parity, and report the limitations
 
-ใช้ขนาดและ viewport policy ที่ Product/กฎโครงการอนุมัติแล้ว ไม่เดาตัวเลขใหม่ สำหรับ workspace Cariva ปัจจุบัน ใช้ desktop/tablet + mobile ตามกฎกลาง ส่วน template ใหม่ต้องยืนยันนโยบายของโปรเจกต์นั้น
+Use the sizes and viewport policy that the Product/project rules have approved; do not guess new numbers. For the current Cariva workspace, use desktop/tablet + mobile per the central rules; a new template must confirm that project's policy
 
-ผลลัพธ์: Figma node links และผลตรวจ หรือสถานะที่ยังรอปลายทาง/สิทธิ์
+Result: Figma node links and check results, or a status of still waiting for the destination/permission
 
-## ขั้น 8 — บันทึกให้ทำต่อได้
+## Step 8 — Record so work can continue
 
-อัปเดต Product record เมื่อข้อมูล setup เปลี่ยนเท่านั้น รายละเอียดงาน/ผลตรวจ/สิ่งที่ค้างเก็บใน task handoff ตาม UI workflow แยกกัน ไม่เปลี่ยนกฎกลางเป็นรายงานแต่ละงาน
+Update the Product record only when setup information changes. Task details/check results/outstanding items are kept in the task handoff per the UI workflow, separately; do not turn the central rules into per-task reports
 
-ครั้งถัดไป AI อ่านข้อมูลแล้วบอกสั้น ๆ ว่าจะทำต่อขั้นไหน ไม่ถาม 4 ช่องซ้ำ หากย้ายเครื่อง/repo ต้องนำไฟล์บันทึกไปด้วยและตรวจสิทธิ์ใหม่ ไม่สัญญาความจำข้ามเครื่อง
+Next time the AI reads the information and says briefly which step it will continue from, and does not ask the 4 fields again. If you move machines/repos, the record files must be taken along and permissions re-checked; no memory across machines is promised
 
-## การนำโครงไปใช้อนาคต
+## Using the structure in the future
 
-โครง portable อยู่ที่ `templates/design-prototype-project/` มี entry points, คู่มือ onboarding, การเตรียม DS, workflow UI/ปรับแก้, Figma สองทิศทาง, แนวทาง skills/รายงาน และพื้นที่ Product records ไม่คัดลอก URLs, credentials, node IDs, Product data หรือ absolute host paths ของ Cariva
+The portable structure is at `templates/design-prototype-project/` and contains entry points, the onboarding guide, DS preparation, UI/revision workflow, two-way Figma, skills/reporting guidelines and a Product records area. It does not copy Cariva's URLs, credentials, node IDs, Product data or absolute host paths
 
-โครงนี้เป็น bootstrap ที่จะให้ AI ช่วยปรับกฎกับ workspace ใหม่ ไม่ใช่สำเนา DS หรือชุดสกิลทั้งหมด ไม่รับรองว่าจะเรียก slash command หรือ MCP ได้ทันที เมื่อจะคัดลอกจริงให้ตรวจไฟล์ปลายทางและไม่เขียนทับ entry rules เดิม ถ้ามีอยู่ให้เสนอการรวมกฎแทน
+This structure is a bootstrap for having the AI help adapt the rules to a new workspace; it is not a copy of the DS or of the whole skill set, and does not guarantee that slash commands or MCPs can be called immediately. When actually copying, check the destination files and do not overwrite existing entry rules; if they exist, propose merging the rules instead
 
 
-## DS บริษัทใหม่และฐาน component
+## New-company DS and the component base
 
-ใช้ workflow เดิมได้กับ DS ของบริษัทอื่น แต่ไม่ใช้ component/tokens/ฟอนต์ของ Cariva โดยอัตโนมัติ ในขั้นตรวจความพร้อมหลังรับ 4 ช่อง ให้ตรวจโค้ด/config เดิมก่อน ถ้ายังไม่ชัดให้ถามว่ามี code DS เดิมไหม และใช้ MUI, shadcn, Ant Design, custom หรือให้ AI แนะนำ บันทึกผลแยกจาก 4 ช่อง ไม่เพิ่มช่องบังคับใน setup และไม่ migrate ของเดิมเอง
+The existing workflow can be used with another company's DS, but Cariva's components/tokens/fonts are not used automatically. In the readiness check after receiving the 4 fields, check existing code/config first; if unclear, ask whether an existing code DS exists and whether it uses MUI, shadcn, Ant Design, custom, or whether the AI should recommend one. Record the result separately from the 4 fields, do not add a mandatory field to setup, and do not migrate existing code on your own
 
-จากนั้นเลือกหน้าแรก ตรวจสิ่งที่ต้องใช้ แล้วค่อยเตรียม DESIGN.md, tokens/theme, component code, docs/Storybook, mapping และ prototype พร้อมผลตรวจตาม scope ไม่สร้างทั้ง library ล่วงหน้า โครง portable มีรายละเอียดที่ rules/ds-foundation.md, rules/ui-workflow.md, rules/figma-workflows.md และ rules/skills-and-reporting.md ภายในโครงเอง ไม่มี dependency อ้างกลับ workspace นี้
+Then choose the first page, check what is needed, and only then prepare DESIGN.md, tokens/theme, component code, docs/Storybook, mapping and the prototype with check results according to scope; do not create the whole library in advance. The portable structure has details in rules/ds-foundation.md, rules/ui-workflow.md, rules/figma-workflows.md and rules/skills-and-reporting.md inside the structure itself, with no dependency referring back to this workspace
 
-## มาตรฐาน prototype ใหม่ — 27 พฤศจิกายน 2026
+## New prototype standard — 27 November 2026
 
-เมื่อผู้ใช้ให้สร้าง prototype ใหม่ ใช้ [create-project](../../.agents/skills/create-project/SKILL.md): React/shadcn และ Storybook ที่สลับ Canvas หลายเคส / Preview ที่กดใช้งานได้ และเปิด Preview เต็มหน้าได้ โดย reuse screen components และ case metadata ชุดเดียวกัน มาตรฐานนี้ใช้ทุก Product ไม่ใช่การ migrate โปรเจกต์เดิมอัตโนมัติ และไม่หมายความว่า mode switch ถูก implement แล้วจากการอัปเดตเอกสารนี้
+When the user asks to create a new prototype, use [create-project](../../.agents/skills/create-project/SKILL.md): React/shadcn and a Storybook that switches between a multi-case Canvas / a clickable Preview, and can open the Preview full-page, reusing the same screen components and case metadata. This standard applies to every Product; it is not an automatic migration of existing projects, and this documentation update does not mean the mode switch has been implemented
 
-## Workspace เดียว — 27 พฤศจิกายน 2026
+## Single workspace — 27 November 2026
 
-ใช้ [workspace structure](../../rules/workspace-structure.md): สร้าง prototype ใน products/<product-id>/prototypes/<prototype-id>/ ภายใน workspace นี้ได้ ไม่บังคับโฟลเดอร์แยกจาก repo; ห้าม scaffold ทับ design-system หรือ app เดิม อัปเดต products/README.md หลังสร้าง/ย้ายงานและคง local host ของแต่ละ app แยกกัน
+Use [workspace structure](../../rules/workspace-structure.md): a prototype can be created in products/<product-id>/prototypes/<prototype-id>/ inside this workspace, with no requirement for a folder separate from the repo; do not scaffold over design-system or an existing app. Update products/README.md after creating/moving work and keep each app's local host separate

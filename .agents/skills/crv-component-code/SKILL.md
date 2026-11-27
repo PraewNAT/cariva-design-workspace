@@ -1,62 +1,62 @@
 ---
 name: crv-component-code
-description: สร้างหรือแก้ legacy Crv/MUI DS component ใน legacy/mui/code/core ตาม contract เดิม ไม่ใช้ implement หน้าจอหรือ shadcn component
+description: Creates or edits legacy Crv/MUI DS components in legacy/mui/code/core per the existing contract; not for implementing screens or shadcn components
 ---
 
-> **Legacy (MUI).** DS ปัจจุบันคือ shadcn ใน `shadcn/` — skill นี้ใช้เฉพาะเมื่อสั่งแก้โค้ดใน `legacy/mui/` (ย้ายมาเมื่อ 26 พ.ย. 2026) งานใหม่ใช้ skill `shadcn`
+> **Legacy (MUI).** The current DS is shadcn in `shadcn/` — this skill is used only when asked to edit code in `legacy/mui/` (moved there on 26 Nov 2026). Use the `shadcn` skill for new work
 
-## ขอบเขตตามแพลนล่าสุด
+## Scope per the latest plan
 
-อ่าน AGENTS.md และ rules/skill-routing.md ก่อนใช้ กฎล่าสุดมีผลเหนือขั้นตอนเก่าที่ขัดกัน สกิลนี้ไม่อนุญาตให้ publish, push, deploy หรือเริ่มเลขเวอร์ชันโดยอัตโนมัติ ดำเนินการภายนอกเฉพาะที่ผู้ใช้มอบหมายจริง
+Read AGENTS.md and rules/skill-routing.md before using this skill. The latest rules take precedence over any older conflicting steps. This skill does not allow publishing, pushing, deploying, or starting version numbers automatically. Perform external actions only when the user has actually assigned them.
 
 
 # Cariva Component Code Generator
 
-ใช้กับการสร้าง/อัปเดต DS component Cariva พร้อม component contract และ artifacts เฉพาะทีม หากเป็นการ implement หน้าจอที่ประกอบจาก components เดิม ให้ใช้ `figma:figma-design-to-code` และ `rules/figma-workflow.md` Part B แทน ไม่รันสอง workflow ซ้ำ
+Use it to create/update a Cariva DS component together with its component contract and team-specific artifacts. If the task is implementing a screen composed from existing components, use `figma:figma-design-to-code` and `rules/figma-workflow.md` Part B instead; do not run two workflows redundantly.
 
 Use when user says:
 
 ```text
-สร้าง code [component]
-generate code สำหรับ crv-[name]
-แปลง [component] เป็น React
+create code [component]   (Thai: "สร้าง code [component]")
+generate code for crv-[name]   (Thai: "generate code สำหรับ crv-[name]")
+convert [component] to React   (Thai: "แปลง [component] เป็น React")
 code crv-[name]
 ```
 
-## Stack (อ้างอิงจาก product repo)
+## Stack (referenced from the product repo)
 
-- Next.js 16.2.4 (App Router) — ทุก component ต้อง `"use client"`
+- Next.js 16.2.4 (App Router) — every component must have `"use client"`
 - MUI 9.0.0
 - TypeScript 6.0.2
-- React Hook Form 7 + Yup — input components ต้อง `forwardRef`
-- i18next 26 — caller ส่ง string ที่ resolve แล้ว ไม่ส่ง i18n key เข้า component
+- React Hook Form 7 + Yup — input components must use `forwardRef`
+- i18next 26 — the caller passes an already-resolved string; do not pass i18n keys into a component
 - Jest 30 + React Testing Library 16
 
 ---
 
-## Required reading (ทำตามลำดับ ห้ามข้าม)
+## Required reading (in order; do not skip)
 
 1. `CLAUDE.md` — confirm stack + naming convention + wrapper rules
 2. `legacy/mui/rules/core-rules.md` — prop mapping rules
-3. `legacy/mui/tokens.json` — usage rules และ grouping ของ token
-4. `legacy/mui/tokens.json` — ค่า hex จริงของทุก token (semantic + foundation) ใช้ verify ว่า token มีอยู่จริงก่อนใส่ในโค้ด
+3. `legacy/mui/tokens.json` — usage rules and token grouping
+4. `legacy/mui/tokens.json` — the actual hex value of every token (semantic + foundation); use it to verify a token really exists before putting it in code
 5. `code/tokens.ts` — typography, spacing, radius values
-6. `legacy/mui/rules/components/{name}.md` — spec ของ component ที่กำลังจะสร้าง
+6. `legacy/mui/rules/components/{name}.md` — the spec of the component about to be created
 
-ถ้าไฟล์ใดในข้อ 1–6 หาไม่เจอ → ถาม user ก่อน ห้าม assume
+If any file in items 1–6 cannot be found → ask the user first; do not assume
 
 ---
 
-## ★ Figma Ground Truth Scan (บังคับก่อน generate — ห้ามข้าม)
+## ★ Figma Ground Truth Scan (mandatory before generating — do not skip)
 
-**เหตุผล:** doc ใน `.md` อาจ outdated หรือผิด Figma คือ source of truth เสมอ
+**Reason:** the doc in `.md` may be outdated or wrong; Figma is always the source of truth
 
-ถ้า figma-console MCP เปิดอยู่ → ทำทุกข้อนี้ก่อน generate:
+If the figma-console MCP is open → do all of the following before generating:
 
-### 1. Dump ทุก combination จาก Figma
+### 1. Dump every combination from Figma
 
 ```js
-// Run ใน figma_execute — แทนที่ NODE_ID ด้วย component set ของ component นั้น
+// Run in figma_execute — replace NODE_ID with that component's component set
 const node = await figma.getNodeByIdAsync('NODE_ID');
 const variants = node.children.map(v => ({
   name: v.name,
@@ -67,36 +67,36 @@ const variants = node.children.map(v => ({
 console.log(JSON.stringify(variants, null, 2));
 ```
 
-### 2. สร้าง ground truth table ครบทุก combination
+### 2. Build a complete ground truth table for every combination
 
-สำหรับทุก combination ของ variant × color × state:
+For every combination of variant × color × state:
 
 | combo | bg token | border token | content token |
 |---|---|---|---|
 | contained/primary/default | ... | ... | ... |
 | contained/primary/hover | ... | ... | ... |
-| ... (ทุก row) | | | |
+| ... (every row) | | | |
 
-**ห้ามข้ามหรือเดา** — ทุก row ต้องมาจาก Figma dump จริง
+**Do not skip or guess** — every row must come from the real Figma dump
 
-### 3. เทียบกับ doc
+### 3. Compare with the doc
 
-ถ้า doc ใน `legacy/mui/rules/components/{name}.md` ผิด → **แก้ doc ก่อน** แล้วค่อย generate code  
-ถ้า doc ถูกแล้ว → generate code จาก ground truth table ที่สร้างไว้ (ไม่ใช่จาก doc อย่างเดียว)
+If the doc in `legacy/mui/rules/components/{name}.md` is wrong → **fix the doc first**, then generate code  
+If the doc is already correct → generate code from the ground truth table that was built (not from the doc alone)
 
 ---
 
 ## Output structure
 
-สร้างทุกไฟล์ใน `packages/react/src/components/{ComponentName}/`:
+Create every file in `packages/react/src/components/{ComponentName}/`:
 
 ```
 {ComponentName}/
-├── {ComponentName}.tsx          ← component หลัก
+├── {ComponentName}.tsx          ← main component
 ├── {ComponentName}.types.ts     ← TypeScript types
-├── {ComponentName}.stories.tsx  ← Storybook stories ครอบทุก variant
+├── {ComponentName}.stories.tsx  ← Storybook stories covering every variant
 ├── {ComponentName}.test.tsx     ← Jest + RTL
-├── {ComponentName}.ai.md        ← copy จาก legacy/mui/rules/components/ มาใส่ใกล้ source
+├── {ComponentName}.ai.md        ← copy from legacy/mui/rules/components/ to sit near the source
 ├── {ComponentName}.figma.tsx    ← Figma Code Connect mapping
 └── index.ts                     ← barrel export
 ```
@@ -109,45 +109,45 @@ Naming: Figma `cv-button-icon` → folder/component `CvButtonIcon`
 
 ### Component (.tsx)
 
-- ขึ้นต้นไฟล์ด้วย `"use client"` ทุกครั้ง
-- ใช้ `forwardRef` ทุก component ที่รับ event/input (button, input, select, tabs)
-- Props interface ต้อง match Figma variant 1:1 — ชื่อ prop ตรงกับ Figma property
-- ห้าม import จาก `@mui/material/*` ใน source — wrap ผ่าน theme/styled เท่านั้น (ยกเว้นใน wrapper component ที่จำเป็น)
-- ห้าม hardcode hex, px, rem — ใช้ token จาก `@cariva/tokens` หรือ Tailwind preset เท่านั้น
-- Label / placeholder รับเป็น `string` (caller resolve i18next เอง)
+- Start the file with `"use client"` every time
+- Use `forwardRef` for every component that takes an event/input (button, input, select, tabs)
+- The Props interface must match Figma variants 1:1 — prop names match Figma properties
+- Do not import from `@mui/material/*` in source — wrap via theme/styled only (except in wrapper components where necessary)
+- Do not hardcode hex, px, rem — use tokens from `@cariva/tokens` or the Tailwind preset only
+- Label / placeholder are accepted as `string` (the caller resolves i18next itself)
 
 ### Types (.types.ts)
 
 - Export `interface {ComponentName}Props`
-- Variant props เป็น literal union: `'small' | 'medium' | 'large'` ไม่ใช่ `string`
-- ถ้า wrap MUI ให้ extend จาก MUI props ตามที่ `legacy/mui/rules/core-rules.md` กำหนด
+- Variant props are literal unions: `'small' | 'medium' | 'large'`, not `string`
+- If wrapping MUI, extend from the MUI props as specified in `legacy/mui/rules/core-rules.md`
 
 ### Stories (.stories.tsx)
 
-- ใช้ CSF3 format (`Meta`, `StoryObj`)
-- **ต้องมี 1 story ต่อ 1 Figma variant** — เทียบกับ `legacy/mui/rules/components/{name}.md` ทีละบรรทัด
-- มี `Default` story ที่ใช้ค่า prop ตาม Figma default
-- มี `AllVariants` story แสดงทุก variant พร้อมกันใน grid (สำหรับ visual review)
-- ใส่ `parameters.docs.description` อธิบายสั้นๆ ต่อ story
+- Use the CSF3 format (`Meta`, `StoryObj`)
+- **There must be 1 story per Figma variant** — compare against `legacy/mui/rules/components/{name}.md` line by line
+- Have a `Default` story that uses the prop values of the Figma default
+- Have an `AllVariants` story that shows every variant at once in a grid (for visual review)
+- Add `parameters.docs.description` with a short explanation per story
 
 ### Test (.test.tsx)
 
-ครอบ 4 หมวดเท่านั้น ห้าม over-test:
+Cover only 4 categories; do not over-test:
 
-1. **Render** — component render ไม่ crash ทุก variant หลัก
-2. **Props pass-through** — prop ที่ส่งเข้าไปแสดงผลถูก (label, placeholder, value)
-3. **Event** — onClick / onChange / onBlur ถูกเรียกครบ
-4. **State** — disabled, loading, error states behave ตามคาด
+1. **Render** — the component renders without crashing for every main variant
+2. **Props pass-through** — props passed in are displayed correctly (label, placeholder, value)
+3. **Event** — onClick / onChange / onBlur are all called
+4. **State** — disabled, loading, error states behave as expected
 
-ห้ามทำ:
-- Visual regression (ใช้ Storybook + Chromatic ทีหลัง)
-- Snapshot test
-- Test MUI internal behavior (เชื่อว่า MUI ทำงานถูก)
+Do not:
+- Visual regression (use Storybook + Chromatic later)
+- Snapshot tests
+- Test MUI internal behavior (trust that MUI works correctly)
 
 ### AI doc (.ai.md)
 
-- Copy ทั้งหมดจาก `legacy/mui/rules/components/{name}.md` มาวางตรงๆ
-- เพิ่ม header สั้นๆ ด้านบน:
+- Copy everything from `legacy/mui/rules/components/{name}.md` and paste it directly
+- Add a short header at the top:
   ```
   > Source of truth: ../../../../legacy/mui/rules/components/{name}.md
   > This file is a mirror for AI handoff. Do not edit directly.
@@ -155,10 +155,10 @@ Naming: Figma `cv-button-icon` → folder/component `CvButtonIcon`
 
 ### Figma Code Connect (.figma.tsx)
 
-- ใช้ `@figma/code-connect`
-- Map Figma variant prop → component prop ตรงๆ
-- ใส่ `example` ครอบ default usage
-- ระบุ Figma node URL ถ้ารู้ ถ้าไม่รู้ใส่ `// TODO: node URL` แล้วแจ้ง user ในสรุปท้าย task
+- Use `@figma/code-connect`
+- Map Figma variant props → component props directly
+- Add an `example` covering default usage
+- Specify the Figma node URL if known; if not known, put `// TODO: node URL` and tell the user in the end-of-task summary
 
 ### Barrel (index.ts)
 
@@ -169,55 +169,55 @@ export type { ComponentNameProps } from './ComponentName.types'
 
 ---
 
-## Verification (ทำก่อนจบ task — ห้ามข้าม)
+## Verification (do before finishing the task — do not skip)
 
-1. ทุก variant ใน `legacy/mui/rules/components/{name}.md` มี story ใน `.stories.tsx` ตรงกัน — list cross-check
-2. ทุก token ที่ใช้ในโค้ดมีอยู่จริงใน `legacy/mui/tokens.json`
-3. ไม่มี hardcoded hex/px/rem ใน `.tsx`
-4. `.ai.md` ตรงกับ `legacy/mui/rules/components/{name}.md` ทุกตัวอักษร (ห้าม drift)
-5. Component มี `"use client"` ที่บรรทัดแรก
-6. ถ้าเป็น form component (input/select/tabs) ต้อง `forwardRef`
+1. Every variant in `legacy/mui/rules/components/{name}.md` has a matching story in `.stories.tsx` — list cross-check
+2. Every token used in the code really exists in `legacy/mui/tokens.json`
+3. No hardcoded hex/px/rem in `.tsx`
+4. `.ai.md` matches `legacy/mui/rules/components/{name}.md` character for character (no drift)
+5. The component has `"use client"` on the first line
+6. If it is a form component (input/select/tabs), it must use `forwardRef`
 
-### ★ Visual Verify — ห้าม claim "done" ก่อนทำครบ
+### ★ Visual Verify — do not claim "done" before completing all of it
 
-7. **Storybook ต้องรัน** — ถ้า dev server ยังไม่รัน ให้ report ให้ user รัน
-8. **Screenshot AllVariants story** — ใช้ computer-use หรือ browser MCP ถ่ายภาพ
-9. **Screenshot Figma component set** — ใช้ `figma_take_screenshot` หรือ `figma_get_component_image`
-10. **เทียบทีละ combination** — report จุดต่างที่พบ (ถ้าไม่มีจุดต่าง ให้ระบุว่า "verified: no diff")
-11. **ห้าม report done ถ้ายังไม่ได้ทำข้อ 8–10** — ถ้า Storybook ยังไม่เปิด ให้บอก user ชัดๆ ว่าต้องรัน dev server ก่อน visual verify
+7. **Storybook must be running** — if the dev server is not running, report to the user to run it
+8. **Screenshot the AllVariants story** — use computer-use or the browser MCP to capture the image
+9. **Screenshot the Figma component set** — use `figma_take_screenshot` or `figma_get_component_image`
+10. **Compare combination by combination** — report the differences found (if there are none, state "verified: no diff")
+11. **Do not report done if items 8–10 have not been done** — if Storybook is not open, tell the user plainly that the dev server must be run before visual verify
 
-12. **บังคับ publish Code Connect** — รัน `npm run code-connect:publish` จาก project root ทุกครั้งหลังสร้าง/แก้ `.figma.tsx` (token อ่านจาก `.env.local` อัตโนมัติ). ถ้าไม่มี token ให้รายงาน error ชัดเจน ห้ามข้ามขั้นตอนนี้
-13. รายงานท้าย task: ระบุไฟล์ที่สร้าง + variant count + token count + Code Connect publish result + visual verify result + caveats
+12. **Publishing Code Connect is mandatory** — run `npm run code-connect:publish` from the project root every time after creating/editing `.figma.tsx` (the token is read from `.env.local` automatically). If there is no token, report the error clearly; do not skip this step
+13. End-of-task report: state the files created + variant count + token count + Code Connect publish result + visual verify result + caveats
 
 ---
 
 ## Stop conditions
 
-หยุดและถาม user ก่อน ห้าม assume ถ้า:
+Stop and ask the user first; do not assume, if:
 
-- `legacy/mui/rules/components/{name}.md` ไม่มี → แนะนำให้ run skill `component-doc` ก่อน
-- Token ที่อ้างถึงใน .md ไม่มีใน `legacy/mui/tokens.json` → token drift, ต้อง sync ก่อน (skill `token-sync`)
-- Figma variant ไม่ตรงกับ doc (เมื่อ MCP เปิด) → ต้อง audit ก่อน (skill `audit`)
-- Component นี้อยู่ในกลุ่ม custom (ai-bubble, ai-streaming, ai-suggest) → ไม่ wrap MUI, ต้องคุย pattern ก่อน
+- `legacy/mui/rules/components/{name}.md` does not exist → recommend running the `component-doc` skill first
+- A token referenced in the .md does not exist in `legacy/mui/tokens.json` → token drift, must sync first (skill `token-sync`)
+- The Figma variants do not match the doc (when the MCP is open) → must audit first (skill `audit`)
+- The component is in the custom group (ai-bubble, ai-streaming, ai-suggest) → do not wrap MUI; the pattern must be discussed first
 
 ---
 
 ## Example invocation flow
 
 ```text
-User: สร้าง code crv-button
+User: create code crv-button   (Thai: "สร้าง code crv-button")
 
 AI:
-1. อ่าน CLAUDE.md
-2. อ่าน legacy/mui/rules/core-rules.md
-3. อ่าน legacy/mui/tokens.json
-4. อ่าน code/tokens.ts — typography section
-5. อ่าน legacy/mui/rules/components/crv-button.md
-6. ★ Figma scan — dump ทุก combination จาก component set node
-7. ★ สร้าง ground truth table ครบทุก variant × color × state
-8. ★ เทียบกับ doc — ถ้าผิด แก้ doc ก่อน
-9. Generate 7 ไฟล์ใน legacy/mui/code/core/components/CrvButton/ จาก ground truth table
+1. Read CLAUDE.md
+2. Read legacy/mui/rules/core-rules.md
+3. Read legacy/mui/tokens.json
+4. Read code/tokens.ts — typography section
+5. Read legacy/mui/rules/components/crv-button.md
+6. ★ Figma scan — dump every combination from the component set node
+7. ★ Build a ground truth table covering every variant × color × state
+8. ★ Compare with the doc — if wrong, fix the doc first
+9. Generate 7 files in legacy/mui/code/core/components/CrvButton/ from the ground truth table
 10. cross-check variants, tokens, no hardcoded values
-11. ★ Screenshot AllVariants (Storybook) + Screenshot Figma — เทียบรูป report จุดต่าง
-12. รายงาน: "สร้าง CrvButton ครบ 7 ไฟล์ — 18 variants, 8 tokens, visual verify: no diff"
+11. ★ Screenshot AllVariants (Storybook) + Screenshot Figma — compare images, report differences
+12. Report: "Created CrvButton, all 7 files — 18 variants, 8 tokens, visual verify: no diff"
 ```

@@ -1,48 +1,48 @@
 # Menu (dropdown-menu) — Figma specification
 
-อ่านจาก Figma วันที่ 26 พฤศจิกายน 2026: [Menu](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt?node-id=4497-77728) (ไฟล์ Cariva Core Design System) สีทุกจุดในชุดผูกตัวแปรในไฟล์ (87 จุด ไม่มี library เก่า)
+Read from Figma on 26 November 2026: [Menu](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt?node-id=4497-77728) (Cariva Core Design System file). All colors in the sets are bound to variables in the file (87 points, no old library)
 
-ผู้ใช้สั่ง (26 พ.ย. 2026) ให้ใช้เมนูนี้กับรายการทุกแบบที่หล่นลงมาจาก trigger จึงใช้สเปกเดียวกับ **DropdownMenu, Select และ Combobox**
+The user ordered (26 Nov 2026) that this menu be used for every kind of list that drops down from a trigger, so it uses the same spec as **DropdownMenu, Select and Combobox**
 
-## ชุดใน Figma (เปลี่ยนชื่อแล้ว ชื่อเดิมสำรองใน plugin data `oldName_2026-11-26`)
+## Sets in Figma (renamed; original names backed up in plugin data `oldName_2026-11-26`)
 
-| ชื่อใหม่ | ชื่อเดิม | instance (ก่อน → หลัง) |
+| New name | Original name | instance (before → after) |
 |---|---|---|
 | `dropdown-menu-item` | `crv-menu-item` | 135 → 135 |
 | `dropdown-menu-content` | `crv-menu` | 1 → 1 |
 
-prop เดิมไม่เปลี่ยน (`variant` default / checkbox, `state` default / hover, `selected`, `disabled`, `scrollable`) ข้อความชื่อเดิมในกรอบเอกสาร (7 จุด) เปลี่ยนเป็นชื่อใหม่แล้ว
+Original props unchanged (`variant` default / checkbox, `state` default / hover, `selected`, `disabled`, `scrollable`). The original-name text in the doc frame (7 places) has been changed to the new names
 
-## สเปก
+## Spec
 
-- **พื้นผิว (`dropdown-menu-content`):** พื้น `on-surface/default` มุมโค้ง 12 padding บน/ล่าง 8 (ไม่มี padding ซ้ายขวา รายการเต็มความกว้าง; ผู้ใช้แก้ใน Figma 26 พ.ย. 2026 จากเดิม padding 8 รอบด้าน) ขอบ 1px `border/default` เงา `shadow/lg` ตัวอย่างกว้าง 200 รายการกว้าง 200 (สูงสุดตามเนื้อหา, `scrollable=true` เลื่อนได้)
-- **รายการ (`dropdown-menu-item`):** สูง 40 padding 8/16 ช่องว่าง 12 มุมโค้ง 4 ข้อความ 14/20 Medium `content/primary`; ไอคอนหน้าและหลัง 20px สี `content/secondary` (ซ่อนได้)
-- hover: พื้น `on-surface/action/hover` · selected: พื้น `on-surface/action/selected` และไอคอนท้ายสี `brand/primary/content/default`
-- disabled: ข้อความและไอคอน `content/disabled` พื้นปกติ
-- `variant=checkbox`: ไอคอนหน้าเป็นช่องติ๊ก 16px (มุม 4 ขอบ `border/default`; ติ๊กแล้วพื้น `brand/primary/on-surface/default` ไอคอนติ๊ก)
+- **Surface (`dropdown-menu-content`):** fill `on-surface/default`, corner radius 12, top/bottom padding 8 (no left/right padding, items are full width; the user changed this in Figma on 26 Nov 2026 from the original padding of 8 on all sides), 1px `border/default` border, `shadow/lg` shadow; the example is 200 wide with items 200 wide (height follows the content up to a maximum; `scrollable=true` allows scrolling)
+- **Item (`dropdown-menu-item`):** height 40, padding 8/16, gap 12, corner radius 4, text 14/20 Medium `content/primary`; leading and trailing icons 20px color `content/secondary` (can be hidden)
+- hover: fill `on-surface/action/hover` · selected: fill `on-surface/action/selected` and trailing icon color `brand/primary/content/default`
+- disabled: text and icons `content/disabled`, normal fill
+- `variant=checkbox`: the leading icon is a 16px checkbox (corner 4, `border/default` border; when checked, fill `brand/primary/on-surface/default` with a check icon)
 
-## ชื่อ Figma ↔ โค้ด
+## Figma names ↔ Code
 
-| Figma | โค้ด |
+| Figma | Code |
 |---|---|
 | `dropdown-menu-content` | `DropdownMenuContent`, `DropdownMenuSubContent`, `SelectContent`, `ComboboxContent` |
 | `dropdown-menu-item` variant default | `DropdownMenuItem`, `DropdownMenuSubTrigger`, `DropdownMenuRadioItem`, `SelectItem`, `ComboboxItem` |
 | `dropdown-menu-item` variant checkbox | `DropdownMenuCheckboxItem` |
-| `state` hover | เฉพาะ Figma (โค้ดใช้ focus / highlighted) |
+| `state` hover | Figma only (code uses focus / highlighted) |
 | `selected` | `data-selected` (Select, Combobox) / `data-checked` (checkbox, radio) |
 | `disabled` | `disabled` |
 
-สเปกร่วมอยู่ที่ `ui/menu-recipe.ts` (`menuSurfaceClass`, `menuPopupClass`, `menuItemClass`)
+The shared spec is in `ui/menu-recipe.ts` (`menuSurfaceClass`, `menuPopupClass`, `menuItemClass`)
 
-## โค้ด (26 พ.ย. 2026)
+## Code (26 Nov 2026)
 
-| เรื่อง | สถานะ |
+| Item | Status |
 |---|---|
-| พื้นผิว: มุม 12, padding บน/ล่าง 8 ซ้ายขวา 0, พื้นขาว, เงา `shadow/lg` | ตรง (วัดใน story `FigmaMenu`; Select popup วัดก่อนปรับเป็น padding รอบด้าน 8 ยังไม่ได้วัดซ้ำ) |
-| รายการ: สูง 40, padding 8/16, มุม 4, ข้อความ 14/20 น้ำหนัก 500 สี `#0F172A` | ตรง (วัดแล้วทั้ง DropdownMenu และ SelectItem) |
-| disabled ข้อความ `#94A3B8` ไม่ลด opacity, ช่องติ๊ก 16px พื้น `#1789FA` ตอนติ๊ก, พื้น selected `#EEF9FF` | ตรง (วัดใน story) |
-| Combobox popup, ไอคอนนำหน้า/ท้ายตามดีไซน์, `scrollable`, ขอบพื้นผิว 1px | ตั้งตาม Figma **ยังไม่ได้วัด** |
+| Surface: corner 12, top/bottom padding 8, left/right 0, white fill, `shadow/lg` shadow | matches (measured in story `FigmaMenu`; the Select popup was measured before being changed to padding 8 on all sides and has not been re-measured) |
+| Item: height 40, padding 8/16, corner 4, text 14/20 weight 500 color `#0F172A` | matches (measured for both DropdownMenu and SelectItem) |
+| disabled text `#94A3B8` with no opacity reduction, 16px checkbox fill `#1789FA` when checked, selected fill `#EEF9FF` | matches (measured in story) |
+| Combobox popup, leading/trailing icons per the design, `scrollable`, 1px surface border | set per Figma, **not measured** |
 
-**ข้อควรทราบ:** รายการที่ทั้ง selected และ highlighted พร้อมกัน (เช่น ตอนเปิด Select ที่มีค่าเลือกอยู่) แสดงสี hover เพราะ Figma ไม่ได้กำหนดสถานะรวม; `DropdownMenuLabel`, `Separator`, `Shortcut` และเมนู Context / Menubar ไม่ได้แตะ
+**Note:** an item that is both selected and highlighted at once (e.g. when opening a Select that has a selected value) shows the hover color because Figma does not define a combined state; `DropdownMenuLabel`, `Separator`, `Shortcut` and the Context / Menubar menus were not touched
 
-**ผลกระทบ:** รายการเมนูเดิมมุมโค้ง 24 (`rounded-xl`) padding 8/12 ตัวอักษร 14 ปกติ สีโฟกัส accent ตอนนี้มุม 4 padding 8/16 น้ำหนัก 500 สีพื้นตาม token; พื้นผิวเดิมมุม 24 เงา 2xl ตอนนี้มุม 12 เงา lg ขอบ 1px; ช่องติ๊กของ checkbox item อยู่ซ้าย (เดิมเครื่องหมายอยู่ขวา) กระทบทุกที่ที่ใช้ DropdownMenu / Select / Combobox รวมหน้า Catalog
+**Impact:** menu items were previously corner radius 24 (`rounded-xl`), padding 8/12, regular-weight 14 text, accent focus color; now corner 4, padding 8/16, weight 500, fill color per token; the surface was previously corner 24 with a 2xl shadow, now corner 12 with an lg shadow and a 1px border; the checkbox item's check box is on the left (previously the check mark was on the right); this affects everywhere that uses DropdownMenu / Select / Combobox, including the Catalog page

@@ -49,6 +49,8 @@
   body.preview #viewport, body.preview #bar, body.preview #status { display: none; }
   #modes [hidden], #preview[hidden] { display: none; }
   #status { position: fixed; top: 76px; left: 12px; color: var(--muted); }
+  body.panels-hidden #modes, body.panels-hidden #bar, body.panels-hidden #status, body.panels-hidden #notice { display: none; }
+  body.panels-hidden #preview { inset: 0; width: 100%; height: 100%; }
 </style>
 </head>
 <body>
@@ -57,9 +59,11 @@
 <nav id="modes" aria-label="มุมมอง prototype">
   <button id="canvas-mode" aria-pressed="true">Canvas</button>
   <button id="preview-mode" aria-pressed="false">Preview</button>
-  <select id="case" aria-label="เลือกหน้า / เคส"></select>
+  <label for="page">Page</label>
+  <select id="page" aria-label="เลือก Page"></select>
   <button id="fullscreen" hidden>ขยายเต็มจอ</button>
   <a id="open-preview" target="_blank" rel="noopener noreferrer">เปิดเต็มหน้า ↗</a>
+  <button id="hide-panels" title="Cmd / Ctrl + \\ · ซ่อนหรือแสดงแผงควบคุม">ซ่อนแผงควบคุม</button>
 </nav>
 <div id="notice" role="status" style="position:fixed;bottom:16px;left:16px;background:var(--panel);color:var(--ink)"></div>
 <div id="status">Cariva Canvas · space/ลากพื้นหลัง = เลื่อน · ⌘/ctrl+ล้อ = ซูม</div>
@@ -77,7 +81,42 @@ new ResizeObserver(([entry]) => document.documentElement.style.setProperty('--to
 let doc = { storybook: 'http://localhost:6006', view: { x: 0, y: 0, zoom: 1 }, frames: [] };
 const params = new URLSearchParams(location.search);
 let sel = params.get('case'), saveTimer = null;
+let pageId = params.get('page');
+const pageSelections = new Map();
+const activeFrames = () => doc.frames.filter(f => f.page === pageId);
+function selectPage(id) {
+  const next = doc.pages.find(p => p.id === id);
+  if (!next || id === pageId) return;
+  const previous = doc.pages.find(p => p.id === pageId);
+  if (previous) previous.view = { ...doc.view };
+  pageSelections.set(pageId, sel);
+  pageId = id; sel = pageSelections.get(id) || null;
+  doc.view = { ...(next.view || { x: 24, y: 140, zoom: .3 }) };
+  applyView(); render();
+}
 let mode = params.get('mode') === 'preview' ? 'preview' : 'canvas';
+let panelsHidden = false;
+function togglePanels() {
+  panelsHidden = !panelsHidden;
+  document.body.classList.toggle('panels-hidden', panelsHidden);
+  if (panelsHidden) {
+    if (document.activeElement?.closest('#modes, #bar')) document.activeElement.blur();
+  } else $('#hide-panels').focus();
+}
+$('#hide-panels').onclick = togglePanels;
+function panelShortcut(e) {
+  if ((e.metaKey || e.ctrlKey) && e.code === 'Backslash') {
+    e.preventDefault(); e.stopImmediatePropagation(); togglePanels();
+  }
+}
+addEventListener('keydown', panelShortcut);
+function bindPanelShortcut(frame) {
+  frame.addEventListener('load', () => {
+    // Storybook frames are same-origin. Cross-origin frames remain isolated.
+    try { frame.contentDocument?.addEventListener('keydown', panelShortcut, true); } catch {}
+  });
+}
+bindPanelShortcut($('#preview'));
 function storyUrl(story) {
   const base = doc.storybook ? new URL(doc.storybook + '/') : new URL('../', location.href);
   const url = new URL('iframe.html', base);
@@ -89,12 +128,12 @@ function selectCase(id) {
   document.querySelectorAll('.frame').forEach(el => el.classList.toggle('sel', el.dataset.id === sel));
 }
 function updateMode() {
-  const frame = doc.frames.find(f => f.id === sel) || doc.frames[0];
+  const frame = activeFrames().find(f => f.id === sel) || activeFrames()[0];
   sel = frame?.id || null;
   document.body.classList.toggle('preview', mode === 'preview');
   $('#canvas-mode').setAttribute('aria-pressed', String(mode === 'canvas'));
   $('#preview-mode').setAttribute('aria-pressed', String(mode === 'preview'));
-  $('#case').value = sel || '';
+  $('#page').value = pageId;
   $('#preview').hidden = mode !== 'preview' || !frame;
   $('#fullscreen').hidden = mode !== 'preview' || !frame || !document.fullscreenEnabled;
   if (frame) {
@@ -105,16 +144,17 @@ function updateMode() {
   $('#open-preview').hidden = !frame;
   const url = new URL(location.href);
   url.searchParams.set('mode', mode);
+  url.searchParams.set('page', pageId);
   if (sel) url.searchParams.set('case', sel); else url.searchParams.delete('case');
   history.replaceState(null, '', url);
 }
 $('#canvas-mode').onclick = () => { mode = 'canvas'; updateMode(); };
 $('#preview-mode').onclick = () => { mode = 'preview'; updateMode(); };
-$('#case').onchange = e => selectCase(e.target.value);
+$('#page').onchange = e => selectPage(e.target.value);
 $('#fullscreen').onclick = () => $('#preview').requestFullscreen().catch(() => { $('#notice').textContent = 'Browser ไม่อนุญาต fullscreen ใช้ปุ่มเปิดเต็มหน้าได้'; $('#fullscreen').hidden = true; });
 const FRAMES = (new URLSearchParams(location.search).get('frames') || 'frames').replace(/[^A-Za-z0-9_.-]/g, '');
 
-const save = () => { if (location.port !== '6019') return; clearTimeout(saveTimer); saveTimer = setTimeout(() =>
+const save = () => { const page = doc.pages?.find(p => p.id === pageId); if (page) page.view = { ...doc.view }; if (location.port !== '6019') return; clearTimeout(saveTimer); saveTimer = setTimeout(() =>
   fetch('/canvas/frames?name=' + FRAMES, { method: 'POST', body: JSON.stringify(doc, null, 2) }).catch(() => {}), 300); };
 
 function applyView() {
@@ -131,19 +171,24 @@ function zoomAt(cx, cy, factor) {
 
 function render() {
   world.innerHTML = '';
-  $('#case').replaceChildren(...doc.frames.map(f => { const option = document.createElement('option'); option.value = f.id; option.textContent = f.title; return option; }));
-  for (const f of doc.frames) {
+  $('#page').replaceChildren(...doc.pages.map(p => { const option = document.createElement('option'); option.value = p.id; option.textContent = p.title; return option; }));
+  for (const f of activeFrames()) {
     const el = document.createElement('div');
     el.dataset.id = f.id;
     el.className = 'frame' + (f.id === sel ? ' sel' : '');
     el.style.cssText = `left:${f.x}px;top:${f.y}px;width:${f.w}px;height:${f.h}px`;
-    el.innerHTML = `<div class="title"><span>${f.title}</span><button title="reload">↻</button><button title="ลบ">✕</button></div>
+    el.innerHTML = `<div class="title"><span role="button" tabindex="0" aria-label="เลือก ${f.title}">${f.title}</span><button title="reload">↻</button><button title="ลบ">✕</button></div>
       <div class="box"><iframe loading="lazy" title="${f.title}" src="${storyUrl(f.story)}"></iframe></div>
       <div class="grip"></div>`;
     const [reload, del] = el.querySelectorAll('.title button');
+    bindPanelShortcut(el.querySelector('iframe'));
     reload.onclick = () => { const i = el.querySelector('iframe'); i.src = i.src; };
     del.onclick = () => { doc.frames = doc.frames.filter((x) => x !== f); render(); save(); };
     el.querySelector('.title span').onpointerdown = (e) => startDrag(e, f, el, 'move');
+    el.querySelector('.title span').onclick = () => selectCase(f.id);
+    el.querySelector('.title span').onkeydown = e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); selectCase(f.id); }
+    };
     el.querySelector('.grip').onpointerdown = (e) => startDrag(e, f, el, 'resize');
     el.addEventListener('pointerdown', () => { if (sel !== f.id) { selectCase(f.id); } });
     world.appendChild(el);
@@ -186,17 +231,19 @@ vp.addEventListener('wheel', (e) => {
 $('#in').onclick = () => zoomAt(innerWidth / 2, innerHeight / 2, 1.25);
 $('#out').onclick = () => zoomAt(innerWidth / 2, innerHeight / 2, 0.8);
 $('#fit').onclick = () => {
-  if (!doc.frames.length) return;
-  const x0 = Math.min(...doc.frames.map((f) => f.x)), y0 = Math.min(...doc.frames.map((f) => f.y - 24));
-  const x1 = Math.max(...doc.frames.map((f) => f.x + f.w)), y1 = Math.max(...doc.frames.map((f) => f.y + f.h));
+  const frames = activeFrames();
+  if (!frames.length) return;
+  const x0 = Math.min(...frames.map((f) => f.x)), y0 = Math.min(...frames.map((f) => f.y - 24));
+  const x1 = Math.max(...frames.map((f) => f.x + f.w)), y1 = Math.max(...frames.map((f) => f.y + f.h));
   const z = Math.min(2, Math.min((innerWidth - 80) / (x1 - x0), (innerHeight - 140) / (y1 - y0)));
   doc.view = { zoom: z, x: (innerWidth - (x1 - x0) * z) / 2 - x0 * z, y: (innerHeight - 80 - (y1 - y0) * z) / 2 - y0 * z };
   applyView(); save();
 };
 $('#add').onclick = () => {
   const story = $('#story').value.trim(); if (!story) return;
-  const v = doc.view, right = Math.max(0, ...doc.frames.map((f) => f.x + f.w));
-  doc.frames.push({ id: 'f' + Date.now(), title: story, story, x: doc.frames.length ? right + 80 : Math.round(-v.x / v.zoom + 40), y: doc.frames.length ? doc.frames[0].y : Math.round(-v.y / v.zoom + 60), w: 480, h: 360 });
+  const frames = activeFrames();
+  const v = doc.view, right = Math.max(0, ...frames.map((f) => f.x + f.w));
+  doc.frames.push({ id: 'f' + Date.now(), title: story, story, page: pageId, x: frames.length ? right + 80 : Math.round(-v.x / v.zoom + 40), y: frames.length ? frames[0].y : Math.round(-v.y / v.zoom + 60), w: 480, h: 360 });
   $('#story').value = ''; render(); save();
 };
 
@@ -205,14 +252,18 @@ $('#add').onclick = () => {
   const onSync = location.port === '6019';
   try { doc = await (await fetch(onSync ? '/canvas/frames?name=' + FRAMES : './' + FRAMES + '.json')).json(); } catch {}
   if (!onSync) { doc.storybook = ''; $('#status').textContent = 'Cariva Canvas · ดูอย่างเดียว (แก้เลย์เอาต์ใน sync/canvas/' + FRAMES + '.json)'; }
-  applyView();
   try {
     const idx = await (await fetch(new URL('index.json', doc.storybook ? doc.storybook + '/' : new URL('../', location.href)))).json();
     // Resolve renamed catalog entries against the live index, never render missing stories.
     doc.frames = doc.frames.map(f => ({ ...f, story: idx.entries[f.story] ? f.story : f.story.replace(/^core-/, 'core-components-') })).filter(f => idx.entries[f.story]?.type === 'story');
     $('#stories').innerHTML = Object.values(idx.entries).filter((e) => e.type === 'story').map((e) => `<option value="${e.id}">${e.title} / ${e.name}</option>`).join('');
   } catch { $('#status').textContent += ' · โหลดรายการ Storybook ไม่สำเร็จ'; }
-  render();
+  // Legacy flat boards become one page without changing their frames.
+  if (!doc.pages?.length) doc.pages = [{ id: 'all', title: 'ทุกโฟลว', view: { ...doc.view } }];
+  for (const frame of doc.frames) if (!doc.pages.some(p => p.id === frame.page)) frame.page = doc.pages[0].id;
+  pageId = doc.pages.find(p => p.id === pageId)?.id || doc.frames.find(f => f.id === sel)?.page || doc.pages[0].id;
+  doc.view = { ...(doc.pages.find(p => p.id === pageId).view || doc.view) };
+  applyView(); render();
 })();
 </script>
 </body>

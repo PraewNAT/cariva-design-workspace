@@ -1,55 +1,55 @@
 # Select — Figma specification
 
-อ่านจาก Figma วันที่ 26 พฤศจิกายน 2026: [Dropdown](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt?node-id=3875-3311) (ไฟล์ Cariva Core Design System) สีทุกจุด 108 จุดผูกตัวแปรในไฟล์
+Read from Figma on 26 November 2026: [Dropdown](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt?node-id=3875-3311) (Cariva Core Design System file). All 108 color points are bound to variables in the file.
 
-## ชุดใน Figma (เปลี่ยนชื่อแล้ว ชื่อเดิมสำรองใน plugin data `oldName_2026-11-26` / `oldNames_2026-11-26`)
+## Sets in Figma (renamed; original names backed up in plugin data `oldName_2026-11-26` / `oldNames_2026-11-26`)
 
-| ชื่อใหม่ | ชื่อเดิม | instance (ก่อน → หลัง) |
+| New name | Original name | instances (before → after) |
 |---|---|---|
 | `select` | `crv-dropdown` | 14 → 14 |
 
-ค่า `size` เปลี่ยน medium → `lg`, small → `default` (ตรงกับ Input Field และ Combobox); ข้อความ `crv-dropdown` ในกรอบ `📄 Dropdown Doc` (2 จุด) เปลี่ยนเป็น `select` แล้ว (ข้อความเดิมใน plugin data `docText_2026-11-26`) ชื่อ prop ในกรอบเอกสาร เช่น `size: small | medium` ยังไม่ได้แก้
+The `size` values changed medium → `lg`, small → `default` (matching Input Field and Combobox); the text `crv-dropdown` in the `📄 Dropdown Doc` frame (2 places) was changed to `select` (original text in plugin data `docText_2026-11-26`). Prop names in the doc frame, such as `size: small | medium`, have not been updated yet.
 
-## สเปก
+## Spec
 
 | | default | lg |
 |---|---|---|
-| ความสูงช่อง | 40px (padding 8/16) | 48px (padding 12/16) |
-| ลูกศรลง | 20px | 24px |
-| ป้ายชื่อ | 12/16 Medium | 14/20 Medium |
+| Field height | 40px (padding 8/16) | 48px (padding 12/16) |
+| Down arrow | 20px | 24px |
+| Label | 12/16 Medium | 14/20 Medium |
 
-ช่อง: ทรงแคปซูลตาม `--input-radius` พื้น `on-surface/default` ช่องว่างข้อความกับลูกศร 8 ข้อความ 16/24 (placeholder `content/placeholder`, ค่าที่เลือก `content/primary`) ลูกศร `content/secondary` ข้อความช่วยและข้อความ error 12/16
+Field: pill shape following `--input-radius`, fill `on-surface/default`, gap between text and arrow 8, text 16/24 (placeholder `content/placeholder`, selected value `content/primary`), arrow `content/secondary`, helper text and error text 12/16.
 
-| สถานะ | ขอบ |
+| State | Border |
 |---|---|
-| ปกติ | `border/default` 1px |
-| ชี้เมาส์ | `border/strong` 1px |
-| โฟกัส | `border/system` 2px |
-| error | `border/error` 2px, ป้ายชื่อ `status/error/content/default` |
-| disabled | `border/disabled` 1px, พื้น `on-surface/action/disabled`, ข้อความ ลูกศรและป้ายชื่อ `content/disabled` |
+| Normal | `border/default` 1px |
+| Hover | `border/strong` 1px |
+| Focus | `border/system` 2px |
+| error | `border/error` 2px, label `status/error/content/default` |
+| disabled | `border/disabled` 1px, fill `on-surface/action/disabled`, text, arrow and label `content/disabled` |
 
-## ชื่อ Figma ↔ โค้ด
+## Figma name ↔ Code
 
-| Figma | โค้ด |
+| Figma | Code |
 |---|---|
 | `select` | `Select` + `SelectTrigger` (`ui/select.tsx`) |
-| `size` default / lg | `size` ของ `SelectTrigger` |
-| `disabled` | `disabled` ของ `Select` |
-| `error` | `aria-invalid` ของ `SelectTrigger` |
-| `label`, `helperText`, `errorMessage` | `FieldLabel`, `FieldDescription`, `FieldError` (ห่อด้วย `Field`) |
-| `placeholder`, `value` | `SelectValue placeholder`, ค่าที่เลือก |
-| `state` hover / focused, `filled` | เฉพาะ Figma |
+| `size` default / lg | `size` of `SelectTrigger` |
+| `disabled` | `disabled` of `Select` |
+| `error` | `aria-invalid` of `SelectTrigger` |
+| `label`, `helperText`, `errorMessage` | `FieldLabel`, `FieldDescription`, `FieldError` (wrapped in `Field`) |
+| `placeholder`, `value` | `SelectValue placeholder`, the selected value |
+| `state` hover / focused, `filled` | Figma only |
 
-## โค้ด (26 พ.ย. 2026)
+## Code (26 Nov 2026)
 
-| เรื่อง | สถานะ |
+| Topic | Status |
 |---|---|
-| ความสูง 40 / 48 | ตรง (วัดใน story `FigmaStates`) |
-| ขอบปกติ `#E2E8F0`, error `#DC2626` | ตรง (วัดใน story) |
-| disabled พื้น `#F1F5F9`, opacity 1 | ตรง (วัดใน story) |
-| ลูกศร 24 (lg) | ตรง (วัดใน story) |
-| ขอบตอนชี้เมาส์ / โฟกัส / เปิดรายการ, ลูกศร 20 (default), สีตัวหนังสือ | ตั้งตาม Figma **ยังไม่ได้วัด** |
+| Height 40 / 48 | matches (measured in story `FigmaStates`) |
+| Normal border `#E2E8F0`, error `#DC2626` | matches (measured in story) |
+| disabled fill `#F1F5F9`, opacity 1 | matches (measured in story) |
+| Arrow 24 (lg) | matches (measured in story) |
+| Border on hover / focus / open list, arrow 20 (default), text color | set per Figma, **Not measured** |
 
-**ไม่ได้ทำ:** รายการที่เปิดออกมา (`SelectContent`, `SelectItem`, scroll buttons) ไม่มีดีไซน์ในหน้านี้ จึงยังเป็นสไตล์เดิม
+**Not done:** the opened list (`SelectContent`, `SelectItem`, scroll buttons) has no design on this page, so it keeps its previous styling.
 
-**ผลกระทบ:** `size="sm"` ถูกแทนด้วย `default` (40) และ `default` เดิมที่ไม่ได้กำหนดตอนนี้ 40 เท่าเดิม แต่เพิ่ม `lg` (48); ขอบเดิมใช้ `ring-input` และโฟกัส 3px ตอนนี้เป็นขอบ 2px ตาม token; disabled เป็นสีเฉพาะแทนลด opacity; ลูกศรเปลี่ยนเป็นไอคอน Material ใช้กับ `CatalogForm`
+**Impact:** `size="sm"` is replaced by `default` (40), and the previous unset `default` is now 40, the same as before, but `lg` (48) is added; the previous border used `ring-input` and a 3px focus, which is now a 2px token-based border; disabled uses a dedicated color instead of reduced opacity; the arrow changes to a Material icon; used by `CatalogForm`.

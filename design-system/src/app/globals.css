@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@source "../../../workspace/presentation";
 @import "shadcn/tailwind.css";
 @import "@fontsource/ibm-plex-sans-thai/400.css";
 @import "@fontsource/ibm-plex-sans-thai/500.css";

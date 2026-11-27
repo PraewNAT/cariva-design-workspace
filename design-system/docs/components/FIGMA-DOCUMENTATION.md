@@ -1,8 +1,8 @@
 # Figma documentation mapping
 
-อัปเดต 26 พฤศจิกายน 2026 ตามคำขอให้อัปเดต docs ของ component ที่ทำในแชทนี้ทั้งหมด. ไฟล์ DS: Cariva Core Design System (`XgxprkSY5mGbzIIwlmscCt`). เป็นการอัปเดตเอกสารและ descriptions ไม่ใช่การ publish library/Code Connect หรือเปลี่ยน property API.
+Updated 26 November 2026 per the request to update the docs of all components worked on in this chat. DS file: Cariva Core Design System (`XgxprkSY5mGbzIIwlmscCt`). This is an update of documents and descriptions, not publishing the library/Code Connect or changing the property API.
 
-| Family | Page node | Docs node / ลิงก์จริง | Code source |
+| Family | Page node | Docs node / actual link | Code source |
 |---|---|---|---|
 | Avatar | 4315:9628 | [Avatar docs](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt/Cariva-Core-Design-System?node-id=4648-15632) | ui/avatar.tsx |
 | Combobox + related FieldLabel | 4453:12569 | [Combobox docs](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt/Cariva-Core-Design-System?node-id=4537-146774) | ui/combobox.tsx, ui/field.tsx |
@@ -11,48 +11,48 @@
 | Card | 4536:123342 | [Card docs](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt/Cariva-Core-Design-System?node-id=4713-2014) | app/content-card.tsx, ui/card.tsx |
 | Date/Time | 4294:5594 | [Date/Time docs](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt/Cariva-Core-Design-System?node-id=7228-128) | app/date-time-pickers.tsx, ui/calendar.tsx, app/patterns.tsx |
 
-Source paths ข้างต้นอยู่ใต้ `shadcn/src/lib/app/components/`. อ่าน API จากโค้ด, visual rules จากข้อที่ตกลง และ audit จากไฟล์ของแต่ละ family. ตัวอย่างใน Figma docs เป็น verified instances ไม่ได้ detach หรือสร้าง component เลียนแบบ. AvatarGroup parity, contrast และ Date/Time keyboard/a11y/geometry ที่ยังรออนุญาตระบุอย่างชัดเจน ไม่ถือว่า docs update เป็นการอนุมัติแก้ code.
+The source paths above are under `shadcn/src/lib/app/components/`. Read the API from code, visual rules from what has been agreed, and audits from each family's file. The examples in the Figma docs are verified instances; they were not detached and no imitation components were created. AvatarGroup parity, contrast and Date/Time keyboard/a11y/geometry that are still awaiting permission are stated explicitly; the docs update is not treated as approval to change code.
 
-อัปเดต5docs framesเดิมและสร้าง Date/Time docsใหม่. ปรับข้อความเดิม47จุด, เพิ่ม code/audit panels และ Profile/Metric specimens ใน Card; descriptionsของ16component setsและvariantsชี้ code contract ปัจจุบัน. Main component names, property definitions, variant geometry และradiusตรวจเทียบ baselineว่าไม่เปลี่ยน.
+Updated the 5 existing docs frames and created a new Date/Time docs. Adjusted 47 existing text points, added code/audit panels and Profile/Metric specimens in Card; the descriptions of the 16 component sets and variants point to the current code contract. Main component names, property definitions, variant geometry and radius were checked against the baseline and are unchanged.
 
-Bottom Sheet ใช้ existing showKeyboard=false เฉพาะ doc instances `4716:46098`, `4716:46282` ตามที่ผู้ใช้อนุญาต; ไม่เปลี่ยน main component. Date range/birth ในหน้า docs ใหม่ overrideค่าข้อความเฉพาะinstancesให้ตรงกับเดือนกันยายน2024 โดยคง link ไปmain component.
+Bottom Sheet uses the existing showKeyboard=false only on doc instances `4716:46098`, `4716:46282` as the user permitted; the main component is unchanged. Date range/birth in the new docs page override text values only on instances to match September 2024, keeping the link to the main component.
 
-Baseline/verification อยู่ใน `output/figma-docs/`; runtime audit เดิมของแต่ละ component ยังคงเป็นหลักฐานตามเวลาที่ตรวจ. งานนี้เป็น documentation-only ไม่รัน app testsซ้ำ และไม่อ้างว่า Date/Time ที่19/20ผ่านกลายเป็น auditผ่านจากการเขียนเอกสาร.
+Baseline/verification are in `output/figma-docs/`; the earlier runtime audit of each component remains evidence as of the time it was checked. This work is documentation-only; app tests were not re-run, and it does not claim that Date/Time at 19/20 passing has become a passed audit just from writing documentation.
 
 **Component Audit — Figma documentation follow-up**
-ผลรวม: อัปเดตเอกสารครบ6หน้า ตรวจภาพและlinksแล้ว โดยไม่เปลี่ยน code หรือ main-component API
-ขอบเขต: docs frames/ข้อความ/description, verified instances, geometry และ baseline ของ16sets; ไม่ใช่ runtime audit รอบใหม่
+Overall: all 6 documentation pages updated, visuals and links checked, with no change to code or main-component API
+Scope: docs frames/text/description, verified instances, geometry and baseline of the 16 sets; not a new runtime audit round
 
-| ระดับ | ผล | รายการ | หลักฐาน | ถัดไป |
+| Level | Result | Item | Evidence | Next |
 |---|---|---|---|---|
-| — | ผ่าน |5framesเดิมและDate/Timeใหม่ ใช้code APIจริงและแยกข้อค้าง; ตรวจภาพครบ6หน้าและไม่พบข้อความล้นกรอบ | output/figma-docs/verification.json; linksข้างบน | ใช้nodeเดิมอัปเดตรอบถัดไป |
-| — | ผ่าน |58instancesมีmain-component linkครบ; ชื่อ/props/variant geometry/radiusของ16setsไม่เปลี่ยน | baseline.json เทียบ verification.json | ไม่publishlibraryเอง |
-| — | ผ่าน |GBoardซ่อนเฉพาะ2doc instancesตามคำยืนยัน; วันที่ใน2doc instancesแก้ให้สอดคล้องกับcalendar | keyboard=false; date specimen IDsในwrite result | Main componentsคงเดิม |
-| สูง | ต้องแก้ |Date/Time codeยังมีkeyboard/ref, accessible names, popup geometry และtesttimingที่รออนุญาต | DATE-TIME-AUDIT.md,19/20tests | รอคำยืนยันเดิมก่อนแก้code |
-| กลาง | ต้องแก้ |Contrast และAvatarGroup parityที่ค้างยังระบุในdocs ไม่อ้างผ่านทั้งหมด | auditของแต่ละfamily | แยกตัดสินใจตามscopeเดิม |
+| — | Pass | The 5 existing frames and the new Date/Time use the real code API and separate out open items; all 6 pages checked visually and no text overflowing its frame was found | output/figma-docs/verification.json; links above | Use the existing nodes for the next update round |
+| — | Pass | All 58 instances have main-component links; names/props/variant geometry/radius of the 16 sets unchanged | baseline.json compared with verification.json | Do not publish the library ourselves |
+| — | Pass | GBoard hidden only on the 2 doc instances per confirmation; dates in the 2 doc instances fixed to match the calendar | keyboard=false; date specimen IDs in the write result | Main components kept as is |
+| High | Needs fix | Date/Time code still has keyboard/ref, accessible names, popup geometry and test timing pending permission | DATE-TIME-AUDIT.md, 19/20 tests | Wait for the earlier confirmation before fixing code |
+| Medium | Needs fix | The open contrast and AvatarGroup parity items are still stated in the docs; not claimed as all passing | Audit of each family | Decide separately by the original scope |
 
-สรุป: ผ่าน3, ต้องแก้2กลุ่มเดิมในcode; docs updateครบ ไม่มีการอ้างว่าruntimeพร้อมใช้งานจากการเขียนเอกสาร
+Summary: 3 passed, 2 original groups still need fixing in code; docs update complete; no claim that the runtime is ready for use from writing documentation
 ### Date/Time template follow-up — 26/11/2026
 
-ปรับหน้า Date/Time เดิม `7228:128` ตาม Document Template `4537:130394` โดยใช้ Blocks `4537:130684`: Header, Vertical/Horizontal Stack, Guidance และ Callout. Detach เฉพาะ documentation block containers ตามคำแนะนำใน template; ตัวอย่าง UI 11 instances ยังเชื่อม main components รวม 6 instances เดิมที่เก็บไว้. ไม่แก้ main component หรือ code.
+Adjusted the existing Date/Time page `7228:128` per Document Template `4537:130394` using Blocks `4537:130684`: Header, Vertical/Horizontal Stack, Guidance and Callout. Detached only the documentation block containers, as the template advises; the 11 UI example instances remain linked to main components, including the 6 existing instances that were kept. Main component and code not changed.
 
-ตรวจภาพและโครงสร้าง editable แล้ว: ไม่มีภาพแบนทับ UI, ข้อความเอกสารใช้ Inter ตาม template ขนาดขั้นต่ำ 20px และไม่พบข้อความเอกสารล้นกรอบ. ซ่อนช่องตัวอย่างว่างใน Guidance และ availability badges ที่ template ติ๊กมาให้เพื่อไม่อ้างการรองรับที่ยังไม่ตรวจ. API และข้อค้าง audit 19/20 ยังคงระบุไว้; การปรับ template ไม่ทำให้ runtime audit ผ่าน.
+Checked visually and the editable structure: no flattened images over the UI, document text uses Inter per the template at a minimum size of 20px, and no document text overflowing its frame was found. Hid the empty example slots in Guidance and the availability badges that the template had ticked, so as not to claim support that has not been checked. The API and the open audit items 19/20 remain stated; adjusting the template does not make the runtime audit pass.
 
-ต่อไป: รับคำยืนยันข้อค้างDate/Timeเพื่อกลับไปจบงานcodeและaudit
+Next: get confirmation on the open Date/Time items so we can return to finish the code and audit
 
 ### File Upload — 26/11/2026
 
-อัปเดต docs เดิม `4537:147576` ตาม Document Template `4537:130394`/Blocks `4537:130684`, พร้อม 14 linked specimens ครบสอง dropzones และสี่ item states. Source `app/file-upload.tsx`; ดู FILE-UPLOAD-FIGMA.md และ FILE-UPLOAD-AUDIT.md. Main components ไม่เปลี่ยน; code padding 16px ตามคำอนุญาตต่างจาก Figma main 24px.
+Updated the existing docs `4537:147576` per Document Template `4537:130394`/Blocks `4537:130684`, with 14 linked specimens covering both dropzones and the four item states. Source `app/file-upload.tsx`; see FILE-UPLOAD-FIGMA.md and FILE-UPLOAD-AUDIT.md. Main components unchanged; code padding 16px, as permitted, differs from Figma main 24px.
 
 ### Progress / Radio Group / Rating — 26/11/2026
 
-อัปเดต mapped docs เดิมตาม Document Template: [Progress](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt?node-id=4721-88932), [Radio Group](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt?node-id=4537-147363), [Rating](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt?node-id=4887-55058). ใช้ linked specimens36/18/21 รวม75; own textขั้นต่ำ20px, ไม่พบoverflow. เปรียบเทียบ7 main setsแล้ว properties/variants/geometryไม่เปลี่ยน. API/ข้อจำกัดตาม PROGRESS-FIGMA.md, RADIO-GROUP-FIGMA.md, RATING-FIGMA.md และ combined audit.
+Updated the existing mapped docs per Document Template: [Progress](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt?node-id=4721-88932), [Radio Group](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt?node-id=4537-147363), [Rating](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt?node-id=4887-55058). Used linked specimens 36/18/21, 75 in total; own text minimum 20px, no overflow found. Compared the 7 main sets: properties/variants/geometry unchanged. API/limitations per PROGRESS-FIGMA.md, RADIO-GROUP-FIGMA.md, RATING-FIGMA.md and the combined audit.
 
 Credit Badge ownership correction: the25 existing linked instances from sets7089:1151/7094:365 moved from Progress docs4721:88932 into separate Mira docs7296:35. Core Progress retains36 specimens. Existing12px local text overrides and links are preserved. See products/mira/CREDIT-BADGE.md and CREDIT-BADGE-AUDIT.md.
 
 ### Tabs — 26/11/2026
 
-อัปเดต [docs เดิม4838:64978](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt?node-id=4838-64978) ตาม Document Template4537:130394 / Blocks4537:130684 ครบ Standard/Pills/Folder 27 linked specimens. Own textขั้นต่ำ20px ไม่มี horizontal overflow; property API และ geometry ของ5setsไม่เปลี่ยน. Source UI ใช้ IBM Plex Sans Thai. ดู TABS-FIGMA.md, TABS-AUDIT.md และ output/tabs/figma-verification.json; contrast primary ยังเป็นข้อค้าง.
+Updated [the existing docs 4838:64978](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt?node-id=4838-64978) per Document Template 4537:130394 / Blocks 4537:130684, covering Standard/Pills/Folder with 27 linked specimens. Own text minimum 20px with no horizontal overflow; property API and geometry of the 5 sets unchanged. Source UI uses IBM Plex Sans Thai. See TABS-FIGMA.md, TABS-AUDIT.md and output/tabs/figma-verification.json; primary contrast remains an open item.
 
 ### Tooltip Core / Mira - 2026-11-26
 

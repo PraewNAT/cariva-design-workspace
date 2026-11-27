@@ -1,10 +1,10 @@
-# เริ่มใช้ Cariva Core
+# Getting started with Cariva Core
 
-1. ติดตั้งด้วย `npm install` ใน workspace นี้ แล้ว `npm run storybook` (พอร์ต 6006) เพื่อดู Core/Foundations/ตัวอย่างเคส
+1. Install with `npm install` in this workspace, then `npm run storybook` (port 6006) to see Core/Foundations/example cases
 2. Core: `src/lib/app/components/ui`; app compositions: `src/lib/app/components/app`; Core catalog: `src/lib/features/board/presentation`; token source: `tokens.json`
-3. หน้าใหม่ import primitives เช่น `import { Button } from '@/lib/app/components/ui/button'` และ `<Button>บันทึก</Button>`; medium เป็น default40 ไม่ใช่ size=medium แบบ MUI
-4. นำ `src/app/globals.css` เข้า entry พร้อม Tailwind4 และ alias @ ไป src; dependencies ที่ต้องใช้ดู package.json และ source imports ไม่ copy node_modules, legacy หรือ board เข้าตัว UI package
-5. Product theme ใช้ CSS variables ที่ root และ portal ให้สืบทอดชุดเดียวกัน; backOffice ใช้ data-product=backOffice ที่ document root ในแอปจริงเพื่อให้ modal นอก subtree ได้ radius/theme เดียวกัน
-6. ก่อนแก้ Core ค้นหาของเดิม อัปเดต doc/story ที่เกี่ยวข้อง แล้ว audit หน้า+portal+mobile+keyboard และรัน checks ตาม AGENTS.md
+3. New pages import primitives, e.g. `import { Button } from '@/lib/app/components/ui/button'` and `<Button>บันทึก</Button>` (`บันทึก` = "Save"); medium is the default 40, not size=medium as in MUI
+4. Bring `src/app/globals.css` into the entry along with Tailwind 4 and the @ alias to src; for the required dependencies see package.json and the source imports; do not copy node_modules, legacy or board into the UI package
+5. Product themes use CSS variables at the root, and portals inherit the same set; backOffice uses data-product=backOffice on the document root in the real app so that modals outside the subtree get the same radius/theme
+6. Before changing Core, search for what already exists, update the related doc/story, then audit the page + portal + mobile + keyboard and run the checks per AGENTS.md
 
-repo อยู่ที่ https://github.com/PraewNAT/cariva-ds (งานล่าสุดยังไม่ได้ push) ไม่สร้าง URL ปลอม การส่งต่อเป็น source files + Storybook ก่อน ดู SHADCN-MIGRATION.md สำหรับ breaking API และรายการที่ยังไม่ครบ parity; npm package/registry ภายหลังค่อยตกลงกับ Dev
+The repo is at https://github.com/PraewNAT/cariva-ds (the latest work has not been pushed); no fake URLs are created. Handoff is source files + Storybook first; see SHADCN-MIGRATION.md for breaking API changes and the items without full parity yet; an npm package/registry will be agreed with the Dev team later

@@ -1,23 +1,23 @@
 # Cariva Design System / React + shadcn
 
-Active stack: React19, Vite8, Tailwind4, shadcn Base UI, Storybook10 และ Chart.js
+Active stack: React19, Vite8, Tailwind4, shadcn Base UI, Storybook10 and Chart.js
 
-- เริ่มต้นและส่งต่อ Dev: [SHADCN-START](docs/handoff/SHADCN-START.md)
-- โครงสร้างจริง, mappings และข้อจำกัด: [SHADCN-MIGRATION](SHADCN-MIGRATION.md)
-- กฎดีไซน์: [DESIGN.md](DESIGN.md)
-- กฎ AI กลาง: [Shared agent rules](rules/agent-rules.md) โดย [AGENTS.md](AGENTS.md) สำหรับ Codex และ [CLAUDE.md](CLAUDE.md) สำหรับ Claude Code อ่านกฎชุดเดียวกัน
-- ลำดับงานสร้าง/แก้ UI: [UI workflow](rules/ui-workflow.md)
-- ลำดับขั้นและจุดตัดสินใจของทุก flow: [Workflow map](rules/workflow-map.md)
-- ชื่อ component และ property: Figma ↔ โค้ด: [FIGMA-NAMING](docs/components/FIGMA-NAMING.md)
-- Canvas (กระดาน frame แบบ Figma): [sync/README](../sync/README.md)
-- แผนระยะถัดไป: DESIGN-SYSTEM-PLAN.md
-- source ที่รัน: src/lib; โค้ด MUI เดิมอยู่ที่ `legacy/mui/` ที่รากของ repo เป็น reference ไม่ import เข้างานใหม่
+- Getting started and handoff to Dev: [SHADCN-START](docs/handoff/SHADCN-START.md)
+- Actual structure, mappings and limitations: [SHADCN-MIGRATION](SHADCN-MIGRATION.md)
+- Design rules: [DESIGN.md](DESIGN.md)
+- Shared AI rules: [Shared agent rules](rules/agent-rules.md); [AGENTS.md](AGENTS.md) for Codex and [CLAUDE.md](CLAUDE.md) for Claude Code read the same single set of rules
+- Order of work for building/editing UI: [UI workflow](rules/ui-workflow.md)
+- Order of steps and decision gates for every flow: [Workflow map](rules/workflow-map.md)
+- Component and property names: Figma ↔ code: [FIGMA-NAMING](docs/components/FIGMA-NAMING.md)
+- Canvas (Figma-style frame board): [sync/README](../sync/README.md)
+- Next-phase plan: DESIGN-SYSTEM-PLAN.md
+- Running source: src/lib; the previous MUI code lives in `legacy/mui/` at the repo root as a reference and is not imported into new work
 
-`npm run dev` เปิดหน้าว่างสั้นๆ (ไม่มีหน้า Lab/Dashboard แล้ว); `npm run storybook` (พอร์ต 6006) เปิด catalog, Foundations, component และ Canvas (Workspace/Canvas) พร้อม source code
+`npm run dev` opens a short blank page (the Lab/Dashboard pages no longer exist); `npm run storybook` (port 6006) opens the catalog, Foundations, components and Canvas (Workspace/Canvas) with source code
 
-`npm run tokens:generate` หลังแก้ token source; `npm run tokens:check`, `npm run build`, `npm run build-storybook` และ Storybook test-run ก่อนส่งต่องาน
+Run `npm run tokens:generate` after editing a token source; run `npm run tokens:check`, `npm run build`, `npm run build-storybook` and the Storybook test-run before handing work off
 
 
-Core ครบ 38 ตัว: [Storybook coverage](docs/architecture/CORE-STORYBOOK-COVERAGE.md). ใช้ `npm run storybook:coverage` ตรวจ story files.
+All 38 Core components are covered: [Storybook coverage](docs/architecture/CORE-STORYBOOK-COVERAGE.md). Use `npm run storybook:coverage` to check story files.
 
-Code Connect เดิมของ MUI ถูกลบแล้วเมื่อ 26 พฤศจิกายน 2026 (ไฟล์ map 53 ไฟล์, `code-connect/`, `figma.config.json`) Figma ตอบว่าไม่มี mapping ที่ผูกไว้ให้ unpublish (ลอง 90 รายการ ไม่พบทั้งหมด) Code Connect ของ shadcn ยังไม่ได้สร้าง จะทำเป็นขั้นต่อจาก F5 ของแต่ละ component ที่ `shadcn/code-connect/`. Build outputs `dist/` และ `storybook-static/` สร้างใหม่ได้ด้วย build scripts.
+The previous MUI Code Connect was removed on 26 November 2026 (53 map files, `code-connect/`, `figma.config.json`). Figma reported that there were no linked mappings to unpublish (90 entries tried, none found). The shadcn Code Connect has not been created yet; it will be done as a step following F5 of each component, at `shadcn/code-connect/`. Build outputs `dist/` and `storybook-static/` can be regenerated with the build scripts.

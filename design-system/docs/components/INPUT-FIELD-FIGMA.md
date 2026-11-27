@@ -1,69 +1,69 @@
 # Input Field — Figma specification
 
-อ่านจาก Figma วันที่ 26 พฤศจิกายน 2026: [Input Field](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt?node-id=3760-1811) (ไฟล์ Cariva Core Design System) ขอบเขตเฟสแรก: `input`, `textarea` และส่วน `Field` (ป้ายชื่อ ข้อความช่วย ข้อความผิดพลาด) ยังไม่ทำ `input-horizontal` (ป้ายชื่ออยู่ซ้าย)
+Read from Figma on 26 November 2026: [Input Field](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt?node-id=3760-1811) (Cariva Core Design System file). First-phase scope: `input`, `textarea` and the `Field` part (label, helper text, error message). `input-horizontal` (label on the left) is not done yet
 
-## ชุดใน Figma (เปลี่ยนชื่อแล้ว 26 พ.ย. ชื่อเดิมสำรองใน plugin data `oldNames_2026-11-26`)
+## Sets in Figma (renamed 26 Nov; original names backed up in plugin data `oldNames_2026-11-26`)
 
-| ชื่อใหม่ | ชื่อเดิม | variants | instance |
+| New name | Original name | variants | instance |
 |---|---|---|---|
-| `input` | `crv-input-standard` | 18 | 37 (ยังเชื่อมครบ) |
+| `input` | `crv-input-standard` | 18 | 37 (all still linked) |
 | `input-horizontal` | `crv-input-horizontal` | 18 | 4 |
 | `textarea` | `crv-text-area-standard` | 20 | 3 |
-| `combobox` | `crv-autocomplete` (หน้า Autocomplete) | 18 | 6 |
+| `combobox` | `crv-autocomplete` (Autocomplete page) | 18 | 6 |
 
-ค่า `size` เปลี่ยนเป็น `default` / `lg` ทุกชุด: Input Field เดิม medium → `default`, large → `lg`; Autocomplete เดิม small → `default`, medium → `lg`
+`size` values changed to `default` / `lg` in every set: Input Field previously medium → `default`, large → `lg`; Autocomplete previously small → `default`, medium → `lg`
 
-## สเปก (อ่านจากตัวแปรในไฟล์)
+## Spec (read from the variables in the file)
 
 | | default | lg |
 |---|---|---|
-| ความสูงช่อง | 40px (padding 8/16) | 48px (padding 12/16) |
-| ป้ายชื่อ | 12/16 Medium `content/primary` | 14/20 Medium |
-| ข้อความช่วย | 12/16 `content/secondary` | เท่ากัน |
-| textarea | สูงขั้นต่ำ 96, มุมโค้ง 8, padding 8/16 | สูงขั้นต่ำ 120, มุมโค้ง 12, padding 12/16 |
+| Field height | 40px (padding 8/16) | 48px (padding 12/16) |
+| Label | 12/16 Medium `content/primary` | 14/20 Medium |
+| Helper text | 12/16 `content/secondary` | Same |
+| textarea | Min height 96, corner radius 8, padding 8/16 | Min height 120, corner radius 12, padding 12/16 |
 
-ช่อง input: มุมโค้งตาม Product (`--input-radius`, carivaApp = pill) พื้น `on-surface/default` ข้อความ 16/24 (placeholder `content/placeholder`, ค่า `content/primary`) ช่องว่างระหว่างป้ายชื่อ ช่อง และข้อความช่วย 4px ป้ายชื่อรอง ("optional") ต่อท้ายป้ายชื่อ สี `content/secondary`
+Input field: corner radius per Product (`--input-radius`, carivaApp = pill), fill `on-surface/default`, text 16/24 (placeholder `content/placeholder`, value `content/primary`), 4px gap between the label, field and helper text. Secondary label ("optional") appended to the label, color `content/secondary`
 
-| สถานะ | ขอบ | อื่นๆ |
+| State | Border | Other |
 |---|---|---|
-| ปกติ | `border/default` 1px | |
-| ชี้เมาส์ | `border/strong` 1px | |
-| โฟกัส | `border/system` 2px | |
-| ผิดพลาด | `border/error` 2px | ข้อความผิดพลาด 12/16 `status/error/content/default` |
-| ปิดใช้งาน | `border/disabled` 1px | พื้น `on-surface/action/disabled`, ตัวหนังสือ `content/disabled` ไม่ลด opacity |
+| Normal | `border/default` 1px | |
+| Hover | `border/strong` 1px | |
+| Focus | `border/system` 2px | |
+| Error | `border/error` 2px | Error message 12/16 `status/error/content/default` |
+| Disabled | `border/disabled` 1px | Fill `on-surface/action/disabled`, text `content/disabled`, opacity not reduced |
 
-## ชื่อ property ใน Figma ↔ โค้ด
+## Property names in Figma ↔ code
 
-| Figma | โค้ด |
+| Figma | Code |
 |---|---|
-| `size` default / lg | prop `size` ของ `Input`, `Textarea`, `InputGroup`, `Field` |
+| `size` default / lg | `size` prop of `Input`, `Textarea`, `InputGroup`, `Field` |
 | `disabled` | `disabled` |
-| `error` | `aria-invalid` (ข้อความผิดพลาดใช้ `FieldError`) |
-| `label`, `labelVisible` | `FieldLabel` (แสดงหรือไม่แสดงคือใส่หรือไม่ใส่) |
-| `secondaryLabel`, `secondaryLabelVisible` | prop `secondary` ของ `FieldLabel` |
+| `error` | `aria-invalid` (error message uses `FieldError`) |
+| `label`, `labelVisible` | `FieldLabel` (shown or hidden = included or not included) |
+| `secondaryLabel`, `secondaryLabelVisible` | `secondary` prop of `FieldLabel` |
 | `helperText`, `errorMessage` | `FieldDescription`, `FieldError` |
 | `placeholder`, `value` | `placeholder`, `value` |
 | `startAdornment`, `endAdornment` | `InputGroupAddon` (`inline-start` / `inline-end`) |
-| `state` (default, hover, focused), `filled`, `scrollable`, `...Visible` | เฉพาะ Figma |
+| `state` (default, hover, focused), `filled`, `scrollable`, `...Visible` | Figma only |
 
-## โค้ด (26 พ.ย. 2026)
+## Code (26 Nov 2026)
 
-`input.tsx`, `textarea.tsx`, `input-group.tsx` และ `field.tsx` ใน `src/lib/app/components/ui/` ขอบ 1px เป็น inset ring (โฟกัสและผิดพลาดขยายเป็น 2px โดยไม่ขยับ layout) สีผูก `--cds-*` จาก tokens.json
+`input.tsx`, `textarea.tsx`, `input-group.tsx` and `field.tsx` in `src/lib/app/components/ui/`. The 1px border is an inset ring (focus and error grow to 2px without shifting the layout); colors are bound to `--cds-*` from tokens.json
 
-| เรื่อง | สถานะ |
+| Item | Status |
 |---|---|
-| ขนาด 40 / 48, padding, ฟอนต์ 16/24 | ตรง (วัดแล้ว) |
-| ป้ายชื่อ 12/16 และ 14/20, ข้อความช่วย 12/16 สี `#334155`, ป้ายชื่อรอง | ตรง (วัดแล้ว) |
-| สีขอบปกติ `#E2E8F0`, โฟกัส `#2563EB`, ผิดพลาด `#DC2626` | ตรง (วัดแล้ว) |
-| ปิดใช้งาน (พื้น `#F1F5F9`, ตัวหนังสือ `#94A3B8`, opacity 1) | ตรง (วัดแล้ว) |
-| textarea สูง 96 / 120, มุมโค้ง 8 / 12, padding | ตรง (วัดแล้ว) |
-| ขอบตอนชี้เมาส์ (`border/strong`) | ตั้งไว้ในโค้ด **ยังไม่ได้วัด** |
-| ความหนา 2px ของโฟกัสและผิดพลาด | ตั้งไว้ในโค้ด วัดแค่สี ยังไม่ได้วัดความหนา |
+| Sizes 40 / 48, padding, font 16/24 | matches (measured) |
+| Label 12/16 and 14/20, helper text 12/16 color `#334155`, secondary label | matches (measured) |
+| Normal border color `#E2E8F0`, focus `#2563EB`, error `#DC2626` | matches (measured) |
+| Disabled (fill `#F1F5F9`, text `#94A3B8`, opacity 1) | matches (measured) |
+| textarea height 96 / 120, corner radius 8 / 12, padding | matches (measured) |
+| Hover border (`border/strong`) | set in code, **not measured** |
+| 2px thickness of focus and error | set in code; only the color was measured, thickness not measured |
 
-**ผลกระทบ:** ขอบปกติจางลงจาก `#CBD5E1` เป็น `#E2E8F0`, โฟกัสและผิดพลาดเป็นขอบ 2px แทนวงแหวนจาง 3px, ปิดใช้งานเป็นสีเฉพาะแทนลด opacity, ช่อง textarea มุมโค้ง 8 แทน 24, ป้ายชื่อใน `Field` เป็น 12 (ช่อง 40) และข้อความช่วยเป็น 12 ใช้กับทุกที่ที่ใช้ `Input`, `Textarea`, `InputGroup`, `Field` เช่น Select และ Combobox ที่ประกอบจาก InputGroup
+**Impact:** the normal border is lighter, from `#CBD5E1` to `#E2E8F0`; focus and error use a 2px border instead of a faint 3px ring; disabled uses a dedicated color instead of reduced opacity; the textarea has corner radius 8 instead of 24; the label in `Field` is 12 (40 field) and helper text is 12; applies everywhere that uses `Input`, `Textarea`, `InputGroup`, `Field`, e.g. Select and Combobox composed from InputGroup
 
-**ยังไม่ได้ทำ / ตรวจไม่ได้:** `input-horizontal` (ป้ายชื่อซ้าย กว้าง 80), ช่อง Select และ Dropdown ที่มีสไตล์ของตัวเอง (หน้า Dropdown แยก), ไอคอนหน้า/หลังช่อง, textarea แบบ `scrollable`
+**Not done / cannot check:** `input-horizontal` (label on the left, width 80), Select and Dropdown fields that have their own style (separate Dropdown page), icons before/after the field, `scrollable` textarea
 
-## Combobox และ disabled label — 26 พฤศจิกายน 2026
+## Combobox and disabled label — 26 November 2026
 
-อัปเดต Combobox ตาม [COMBOBOX-FIGMA.md](COMBOBOX-FIGMA.md): รองรับช่อง40/48px, ลูกศร20/24px และ reuse Field/InputGroup เดิม. `FieldLabel` disabled ใช้ `content/disabled` โดยไม่ลด opacity ตามที่ผู้ใช้ยืนยัน; ผลตรวจอยู่ใน [COMBOBOX-AUDIT.md](COMBOBOX-AUDIT.md). ไม่ได้อัปเดต Figma docs กลับเอง.
+Updated Combobox per [COMBOBOX-FIGMA.md](COMBOBOX-FIGMA.md): supports 40/48px fields, 20/24px arrows and reuses the existing Field/InputGroup. Disabled `FieldLabel` uses `content/disabled` without reduced opacity, as the user confirmed; the check results are in [COMBOBOX-AUDIT.md](COMBOBOX-AUDIT.md). The Figma docs were not updated back automatically.

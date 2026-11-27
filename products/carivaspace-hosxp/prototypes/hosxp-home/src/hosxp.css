@@ -1,0 +1,73 @@
+@import "@fontsource/google-sans/latin-400.css";
+.hosxp {
+  --font-ui: "Aktiv Grotesk Thai", "IBM Plex Sans Thai", sans-serif;
+  --font-sans: var(--font-ui);
+  --font-prose: "Google Sans", "IBM Plex Sans Thai Looped", sans-serif;
+  --hosxp-display: "Malila", Georgia, serif;
+  box-sizing: border-box; display: flex; flex-direction: column; gap: 8px;
+  min-height: 800px; height: 100dvh; padding: 8px;
+  background: var(--cds-bg-subtle); color: var(--cds-content-primary);
+  font: 14px/20px var(--font-ui); border-radius: 8px;
+}
+.hosxp * { box-sizing: border-box; }
+.hosxp-topbar, .hosxp-topbar-start { display: flex; align-items: center; gap: 4px; }
+.hosxp-topbar { justify-content: space-between; flex-shrink: 0; min-height: 32px; }
+.hosxp-topbar button { --button-radius: 16px; }
+.hosxp-logo { width: 32px; height: 32px; padding: 4px; }
+.hosxp-close-icon { color: var(--cds-status-error-content-default); }
+.hosxp-layout { display: grid; grid-template-columns: 310px minmax(0,1fr); flex: 1; min-height: 0; gap: 8px; }
+.hosxp-layout.hosxp-history-hidden { grid-template-columns: minmax(0,1fr); }
+.hosxp-history, .hosxp-session { background: var(--cds-on-surface-default); border-radius: 16px; box-shadow: var(--cds-shadow-sm); min-width: 0; }
+.hosxp-history { overflow: auto; }
+.hosxp-history h2 { font-size: 16px; line-height: 24px; font-weight: 600; margin: 0; padding: 16px; }
+.hosxp-history-body { display: flex; flex-direction: column; gap: 12px; padding: 0 12px 12px; }
+.hosxp-vitals { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 8px; }
+.hosxp-vitals [data-slot=card-metric] { width: 100%; }
+.hosxp-fact { display: flex; flex-direction: column; gap: 8px; margin-top: 0; }
+.hosxp-fact h3 { font: 400 12px/16px var(--font-ui); color: var(--cds-content-placeholder); margin: 0; }
+.hosxp-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.hosxp-complaint { margin-top: 4px; }
+.hosxp-complaint p { margin: 0; padding: 4px; font: 400 12px/16px var(--font-prose); }
+.hosxp-session { display: flex; flex-direction: column; padding: 12px; overflow: hidden; }
+.hosxp-session-header { display: flex; justify-content: space-between; align-items: start; gap: 8px; padding: 4px; }
+.hosxp-patient-title { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; min-width: 0; padding-left: 8px; min-height: 32px; }
+.hosxp-patient-title h1 { font-size: 16px; line-height: 24px; font-weight: 600; margin: 0; }
+.hosxp-patient-title time { font-size: 16px; line-height: 24px; color: var(--cds-content-secondary); }
+.hosxp-actions { display: flex; justify-content: space-between; gap: 12px; padding: 8px 12px; }
+.hosxp-record-actions { display: flex; gap: 8px; }
+.hosxp-note-wrap { display: flex; flex: 1; min-height: 0; padding: 8px 12px 12px; }
+.hosxp-note { display: flex; flex: 1; min-width: 0; flex-direction: column; align-items: center; gap: 16px; padding: 72px 24px 24px; border: 1px solid var(--cds-border-default); border-radius: 8px; overflow: auto; }
+.hosxp-mic-art { position: relative; width: 100px; height: 100px; flex-shrink: 0; overflow: hidden; }
+.hosxp-mic-art img { position: absolute; left: 2.42%; top: 0; width: 100px; height: 100px; }
+.hosxp-record-info { display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center; }
+.hosxp-record-info h2 { margin: 0; font: 500 36px/48px var(--hosxp-display); }
+.hosxp-record-info p { margin: 0; font-size: 14px; line-height: 20px; color: var(--cds-content-secondary); }
+.hosxp-record-info output { font-size: 14px; font-variant-numeric: tabular-nums; }
+.hosxp-note-details { display: flex; flex-direction: column; gap: 8px; width: 320px; max-width: 100%; padding: 8px; border: 1px solid var(--cds-border-default); border-radius: 16px; }
+.hosxp-note-placeholder { padding: 8px; border-radius: 8px; font-size: 12px; line-height: 16px; color: var(--cds-content-disabled); background: var(--cds-bg-subtle); }
+.hosxp-note-field { display: flex; flex-direction: column; gap: 4px; font-size: 12px; }
+.hosxp-note-field textarea { min-height: 64px; padding: 8px; border: 1px solid var(--cds-border-default); border-radius: 8px; font: 14px/20px var(--font-prose); background: var(--cds-on-surface-default); color: var(--cds-content-primary); }
+.hosxp-settings { font: 14px/20px var(--font-ui); padding: 0 24px; }
+.hosxp-device { display: flex; align-items: start; gap: 8px; margin: 12px 0; }
+.hosxp-closed { justify-content: center; align-items: center; height: 100dvh; min-height: 320px; }
+@media(max-width: 760px) {
+  .hosxp { height: auto; min-height: 100dvh; }
+  .hosxp-layout { grid-template-columns: minmax(0,1fr); }
+  .hosxp-session { min-height: 640px; }
+  .hosxp-session-header { flex-wrap: wrap; }
+  .hosxp-session-header [data-slot=button-mic] { margin-left: auto; }
+  .hosxp-note-wrap { padding: 8px 0 0; }
+  .hosxp-note { padding: 32px 12px 24px; }
+  .hosxp-record-info h2 { font-size: 32px; line-height: 40px; }
+  .hosxp-actions { padding: 8px 0; flex-wrap: wrap; }
+  .hosxp-record-actions { margin-left: auto; }
+  .hosxp-vitals { max-width: 100%; }
+}
+
+.hosxp-tags > span { max-width: 100%; white-space: normal; overflow-wrap: anywhere; height: auto; min-height: 20px; }
+@media(max-width:480px) { .hosxp-vitals { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+@media(max-width:480px) { .hosxp-topbar { flex-wrap: wrap; gap: 8px; } .hosxp-topbar > button { margin-left: auto; } }
+
+.hosxp-recorder-container { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 100%; min-width: 0; }
+.hosxp-demo-note { margin: 0; font: 12px/16px var(--font-ui); color: var(--cds-content-secondary); text-align: center; }
+.hosxp [data-slot=mira-recorder]:focus-visible { outline: 2px solid var(--cds-border-system); outline-offset: 4px; }

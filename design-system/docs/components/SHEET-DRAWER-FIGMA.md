@@ -1,52 +1,52 @@
-# Sheet (Figma หน้า Drawer) — Figma specification
+# Sheet (Figma Drawer page) — Figma specification
 
-อ่านจาก Figma วันที่ 26 พฤศจิกายน 2026: [Drawer](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt?node-id=4497-77575) (ไฟล์ Cariva Core Design System) ส่วน Bottom Sheet ของมือถือ (หัวมีสีตกแต่ง) อยู่ใน [SHEET-FIGMA.md](SHEET-FIGMA.md)
+Read from Figma on 26 November 2026: [Drawer](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt?node-id=4497-77575) (Cariva Core Design System file). The mobile Bottom Sheet (header with a decorative color) is in [SHEET-FIGMA.md](SHEET-FIGMA.md)
 
-## ชุดใน Figma (เปลี่ยนชื่อแล้ว ชื่อเดิมสำรองใน plugin data `oldName_2026-11-26` / `oldNames_2026-11-26`)
+## Sets in Figma (renamed; original names backed up in plugin data `oldName_2026-11-26` / `oldNames_2026-11-26`)
 
-| ชื่อใหม่ | ชื่อเดิม | instance (ก่อน → หลัง) |
+| New name | Original name | instances (before → after) |
 |---|---|---|
-| `sheet` | `crv-drawer-basic` (prop `direction` เปลี่ยนเป็น `side`: right / left / bottom / top) | 2 → 2 |
+| `sheet` | `crv-drawer-basic` (prop `direction` renamed to `side`: right / left / bottom / top) | 2 → 2 |
 | `sheet-close` | `crv-drawer-close` | 6 → 6 |
 
-**ผูกสีใหม่:** สีทุกจุดเดิมผูกตัวแปรจาก library เก่า (116 + 1 จุด) เปลี่ยนไปผูกตัวแปรชื่อเดียวกันในไฟล์ 133 จุด (นับรวมชิ้นส่วนที่ซ้อนอยู่) ไม่เหลือ library เก่า รายการเดิมสำรองใน plugin data `remoteBindings_2026-11-26`
+**Colors rebound:** every color point previously bound to variables from the old library (116 + 1 points) was switched to the same-named variables in the file, 133 points (counting nested parts); no old library remains. The previous list is backed up in plugin data `remoteBindings_2026-11-26`
 
-## สเปก (right / left / top)
+## Spec (right / left / top)
 
-- padding 16 ช่องว่าง 16 ขอบ 1px `border/default` พื้น `on-surface/elevated`
-- header: ชื่อ 14/20 Medium `content/primary` + คำอธิบาย 14/20 `content/secondary` (ช่องว่าง 8) และปุ่มปิด 32×32 มุมกลม ไอคอน 20px สี `content/secondary`
-- body เป็นพื้นที่เปลี่ยนเนื้อหา (ช่องว่าง 16); footer ปุ่ม sm (32) เรียงแนวนอน ช่องว่าง 8
-- ขนาดตัวอย่างใน Figma: right / left 400×480, top / bottom 640×360
+- padding 16, gap 16, border 1px `border/default`, fill `on-surface/elevated`
+- header: title 14/20 Medium `content/primary` + description 14/20 `content/secondary` (gap 8), and a 32×32 round close button with a 20px icon in `content/secondary`
+- body is the swappable content area (gap 16); footer has sm (32) buttons laid out horizontally, gap 8
+- Example sizes in Figma: right / left 400×480, top / bottom 640×360
 
-## ชื่อ Figma ↔ โค้ด
+## Figma name ↔ Code
 
-| Figma | โค้ด |
+| Figma | Code |
 |---|---|
 | `sheet` | `Sheet` + `SheetContent` (`ui/sheet.tsx`) |
 | `side` right / left / top | `side` |
-| `side` bottom | `side="bottom"` ตาม Bottom Sheet (ดู SHEET-FIGMA.md) **ไม่ใช้สเปกของหน้า Drawer** |
+| `side` bottom | `side="bottom"` per Bottom Sheet (see SHEET-FIGMA.md), **not the Drawer page spec** |
 | `title`, `description` | `SheetTitle`, `SheetDescription` |
-| `sheet-close` | ปุ่มปิดใน `SheetContent` |
+| `sheet-close` | Close button inside `SheetContent` |
 | Body / Footer | `SheetBody`, `SheetFooter` |
 
-## โค้ด (26 พ.ย. 2026)
+## Code (26 Nov 2026)
 
-| เรื่อง | สถานะ |
+| Topic | Status |
 |---|---|
-| padding 16, ช่องว่าง 16, พื้น `on-surface/elevated`, ชื่อ 14/20 Medium, ปุ่มปิด 32×32 | ตรง (วัดใน story `Sides`) |
-| กว้างสูงสุด 400 (right / left) | ตั้งแล้ว ยังไม่ได้วัด |
-| สีขอบ `border/default` (ด้านเดียวที่ชิดเนื้อหา) | ตั้งแล้ว ยังไม่ได้วัด |
-| ไอคอนปิด 20px, footer แนวนอนปุ่ม sm | ตั้งแล้ว ยังไม่ได้วัด |
+| padding 16, gap 16, fill `on-surface/elevated`, title 14/20 Medium, close button 32×32 | matches (measured in story `Sides`) |
+| Max width 400 (right / left) | Set, Not measured |
+| Border color `border/default` (only the side adjacent to the content) | Set, Not measured |
+| Close icon 20px, horizontal footer with sm buttons | Set, Not measured |
 
-**ตัดสินใจร่วมกับผู้ใช้:** side bottom คงเป็น Bottom Sheet เดิม (ไม่เปลี่ยน); ขอบวาดด้านเดียวที่ชิดเนื้อหาแทนทั้งสี่ด้านเพราะแผงชิดขอบจอและ Sidebar มือถือใช้ `SheetContent` เดียวกัน
+**Decided with the user:** side bottom remains the existing Bottom Sheet (unchanged); the border is drawn only on the side adjacent to the content instead of all four sides, because the panel sits flush against the screen edge and the mobile Sidebar uses the same `SheetContent`
 
-**ผลกระทบ:** `Sheet` right / left / top จาก padding 24 เป็น 16, ชื่อเล็กลง, footer เรียงแนวนอนชิดขวา (เดิมแนวตั้ง), ปุ่มปิดเป็น 32; Sidebar มือถือ (`side="left"` ที่ตั้ง `p-0` และสีของตัวเอง) ผ่าน test เดิม ไม่ได้ตรวจด้วยสายตา
+**Impact:** `Sheet` right / left / top goes from padding 24 to 16, the title is smaller, the footer is laid out horizontally and aligned right (previously vertical), and the close button is 32; the mobile Sidebar (`side="left"` that sets `p-0` and its own colors) passes the existing test, Not yet checked visually
 
-## Bottom Sheet (เปลี่ยนชื่อ 26 พ.ย. 2026, ผู้ใช้ยืนยันตามเสนอ)
+## Bottom Sheet (renamed 26 Nov 2026, the user confirmed as proposed)
 
-| ชื่อใหม่ | ชื่อเดิม | instance |
+| New name | Original name | instances |
 |---|---|---|
 | `sheet-header` (`variant` default / search, `icon`, `showIcon`, `showTopColor`) | `crv-bottom-sheet-header` (`type`, `Icon`) | 8 → 8 |
 | `sheet-content` | `crv-bottom-sheet-content` | 2 → 2 |
 
-โค้ด: `SheetHeader` `variant` default / search ตรงอยู่แล้ว
+Code: `SheetHeader` `variant` default / search already matches
