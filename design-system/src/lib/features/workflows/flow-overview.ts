@@ -3,6 +3,7 @@ import type { Flow } from "./types";
 /** ผังรวมแบบสั้น ตั้งแต่สั่งงานจนเปิด PR (ไม่อยู่ในตารางรายการ flow) */
 export const overviewFlow: Flow = {
   slug: "end-to-end",
+    skills: ["component-reuse-check — ขั้นค้นของที่มี", "shadcn + unslop — ขั้นทำงาน", "document — ขั้นเอกสาร", "component-audit — ขั้นทดสอบ + audit", "pr-checklist — ก่อนเปิด PR"],
   num: "00",
   title: "ผังรวม ตั้งแต่สั่งงานจนเปิด PR",
   prompts: ["(งานทุกชนิดในหน้า 01–14 ผ่านลำดับใหญ่นี้เหมือนกัน)"],

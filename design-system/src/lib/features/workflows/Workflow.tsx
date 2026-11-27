@@ -109,6 +109,13 @@ export function WorkflowPage({ slug }: { slug: string }) {
         ))}
       </ol>
 
+      {flow.skills && (
+        <>
+          <h2 className="mt-6 text-xl font-semibold">สกิลที่ AI เรียกใช้</h2>
+          <ul className="list-disc pl-6">{flow.skills.map(k => <li key={k}>{k}</li>)}</ul>
+        </>
+      )}
+
       <h2 className="mt-6 text-xl font-semibold">ผลที่ได้</h2>
       <ul className="list-disc pl-6">{flow.outputs.map(o => <li key={o}><Rich text={o} /></li>)}</ul>
 

@@ -19,7 +19,7 @@ Read `rules/agent-rules.md` for the project rules, `DESIGN.md` for visual guidan
 
 ## 2. Plan cases according to the size of the work
 
-- For a new screen/flow use `case-planning`: look at the happy path and only the relevant loading, empty, error/retry, validation, disabled, success, permissions and long/missing data cases. For a small spot fix, check the broken case and nearby consumers; do not expand it into a new flow
+- For a new screen/flow use the case-planning section of `component-reuse-check`: look at the happy path and only the relevant loading, empty, error/retry, validation, disabled, success, permissions and long/missing data cases. For a small spot fix, check the broken case and nearby consumers; do not expand it into a new flow
 - Separate **confirmed / proposed addition / must ask** based on evidence from the requirements and existing behavior. Do not invent business rules, user permissions or backend outcomes
 - Define an observable expected result and a way to open each case through stories/preview. Use existing IDs when they exist. Do not claim there is a board covering every case if one has not been built
 - If a business rule must be asked about, continue with the parts that do not depend on the answer, but do not guess the answer or treat silence as approval
@@ -68,7 +68,7 @@ Read `rules/agent-rules.md` for the project rules, `DESIGN.md` for visual guidan
 | Topic | Skill/location | Call when |
 |---|---|---|
 | Storybook docs, stories, tests and review | `stories` from the skills installed in the session | First, before changing UI, and used again in the check step |
-| Case coverage | `.agents/skills/case-planning/SKILL.md` | Planning a new flow/cases or when requirements change |
+| Case coverage | `.agents/skills/component-reuse-check/SKILL.md` (case-planning section) | Planning a new flow/cases or when requirements change |
 | Flowchart/decision tree for the work | `skills/mermaid-diagrams/SKILL.md` | When a diagram is requested. Read the scope and limits from the central rules; do not draw one automatically for every task |
 | Reuse and duplicates | `.agents/skills/component-reuse-check/SKILL.md` | Before writing and checking after writing |
 | UI tidiness | `skills/unslop/SKILL.md` | Creating/adjusting UI within scope |

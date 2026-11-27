@@ -5,6 +5,8 @@ description: "Audit Cariva React and shadcn component quality after creation or 
 
 # Component Audit
 
+> Workflow fit: used at step(s) U5 and F4 (test and audit code), D1 (check the prototype before sending to Figma), V4 (audit after a variable change), F5 (report format) in `design-system/rules/workflow-map.md` (see the Skill column of each flow table). Load it when that step starts.
+
 ## Project context and boundaries
 
 Read the applicable AGENTS.md and [report format](references/report-format.md) before reporting. Resolve Product from the current task, selected board/files or previous choice; retain it through the task. Ask only when ambiguity affects the work. A cross-Core audit can use Core as scope without inventing a Product.

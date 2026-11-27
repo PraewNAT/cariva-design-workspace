@@ -10,6 +10,8 @@ metadata:
 
 # Unslop
 
+> Workflow fit: used at step(s) U3, C4 and F3 (automatic for any UI creation or visual polish) in `design-system/rules/workflow-map.md` (see the Skill column of each flow table). Load it when that step starts.
+
 unslop was created by Damir Sokolovsky ([@heydamir](https://x.com/heydamir)), who started the Unslopping series on X. It is licensed under CC BY 4.0, so keep this credit in any copy or adaptation.
 
 Vibecoded UI fails in the same predictable ways. Every surface glows, every label has an emoji, spacing is whatever the model typed that day, and the copy shouts. Unslopping fixes the craft and keeps the product. The features, content and order of sections stay. What changes is that every size, color, word and image becomes deliberate.

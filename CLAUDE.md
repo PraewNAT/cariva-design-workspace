@@ -20,44 +20,36 @@ Read `skills/{skill}/SKILL.md` before every task.
 
 | Skill name | What it does | How to use |
 |---|---|---|
-| audit | Check token binding and naming of a component or screen — report first, then ask whether to continue with fixes | `audit [name] node-id=[id]` |
-| changelog | Record changes to a component or token | `changelog` or `update changelog [name]` (Thai: "อัปเดต changelog [ชื่อ]") |
+| audit | Check a Figma component or screen: token binding and naming, QA before dev handoff, and map/fix to match the DS — report first, then ask whether to fix | `audit [name] node-id=[id]`, `QA screen [name] node-id=[id]`, `map [name] node-id=[id]` or `fix [name] node-id=[id]` (Thai: "แก้ [ชื่อ] node-id=[id]") |
 | rename-frame | Batch rename screen/page frames to match the naming convention (`{Flow}/{Screen Name}`) — confirm the whole batch before changing | `rename frame [page/section name]` |
 
 **📋 UI Flow & Review**
 
 | Skill name | What it does | How to use |
 |---|---|---|
-| design-review | QA + UI Analysis of a screen before dev handoff | `QA screen [name] node-id=[id]` |
-| map-fix | Map a Figma component to the DS and fix it to match | `map [name] node-id=[id]` or `fix [name] node-id=[id]` (Thai: "แก้ [ชื่อ] node-id=[id]") |
-| ux-writing | Check copy, suggest tone, rewrite | `check copy [node-id]` (Thai: "เช็ค copy [node-id]") or `suggest tone` (Thai: "แนะนำ tone") |
 | localization-export | Extract text from Figma, categorize it, and export/update it as Excel for the localization team | `export text [name] node-id=[id]` (Thai: "export ข้อความ [ชื่อ] node-id=[id]") or `update localization [name] node-id=[id]` (Thai: "อัปเดต localization [ชื่อ] node-id=[id]") |
 
 **📝 Documentation**
 
 | Skill name | What it does | How to use |
 |---|---|---|
-| document | Create a doc for a component | `create component doc [name] node-id=[id]` (Thai: "สร้าง doc component [ชื่อ] node-id=[id]") |
-| document-update | Update the doc when a component changes | `update component doc [name] node-id=[id]` (Thai: "อัปเดต doc component [ชื่อ] node-id=[id]") |
-| doc-coverage | Check DS coverage | `check doc coverage` (Thai: "เช็ค doc coverage") |
+| document | Create or update a doc for a component (replaces the old `document-update`) | `create component doc [name] node-id=[id]` (Thai: "สร้าง doc component [ชื่อ] node-id=[id]") |
 
 **💻 Code**
 
 | Skill name | What it does | How to use |
 |---|---|---|
 | shadcn | Add/edit DS components with shadcn | `add component [name]` (Thai: "เพิ่ม component [ชื่อ]") |
-| crv-component-code | (legacy MUI) Write a Crv component — use only when asked to edit `legacy/mui/` | `implement component [name]` |
 | unslop | Polish the UI's look (applied automatically to UI creation/adjustment work under our DS rules) | Just give UI task commands; no need to invoke it yourself |
 | mermaid-diagrams | Write and check Mermaid as text in the repo | `write a flowchart in Mermaid` (Thai: "เขียน flowchart เป็น Mermaid") |
-| verify-ds-usage | Check whether code really uses the DS or hardcodes | `check whether components are really used [path]` (Thai: "เช็คว่าใช้ component จริงไหม [path]") |
-| pr-checklist | Run the checklist before merge | `check this PR before merge` (Thai: "เช็ค PR นี้ก่อน merge") |
+| component-reuse-check | Find existing Core/Product components before building, check code for duplicates, and plan/review UI cases (confirmed / proposed / unresolved) | `check whether components are really used [path]` (Thai: "เช็คว่าใช้ component จริงไหม [path]") |
+| pr-checklist | Run the checklist before merge and record the change in the changelog | `check this PR before merge` (Thai: "เช็ค PR นี้ก่อน merge") |
 
 **🚀 Project Setup**
 
 | Skill name | What it does | How to use |
 |---|---|---|
 | **create-project** | Create a React/shadcn prototype in `products/<product-id>/prototypes/<prototype-id>/` with its own localhost, Storybook Canvas / Preview / full-page views, and an index | Use when creating a new prototype; read the skill and inspect any existing app before scaffolding; never creates a repo, pushes or deploys automatically |
-| add-version-tab | Runs automatically near commit time in projects that have a sidebar shell — asks whether to add a new version tab or overwrite the existing one, and writes a change summary (AI-written) for the icon at the end of the tab in the sidebar | No need to invoke it yourself; works together with the commit step |
 
 ---
 

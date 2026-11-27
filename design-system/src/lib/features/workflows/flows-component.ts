@@ -5,6 +5,7 @@ const naming = "docs/components/FIGMA-NAMING.md";
 export const componentFlows: Flow[] = [
   {
     slug: "add-via-figma",
+    skills: ["component-reuse-check — ค้นของที่มีอยู่ (C1)", "shadcn + unslop — เขียนโค้ด (F3)", "document — เอกสาร (F4)", "component-audit — ตรวจโค้ด (F4)", "audit — ตรวจ Figma ฝั่งต้นทาง (F1)"],
     num: "01",
     title: "ขอเพิ่ม component ผ่าน Figma (Core DS / Product DS)",
     prompts: ["ผมสร้าง component Stepper ใน Figma แล้ว [ลิงก์ node] ทำเป็นโค้ดให้หน่อย เป็นของ Core", "เพิ่ม component จากลิงก์นี้ เป็นของ Product Mira"],
@@ -30,6 +31,7 @@ export const componentFlows: Flow[] = [
   },
   {
     slug: "change-via-figma",
+    skills: ["audit — เทียบ Figma กับโค้ด (F1–F2)", "shadcn + unslop — แก้โค้ด (F3)", "document — อัปเดตเอกสาร", "component-audit — ตรวจผู้ใช้งาน (F4)"],
     num: "02",
     title: "ขอแก้ component ผ่าน Figma (Core DS / Product DS)",
     prompts: ["ผมแก้ปุ่ม Button ใน Figma แล้ว [ลิงก์ node] ให้โค้ดตามด้วย", "ผมเปลี่ยน padding ของ Card ใน Figma ช่วย sync ให้หน่อย"],
@@ -53,6 +55,7 @@ export const componentFlows: Flow[] = [
   },
   {
     slug: "add-via-ai",
+    skills: ["component-reuse-check — ค้นของที่มีและวางกรณี (C1, U2)", "shadcn + unslop — เขียนโค้ด (U3)", "document — เอกสาร (U4)", "component-audit — ตรวจ (U5)"],
     num: "03",
     title: "ขอเพิ่ม component ผ่าน AI (ทำโค้ดก่อน)",
     prompts: ["เพิ่ม component Timeline ใน Core", "ทำ component ปุ่มกรองสำหรับ Product Mira ขึ้นมาก่อน ยังไม่ต้องไป Figma"],
@@ -78,6 +81,7 @@ export const componentFlows: Flow[] = [
   },
   {
     slug: "change-via-ai",
+    skills: ["component-reuse-check — หาผู้ใช้งาน (U1–U2)", "shadcn + unslop — แก้โค้ด (U3)", "document — อัปเดตเอกสาร (U4)", "component-audit — ตรวจ (U5)"],
     num: "04",
     title: "ขอแก้ component ผ่าน AI (ทำโค้ดก่อน)",
     prompts: ["ปุ่ม primary ใน Core เพิ่ม state loading", "เปลี่ยน radius ของ Input ใน Product Mira"],

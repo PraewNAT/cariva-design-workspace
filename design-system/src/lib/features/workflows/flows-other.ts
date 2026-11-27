@@ -3,6 +3,7 @@ import type { Flow } from "./types";
 export const otherFlows: Flow[] = [
   {
     slug: "figma-variables",
+    skills: ["audit — ตรวจ Figma ฝั่ง variable (V2)", "component-audit — ตรวจผลกระทบหลังเปลี่ยน token (V4)"],
     num: "07",
     title: "เปลี่ยนค่า variable / token ใน Figma",
     prompts: ["ผมแก้ variable ใน Figma แล้ว อัปเดตโค้ดให้หน่อย", "เปลี่ยนสี primary ใน Figma แล้ว ตามให้ด้วย"],
@@ -26,6 +27,7 @@ export const otherFlows: Flow[] = [
   },
   {
     slug: "new-product",
+    skills: ["create-project — ทั้ง flow (S1–S5)"],
     num: "08",
     title: "เริ่ม Product ใหม่ / สร้าง prototype ใหม่",
     prompts: ["จะเริ่ม Product ใหม่ชื่อ Mira", "สร้าง prototype ใหม่จากหน้า Home ใน Figma"],
@@ -47,6 +49,7 @@ export const otherFlows: Flow[] = [
   },
   {
     slug: "rename-sets",
+    skills: ["audit — ตรวจและแก้ให้ตรงกับโค้ด (F2)", "document — แก้เอกสารที่ตกยุค (F4)"],
     num: "09",
     title: "จัดระเบียบ/เปลี่ยนชื่อ set ใน Figma ให้ตรงกับ code",
     prompts: ["เปลี่ยนชื่อชุด crv- ที่เหลือให้ตรงกับโค้ด", "เช็คทั้งหน้า Button ว่าชื่อ set กับ prop ตรงกับโค้ดไหม"],
@@ -69,13 +72,14 @@ export const otherFlows: Flow[] = [
   },
   {
     slug: "audit-qa",
+    skills: ["audit — ตรวจ Figma และ QA หน้าจอ", "component-audit — ตรวจโค้ด", "component-reuse-check — ตรวจของซ้ำ", "pr-checklist — ก่อน merge"],
     num: "10",
     title: "Audit / QA ก่อนส่งงาน",
     prompts: ["audit component Card node-id=123", "QA หน้านี้ก่อนส่ง dev", "เช็คว่าเอกสารครบทุก component ไหม"],
-    summary: "ตรวจก่อน ส่งรายงานก่อน แล้วถามว่าจะให้แก้ไหม ไม่แก้เงียบ ๆ ตามกฎ “แจ้งก่อนแก้” ใช้ skill audit, design-review, doc-coverage และ pr-checklist",
+    summary: "ตรวจก่อน ส่งรายงานก่อน แล้วถามว่าจะให้แก้ไหม ไม่แก้เงียบ ๆ ตามกฎ “แจ้งก่อนแก้” ใช้ skill audit (รวมการตรวจหน้าจอก่อนส่ง dev), component-audit และ pr-checklist",
     steps: [
       { id: "a", lane: "you", label: "สั่งว่าจะตรวจอะไร", detail: "component, หน้าจอ, ทั้งไฟล์ หรือ PR" },
-      { id: "b", lane: "ai", code: "U1", label: "เลือกชุดตรวจตามงาน", detail: "component → audit, หน้าจอ → design-review, เอกสาร → doc-coverage, ก่อน merge → pr-checklist" },
+      { id: "b", lane: "ai", code: "U1", label: "เลือกชุดตรวจตามงาน", detail: "Figma (component หรือหน้าจอ) → audit, โค้ด → component-audit, ของซ้ำ → component-reuse-check, ก่อน merge → pr-checklist" },
       { id: "c", lane: "ai", code: "U5", label: "ตรวจจริง", detail: "token binding, การตั้งชื่อ, การใช้ DS จริงหรือฮาร์ดโค้ด, spacing 4px, ขนาดตัวอักษรขั้นต่ำ 12px, story, เอกสาร" },
       { id: "d", lane: "ai", label: "ตรวจ a11y และคอนทราสต์", kind: "unverified", detail: "ใช้ test ใน Storybook และ hook เตือนสี ไม่เท่ากับ WCAG เต็มรูปแบบ จะรายงานตามนั้น" },
       { id: "e", lane: "ai", code: "U6", label: "ส่งรายงานก่อน", detail: "รูปแบบเดียวกันทุกครั้ง: ผ่าน / ต้องแก้ / ตรวจไม่ได้ พร้อมระดับความสำคัญและหลักฐาน" },
@@ -90,6 +94,7 @@ export const otherFlows: Flow[] = [
   },
   {
     slug: "remove-component",
+    skills: ["component-reuse-check — หาว่ายังใช้อยู่ที่ไหน (F1)", "component-audit — ตรวจว่าไม่มีอะไรพัง (U5)", "pr-checklist — บันทึก changelog"],
     num: "11",
     title: "ลบ / เลิกใช้ component หรือชุดใน Figma",
     prompts: ["ลบ BWC ออกให้หมด", "เลิกใช้ component Banner เก่า"],
@@ -112,6 +117,7 @@ export const otherFlows: Flow[] = [
   },
   {
     slug: "promote-to-core",
+    skills: ["component-reuse-check — ดูว่าใช้ซ้ำจริงไหม (C1–C2)", "shadcn — ย้ายโค้ด (C4)", "component-audit — ทดสอบ (U5)"],
     num: "12",
     title: "ย้าย component จาก Product ขึ้น Core",
     prompts: ["component นี้ของ Mira ใช้ซ้ำหลาย Product ยกขึ้น Core ได้ไหม", "ย้าย CreditTooltip ไปไว้ใน Core"],
@@ -135,6 +141,7 @@ export const otherFlows: Flow[] = [
   },
   {
     slug: "code-only-style",
+    skills: ["emil-design-eng — เรื่อง motion และความรู้สึก (U3)", "unslop — ปรับสไตล์", "component-audit — ตรวจ (U5)"],
     num: "13",
     title: "ปรับสไตล์/motion เฉพาะฝั่ง code",
     prompts: ["ทำให้ปุ่ม AI มีออร่าเคลื่อนไหว", "ปรับ animation ของ wave ให้ช้าลง"],
@@ -155,6 +162,7 @@ export const otherFlows: Flow[] = [
   },
   {
     slug: "git-commit-pr",
+    skills: ["pr-checklist — ตรวจก่อน merge และบันทึก changelog"],
     num: "14",
     title: "Commit, push และ PR",
     prompts: ["commit เลย", "push แล้วเปิด PR ได้เลย", "เช็คว่า PR merge แล้วหรือยัง"],

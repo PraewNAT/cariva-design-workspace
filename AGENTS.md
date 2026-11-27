@@ -15,13 +15,13 @@ This is a Draft. Do not number or publish design-system releases until the user 
 ## Installed skills
 
 - Use `component-reuse-check` before UI implementation and after changes to find existing Core/Product components and detect duplicates.
-- Use `case-planning` when planning a screen/flow or changing requirements; keep confirmed cases, proposals and unanswered rules separate.
+- Use the case-planning section of `component-reuse-check` when planning a screen/flow or changing requirements; keep confirmed cases, proposals and unanswered rules separate.
 - Use `component-audit` after every UI creation/change (components, pages, modals and styles) and before Core adoption or developer handoff. Scope checks to affected consumers, including page and portal/composed usage. Verify rendered consistency against shared recipes; do not finish with only a local CSS fix. Run focused Storybook regression checks for demonstrated failures.
 - These three project skills use the same concise report: result, scope, a table of severity/status/item/evidence/next action, totals and one next step. Their `references/report-format.md` files define the exact format. Default to inspection/reporting; continue authorized implementation without asking for permission again.
 - Use the project shadcn skill before adding or modifying shadcn UI. Search existing components before creating new ones.
-- Use Impeccable audit/critique for requested UI reviews. Preserve the user's chosen design direction.
+- Use the Impeccable plugin audit/critique for requested UI reviews (installed as a plugin, not part of this repo). Preserve the user's chosen design direction.
 - Use the installed `figma:figma-design-to-code` plugin skill for Figma-to-code requests. Reuse existing components and tokens via the project checks. Verify its required Figma MCP tools are available before claiming it is ready; the installed Figma Console connection is not automatically equivalent to the MCP interface this skill expects. This direction does not authorize writes to Figma or automatic replacement of shared Core.
-- Use prototype-to-figma only when the user requests Figma output. It needs the appropriate connected Figma tools; installation alone does not establish a connection.
+- Use `code-to-figma` only when the user requests Figma output. It needs the appropriate connected Figma tools; installation alone does not establish a connection.
 
 ## Storybook workflow
 

@@ -5,6 +5,8 @@ description: Creates a new prototype with React/shadcn and a Storybook that swit
 
 # Create Project — Cariva prototype
 
+> Workflow fit: used at step(s) S4 (prepare what is missing, when a prototype is needed) and flow 08 in the Storybook Workflows folder in `design-system/rules/workflow-map.md` (see the Skill column of each flow table). Load it when that step starts.
+
 The user confirmed on 27 November 2026: every new prototype project uses React + TypeScript + shadcn/ui on Base UI + Tailwind and a Storybook that switches between Canvas / Preview and can open full page, replacing the old MUI/Crv workflow. This skill defines the delivery steps; it is not an automatic generator. Check the tooling that actually exists before starting: this workspace already has PrototypeShell and the Canvas viewer, but scaffolding a new app is still work the AI must do
 
 ## Starting work and finding the target
@@ -76,7 +78,7 @@ The user confirmed on 27 November 2026: when creating or arranging a Canvas, pai
 
 ## Building UI, documentation, and acceptance checks
 
-Use case-planning for agreed cases; separate confirmed/proposed/unresolved; do not invent business rules to fill the board. Update stories/docs/mappings per what is actually implemented, then run component-audit on the final result and the affected consumers
+Use the case-planning section of component-reuse-check for agreed cases; separate confirmed/proposed/unresolved; do not invent business rules to fill the board. Update stories/docs/mappings per what is actually implemented, then run component-audit on the final result and the affected consumers
 
 Criteria before delivering each prototype:
 

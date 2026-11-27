@@ -71,7 +71,7 @@ Result: setup ends as a clear phase and there is a first task for design; then c
 
 ## Step 5 — Propose a small plan before starting
 
-The AI summarizes the pages/cases to be done, the components to reuse, the data or behavior that must be asked about, and what is out of scope. Use the case-planning and reuse workflows as appropriate. If a component must be added, propose Core/Product with reasons and use the existing flow; do not ask for a Figma destination until Figma actually has to be written
+The AI summarizes the pages/cases to be done, the components to reuse, the data or behavior that must be asked about, and what is out of scope. Use the reuse and case-planning workflow (component-reuse-check) as appropriate. If a component must be added, propose Core/Product with reasons and use the existing flow; do not ask for a Figma destination until Figma actually has to be written
 
 A request to do the work counts as authorization within scope; no approval is added at every step. If the API/business/destination must be expanded beyond the task, ask only about that part
 

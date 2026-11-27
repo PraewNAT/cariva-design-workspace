@@ -5,6 +5,8 @@ description: This skill encodes Emil Kowalski's philosophy on UI polish, compone
 
 # Design Engineering
 
+> Workflow fit: used at step(s) U3 only when the task involves motion, micro-interactions or polish in `design-system/rules/workflow-map.md` (see the Skill column of each flow table). Load it when that step starts.
+
 ## Initial Response
 
 When this skill is first invoked without a specific question, respond only with:
