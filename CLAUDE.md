@@ -40,6 +40,8 @@ Read `skills/{skill}/SKILL.md` before every task.
 | Skill name | What it does | How to use |
 |---|---|---|
 | shadcn | Add/edit DS components with shadcn | `add component [name]` (Thai: "เพิ่ม component [ชื่อ]") |
+| impeccable | Critique, audit or polish an existing interface (on request; reference only, our tokens and rules win) | `critique this screen`, `polish this component` |
+| ui-ux-pro-max | Look up styles, palettes, font pairings and chart types (reference only; never replaces Figma tokens) | `suggest a palette`, `find a style` |
 | unslop | Polish the UI's look (applied automatically to UI creation/adjustment work under our DS rules) | Just give UI task commands; no need to invoke it yourself |
 | component-reuse-check | Find existing Core/Product components before building, check code for duplicates, and plan/review UI cases (confirmed / proposed / unresolved) | `check whether components are really used [path]` (Thai: "เช็คว่าใช้ component จริงไหม [path]") |
 | pr-checklist | Run the checklist before merge and record the change in the changelog | `check this PR before merge` (Thai: "เช็ค PR นี้ก่อน merge") |

@@ -10,7 +10,7 @@ export type Skill = {
   scopeNote?: string;
 };
 
-/** สกิลที่เหลือใน repo (12 ตัว) ต้นฉบับคือ .agents/skills/<ชื่อ>/SKILL.md */
+/** สกิลที่เหลือใน repo (14 ตัว) ต้นฉบับคือ .agents/skills/<ชื่อ>/SKILL.md */
 export const skills: Skill[] = [
   { name: "create-project", scope: "Product เท่านั้น", scopeNote: "สร้างใน products/ ไม่เขียนลง Core", does: "สร้าง prototype React/shadcn ใน `products/<product>/prototypes/<id>/` พร้อม localhost และ Storybook แบบ Canvas / Preview / เต็มหน้า", trigger: "“สร้างโปรเจกต์ใหม่”, “ทำ prototype จากหน้านี้”", steps: "S4", flows: "06, 08", note: "ไม่สร้าง repo, ไม่ push, ไม่ deploy เอง" },
   { name: "component-reuse-check", scope: "Core + Product", scopeNote: "ค้น Core ก่อน แล้ว Product", does: "ค้น component ที่มีอยู่ (Core → Product) ตรวจของซ้ำ และวางกรณี (ยืนยัน / เสนอ / ยังไม่ชัด) ก่อนสร้างของใหม่", trigger: "“เช็คว่าใช้ component จริงไหม [path]”", steps: "S3, U2, C1, C2, F2, D3", flows: "01, 03, 04, 06, 10, 11, 12, 13", note: "รวมสกิลเดิม case-planning และ verify-ds-usage" },
@@ -22,13 +22,15 @@ export const skills: Skill[] = [
   { name: "audit", scope: "Figma ทุกไฟล์", scopeNote: "ไฟล์ DS กลาง (Core), ไฟล์ DS ของ Product และไฟล์หน้าจอ", does: "ตรวจและแก้ Figma: การผูก token และชื่อของ node, QA หน้าจอก่อนส่ง dev, จับคู่ component กับ DS แล้วแก้ให้ตรง", trigger: "“audit [ชื่อ] node-id=[id]”, “QA screen [ชื่อ]”, “map [ชื่อ] node-id=[id]”, “แก้ [ชื่อ] node-id=[id]”", steps: "F1, F2, D3, D5, V2", flows: "01, 02, 05, 07, 09, 10", note: "รวมสกิลเดิม design-review และ map-fix; รายงานก่อนแล้วถามก่อนแก้" },
   { name: "code-to-figma", scope: "หน้าจอของ Product", scopeNote: "ไม่ใช่ตัว component ใน Core", does: "สร้างหรืออัปเดตหน้าจอใน Figma จากโค้ดหรือ Storybook โดยใช้ instance ของ component จริง", trigger: "“code-to-figma [หน้า] source=[path] figma=[ลิงก์]”", steps: "D4, D6", flows: "05", note: "ต้องสั่งเท่านั้น ห้ามเขียน Figma เอง" },
   { name: "pr-checklist", scope: "ทั้ง repo", scopeNote: "Core, Product และ docs", does: "ตรวจความพร้อมก่อน merge จาก diff และผลตรวจอื่น พร้อมบันทึก changelog", trigger: "“เช็ค PR นี้ก่อน merge”, “อัปเดต changelog”", steps: "ก่อนเปิด/อัปเดต PR", flows: "10, 11, 15", note: "รวมสกิลเดิม changelog; ไม่ merge ให้" },
+  { name: "impeccable", scope: "Core + Product", scopeNote: "ใช้เป็นข้อมูลอ้างอิง ไม่ทับกฎของเรา", does: "วิจารณ์ ตรวจ ปรับให้เนี้ยบ หรือเสริม UI ที่มีอยู่แล้ว (ลำดับชั้นสายตา, a11y, responsive, animation)", trigger: "“critique หน้านี้”, “polish component นี้”, “audit UI นี้”", steps: "ตามที่สั่ง (ไม่อยู่ในขั้นประจำ)", flows: "03, 04, 10", note: "ฉบับในโปรเจกต์อยู่ที่ `.claude/skills/impeccable` (v3.5.0) ปลั๊กอินอาจเป็นเวอร์ชันใหม่กว่า" },
+  { name: "ui-ux-pro-max", scope: "Core + Product", scopeNote: "ใช้เป็นข้อมูลอ้างอิง ไม่แทน token ของ Figma", does: "ค้นสไตล์ พาเลตต์ คู่ฟอนต์ ชนิดกราฟ และคำแนะนำ UX สำหรับหลาย stack", trigger: "“แนะนำพาเลตต์”, “หาสไตล์สำหรับหน้านี้”", steps: "ตามที่สั่ง (ไม่อยู่ในขั้นประจำ)", flows: "03" },
   { name: "rename-frame", scope: "หน้าจอของ Product ใน Figma", scopeNote: "ไม่แตะ component หรือ instance", does: "เปลี่ยนชื่อ frame ของหน้าจอใน Figma ให้ตรงรูปแบบ `{Flow}/{Screen Name}` ทั้งชุด", trigger: "“rename frame [หน้า/section]”, “จัดชื่อ frame ใน [หน้า]”", steps: "นอก flow หลัก", flows: "—", note: "ยืนยันทั้งชุดก่อนเปลี่ยน; ไม่แตะ component/instance" },
   { name: "localization-export", scope: "ข้อความของ Product", scopeNote: "ต้องระบุชื่อ Product ทุกครั้ง", does: "ดึงข้อความจากหน้าจอใน Figma จัดหมวด และส่งออก/อัปเดตเป็น Excel สำหรับทีม localization (แปลด้วย AI ได้)", trigger: "“export ข้อความ [ชื่อ] node-id=[id]”, “อัปเดต localization [ชื่อ]”", steps: "นอก flow หลัก", flows: "—" },
 ];
 
 export const removedSkills = [
   "mermaid-diagrams (ผังให้ดีไซเนอร์ใช้ artifact-diagramming; ผังเป็นข้อความเขียน Mermaid ใน Markdown ตรง ๆ), doc-coverage, ux-writing, add-version-tab, crv-component-code (ซ้ำกับ workflow หรือเป็นของเก่า)",
-  "prototype-to-figma, impeccable, ui-ux-pro-max (เป็นของนอก repo; ใช้ผ่านปลั๊กอินได้ถ้าติดตั้งไว้)",
+  "prototype-to-figma (เป็นลิงก์ไปที่ Codex ในเครื่อง ไม่ใช่ของ repo)",
   "design-review, map-fix → รวมเข้า audit · changelog → รวมเข้า pr-checklist · case-planning → รวมเข้า component-reuse-check",
 ];
 

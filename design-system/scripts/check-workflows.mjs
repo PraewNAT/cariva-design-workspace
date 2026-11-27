@@ -33,6 +33,8 @@ if (mapSteps.size < 30) fail(`workflow-map.md: expected ~34 step rows with a Ski
 // 3. Known skills: project skills + plugin skills (contain ":" ) + artifact-diagramming.
 const skillDir = path.resolve(root, "../.agents/skills");
 const projectSkills = new Set(fs.readdirSync(skillDir).filter(n => fs.existsSync(path.join(skillDir, n, "SKILL.md"))));
+const claudeDir = path.resolve(root, "../.claude/skills");
+if (fs.existsSync(claudeDir)) for (const n of fs.readdirSync(claudeDir)) if (fs.existsSync(path.join(claudeDir, n, "SKILL.md"))) projectSkills.add(n);
 const isKnownSkill = name => projectSkills.has(name) || name.includes(":") || name === "artifact-diagramming" || name === "artifact-design";
 const namesIn = text => text.replace(/\([^)]*\)/g, "").split(/[,;]| และ | or /).map(x => x.trim().split(/\s+/)[0]).filter(x => /^[a-z][a-z0-9:-]+$/.test(x));
 

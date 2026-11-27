@@ -227,7 +227,7 @@ Each flow table above has a **Skill** column: load that skill when the step star
 | Before merge / PR | pr-checklist (includes the changelog entry) |
 | Draw a flow for a designer | artifact-diagramming; plain Mermaid in Markdown when it must stay as text in the repo |
 
-Outside the main flows and used only when asked: rename-frame, localization-export.
+Outside the main flows and used only when asked: rename-frame, localization-export, impeccable (critique/audit/polish of an existing interface), ui-ux-pro-max (style, palette, font and chart lookups; reference only).
 
 ## How to have the AI follow a flow
 
