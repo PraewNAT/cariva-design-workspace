@@ -65,6 +65,7 @@ Read `skills/{skill}/SKILL.md` before every task.
 - **The DS's Figma source:** the file "Cariva Core Design System" (`XgxprkSY5mGbzIIwlmscCt`); the file "[Shadcn] Cariva Core Design System" is no longer used
 - Do not hardcode hex or px — use tokens from the central DS only (a hook in `.claude/hooks/` blocks it automatically)
 - If you need a new color → tell the DS team first; do not create it yourself
+- **Screens always come with a Canvas (2026-11-27):** whenever a screen or flow is designed or changed in code, create or update its Canvas in the same task, one Canvas page per flow, frames in step order, with labelled lines showing which button leads where and an all-flows map (see the `create-project` skill)
 - Figma wins — if a doc conflicts with Figma, trust Figma
 - **The order of work and decision points** are at `shadcn/rules/workflow-map.md`; state the flow name and the current step code before working; do not skip a step without evidence
 - **Every new component must be linked to Code Connect** — create/update `shadcn/code-connect/*.figma.tsx` for every set, run a dry-run, then publish before saying it is done (publishing needs the user's authorization; ask once and reuse the answer, and load the `figma:figma-code-connect` plugin skill before mapping); details in `shadcn/rules/workflow-map.md`
@@ -131,3 +132,8 @@ Before starting work for the first time each day, check the branch/upstream and 
 ## Always read create-project before starting any project — 27 November 2026
 
 When the user asks to create a new project or prototype, whether by typing the skill name or by asking to implement a Figma screen as a new project, you must open and read this workspace's canonical `.agents/skills/create-project/SKILL.md` before scaffolding or writing any file, every time. Use the current version in the file; do not rely on memory from earlier work. Having read it, you may proceed under the existing authorization; this is not a step to request approval again, and editing a single component is not automatically treated as a new project.
+
+
+## Delivery links — user decision 2026-11-27
+
+Every delivery summary and PR description must include verified links to (1) the main Storybook, (2) the relevant Product prototype, and (3) its Canvas. If the full set is not available, include only item 1, the main Storybook. Do not invent missing destinations or include unrelated Product links. Label local URLs as local and deployed previews as previews; do not imply a new commit is deployed before verification. Discover actual story IDs from source/catalog. The main Storybook is https://cariva-ds-storybook.vercel.app.

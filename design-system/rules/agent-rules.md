@@ -18,6 +18,8 @@ Figma parity is a verified design mapping, not guaranteed bidirectional automati
 
 ## Canvas scope — 2026-11-25
 
+**Added 2026-11-27 (user decided):** every screen, page or flow designed or changed in code gets its Product Canvas created or updated in the same task, arranged one page per flow with frames in step order; see `.agents/skills/create-project/SKILL.md`, "Canvas is built together with the screens". This applies to Product prototypes, not to component-only work in this workspace.
+
 This workspace holds components only (shadcn primitives, compositions, tokens, Core catalog); screens are built per project and are not kept here. The Canvas is the board from the Cariva DS repo: `sync/canvas/index.html` with its layout in `sync/canvas/frames.shadcn.json`, shown in Storybook as `Workspace/Canvas`. Inside Storybook it is a read-only view (zoom/pan, fit); dragging and saving frame positions needs `node sync/server.mjs` and `localhost:6019/canvas?frames=frames.shadcn`. The earlier custom Playground editor stays cancelled: do not build Layers/Properties panels, draft savepoints or Apply/export automation unless explicitly requested again.
 
 ## Entry points and workflow

@@ -14,6 +14,7 @@ export default defineConfig({
       "react-dom": path.resolve(ds, "node_modules/react-dom"),
       "lucide-react": path.resolve(ds, "node_modules/lucide-react"),
       "@fontsource": path.resolve(ds, "node_modules/@fontsource"),
+      "@material-symbols": path.resolve(ds, "node_modules/@material-symbols"),
     },
     dedupe: ["react", "react-dom"],
   },

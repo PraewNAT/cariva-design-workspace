@@ -14,7 +14,7 @@ export const overviewFlow: Flow = {
     { id: "c", lane: "ai", label: "บอกชื่อ flow + รหัสขั้นตอน", detail: "เช่น “Figma to Code, F1” เพื่อให้คุณรู้ว่าอยู่ตรงไหน" },
     { id: "d", lane: "ai", label: "อ่านข้อมูลจริง + ค้นของที่มี", detail: "อ่าน Figma/โค้ดล่าสุด และค้น Core → Product ก่อนสร้างใหม่" },
     { id: "e", lane: "you", label: "ยืนยันแผน", kind: "ask", detail: "AI สรุปสิ่งที่จะทำ ชื่อ ที่อยู่ (Core/Product) และผลกระทบ แล้วรอคำตอบ เช่น “ยืนยันตามเสนอ”" },
-    { id: "f", lane: "ai", label: "ทำงานตามชนิดงาน", detail: "เขียนโค้ด หรือแก้ Figma ตามที่คุณสั่งเท่านั้น (รายละเอียดอยู่ในหน้า 01–16)" },
+    { id: "f", lane: "ai", label: "ทำงานตามชนิดงาน", detail: "เขียนโค้ด หรือแก้ Figma ตามที่คุณสั่งเท่านั้น ถ้าเป็นการออกแบบหรือแก้หน้าจอในโค้ด จะทำ Canvas คู่กันเสมอ เรียงเป็นแต่ละ flow (รายละเอียดอยู่ในหน้า 01–16)" },
     { id: "g", lane: "ai", label: "อัปเดต story + เอกสาร", detail: "ทั้ง Storybook, `.md` และข้อความ doc ใน Figma ที่เกี่ยวข้อง" },
     { id: "h", lane: "ai", label: "ทดสอบ + audit", detail: "test, build, token check, วัดค่าเทียบ Figma ถ้าไม่ผ่านจะกลับไปแก้ก่อนส่ง" },
     { id: "i", lane: "ai", label: "ผูก Code Connect", kind: "maybe", detail: "เฉพาะ component ที่มีคู่ใน Figma: โหลด `figma:figma-code-connect` → dry-run → ถามคุณก่อน publish" },

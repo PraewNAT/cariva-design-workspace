@@ -46,3 +46,15 @@ Open http://localhost:6006/canvas/index.html?frames=frames.mock-hosxp with Story
 Canvas entry is now separate: `products/mock-hosxp/canvas/mock-hosxp-home/`, Storybook **Products / Mock HosXP / Canvas / Home / Board**. Screen stories remain under Prototypes / Home; the board no longer appears inside that group.
 
 Canvas layout update: the earlier seven-frame arrangement is superseded by five state groups, each pairing Desktop / Mobile (10 frames). See the separate Canvas README for dimensions and spacing.
+
+## Transcribe → note → save → rating — 2026-11-27
+
+Source: Figma section [ASR Recorder → Transcribe → Rating, 812:34976](https://www.figma.com/design/cc5bDyHoQauXzugSwTH4Wd/CarivaSpace-for-HosXP?node-id=812-34976). The user chose the main path first and this existing work item. Canvas pages, one per flow: **อัดเสียง** (Ready, Recording, Paused, Ready to transcribe, Playback), **สร้างโน้ต** (Generating, Note ready), **บันทึกเข้า HIS** (Saving, Saved, Closing session), **ให้คะแนน** (Good feedback, Feedback sent).
+
+Changed to follow Figma: the recorder floats over the "Ready to record" area; the header shows `ButtonSplit` Stop (with elapsed time) or Transcribe; the earlier proposal of editable note fields after Stop is removed.
+
+Assumptions and demo behaviour: only the 3-second "Note saved!" time comes from a Figma annotation; generating (3 s), saving (2 s) and closing (2 s) are placeholders. The split button menu offers Hide / Show recorder (the menu content is not in Figma). Copy All copies the mock note and shows a short Thai status. Canvas frames and state stories hold their first step (`holdInitial`).
+
+Not built yet (the screens say so when pressed): Bad feedback with reasons, "Replace this note?" before a new recording, edit results, empty results, the error dialogs, the Delete-recording and Back-to-HOSxP dialogs as drawn in Figma (the earlier Thai demo dialogs remain), and closing errors.
+
+Differences from Figma: the success check and loading spinner use DS icons (the Figma GIFs, 4.8 MB and 7.8 MB, were not downloaded); the logo stays visible on the Generating screen although that Figma frame hides it; Malila and Aktiv Grotesk Thai are not installed, so fallbacks render; a one-line "Prototype demo" note is added; there is no mobile Figma, so mobile is a responsive adaptation.

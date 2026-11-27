@@ -4,6 +4,12 @@
 
 ## Unreleased — 2026-11-27
 
+- Canvas viewer: boards with `links` show a flow map page, labelled connector lines (main, back/optional, error), a tag per flow and a board title; lines can be hidden. Canvas freezes animations and HosXP timers, batches repaints, and shows Desktop/Mobile pairs by default. Mobile screens scroll natively, with Ctrl/Command + wheel forwarded to board zoom. Action links resolve actual controls and refresh after DOM/layout changes; unresolved actions do not draw misleading frame-edge lines. Add-frame controls are hidden in the read-only view. `canvas:check` now requires labelled lines that reach every step. Mock HosXP board has 17 lines and one row per flow.
+
+- Mock HosXP: built the main path of Figma section 812:34976 (record → generate note → save to HIS → good rating) in the existing Home prototype, with a 4-page Canvas (one per flow, 24 frames). The editable-note-after-Stop proposal was removed to follow Figma. Details and gaps: the prototype README.
+
+- Screens and Canvas are now one deliverable: designing or changing a screen or flow in code also creates or updates its Canvas, one page per flow with frames in step order. Added `npm run canvas:check`; updated `create-project`, `ui-workflow.md`, `workflow-map.md`, `agent-rules.md`, `CLAUDE.md`, `pr-checklist` and the Storybook Workflows pages.
+
 - Workflow safeguards: Code Connect parse, dry-run and publish now fail when a map file cannot be parsed (`--exit-on-unreadable-files`); a rule and workflow step to check for other people's uncommitted work before editing or committing; Storybook Workflows page `16 ส่งต่องานระหว่าง AI` (H1–H3), skills page moved to `17`; `design-system/docs/DS-TEAM-DECISIONS.md` collects the open DS team questions.
 
 - `Button` has a new `loading` prop (commit `605100a`): sets `disabled` and `aria-busy`, shows `Spinner`, hides the button's own icons, and shows only the spinner for `icon-*` sizes. Replaces the 26 November decision not to add the prop; composing `disabled` + `aria-busy` + `Spinner` by hand still works. Updated stories, docs, the `button-loading` Code Connect example (not yet published) and the shadcn skill notes.

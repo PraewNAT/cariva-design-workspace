@@ -71,3 +71,51 @@
 .hosxp-recorder-container { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 100%; min-width: 0; }
 .hosxp-demo-note { margin: 0; font: 12px/16px var(--font-ui); color: var(--cds-content-secondary); text-align: center; }
 .hosxp [data-slot=mira-recorder]:focus-visible { outline: 2px solid var(--cds-border-system); outline-offset: 4px; }
+
+/* Transcribe → note → save → rating screens (Figma section 812:34976). */
+.hosxp { position: relative; }
+.hosxp-session { position: relative; }
+.hosxp-symbol { display: inline-block; width: 16px; height: 16px; flex-shrink: 0; background: currentColor; mask-size: contain; mask-repeat: no-repeat; mask-position: center; }
+.hosxp-note-wrap { flex-direction: column; gap: 16px; padding-top: 8px; }
+.hosxp-recorder-container { position: absolute; top: 96px; right: 20px; width: 325px; z-index: 10; }
+.hosxp-recorder-container [data-slot=mira-recorder] { width: 100%; }
+.hosxp-generating { justify-content: center; padding-top: 24px; }
+.hosxp-generating-progress { width: 240px; max-width: 100%; }
+.hosxp-generating-step { margin: 0; font-size: 12px; line-height: 16px; font-weight: 500; color: var(--cds-brand-primary-content-default); }
+.hosxp-result { position: relative; flex: 1; min-height: 0; overflow: auto; border: 1px solid var(--cds-border-default); border-radius: 8px; font: 400 14px/22px var(--font-prose); }
+.hosxp-result-toolbar { position: sticky; top: 0; height: 40px; display: flex; justify-content: flex-end; align-items: center; gap: 8px; padding: 4px; background: color-mix(in srgb, var(--cds-bg-white) 75%, transparent); backdrop-filter: blur(2px); z-index: 1; }
+.hosxp-result section { max-width: 864px; margin: 0 24px; padding: 16px 8px; }
+.hosxp-result section + section { border-top: 1px solid var(--cds-border-default); }
+.hosxp-result p, .hosxp-result ul { margin: 0; }
+.hosxp-result ul { padding-left: 20px; list-style: disc; }
+.hosxp-result-footer { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 0 12px 4px; }
+.hosxp-feedback-bar { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; padding: 8px; border-radius: 9999px; background: var(--cds-brand-primary-on-surface-subtle); }
+.hosxp-feedback-bar p { margin: 0; font-size: 12px; line-height: 16px; font-weight: 500; color: var(--cds-content-secondary); }
+.hosxp-feedback-icon { display: flex; padding: 4px; border-radius: 9999px; background: var(--cds-brand-primary-on-surface-muted); }
+.hosxp-feedback-panel { position: absolute; right: 24px; bottom: 24px; z-index: 20; width: 400px; max-width: calc(100% - 16px); overflow: hidden; border-radius: 16px; background: var(--cds-on-surface-elevated); box-shadow: var(--cds-shadow-2xl); border: 1px solid var(--cds-border-default); }
+.hosxp-feedback-head { padding: 24px 16px 0; }
+.hosxp-feedback-head h2 { margin: 0; font: 600 20px/28px var(--font-ui); }
+.hosxp-feedback-head p { margin: 0; font-size: 14px; line-height: 20px; color: var(--cds-content-secondary); }
+.hosxp-feedback-body { display: flex; flex-direction: column; gap: 4px; padding: 16px 16px 12px; }
+.hosxp-feedback-choice { display: flex; gap: 8px; margin-bottom: 12px; }
+.hosxp-feedback-choice .hosxp-symbol { width: 20px; height: 20px; }
+.hosxp-feedback-selected { background: var(--cds-brand-primary-on-surface-subtle); }
+.hosxp-feedback-body textarea { min-height: 120px; resize: none; }
+.hosxp-feedback-count { margin: 0; font-size: 12px; line-height: 16px; color: var(--cds-content-secondary); }
+.hosxp-feedback-actions { display: flex; justify-content: flex-end; gap: 8px; padding: 16px; background: var(--cds-bg-subtle); }
+.hosxp-status { display: flex; flex: 1; flex-direction: column; align-items: center; justify-content: center; gap: 16px; padding: 12px; border: 1px solid var(--cds-border-default); border-radius: 8px; background: var(--cds-on-surface-elevated); text-align: center; }
+.hosxp-status-art { display: flex; align-items: center; justify-content: center; width: 100px; height: 100px; color: var(--cds-brand-primary-content-default); }
+.hosxp-status .hosxp-status-art svg { width: 72px; height: 72px; }
+@media (prefers-reduced-motion: reduce) { .hosxp-status-art svg { animation: none; } }
+@media(max-width: 760px) {
+  .hosxp-recorder-container { position: static; width: 100%; padding-bottom: 8px; }
+  .hosxp-recorder-container [data-slot=mira-recorder] { max-width: 325px; }
+  .hosxp-note-wrap { padding-top: 8px; }
+  .hosxp-result { flex: none; max-height: 560px; }
+  .hosxp-result section { margin: 0 8px; }
+  .hosxp-result-footer { padding: 8px 0 0; }
+  .hosxp-feedback-bar { border-radius: 16px; }
+  .hosxp-feedback-panel { position: fixed; right: 8px; bottom: 8px; width: calc(100% - 16px); }
+  .hosxp-status { min-height: 640px; }
+  .hosxp-status h2 { white-space: normal; }
+}
