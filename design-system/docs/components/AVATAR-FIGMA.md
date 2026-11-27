@@ -33,7 +33,7 @@ The code source is the authority for API/behavior; Figma is the visual target in
 
 The user confirmed a 12px minimum on 26 November 2026: `sm/xs` intentionally differ from Figma, which is still 10px. Uses fixed-size flex centering instead of copying the min-width/padding that made the fallback stretch. Fonts are not scaled down to squeeze in full names; pass initials and place the full name beside the Avatar. The fallback clips content that exceeds the bounds while keeping its original size.
 
-- Font: `font-sans` of the active theme; carivaApp/backOffice use IBM Plex Sans Thai. HosXP/Malila were not checked in this task.
+- Font: `font-sans` of the active theme; carivaApp uses IBM Plex Sans Thai. HosXP/Malila were not checked in this task.
 - Fallback background: `color/on-surface/sunken`; initials: `color/content/primary`; SVG icons: `color/content/secondary`.
 - No border overlay around a single Avatar, per the target. Images use object-cover and rounded-full without clipping the badge.
 - The badge is a 12×12px box including a 2px border in `color/on-surface/default`, with an inner 8×8px dot in `color/status/success/on-surface/default`.
@@ -56,7 +56,7 @@ AvatarGroup keeps the existing 8px overlap and 2px ring border. AvatarGroupCount
 - `ImageFallback`: broken image and no image at every size, checks text of at least 12px.
 - `GroupSizes`: every size with a count, no max prop.
 - `PageAndDialog`: compares computed styles on the page and in the portal with keyboard/focus restoration.
-- `MobileThai`: 320px, backOffice scope, long Thai names and text at the 12px minimum.
+- `MobileThai`: 320px, long Thai names and text at the 12px minimum.
 
 The assets in `src/lib/app/components/ui/assets/avatar/` are all seven files, portrait PNGs and person SVGs from the design context. Stories use local imports; no temporary Figma URLs at runtime. The paths and native dimensions of the SVGs are not changed. The portrait images are examples from Figma, not real user data.
 

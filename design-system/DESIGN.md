@@ -8,7 +8,7 @@
 
 Updated 25 November 2026, adapted from the document the user sent, following the latest instruction and the current Figma; this does not confirm that every runtime has been synced.
 
-Direction: clean, friendly and work-tool-like; keep information dense within groups that read easily, and leave clear space between groups. The surface and layout guidance below adapts ideas from `awesomic.com-DESIGN.md`, provided by the user, applied to Cariva's back-office Product UI.
+Direction: clean, friendly and work-tool-like; keep information dense within groups that read easily, and leave clear space between groups. The surface and layout guidance below adapts ideas from `awesomic.com-DESIGN.md`, provided by the user, applied to Cariva's Product UI.
 
 ## References
 
@@ -54,18 +54,18 @@ Some primary/filled color pairs in Figma still fail AA contrast for normal-size 
 
 Read live from Figma on 24 November 2026; temporary values until the user confirms with the team.
 
-| Role | cariva app | back office | HosXP |
-|---|---|---|---|
-| `font-family/ui` | IBM Plex Sans Thai | IBM Plex Sans Thai | Aktiv Grotesk Thai |
-| `font-family/prose` | IBM Plex Sans Thai Looped | IBM Plex Sans Thai Looped | Google Sans |
-| `font-family/display` | Malila | Malila | Malila |
+| Role | cariva app | HosXP |
+|---|---|---|
+| `font-family/ui` | IBM Plex Sans Thai | Aktiv Grotesk Thai |
+| `font-family/prose` | IBM Plex Sans Thai Looped | Google Sans |
+| `font-family/display` | Malila | Malila |
 
 - UI is for controls, tables, labels and screen text; prose is for continuous reading paragraphs; display is for the selected display/marketing contexts and is not automatically used for forms/tables
 - Choose the Product/mode first; do not assume every Product uses the same font. Foundation fonts are separate from Product Style and must not be used to override a Product's role
 - Use the role names `ui`/`prose`; the `sans`/`serif` present in legacy are compatibility aliases
 - Do not choose Inter/Roboto or a new font as a design choice on your own. A generic CSS fallback may be kept for robustness, but do not claim the fallback is rendering the Figma font
 - Check the font assets and weights actually loaded, especially fonts that depend on Adobe Fonts; report fallbacks/missing files and do not assume they are installed
-- The active `carivaApp` and `backOffice` now share IBM Plex Sans Thai UI / Looped prose in shadcn; the HosXP and Malila assets are not yet certified complete; the font values in code/core are a legacy reference
+- The active `carivaApp` uses IBM Plex Sans Thai UI / Looped prose in shadcn; the HosXP and Malila assets are not yet certified complete; the font values in code/core are a legacy reference
 
 ## Font sizes
 

@@ -329,7 +329,6 @@ export const radius = { none: 0, '2': 2, '4': 4, '8': 8, '12': 12, '16': 16, '24
 const fontFamily = { display: '"Malila", "IBM Plex Sans Thai", sans-serif', ui: '"IBM Plex Sans Thai", sans-serif', prose: '"IBM Plex Sans Thai Looped", sans-serif' } as const;
 export const productStyle = {
   carivaApp: { interactive: radius.full, inputSm: radius.full, inputMd: radius.full, containerSm: radius['12'], containerMd: radius['16'], fontFamily },
-  backOffice: { interactive: radius['12'], inputSm: radius['8'], inputMd: radius['12'], containerSm: radius['8'], containerMd: radius['12'], fontFamily },
 } as const;
 export type ProductStyleName = keyof typeof productStyle;
 export const defaultProductStyle: ProductStyleName = 'carivaApp';

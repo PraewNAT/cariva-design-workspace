@@ -191,16 +191,6 @@ export const LongThai: Story = {
     </div>
   ),
 };
-export const BackOffice: Story = {
-  decorators: [
-    (Story) => (
-      <div data-product="backOffice">
-        <Story />
-      </div>
-    ),
-  ],
-};
-
 /** Figma `elevated`: white surface, shadow/sm → hover shadow/xl → pressed shadow/md; no shadow when disabled. */
 export const Elevated: Story = {
   render: () => (

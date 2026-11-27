@@ -150,13 +150,13 @@ export const Keyboard: Story = {
 };
 
 function DialogExample() {
-  return <div data-product="backOffice" className="flex flex-col gap-6">
+  return <div className="flex flex-col gap-6">
     <Example label="กลุ่มบนหน้า" />
     <Dialog>
       <DialogTrigger render={<Button variant="outline" color="secondary" />}>เปิดเลือกกลุ่ม</DialogTrigger>
       <DialogContent>
         <DialogHeader><DialogTitle>เลือกกลุ่มการตรวจ</DialogTitle><DialogDescription>ข้อมูลจำลองสำหรับตรวจ Combobox ใน Dialog</DialogDescription></DialogHeader>
-        <div data-product="backOffice"><Example label="กลุ่มใน Dialog" /></div>
+        <Example label="กลุ่มใน Dialog" />
       </DialogContent>
     </Dialog>
   </div>;
