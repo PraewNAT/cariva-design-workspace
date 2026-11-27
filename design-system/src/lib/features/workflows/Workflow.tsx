@@ -144,7 +144,7 @@ export function WorkflowIndex() {
       <p className="mb-4">แต่ละหน้าบอกว่าเมื่อคุณสั่งงานรูปแบบหนึ่ง ใครทำอะไรตามลำดับ AI จะหยุดรอคุณตอนไหน และสิ่งไหนที่ AI จะไม่อ้างว่าตรวจแล้ว รหัสขั้นตอน (เช่น F2, U5) ตรงกับ <code>rules/workflow-map.md</code> ซึ่งเป็นต้นฉบับของลำดับขั้นตอน</p>
 
       <h2 className="mt-6 text-xl font-semibold">ภาพรวมตั้งแต่สั่งงานจนเปิด PR</h2>
-      <p>งานทุกชนิดในหน้า 01–15 ผ่านลำดับใหญ่นี้เหมือนกัน ส่วนที่ต่างกันคือขั้น “ทำงานตามชนิดงาน” ซึ่งมีรายละเอียดในแต่ละหน้า</p>
+      <p>งานทุกชนิดในหน้า 01–16 ผ่านลำดับใหญ่นี้เหมือนกัน ส่วนที่ต่างกันคือขั้น “ทำงานตามชนิดงาน” ซึ่งมีรายละเอียดในแต่ละหน้า</p>
       <Swimlane flow={overviewFlow} />
       <ol className="list-decimal pl-6">
         {overviewFlow.steps.map(s => (
@@ -169,7 +169,7 @@ export function WorkflowIndex() {
         </tbody>
       </table>
 
-      <p className="mt-4">อยากรู้ว่าสกิลแต่ละตัวทำอะไร ดูหน้า “16 รวมสกิล”</p>
+      <p className="mt-4">อยากรู้ว่าสกิลแต่ละตัวทำอะไร ดูหน้า “17 รวมสกิล”</p>
       <h2 className="mt-6 text-xl font-semibold">กติกาที่ใช้กับทุก flow</h2>
       <ul className="list-disc pl-6">
         <li>AI บอกชื่อ flow และรหัสขั้นตอนปัจจุบันก่อนเริ่มงาน (เช่น “Figma to Code, F2”)</li>
