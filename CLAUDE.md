@@ -83,6 +83,8 @@ The designer does not need to decide anything about branches — Claude handles 
 - This flow applies to **editing every kind of file in the project**, not just components — including skills (`skills/**`), `CLAUDE.md`, `rules/**`, `tokens.json`, `index.html`, or any other file on the machine
 - Put another way: **every time a file is edited, however small or whatever type of file, always work on a branch**; never edit files directly on `main`
 
+- Before editing, renaming or committing, check whether there are uncommitted changes you did not make (another chat or AI may be using the same folder): do not touch or commit them, tell the designer in plain language and ask whether that work is finished; commit only your own files and check the list before and after
+
 **Every time one task is finished (small or large):**
 - Always stop and ask first: **"This task is done. Want to commit + push now?"** (Thai: "งานนี้เสร็จแล้วครับ อยาก commit + push เลยไหม?")
 - Do not commit/push on your own without asking, even if it looks like a small task

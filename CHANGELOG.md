@@ -4,6 +4,8 @@
 
 ## Unreleased — 2026-11-27
 
+- Workflow safeguards: Code Connect parse, dry-run and publish now fail when a map file cannot be parsed (`--exit-on-unreadable-files`); a rule and workflow step to check for other people's uncommitted work before editing or committing; Storybook Workflows page `16 ส่งต่องานระหว่าง AI` (H1–H3), skills page moved to `17`; `design-system/docs/DS-TEAM-DECISIONS.md` collects the open DS team questions.
+
 - `Button` has a new `loading` prop (commit `605100a`): sets `disabled` and `aria-busy`, shows `Spinner`, hides the button's own icons, and shows only the spinner for `icon-*` sizes. Replaces the 26 November decision not to add the prop; composing `disabled` + `aria-busy` + `Spinner` by hand still works. Updated stories, docs, the `button-loading` Code Connect example (not yet published) and the shadcn skill notes.
 
 - Figma `button` set (not part of the code diff): linked the labels of the 36 `secondary` variants to `children` and applied `typography/label/large` to the 40 `default`-size labels. Library not published; consuming files not checked.

@@ -196,7 +196,7 @@ export const otherFlows: Flow[] = [
       { id: "b", lane: "ai", label: "เช็คอัปเดตจาก main ตอนเริ่ม session", detail: "ถ้ามีและไม่มีงานค้าง จะดึงให้อัตโนมัติ ถ้าชนกันจะแก้เอง (ถ้าไม่แน่ใจจริง ๆ จะถามเป็นภาษาธรรมดา)" },
       { id: "c", lane: "ai", label: "จบงาน: ถามก่อน commit", detail: "“งานนี้เสร็จแล้ว อยาก commit + push เลยไหม?” ไม่ commit หรือ push เอง" },
       { id: "d", lane: "you", label: "ตอบ ใช่/ไม่", kind: "ask", detail: "ตอบ “commit เลย” เพื่อ commit; push ต้องสั่งแยก" },
-      { id: "e", lane: "ai", label: "commit (ไม่รวมไฟล์ชั่วคราว)", detail: "ไม่รวมไฟล์ลับ (`.env.local`) และโฟลเดอร์สำรอง/ผลทดสอบที่ยังไม่ได้ติดตาม" },
+      { id: "e", lane: "ai", label: "commit (ไม่รวมไฟล์ชั่วคราว)", detail: "เลือกเฉพาะไฟล์ของงานนี้ ไม่รวมงานค้างของแชทหรือคนอื่น ตรวจรายการก่อนและหลัง commit ไม่รวมไฟล์ลับ (`.env.local`) และโฟลเดอร์สำรอง/ผลทดสอบที่ยังไม่ได้ติดตาม" },
       { id: "f", lane: "you", label: "สั่ง push / เปิด PR", kind: "ask", detail: "ถ้า push แล้วยังไม่มี PR AI จะถามว่าเปิดเลยหรือรอสะสมงานก่อน" },
       { id: "g", lane: "ai", label: "ส่งลิงก์ PR + preview + สรุปสั้น", detail: "แนบลิงก์ preview (เช่น Vercel) และสรุปสิ่งที่ทำ คุณไม่ต้องอ่านโค้ด" },
       { id: "g1", lane: "ai", label: "แนบลิงก์ prototype เต็มหน้า", kind: "maybe", detail: "เฉพาะ PR ที่แก้ prototype ของ Product: ใส่ในคำอธิบาย PR เป็นลิงก์ `iframe.html?id=<story-id>&viewMode=story` ของ Storybook preview (ไม่มี sidebar) ใช้ story ID จริง ไม่เดา และบอกว่าลิงก์ Vercel ต้องล็อกอินทีมก่อน" },
