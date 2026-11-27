@@ -51,4 +51,6 @@ Canvas overview shows Desktop + Mobile by default: 32px within each pair and 640
 
 Validation for action anchors and Mobile scrolling: browser checks confirmed the Start Record line starts at the actual button bounds, recovers after a delayed accessible-name change, Mobile scrolls 328px with a wheel gesture, and Ctrl + wheel changes Canvas zoom from 60% to 73%.
 
-The **เปิดเต็มหน้า** button opens the selected Storybook prototype story using the current Storybook host. It does not use the local standalone `previewUrl`, so deployed Canvas links stay on the deployed Storybook domain.
+The **เปิดเต็มหน้า** button opens the selected prototype screen on the current Storybook host, without Canvas controls, like the real product page. Opening a Prototype story from the Storybook navigation keeps the Storybook sidebar visible so you can switch flows/states. The full-page URL is built from the current Storybook host; it does not use the local standalone `previewUrl`.
+
+Prototype entry with the work-history sidebar: `iframe.html?id=products-mock-hosxp-prototypes-home--workspace&viewMode=story` (no Storybook manager UI; retains the Product work-history sidebar). The `--ready` story is a screen-only specimen and does not render `PrototypeShell`.
