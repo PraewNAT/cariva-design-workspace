@@ -14,7 +14,7 @@ const preview: Preview = {
     options: {
       storySort: {
         method: "alphabetical",
-        order: ["Core", ["Foundations", "Components", ["Button", "Button Mic", "Button Split", "Fab", "*"]], "Products", "*"],
+        order: ["Core", ["Foundations", "Components", ["Button", "Button Mic", "Button Split", "Fab", "*"]], "Workflows", "Products", "*"],
       },
     },
     viewport: {

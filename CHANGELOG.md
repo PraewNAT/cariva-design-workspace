@@ -2,6 +2,10 @@
 
 ---
 
+## Unreleased — 2026-11-27
+
+- Storybook `Workflows` folder (Thai): 15 pages (`00` overview + 14 flows) showing, for each kind of instruction, what the designer and the AI do, where the AI stops to ask, the result and what is not verified. Swimlane diagrams are inline SVG drawn from data in `design-system/src/lib/features/workflows/`; step codes match `rules/workflow-map.md`. No change to components or tokens.
+
 ## Unreleased — 2026-11-26
 
 - Visualization: 25 Core chart recipes on existing Chart/Recharts, responsive desktop/mobile, patterns/gradients/depth, accessible data tables and keyboard tooltips. Added30 stories alongside10 existing examples; Figma template docs50linked specimens. Code Connect discovery blocked by unpublished source components; mapping recorded locally.

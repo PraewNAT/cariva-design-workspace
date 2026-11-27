@@ -17,5 +17,6 @@ Note from 25 November 2026, shared by both Codex and Claude. The details are kep
 | Take a component/screen from code to Figma, separating the DS from the design file | [Code → Design](../rules/code-to-design-flow.md) |
 | Change variables in Figma and trace the impact | [Variable change flow](../rules/figma-variable-change-flow.md) |
 | Take in a component from outside and adapt it to fit the DS | [Component adoption](../rules/component-adoption-flow.md) |
+| See, in Thai swimlane diagrams, what the designer and the AI each do for common instructions (add/change a component via Figma or AI, code ↔ Figma, variables, new Product, audit, git) | Storybook `Workflows` folder (source: `src/lib/features/workflows/`) |
 
 The main rules are in the [Shared agent rules](../rules/agent-rules.md), with AGENTS.md and CLAUDE.md pointing to the same single set of rules. Flowcharts are Mermaid in Markdown, with step text so they can be read even when not rendered. This document does not start implementation, sync, publishing or automation, and the Login board/URL matter remains on hold
