@@ -1,51 +1,76 @@
 # Cariva Design Workspace
 
-A single workspace for the Design System and each Product's prototypes. Sources and tooling are kept separate so work is easy to find, without mixing experimental code into shared components.
+พื้นที่ทำงานเดียวสำหรับ Design System และ prototype ของแต่ละ Product โดยแยกโค้ดกับเครื่องมือออกจากกัน หางานได้ง่าย และไม่เอาโค้ดทดลองไปปนกับ component ที่ใช้ร่วมกัน
 
-## Structure
+ใช้ React + shadcn/ui (Base UI) + Tailwind v4 และ Figma เป็นต้นฉบับของดีไซน์
+
+**Storybook ออนไลน์:** https://cariva-ds-storybook.vercel.app
+
+## โครงสร้างโฟลเดอร์
 
 ```text
-cariva-design/                    # workspace name; the local checkout can keep its existing name
-├── design-system/                # React/shadcn Core, Product DS, tokens, docs, Storybook
+cariva-design-workspace/
+├── design-system/                # Core และ Product DS: component, token, เอกสาร, Storybook
 ├── products/<product-id>/
-│   └── prototypes/<prototype-id>/ # screens, cases, fixtures and the prototype app
+│   └── prototypes/<prototype-id>/ # หน้าจอ, กรณีทดสอบ, ข้อมูลจำลอง และแอป prototype
 ├── workspace/
-│   └── canvas/                   # board and frame catalogs
-├── .agents/skills/               # canonical skills; skills/ is a compatibility link
-├── rules/                        # shared rules and routing
-├── legacy/mui/                   # frozen reference
-├── sync/                         # sync tooling; canvas is a compatibility link
-└── scripts/                      # peer bridge / Code Connect tooling
+│   └── canvas/                   # บอร์ดและรายการเฟรม
+├── .agents/skills/               # สกิลของ AI (`skills/` เป็นลิงก์ไว้ให้ของเดิมใช้ได้)
+├── rules/                        # กฎกลางและการเลือกสกิล
+├── legacy/mui/                   # DS เก่า เก็บไว้ดูอย่างเดียว ห้ามเขียนโค้ดใหม่ลงที่นี่
+├── sync/                         # เครื่องมือ sync (`sync/canvas/` ชี้ไปที่ `workspace/canvas/`)
+└── scripts/                      # เครื่องมือ peer bridge และ Code Connect
 ```
 
-`shadcn/` is a compatibility link to `design-system/`, not a separate DS, and `sync/canvas/` points to `workspace/canvas/` to keep existing scripts/links working. The Git remote name and the local checkout are not renamed automatically.
+`shadcn/` เป็นลิงก์ไปที่ `design-system/` ไม่ใช่ DS อีกชุดหนึ่ง
 
-## Getting started
+## เริ่มใช้งาน
 
-- DS Storybook: `cd design-system && npm ci && npm run storybook` (currently port 6006)
-- Workspace launcher: `cd design-system && npm run prototype` (port 5173) shows a sidebar for choosing real Product prototypes; there are no DS examples
-- See the [prototype index](products/README.md) for real work, with run commands, ports, Figma and per-prototype status listed separately
-- Read [create-project](.agents/skills/create-project/SKILL.md) before creating new work, and the [workspace scope](rules/workspace-structure.md) before choosing a location
+- เปิด Storybook ของ DS (พอร์ต 6006):
 
-## Requesting a prototype
+  ```bash
+  cd design-system && npm ci && npm run storybook
+  ```
+
+- เปิดตัวเลือก prototype ของจริง (พอร์ต 5173) มีแถบข้างให้เลือก ไม่มีตัวอย่างของ DS:
+
+  ```bash
+  cd design-system && npm run prototype
+  ```
+
+- ดูงานจริงทั้งหมด พร้อมคำสั่งรัน พอร์ต Figma และสถานะ ได้ที่ [รายการ prototype](products/README.md)
+- ก่อนสร้างงานใหม่ อ่าน [create-project](.agents/skills/create-project/SKILL.md) และก่อนเลือกที่วางไฟล์ อ่าน [ขอบเขตของ workspace](rules/workspace-structure.md)
+
+`Mock HosXP` และ `Mock Mira` เป็นงานตัวอย่าง ไม่ใช่ Product จริง เมื่อเริ่มงานจริงให้สร้าง Product ID ใหม่ของตัวเอง
+
+## อยากสั่ง AI ทำอะไร
+
+เปิด Storybook แล้วดูโฟลเดอร์ **Workflows**
+
+- หน้า `00 ภาพรวม` บอกว่าตั้งแต่สั่งงานจนเปิด PR คุณกับ AI ทำอะไรบ้าง
+- หน้า `01`–`16` แยกตามชนิดงาน เช่น เพิ่มหรือแก้ component, แปลง Figma กับโค้ด, เปลี่ยน variable
+- หน้า `17 รวมสกิล` บอกว่าสกิลแต่ละตัวทำอะไรและสั่งอย่างไร
+
+## ขอสร้าง prototype
 
 ```text
-Create prototype [name] for Product [Product name]
-Use this workspace and keep it in products/<product-id>/prototypes/<prototype-id>/
-Figma: [link, if any — or design from requirements]
+สร้าง prototype [ชื่อ] ของ Product [ชื่อ Product]
+ใช้ workspace นี้ และเก็บไว้ที่ products/<product-id>/prototypes/<prototype-id>/
+Figma: [ลิงก์ ถ้ามี หรือให้ออกแบบจากความต้องการ]
 ```
 
-Thai trigger phrase (still works): `สร้าง prototype [ชื่อ] ของ Product [ชื่อ Product]`
+- ไม่ต้องแนบโฟลเดอร์ว่างแยกทุกครั้ง ถ้ามีแอปอยู่แล้ว AI จะตรวจและใช้ต่อ ไม่สร้างทับ
+- prototype ใหม่ทุกตัวใช้ React/shadcn มี dev server ของตัวเอง และเปิดใน Storybook ได้ทั้งแบบ Canvas / Preview / เต็มหน้า โดยใช้ตัวแสดงผลและกรณีทดสอบชุดเดียวกัน
+- ไม่ติดตั้ง dependency ของ Product ลงใน DS เพียงเพื่อรวม workspace
+- การสร้าง repo บน remote, publish, push, deploy และการเขียนลง Figma ต้องสั่งแยกทีละอย่าง
+- ดีไซน์ต้องเปิดได้ด้วยเครื่องมือที่มี ส่วนงานในเครื่องไม่จำเป็นต้องมี Figma Desktop หรือล็อกอิน `gh`
 
-There is no need to always attach a separate empty folder. If an app already exists, inspect and reuse it; do not scaffold over it. Follow the user's intent together with the node, rather than judging from the frame/component alone. The design must be accessible through the available tools, but Figma Desktop or gh/login is not required for local work. Creating a remote repo, publishing, pushing, deploying and writing to Figma must each be a separate request.
+## เอกสารอ้างอิง (ภาษาอังกฤษ)
 
-Every new Product prototype uses React/shadcn with its own dev host and can be opened in Storybook, with Canvas / Preview / full-page views using the same renderer and cases. Do not install Product dependencies into the DS just to combine the workspace.
+- [Workflow](design-system/rules/workflow-map.md): ลำดับขั้นตอนและจุดตัดสินใจ
+- [Agent rules](design-system/rules/agent-rules.md): กฎที่ AI ต้องทำตาม
+- [Product setup](design-system/rules/product-setup-flow.md): การตั้งค่า Product
+- [Figma component naming](design-system/docs/components/FIGMA-NAMING.md): การตั้งชื่อ component ใน Figma
+- [เรื่องที่รอทีม DS ตัดสิน](design-system/docs/DS-TEAM-DECISIONS.md)
 
-## Reference rules
-
-- [Workflow](design-system/rules/workflow-map.md)
-- [Agent rules](design-system/rules/agent-rules.md)
-- [Product setup](design-system/rules/product-setup-flow.md)
-- [Figma component naming](design-system/docs/components/FIGMA-NAMING.md)
-
-Organizing this workspace does not start release numbering and does not move or publish the Git repository.
+การจัด workspace นี้ไม่ได้เริ่มนับเลขเวอร์ชัน release
