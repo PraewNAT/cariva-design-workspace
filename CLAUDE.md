@@ -132,3 +132,8 @@ Before starting work for the first time each day, check the branch/upstream and 
 ## Always read create-project before starting any project — 27 November 2026
 
 When the user asks to create a new project or prototype, whether by typing the skill name or by asking to implement a Figma screen as a new project, you must open and read this workspace's canonical `.agents/skills/create-project/SKILL.md` before scaffolding or writing any file, every time. Use the current version in the file; do not rely on memory from earlier work. Having read it, you may proceed under the existing authorization; this is not a step to request approval again, and editing a single component is not automatically treated as a new project.
+
+
+## Delivery links — user decision 2026-11-27
+
+Every delivery summary and PR description must include verified links to (1) the main Storybook, (2) the relevant Product prototype, and (3) its Canvas. If the full set is not available, include only item 1, the main Storybook. Do not invent missing destinations or include unrelated Product links. Label local URLs as local and deployed previews as previews; do not imply a new commit is deployed before verification. Discover actual story IDs from source/catalog. The main Storybook is https://cariva-ds-storybook.vercel.app.
