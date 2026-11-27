@@ -4,13 +4,13 @@ import { PrototypeShell } from "../../../../../workspace/presentation/PrototypeS
 import { HosxpHome } from "./HosxpHome";
 import { hosxpCase } from "./cases";
 const meta = {
-  title: "Products/CarivaSpace HosXP/Prototypes/Home",
+  title: "Products/Mock HosXP/Prototypes/Home",
   component: HosxpHome,
   parameters: { layout: "fullscreen" },
 } satisfies Meta<typeof HosxpHome>;
 export default meta;
 type Story = StoryObj<typeof meta>;
-export const Ready: Story = { args: hosxpCase("hosxp-home") };
+export const Ready: Story = { args: hosxpCase("mock-hosxp-home") };
 export const Recording: Story = { args: hosxpCase("hosxp-recording") };
 export const Paused: Story = { args: hosxpCase("hosxp-paused") };
 export const Stopped: Story = { args: hosxpCase("hosxp-stopped") };
@@ -41,7 +41,7 @@ export const Interaction: Story = { play: async ({ canvas, canvasElement, userEv
   await expect(canvas.queryByRole("complementary", { name: "Patient History" })).not.toBeInTheDocument();
 } };
 
-export const Workspace: Story = { render: () => <PrototypeShell currentId="hosxp-home"><HosxpHome /></PrototypeShell>, play: async ({ canvas, userEvent }) => {
+export const Workspace: Story = { render: () => <PrototypeShell currentId="mock-hosxp-home"><HosxpHome /></PrototypeShell>, play: async ({ canvas, userEvent }) => {
   await expect(canvas.getByRole("complementary", { name: "เลือก prototype" })).toBeVisible();
   await userEvent.click(canvas.getByRole("button", { name: "ย่อแถบเลือกงาน" }));
   await expect(canvas.getByRole("button", { name: "ขยายแถบเลือกงาน" })).toBeVisible();

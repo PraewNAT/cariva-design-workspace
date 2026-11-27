@@ -48,7 +48,7 @@ Updated the existing docs `4537:147576` per Document Template `4537:130394`/Bloc
 
 Updated the existing mapped docs per Document Template: [Progress](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt?node-id=4721-88932), [Radio Group](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt?node-id=4537-147363), [Rating](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt?node-id=4887-55058). Used linked specimens 36/18/21, 75 in total; own text minimum 20px, no overflow found. Compared the 7 main sets: properties/variants/geometry unchanged. API/limitations per PROGRESS-FIGMA.md, RADIO-GROUP-FIGMA.md, RATING-FIGMA.md and the combined audit.
 
-Credit Badge ownership correction: the25 existing linked instances from sets7089:1151/7094:365 moved from Progress docs4721:88932 into separate Mira docs7296:35. Core Progress retains36 specimens. Existing12px local text overrides and links are preserved. See products/mira/CREDIT-BADGE.md and CREDIT-BADGE-AUDIT.md.
+Credit Badge ownership correction: the25 existing linked instances from sets7089:1151/7094:365 moved from Progress docs4721:88932 into separate Mira docs7296:35. Core Progress retains36 specimens. Existing12px local text overrides and links are preserved. See products/mock-mira/CREDIT-BADGE.md and CREDIT-BADGE-AUDIT.md.
 
 ### Tabs — 26/11/2026
 
@@ -56,11 +56,11 @@ Updated [the existing docs 4838:64978](https://www.figma.com/design/XgxprkSY5mGb
 
 ### Tooltip Core / Mira - 2026-11-26
 
-Updated Core documentation4716:60403 (13 linked specimens) and separate Mira documentation7292:35 (9 linked specimens) using Document Template4537:130394. Main APIs/variant geometry of three sets unchanged. Mira10px cost hints override to12px only in doc instances. Source/code ownership mapping: docs/products/mira/FIGMA-MAPPING.json; contracts TOOLTIP-FIGMA.md and products/mira/CREDIT-TOOLTIP.md; audit TOOLTIP-AUDIT.md.
+Updated Core documentation4716:60403 (13 linked specimens) and separate Mira documentation7292:35 (9 linked specimens) using Document Template4537:130394. Main APIs/variant geometry of three sets unchanged. Mira10px cost hints override to12px only in doc instances. Source/code ownership mapping: docs/products/mock-mira/FIGMA-MAPPING.json; contracts TOOLTIP-FIGMA.md and products/mock-mira/CREDIT-TOOLTIP.md; audit TOOLTIP-AUDIT.md.
 
 ### Core / Mira ownership audit - 2026-11-26
 
-Checked12 previously implemented pages (36sets +4standalone). Confirmed Mira ownership remains Credit Badge2sets and Credit Tooltip1set, already separated into Product source/stories/docs. No additional Mira evidence found in this scope. Corrected stale Credit Badge source descriptions7089:1151/7094:365 to Product paths and docs7296:35. Detailed report: [Mira ownership audit](../products/mira/OWNERSHIP-AUDIT.md). Documentation-only follow-up; no runtime quality re-certification.
+Checked12 previously implemented pages (36sets +4standalone). Confirmed Mira ownership remains Credit Badge2sets and Credit Tooltip1set, already separated into Product source/stories/docs. No additional Mira evidence found in this scope. Corrected stale Credit Badge source descriptions7089:1151/7094:365 to Product paths and docs7296:35. Detailed report: [Mira ownership audit](../products/mock-mira/OWNERSHIP-AUDIT.md). Documentation-only follow-up; no runtime quality re-certification.
 
 ### Visualization - 2026-11-26
 

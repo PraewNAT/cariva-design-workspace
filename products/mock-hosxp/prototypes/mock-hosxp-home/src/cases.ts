@@ -1,4 +1,4 @@
-import board from "../../../../../workspace/canvas/frames.carivaspace-hosxp.json";
+import board from "../../../../../workspace/canvas/frames.mock-hosxp.json";
 
 // One fixture catalog for the board, stories and standalone case links.
 export function hosxpCase(id: string) {

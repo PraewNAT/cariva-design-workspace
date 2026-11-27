@@ -1,8 +1,8 @@
 # Mira Credit Badge - Draft 2026-11-26
 
-Ownership confirmed by user: Mira Product DS. Source, stories and coin asset live together in `src/lib/products/mira/components/`; Core Progress/Skeleton are dependencies. Public export CreditBadge and all props/behavior remain unchanged. [Figma docs](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt?node-id=7296-35) use the existing template, with the same25 linked specimens moved out of Core Progress docs.
+Ownership confirmed by user: Mira Product DS. Source, stories and coin asset live together in `src/lib/products/mock-mira/components/`; Core Progress/Skeleton are dependencies. Public export CreditBadge and all props/behavior remain unchanged. [Figma docs](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt?node-id=7296-35) use the existing template, with the same25 linked specimens moved out of Core Progress docs.
 
-Missing sets `7089:1151` (16 compact variants) and `7094:365` (9 remaining/used variants) are now mapped to `src/lib/products/mira/components/credit-badge.tsx` and included in Products/Mira/Components/Credit Badge with separate Mira docs. `CreditBadge` composes shared Progress and Skeleton; it adds no billing or API behavior.
+Missing sets `7089:1151` (16 compact variants) and `7094:365` (9 remaining/used variants) are now mapped to `src/lib/products/mock-mira/components/credit-badge.tsx` and included in Products/Mock Mira/Components/Credit Badge with separate Mira docs. `CreditBadge` composes shared Progress and Skeleton; it adds no billing or API behavior.
 
 Props: variant compact/remaining/used; size default/sm (only compact differs); status default/low/depleted/loading; value, progress (0–100 clamped), progressVisible/valueVisible/showIcon; emptyDisplay text/value for depleted remaining; optional label/className. Product supplies status, thresholds and percentage; the component does not infer business rules. Numbers are formatted en-US with up to2 decimals, non-finite/negative amounts display0. Used displays progress percentage. Source depleted2/depleted 2 are aliases for zero display; duplicated used depleted variants do not imply separate runtime behavior.
 

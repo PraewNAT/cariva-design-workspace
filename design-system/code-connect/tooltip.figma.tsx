@@ -1,7 +1,7 @@
 import figma from "@figma/code-connect";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../src/lib/app/components/ui/tooltip";
 import { TooltipWithAction } from "../src/lib/app/components/app/tooltip-with-action";
-import { MiraCreditTooltip } from "../src/lib/products/mira/components/credit-tooltip";
+import { MiraCreditTooltip } from "../src/lib/products/mock-mira/components/credit-tooltip";
 
 // Generated from the Figma component sets listed in docs/components/FIGMA-NAMING.md
 // Figma file: Cariva Core Design System (XgxprkSY5mGbzIIwlmscCt)

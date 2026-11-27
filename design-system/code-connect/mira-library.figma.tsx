@@ -1,6 +1,6 @@
 import figma from "@figma/code-connect";
-import { MiraRecorder } from "../src/lib/products/mira/components/mira-recorder";
-import { WorkflowCard } from "../src/lib/products/mira/components/workflow-card";
+import { MiraRecorder } from "../src/lib/products/mock-mira/components/mira-recorder";
+import { WorkflowCard } from "../src/lib/products/mock-mira/components/workflow-card";
 
 // Figma file: MIRA Component Library (37MSJL69dK206ouPp4F1xW)
 // Set names in that file are `crv-card` (-> WorkflowCard) and `mira-recorder` (-> MiraRecorder).

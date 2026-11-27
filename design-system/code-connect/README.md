@@ -13,7 +13,7 @@ Links the component sets in Figma (file Cariva Core Design System `XgxprkSY5mGbz
 3. From the **repo root**: `npm run code-connect:parse` (see the parse result), `npm run code-connect:dry-run` (check without sending), then `npm run code-connect:publish`
 4. Check in Dev Mode or with `get_code_connect_map` that the new node shows the correct component/import
 
-`FIGMA_ACCESS_TOKEN` must be in `.env.local` (the user adds it; the script `scripts/code-connect.sh` loads it). The config is in `figma.config.json` at the root (`importPaths` must include `ui/*`, `app/*` and `products/mira/components/*`, because `*` matches only the file name)
+`FIGMA_ACCESS_TOKEN` must be in `.env.local` (the user adds it; the script `scripts/code-connect.sh` loads it). The config is in `figma.config.json` at the root (`importPaths` must include `ui/*`, `app/*` and `products/mock-mira/components/*`, because `*` matches only the file name)
 
 ## Visualization
 
@@ -21,7 +21,7 @@ Links the component sets in Figma (file Cariva Core Design System `XgxprkSY5mGbz
 
 ## MIRA Component Library file (`37MSJL69dK206ouPp4F1xW`)
 
-`mira-library.figma.tsx` connects `mira-recorder` (4 states → `MiraRecorder` `state`) and `crv-card` (`color` → `WorkflowCard`; the props in Figma are named `Badge`, `Title`, `Subtitle`, `Icon`, `color`) of that file (`products/mira/components/`). **Pending:** the 5 color variants of `crv-card` (nodes `0:109`, `0:115`, `0:121`, `0:131`, `0:141`) have old, incorrect mappings in the Figma file (names like `WorkflowCard/blue` point to `src/components/ui/WorkflowCard.tsx`, which does not exist) that cannot be overwritten by publishing. Those mappings must be deleted in Figma Dev Mode first, then publish again
+`mira-library.figma.tsx` connects `mira-recorder` (4 states → `MiraRecorder` `state`) and `crv-card` (`color` → `WorkflowCard`; the props in Figma are named `Badge`, `Title`, `Subtitle`, `Icon`, `color`) of that file (`products/mock-mira/components/`). **Pending:** the 5 color variants of `crv-card` (nodes `0:109`, `0:115`, `0:121`, `0:131`, `0:141`) have old, incorrect mappings in the Figma file (names like `WorkflowCard/blue` point to `src/components/ui/WorkflowCard.tsx`, which does not exist) that cannot be overwritten by publishing. Those mappings must be deleted in Figma Dev Mode first, then publish again
 
 ## Known limitations
 

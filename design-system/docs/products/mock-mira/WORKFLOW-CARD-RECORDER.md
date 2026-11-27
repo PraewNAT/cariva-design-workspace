@@ -6,19 +6,19 @@ Implemented from MIRA Component Library, not promoted into Core. See [Product vi
 
 Source set `0:108`, variants blue `0:109`, emerald `0:115`, cyan `0:121`, pink `0:131`, purple `0:141`.
 
-Import `WorkflowCard` from `@/lib/products/mira/components/workflow-card`. Required `title`; optional `subtitle`, `color` (five values, default blue), `icon` ReactNode, `showBadge` (default true), `badgeLabel` (default Soon), `className` and div attributes. Default per-color emergency-bed icons are exact local Figma SVG exports. The card is presentational; its caller owns navigation, availability and interaction semantics. A Soon badge does not by itself impose a business permission rule.
+Import `WorkflowCard` from `@/lib/products/mock-mira/components/workflow-card`. Required `title`; optional `subtitle`, `color` (five values, default blue), `icon` ReactNode, `showBadge` (default true), `badgeLabel` (default Soon), `className` and div attributes. Default per-color emergency-bed icons are exact local Figma SVG exports. The card is presentational; its caller owns navigation, availability and interaction semantics. A Soon badge does not by itself impose a business permission rule.
 
 ```tsx
 <WorkflowCard color="emerald" title="Title" subtitle="Description" showBadge />
 ```
 
-Stories: Products/Mira/Components/Workflow Card. Five individual colors, AllColors, WithoutBadge and LongThai. Mira badge recipe has Product-specific surface/content colors and12px text rather than reusing an unrelated counter Badge.
+Stories: Products/Mock Mira/Components/Workflow Card. Five individual colors, AllColors, WithoutBadge and LongThai. Mira badge recipe has Product-specific surface/content colors and12px text rather than reusing an unrelated counter Badge.
 
 ## MiraRecorder
 
 Source set `101:1374`: recording `101:1373`, pause `101:1372`, ready-to-transcribe `101:1370`, playback `101:1371`.
 
-Import `MiraRecorder` from `@/lib/products/mira/components/mira-recorder`. Props:
+Import `MiraRecorder` from `@/lib/products/mock-mira/components/mira-recorder`. Props:
 
 | Prop | Contract |
 |---|---|
@@ -38,7 +38,7 @@ Import `MiraRecorder` from `@/lib/products/mira/components/mira-recorder`. Props
 
 Recorder composes Core Card, Button and TagColor. Uses matching installed Material Symbols for transport controls and the exact Figma Transcribe icon. The parent must update controlled props after callbacks and implement audio permissions, recording, playback, data deletion and transcription. Source artwork is reference waveform geometry, not proof of a real recording. No microphone request/API/upload is made by this DS component.
 
-Stories: Products/Mira/Components/Recorder. Four states, AllStates, Interaction, PageAndDialog, MobileThai and Callbacks. Interaction is a local demo harness; callbacks remain app-owned in production. Figma timeline text10px is rendered12px, so transport cards are438px rather than432px. No arbitrary shrink below12px is used to force the old height.
+Stories: Products/Mock Mira/Components/Recorder. Four states, AllStates, Interaction, PageAndDialog, MobileThai and Callbacks. Interaction is a local demo harness; callbacks remain app-owned in production. Figma timeline text10px is rendered12px, so transport cards are438px rather than432px. No arbitrary shrink below12px is used to force the old height.
 
 ## Documentation and Code Connect status
 
@@ -50,4 +50,4 @@ Code Connect discovery returned **No published components found in this selectio
 
 Waveform bars animate only when `state="recording"`, using deterministic staggered CSS scaleY cycles1.4–1.88s. Container geometry stays unchanged. Paused and transport states have no waveform animation; prefers-reduced-motion disables it. This is activity feedback, not a measured audio signal. Timer output uses role timer and aria-live off to avoid announcing every tick. A zero-duration transport disables Play.
 
-The user authorized CarivaSpace HosXP to import this Mira component directly. Its app controls timers/state/callbacks and local confirmation; component/theme ownership remains Mira, not shared Core. See products/carivaspace-hosxp/prototypes/hosxp-home/README.md for the host contract. Other cross-Product imports remain subject to the workspace boundary rules.
+The user authorized CarivaSpace HosXP to import this Mira component directly. Its app controls timers/state/callbacks and local confirmation; component/theme ownership remains Mira, not shared Core. See products/mock-hosxp/prototypes/mock-hosxp-home/README.md for the host contract. Other cross-Product imports remain subject to the workspace boundary rules.

@@ -4,6 +4,8 @@
 
 ## Unreleased — 2026-11-27
 
+- HosXP and Mira are now mock Products (`Mock HosXP`, `Mock Mira`): folders `products/mock-hosxp`, `products/mock-mira`, `src/lib/products/mock-mira`, `docs/products/mock-*`, `vite.mock-hosxp.config.ts`, `frames.mock-hosxp.json`, Storybook `Products/Mock …` and prototype ID `mock-hosxp-home`. Mock Product records added. Component identifiers and file names (e.g. `MiraRecorder`), Figma file names and screen content are unchanged. Code Connect for the Mira library needs republishing.
+
 - Workflow guardrails: Figma audits now require direct node/property/variable binding evidence and mark conflicting tool results unverified. Prototype reuse checks now map controls to DS components before coding and review native interactive controls after implementation, with documented exceptions. Aligned audit naming, authorization and Figma plugin routing.
 
 

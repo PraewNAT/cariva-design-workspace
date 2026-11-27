@@ -17,7 +17,7 @@ const links = [
 ];
 
 const meta = {
-  title: "Products/CarivaSpace HosXP/Claude Artifacts/ตรวจทานโน้ต Mock",
+  title: "Products/Mock HosXP/Claude Artifacts/ตรวจทานโน้ต Mock",
   parameters: { layout: "fullscreen" },
 } satisfies Meta;
 export default meta;

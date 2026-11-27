@@ -1,10 +1,10 @@
 # HosXP Canvas
 
-Storybook: **Products / CarivaSpace HosXP / Canvas / Home / Board**.
+Storybook: **Products / Mock HosXP / Canvas / Home / Board**.
 
-This folder owns the board entry, separate from `../../prototypes/hosxp-home/`. It reuses the workspace Canvas viewer and `workspace/canvas/frames.carivaspace-hosxp.json` catalog. All seven frames render that prototype's actual HosxpHome stories; no screen UI is copied here.
+This folder owns the board entry, separate from `../../prototypes/mock-hosxp-home/`. It reuses the workspace Canvas viewer and `workspace/canvas/frames.mock-hosxp.json` catalog. All seven frames render that prototype's actual HosxpHome stories; no screen UI is copied here.
 
-Run Storybook with `npm --prefix design-system run storybook` from the workspace root. Open http://localhost:6006/canvas/index.html?frames=frames.carivaspace-hosxp directly for the board. Run the HosXP prototype on port 5174 as well for standalone case links.
+Run Storybook with `npm --prefix design-system run storybook` from the workspace root. Open http://localhost:6006/canvas/index.html?frames=frames.mock-hosxp directly for the board. Run the HosXP prototype on port 5174 as well for standalone case links.
 
 ## Responsive groups — 2026-11-27
 
@@ -22,4 +22,4 @@ Canvas controls can be hidden with ซ่อนแผงควบคุม (Hide
 
 ## Claude artifact mock
 
-The example is separate from Canvas and Prototypes: [Claude artifact mock](../../claude-artifacts/note-review-mock/README.md), Storybook Products / CarivaSpace HosXP / Claude Artifacts / ตรวจทานโน้ต Mock (Review notes Mock). This replaces the old mock location under Canvas.
+The example is separate from Canvas and Prototypes: [Claude artifact mock](../../claude-artifacts/note-review-mock/README.md), Storybook Products / Mock HosXP / Claude Artifacts / ตรวจทานโน้ต Mock (Review notes Mock). This replaces the old mock location under Canvas.

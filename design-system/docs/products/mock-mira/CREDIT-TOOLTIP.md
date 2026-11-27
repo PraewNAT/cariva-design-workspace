@@ -1,6 +1,6 @@
 # Mira Credit Tooltip (Draft, 2026-11-26)
 
-Product source: `src/lib/products/mira/components/credit-tooltip.tsx`, styles and stories in the same folder. Storybook: Products/Mira/Components/Credit Tooltip. Reuses Core Tooltip; Core does not import Mira. Source set `7118:777` on the supplied shared DS page is Product-owned despite being in the Core Figma file. [Separate template documentation](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt?node-id=7292-35) contains all nine linked source variants.
+Product source: `src/lib/products/mock-mira/components/credit-tooltip.tsx`, styles and stories in the same folder. Storybook: Products/Mock Mira/Components/Credit Tooltip. Reuses Core Tooltip; Core does not import Mira. Source set `7118:777` on the supplied shared DS page is Product-owned despite being in the Core Figma file. [Separate template documentation](https://www.figma.com/design/XgxprkSY5mGbzIIwlmscCt?node-id=7292-35) contains all nine linked source variants.
 
 MiraCreditTooltip props: trigger, balance, validUntil (required); status default/low/depleted; placement top/top-end/none; costHintVisible=true; costHint; open/defaultOpen. Placement describes arrow edge: top and top-end use popup side bottom, with center/end alignment; none hides the arrow. Status, formatted balance and expiry text are caller-owned. No credit threshold, date calculation, charging action or backend is implemented.
 

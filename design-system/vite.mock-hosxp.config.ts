@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import path from "node:path";
 const ds = import.meta.dirname;
-const root = path.resolve(ds, "../products/carivaspace-hosxp/prototypes/hosxp-home");
+const root = path.resolve(ds, "../products/mock-hosxp/prototypes/mock-hosxp-home");
 export default defineConfig({
   root,
   plugins: [react(), tailwindcss()],

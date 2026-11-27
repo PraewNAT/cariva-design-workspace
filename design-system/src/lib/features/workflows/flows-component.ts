@@ -8,7 +8,7 @@ export const componentFlows: Flow[] = [
     skills: ["component-reuse-check — ค้นของที่มีอยู่ (C1)", "shadcn + unslop — เขียนโค้ด (F3)", "document — เอกสาร (F4)", "component-audit — ตรวจโค้ด (F4)", "audit — ตรวจ Figma ฝั่งต้นทาง (F1)", "figma:figma-code-connect — แมป Code Connect (ปลั๊กอิน โหลดก่อนแมป)"],
     num: "01",
     title: "ขอเพิ่ม component ผ่าน Figma (Core DS / Product DS)",
-    prompts: ["ผมสร้าง component Stepper ใน Figma แล้ว [ลิงก์ node] ทำเป็นโค้ดให้หน่อย เป็นของ Core", "เพิ่ม component จากลิงก์นี้ เป็นของ Product Mira"],
+    prompts: ["ผมสร้าง component Stepper ใน Figma แล้ว [ลิงก์ node] ทำเป็นโค้ดให้หน่อย เป็นของ Core", "เพิ่ม component จากลิงก์นี้ เป็นของ Product Mock Mira"],
     summary: "คุณออกแบบใน Figma ก่อน แล้ว AI ทำโค้ดให้ตรงกับ Figma ใช้ flow Figma → Code (F1–F5) ร่วมกับ Add a component (C1–C4) ถ้า Figma กับเอกสารไม่ตรงกัน ถือตาม Figma",
     steps: [
       { id: "a", lane: "you", label: "ออกแบบใน Figma + ส่งลิงก์ node", detail: "บอกด้วยว่าเป็น Core หรือ Product (ถ้าเป็น Product บอกชื่อ Product) ถ้ายังไม่บอก AI จะถาม" },
@@ -58,7 +58,7 @@ export const componentFlows: Flow[] = [
     skills: ["component-reuse-check — ค้นของที่มีและวางกรณี (C1, U2)", "shadcn + unslop — เขียนโค้ด (U3)", "document — เอกสาร (U4)", "component-audit — ตรวจ (U5)"],
     num: "03",
     title: "ขอเพิ่ม component ผ่าน AI (ทำโค้ดก่อน)",
-    prompts: ["เพิ่ม component Timeline ใน Core", "ทำ component ปุ่มกรองสำหรับ Product Mira ขึ้นมาก่อน ยังไม่ต้องไป Figma"],
+    prompts: ["เพิ่ม component Timeline ใน Core", "ทำ component ปุ่มกรองสำหรับ Product Mock Mira ขึ้นมาก่อน ยังไม่ต้องไป Figma"],
     summary: "คุณสั่งให้ทำโค้ดก่อน Figma ยังไม่ถูกแตะ จนกว่าคุณจะสั่งเอง (flow UI U1–U6 ร่วมกับ Add a component C1–C4)",
     steps: [
       { id: "a", lane: "you", label: "สั่งว่าต้องการ component อะไร", detail: "บอกหน้าตา/พฤติกรรมที่ต้องการ ถ้ามีภาพหรือลิงก์อ้างอิง ใช้ก่อน" },
@@ -84,7 +84,7 @@ export const componentFlows: Flow[] = [
     skills: ["component-reuse-check — หาผู้ใช้งาน (U1–U2)", "shadcn + unslop — แก้โค้ด (U3)", "document — อัปเดตเอกสาร (U4)", "component-audit — ตรวจ (U5)"],
     num: "04",
     title: "ขอแก้ component ผ่าน AI (ทำโค้ดก่อน)",
-    prompts: ["ปุ่ม primary ใน Core เพิ่ม state loading", "เปลี่ยน radius ของ Input ใน Product Mira"],
+    prompts: ["ปุ่ม primary ใน Core เพิ่ม state loading", "เปลี่ยน radius ของ Input ใน Product Mock Mira"],
     summary: "คุณสั่งแก้โค้ดก่อน ถ้า component นั้นมีคู่ใน Figma โค้ดจะเริ่ม “ต่างจาก Figma” AI จะบอกและให้คุณเลือกทางต่อ",
     steps: [
       { id: "a", lane: "you", label: "สั่งว่าจะแก้อะไร", detail: "บอก component และสิ่งที่ต้องการเปลี่ยน" },

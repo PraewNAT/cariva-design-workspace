@@ -5,7 +5,7 @@ import { CardProfile, CardMetric } from "@/lib/app/components/app/content-card";
 import { TagColor } from "@/lib/app/components/ui/tag";
 import { ButtonMic } from "@/lib/app/components/app/button-mic";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/lib/app/components/ui/dialog";
-import { MiraRecorder } from "@/lib/products/mira/components/mira-recorder";
+import { MiraRecorder } from "@/lib/products/mock-mira/components/mira-recorder";
 import { TooltipProvider } from "@/lib/app/components/ui/tooltip";
 import microphone from "./assets/microphone.png";
 import logo from "./assets/cariva-mark.svg";

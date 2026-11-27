@@ -6,7 +6,7 @@ export const screenFlows: Flow[] = [
     skills: ["code-to-figma — ประกอบเฟรมใน Figma (D1–D6)", "audit — ตรวจ Figma ที่เขียน (D5)", "component-audit — ตรวจ prototype ก่อนส่ง (D1)"],
     num: "05",
     title: "สั่งสร้างดีไซน์จาก code ไปที่ Figma",
-    prompts: ["เอาหน้า Home ของ prototype hosxp-home ไปสร้างใน Figma ให้หน่อย", "เขียนหน้านี้ลง Figma ที่ลิงก์นี้ [ลิงก์ section]"],
+    prompts: ["เอาหน้า Home ของ prototype mock-hosxp-home ไปสร้างใน Figma ให้หน่อย", "เขียนหน้านี้ลง Figma ที่ลิงก์นี้ [ลิงก์ section]"],
     summary: "ใช้เมื่อ prototype ในโค้ดผ่านการดูแล้ว และคุณสั่งให้เขียนลง Figma เท่านั้น การที่ผลงานผ่านไม่ได้หมายความว่า AI เขียน Figma ได้เอง (flow Code → Figma D1–D6)",
     steps: [
       { id: "a", lane: "you", label: "สั่งให้เขียนลง Figma + ส่งลิงก์ปลายทาง", detail: "บอกไฟล์/หน้า/section ที่จะวาง ถ้าไม่มีลิงก์ AI จะถามและรอเฉพาะส่วนของ Figma" },
@@ -32,7 +32,7 @@ export const screenFlows: Flow[] = [
     skills: ["create-project — ถ้าเป็น prototype ใหม่", "component-reuse-check — จับคู่ component และวางกรณี (F2, U2)", "shadcn + unslop — สร้าง prototype (F3)", "component-audit — ตรวจ (F4)"],
     num: "06",
     title: "สั่งสร้างดีไซน์จาก Figma เป็น code",
-    prompts: ["ทำหน้านี้เป็น prototype ให้หน่อย [ลิงก์ frame]", "ลิงก์นี้คือหน้า Login ของ Mira ทำเป็นโค้ดโดยใช้ DS ที่มี"],
+    prompts: ["ทำหน้านี้เป็น prototype ให้หน่อย [ลิงก์ frame]", "ลิงก์นี้คือหน้า Login ของ Mock Mira ทำเป็นโค้ดโดยใช้ DS ที่มี"],
     summary: "คุณออกแบบหน้าจอใน Figma แล้วให้ AI สร้างเป็น prototype ในโค้ดโดยใช้ component ของ DS (Figma → Code ร่วมกับ UI) ผลคือ prototype สำหรับทดลองข้อมูลจำลอง พฤติกรรม และ responsive ไม่ใช่โค้ด production",
     steps: [
       { id: "a", lane: "you", label: "ส่งลิงก์ frame ของหน้าจอ", detail: "บอก Product ที่หน้านี้อยู่ ถ้าเป็น Product ใหม่ให้ไปเริ่มที่ flow 08" },

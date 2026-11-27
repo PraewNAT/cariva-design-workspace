@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect } from "storybook/test";
 import { WorkflowCard, workflowCardColors } from "./workflow-card";
 const meta = {
-  title: "Products/Mira/Components/Workflow Card",
+  title: "Products/Mock Mira/Components/Workflow Card",
   component: WorkflowCard,
   tags: ["autodocs"],
   args: { title: "Title", subtitle: "Description", color: "blue", showBadge: true },

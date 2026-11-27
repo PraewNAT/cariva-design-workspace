@@ -170,7 +170,7 @@ Observed Figma text roles: IBM Plex Sans Thai, Standard/Mira Medium12/16px, guid
 
 ### Mira Credit Badge ownership - 2026-11-26
 
-Credit Badge belongs to Mira Product DS, not Core Progress. Component and icon are in src/lib/products/mira/components, six stories under Products/Mira/Components/Credit Badge. It reuses Core Progress/Skeleton without changing their recipes. Contract and mapping live in docs/products/mira/CREDIT-BADGE.md and FIGMA-MAPPING.json.
+Credit Badge belongs to Mira Product DS, not Core Progress. Component and icon are in src/lib/products/mock-mira/components, six stories under Products/Mock Mira/Components/Credit Badge. It reuses Core Progress/Skeleton without changing their recipes. Contract and mapping live in docs/products/mock-mira/CREDIT-BADGE.md and FIGMA-MAPPING.json.
 
 ### Visualization - 2026-11-26 (Draft)
 

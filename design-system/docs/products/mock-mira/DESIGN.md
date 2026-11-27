@@ -2,7 +2,7 @@
 
 Source: [MIRA Component Library](https://www.figma.com/design/37MSJL69dK206ouPp4F1xW/MIRA-Component-Library?node-id=0-1), read 2026-11-27.
 
-Mira is a Product design system. Its **Mira Semantic / Mode 1** collection contains 25 local aliases: five roles each for blue, emerald, cyan, pink and purple Workflow Cards. Preserve these separately from Core brand/status tokens. Runtime CSS is `src/lib/products/mira/theme/mira.css`; snapshot is `theme/tokens.json`. Per-token IDs, alias targets, resolved values and property definitions are saved in FIGMA-SOURCE-2026-11-27.json.
+Mira is a Product design system. Its **Mira Semantic / Mode 1** collection contains 25 local aliases: five roles each for blue, emerald, cyan, pink and purple Workflow Cards. Preserve these separately from Core brand/status tokens. Runtime CSS is `src/lib/products/mock-mira/theme/mira.css`; snapshot is `theme/tokens.json`. Per-token IDs, alias targets, resolved values and property definitions are saved in FIGMA-SOURCE-2026-11-27.json.
 
 | Family | Gradient start → end | Icon / badge surface | Strong | Subtle |
 |---|---|---|---|---|

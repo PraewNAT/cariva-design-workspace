@@ -4,7 +4,7 @@
     "importPaths": {
       "design-system/src/lib/app/components/ui/*": "@/lib/app/components/ui/*",
       "design-system/src/lib/app/components/app/*": "@/lib/app/components/app/*",
-      "design-system/src/lib/products/mira/components/*": "@/lib/products/mira/components/*"
+      "design-system/src/lib/products/mock-mira/components/*": "@/lib/products/mock-mira/components/*"
     },
     "include": [
       "design-system/code-connect/**/*.figma.tsx",

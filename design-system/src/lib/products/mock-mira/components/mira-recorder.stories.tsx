@@ -5,7 +5,7 @@ import { MiraRecorder, type MiraRecorderState } from "./mira-recorder";
 import { Button } from "@/lib/app/components/ui/button";
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/lib/app/components/ui/dialog";
 const meta = {
-  title: "Products/Mira/Components/Recorder",
+  title: "Products/Mock Mira/Components/Recorder",
   component: MiraRecorder,
   tags: ["autodocs"],
   args: { state: "recording", elapsedSeconds: 1, onPause: fn(), onResume: fn(), onStop: fn(), onDiscard: fn(), onPlay: fn(), onSeek: fn(), onTranscribe: fn() },

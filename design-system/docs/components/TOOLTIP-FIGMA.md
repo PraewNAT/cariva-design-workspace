@@ -8,7 +8,7 @@ Tooltip wrapper explicitly connects open content to trigger using a generated id
 
 `app/tooltip-with-action.tsx` composes Core Popover, Button and Badge. Props: trigger, children, step, placement, onBack/onNext, backDisabled/nextDisabled, open/defaultOpen/onOpenChange, label. Placement follows Figma arrow edge (top/bottom/start/end/left/right), converted to popup side internally. Width240px with viewport max-width; body min112px with padding12/16, footer min56px with padding12/8; radius16. Long text grows vertically. Step uses primary/muted and secondary text. Back/Next reuse sm Buttons. The caller owns step progression; no tour engine or business flow is implied. Popover dialog semantics allow keyboard access to buttons and Escape returns focus.
 
-Standard entry/exit uses180ms opacity/2px transform with reduced-motion override and instant focus handling. Mira-specific messages, balances, dates and credit rules live in `lib/products/mira`, never imported by Core. Core has nine stories (including `FigmaSpecs`); Mira has six under its own Product group.
+Standard entry/exit uses180ms opacity/2px transform with reduced-motion override and instant focus handling. Mira-specific messages, balances, dates and credit rules live in `lib/products/mock-mira`, never imported by Core. Core has nine stories (including `FigmaSpecs`); Mira has six under its own Product group.
 
 Figma/UI font observed: IBM Plex Sans Thai. Main component property APIs and variant geometry remain unchanged. Template containers alone were detached; actual specimens retain links. Core docs text and all specimens meet12px minimum. Known contrast: shared primary guide buttons still fail normal-text AA (about3.2–3.5:1); source color is retained and the gap is recorded in TOOLTIP-AUDIT.md.
 

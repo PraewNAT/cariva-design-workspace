@@ -247,9 +247,9 @@ Details: [MENU-FIGMA.md](MENU-FIGMA.md)
 Details: [OVERLAY-FIGMA.md](OVERLAY-FIGMA.md), [DIALOG-FIGMA.md](DIALOG-FIGMA.md), [PAGINATION-FIGMA.md](PAGINATION-FIGMA.md)
 
 
-Credit follow-up: `7089:1151` compact + `7094:365` remaining/used map to `src/lib/products/mira/components/credit-badge.tsx` (`CreditBadge`) under `Products/Mira/Components/Credit Badge` (Mira Product DS; docs7296:35). Source names/API remain unchanged; aliases depleted2/depleted 2 map to numeric depleted presentation.
+Credit follow-up: `7089:1151` compact + `7094:365` remaining/used map to `src/lib/products/mock-mira/components/credit-badge.tsx` (`CreditBadge`) under `Products/Mock Mira/Components/Credit Badge` (Mira Product DS; docs7296:35). Source names/API remain unchanged; aliases depleted2/depleted 2 map to numeric depleted presentation.
 
-| mira-tooltip-credit ✅ | 7118:777 | `credit-tooltip` | `MiraCreditTooltip` (`products/mira/components/credit-tooltip.tsx`), 9 variants; docs 7292:35 |
+| mira-tooltip-credit ✅ | 7118:777 | `credit-tooltip` | `MiraCreditTooltip` (`products/mock-mira/components/credit-tooltip.tsx`), 9 variants; docs 7292:35 |
 | crv-tag-standard ✅ | 4459:31603 | `tag` | `Tag` (`ui/tag.tsx`) `size` sm/default/lg, `content` label/count |
 | crv-tag-color ✅ | 3936:5879 | `tag-color` | `TagColor` |
 | crv-toast-standard ✅ | 6413:55828 | `toast` | `Toast` / `ToastCard` (`ui/toast.tsx`) severity × variant |
