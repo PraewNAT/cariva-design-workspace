@@ -179,7 +179,7 @@ function updateMode() {
   $('#fullscreen').hidden = mode !== 'preview' || !frame || !document.fullscreenEnabled;
   if (frame) {
     const url = storyUrl(frame.story);
-    $('#open-preview').href = url; // Keep full-page links on the same Storybook deployment as Preview.
+    $('#open-preview').href = url; // Open the actual selected prototype screen on the current Storybook host.
     if (mode === 'preview' && $('#preview').src !== url) $('#preview').src = url;
     if (mode !== 'preview') $('#preview').removeAttribute('src');
   }
