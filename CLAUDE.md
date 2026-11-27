@@ -141,3 +141,5 @@ Every delivery summary and PR description must include verified links to (1) the
 Always include [Storybook หลัก](https://cariva-ds-storybook.vercel.app/) in replies that share a PR link, including short PR-link-only requests and commit/push completion replies. This applies even when Prototype and Canvas links are unavailable.
 
 Prototype delivery links must use `<storybook-base>/iframe.html?id=<workspace-story-id>&viewMode=story` to hide Storybook manager UI while keeping the Product work-history sidebar. They must open the Product workspace story that renders `PrototypeShell` (for Mock HosXP: `products-mock-hosxp-prototypes-home--workspace`) so the work-history sidebar is visible. A single-state story such as `--ready` is a screen preview, not the workspace Prototype entry. Canvas full-page screen links remain separate.
+
+Always include the local Storybook link alongside the main online Storybook in delivery summaries and PR links. Label it **Storybook — localhost**, use the actual project port (currently http://localhost:6006/), and state that it requires the local server when relevant.
