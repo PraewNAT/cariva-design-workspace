@@ -6,6 +6,11 @@ import { hosxpCase } from "./cases";
 const meta = {
   title: "Products/Mock HosXP/Prototypes/Home",
   component: HosxpHome,
+  decorators: [(Story) => {
+    const query = new URLSearchParams(window.location.search);
+    const screenOnly = query.get("canvasStill") === "1" || query.get("screenOnly") === "1";
+    return screenOnly ? <Story /> : <PrototypeShell currentId="mock-hosxp-home"><Story /></PrototypeShell>;
+  }],
   parameters: { layout: "fullscreen" },
 } satisfies Meta<typeof HosxpHome>;
 export default meta;
@@ -83,7 +88,7 @@ export const Interaction: Story = { play: async ({ canvas, canvasElement, userEv
   await expect(canvas.queryByRole("complementary", { name: "Patient History" })).not.toBeInTheDocument();
 } };
 
-export const Workspace: Story = { render: () => <PrototypeShell currentId="mock-hosxp-home"><HosxpHome /></PrototypeShell>, play: async ({ canvas, userEvent }) => {
+export const Workspace: Story = { render: () => <HosxpHome />, play: async ({ canvas, userEvent }) => {
   await expect(canvas.getByRole("complementary", { name: "เลือก prototype" })).toBeVisible();
   await userEvent.click(canvas.getByRole("button", { name: "ย่อแถบเลือกงาน" }));
   await expect(canvas.getByRole("button", { name: "ขยายแถบเลือกงาน" })).toBeVisible();

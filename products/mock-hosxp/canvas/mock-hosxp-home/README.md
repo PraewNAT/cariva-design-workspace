@@ -54,3 +54,5 @@ Validation for action anchors and Mobile scrolling: browser checks confirmed the
 The **เปิดเต็มหน้า** button opens the selected prototype screen on the current Storybook host, without Canvas controls, like the real product page. Opening a Prototype story from the Storybook navigation keeps the Storybook sidebar visible so you can switch flows/states. The full-page URL is built from the current Storybook host; it does not use the local standalone `previewUrl`.
 
 Prototype entry with the work-history sidebar: `iframe.html?id=products-mock-hosxp-prototypes-home--workspace&viewMode=story` (no Storybook manager UI; retains the Product work-history sidebar). The `--ready` story is a screen-only specimen and does not render `PrototypeShell`.
+
+All HosXP Prototype stories now share `PrototypeShell`, so Storybook entries and direct Prototype links show the same work selector. Canvas embeds, playback and full-page product screens pass `screenOnly=1` to hide that workspace chrome; `canvasStill=1` also implies screen-only rendering. Workspace does not wrap the shell twice.

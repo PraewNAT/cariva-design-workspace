@@ -160,6 +160,7 @@ bindPanelShortcut($('#preview'));
 function storyUrl(story, still = false) {
   const base = doc.storybook ? new URL(doc.storybook + '/') : new URL('../', location.href);
   const url = new URL('iframe.html', base);
+  url.searchParams.set('screenOnly', '1'); // Embedded Canvas and playback show only the product screen.
   if (still) url.searchParams.set('canvasStill', '1');
   url.searchParams.set('id', story); url.searchParams.set('viewMode', 'story');
   return url.href;
@@ -179,7 +180,9 @@ function updateMode() {
   $('#fullscreen').hidden = mode !== 'preview' || !frame || !document.fullscreenEnabled;
   if (frame) {
     const url = storyUrl(frame.story);
-    $('#open-preview').href = url; // Open the actual selected prototype screen on the current Storybook host.
+    const fullPage = new URL(url);
+    fullPage.searchParams.set('screenOnly', '1');
+    $('#open-preview').href = fullPage.href; // Full-page product screen, without the work selector.
     if (mode === 'preview' && $('#preview').src !== url) $('#preview').src = url;
     if (mode !== 'preview') $('#preview').removeAttribute('src');
   }
