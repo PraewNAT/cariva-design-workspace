@@ -19,6 +19,13 @@ The values above are not every combination that actually exists: 120 variants ou
 
 Values renamed in Figma on 26 November 2026 (120 variants, the set renamed to `button`, all 313 instances still linked). The original names are backed up in the component set's plugin data (`oldNames_2026-11-26`); the appearance did not change
 
+## Figma fixes (27 November 2026)
+
+After an audit of all 120 variants, at the user's request:
+- Linked the label of the 36 `secondary` variants (outline, ghost, elevated) to the `children` text property; all 120 are now linked
+- Applied the `typography/label/large` text style to the 40 `size=default` labels (previously no style, weight bound to `label/medium`)
+- Compared the 86 instances in this file before and after: no change in text, typography, size or label fill. 10 File Upload instances had their text re-set through `children` to keep it. Instances in other files that use the library were not checked
+
 ## Sizes
 
 | Size | Height | Font / line-height | Padding vertical / horizontal | Gap |
@@ -62,6 +69,6 @@ Not yet measured: hover/pressed of outline and ghost for every color, pressed fo
 
 ## What still needs checking
 
-Focus-visible/keyboard, accessible name for icon-only, per-state contrast, behavior while loading and the pressed shadow of elevated are not yet certified by this reading. Figma states do not prove runtime behavior. The code uses disabled + aria-busy + Spinner for loading per the implementation docs
+Focus-visible/keyboard, accessible name for icon-only, per-state contrast, behavior while loading and the pressed shadow of elevated are not yet certified by this reading. Figma states do not prove runtime behavior. The code uses the `loading` prop (disabled + aria-busy + Spinner) per the implementation docs
 
 When the component changes, read the latest source, compare this document and ButtonSource.mdx, then update only the confirmed facts. Check parity before concluding that it is synced

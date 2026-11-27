@@ -17,7 +17,7 @@ import source from "./button.tsx?raw";
 
 ความสูงเกิดจาก padding + line-height ไม่ใช่ height; outline ใช้ inset ring ไม่กินพื้นที่เพิ่ม Radius ใช้ tokens เดิม (ปุ่มเป็น pill) ห้ามแก้ per-screen
 
-Variants: default (Figma contained), outline (outlined), ghost (text) ใช้ร่วมกับ `color` = primary / destructive / secondary (Figma error = destructive, neutral = secondary) variant อื่นของ shadcn คือ secondary, destructive, link, decorative ไม่ใช้ `color` ยังไม่มี elevated (รอ shadow token) Loading ใช้ disabled + aria-busy + Spinner ไม่เพิ่ม loading prop ให้ primitive; bridge หน้าเก่าแปลง loading ให้เอง
+Variants: default (Figma contained), outline (outlined), ghost (text) ใช้ร่วมกับ `color` = primary / destructive / secondary (Figma error = destructive, neutral = secondary) variant อื่นของ shadcn คือ secondary, destructive, link, decorative ไม่ใช้ `color` ยังไม่มี elevated (รอ shadow token) Loading ใช้ `<Button loading>` ซึ่งใส่ disabled + aria-busy + Spinner ให้เอง ซ่อน icon ของปุ่มระหว่างโหลด และ size icon-* แสดงเฉพาะ Spinner (ต้องคง aria-label ไว้)
 
 Icon ใช้ currentColor และ data-icon เมื่อต้องระบุทิศทาง สี primary จาก Figma ยังมีข้อจำกัด contrast กับตัวอักษรขาว ไม่อ้างว่า AA ผ่านทั้งหมด
 

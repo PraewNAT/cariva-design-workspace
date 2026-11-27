@@ -27,7 +27,7 @@ Read from Figma on 26 November 2026, Button page in the Cariva Core Design Syste
 |---|---|
 | `button-icon` `size` lg / default / sm | `size="icon-lg"` / `"icon"` / `"icon-sm"` |
 | `button-icon` `variant` / `color` | `variant` `default` / `outline` / `ghost`, `color` `primary` / `destructive` / `secondary` |
-| `button-loading` | `<Button disabled aria-busy><Spinner />…</Button>` (no `loading` prop) |
+| `button-loading` | `<Button loading>…</Button>` (adds `disabled`, `aria-busy` and `Spinner`) |
 | `button-link` | `variant="link"` |
 | `button-decorative` | `variant="decorative"` |
 | `data-usage` loading icon | `Spinner` (uses the `DataUsageRounded` icon) |
@@ -43,7 +43,7 @@ Read from Figma on 26 November 2026, Button page in the Cariva Core Design Syste
 | decorative: height, padding, gap, fill `#192450`, radial gradient (`#1789FA` 75% → `#55EBFF`), white text, disabled fill `#F1F5F9` no gradient | Matches (measured in the `DecorativeButtons` story) |
 | Overall comparison with Figma (icon, loading, decorative, link) | Checked visually (matches) |
 
-**Decided by Claude / user confirmed:** no `loading` prop added (uses `disabled` + `aria-busy` + `Spinner`; keeping the outline border while loading relies on `aria-busy`) · icon buttons use the code's existing size names (`icon-*`) with no new prop · `Spinner` changed its icon to Figma's `data-usage` system-wide
+**Decided by Claude / user confirmed:** `loading` prop added on 27 November 2026 at the user's request, replacing the 26 November "no `loading` prop" decision (it sets `disabled` + `aria-busy` + `Spinner`, hides the button's own icons, and shows only the spinner for `icon-*` sizes; the last two are code behaviour, not read from Figma) · icon buttons use the code's existing size names (`icon-*`) with no new prop · `Spinner` changed its icon to Figma's `data-usage` system-wide
 
 **Impact:**
 - `Button variant="link"` was previously primary blue and underlined on hover; now it is always underlined, uses the link color, has no horizontal padding and corner radius 12

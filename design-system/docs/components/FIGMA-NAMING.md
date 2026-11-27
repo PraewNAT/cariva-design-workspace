@@ -23,7 +23,7 @@ The ⚠ mark = a structural decision (merge the set or keep it separate) is need
 | crv-avatar-group ✅ | 4457:63950 | `avatar-group` | Composition built from `avatar` |
 | crv-button-standard | 3646:28000 | `button` | Main set ✅ renamed |
 | crv-button-icon ✅ | 3730:5246 | `button-icon` | Code `Button` `size=icon-lg / icon / icon-sm` (= Figma `lg` / `default` / `sm`) |
-| crv-button-loading ✅ | 3730:5454 | `button-loading` | Code `Button disabled aria-busy` + `Spinner` (no `loading` prop) |
+| crv-button-loading ✅ | 3730:5454 | `button-loading` | Code `Button loading` |
 | crv-link ✅ | 4165:5267 | `button-link` | Code `Button variant="link"` |
 | crv-fab | 4497:77574 | `fab` | ✅ renamed; new `Fab` in Core (not merged with Button) |
 | crv-badge ✅ | 4518:82967 | `badge` | |
@@ -112,7 +112,7 @@ Set `crv-button-standard` → `button` (node `3646:28000`, renamed)
 | `startIconVisible`, `endIconVisible`, `startIcon`, `endIcon` | Exist | Keep original names (Figma only) | shadcn places icons as children |
 | `children` | Button text | `children` | Exists |
 
-Other sets on the Button page: `crv-button-icon` → `size=icon / icon-sm / icon-lg`, `crv-link` → `variant=link`, `crv-button-loading` → compose with Spinner (no `loading` prop added). Detailed table not yet done
+Other sets on the Button page: `crv-button-icon` → `size=icon / icon-sm / icon-lg`, `crv-link` → `variant=link`, `crv-button-loading` → `loading` prop. Detailed table not yet done
 
 **Not yet checked:** hover/pressed/disabled colors of each color, icon sizes, `elevated` shadow
 

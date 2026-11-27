@@ -1,6 +1,5 @@
 import figma from "@figma/code-connect";
 import { Button } from "../src/lib/app/components/ui/button";
-import { Spinner } from "../src/lib/app/components/ui/spinner";
 
 // Generated from the Figma component sets listed in docs/components/FIGMA-NAMING.md
 // Figma file: Cariva Core Design System (XgxprkSY5mGbzIIwlmscCt)
@@ -30,8 +29,7 @@ figma.connect(
       size: figma.enum("size", { "sm": "sm", "default": "default", "lg": "lg" }),
     },
     example: ({ variant, size }) => (
-      <Button variant={variant} size={size} disabled aria-busy>
-        <Spinner />
+      <Button variant={variant} size={size} loading>
         Loading
       </Button>
     ),

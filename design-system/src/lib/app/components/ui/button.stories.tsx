@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { useState } from "react";
 import { expect, fn, waitFor, within } from "storybook/test";
 import { ButtonMic } from "../app/button-mic";
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "./dialog";
@@ -9,7 +10,6 @@ import {
   DownloadRounded,
 } from "../app/icons";
 import { Button } from "./button";
-import { Spinner } from "./spinner";
 const meta = {
   title: "Core/Components/Button",
   id: "core-button",
@@ -20,7 +20,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "shadcn Base UI Button / Core recipe เดียวกันบนหน้าและ Dialog ขนาด default คือ medium 16/24 + padding 8/16 = 40px ไม่กำหนด height ใช้ existing size/variant API; loading ใช้ disabled + Spinner",
+          "shadcn Base UI Button / Core recipe เดียวกันบนหน้าและ Dialog ขนาด default คือ medium 16/24 + padding 8/16 = 40px ไม่กำหนด height ใช้ existing size/variant API; loading ใช้ prop `loading` (disabled + aria-busy + Spinner)",
       },
     },
   },
@@ -171,15 +171,52 @@ export const Disabled: Story = {
   },
 };
 export const Loading: Story = {
-  args: {
-    disabled: true,
-    "aria-busy": true,
-    children: (
-      <>
-        <Spinner />
-        กำลังบันทึก
-      </>
-    ),
+  args: { loading: true, children: "กำลังบันทึก", onClick: fn() },
+  play: async ({ canvas, args }) => {
+    const b = canvas.getByRole("button");
+    await expect(b).toBeDisabled();
+    await expect(b).toHaveAttribute("aria-busy", "true");
+    await expect(canvas.getByRole("status")).toBeVisible();
+    b.click();
+    await expect(args.onClick).not.toHaveBeenCalled();
+  },
+};
+/** `loading` hides the button's own icons; icon sizes keep their `aria-label` and show only the spinner. */
+export const LoadingWithIcons: Story = {
+  render: function Render() {
+    const [loading, setLoading] = useState(false);
+    return (
+      <div className="flex flex-wrap items-center gap-4">
+        <Button loading={loading} onClick={() => setLoading(true)}>
+          <DownloadRounded />
+          ดาวน์โหลด
+        </Button>
+        {(["icon-lg", "icon", "icon-sm"] as const).map((size) => (
+          <Button key={size} size={size} loading aria-label={size}>
+            <AddRounded />
+          </Button>
+        ))}
+      </div>
+    );
+  },
+  play: async ({ canvas, userEvent }) => {
+    const b = canvas.getByRole("button", { name: "ดาวน์โหลด" });
+    await expect(b).toBeEnabled();
+    await expect(b).not.toHaveAttribute("aria-busy");
+    await userEvent.click(b);
+    await expect(b).toBeDisabled();
+    await expect(
+      b.querySelector("svg:not([data-slot=spinner])")
+    ).not.toBeVisible();
+    const widths = { "icon-lg": 24, icon: 24, "icon-sm": 16 };
+    for (const [size, width] of Object.entries(widths)) {
+      const icon = canvas.getByLabelText(size, { selector: "button" });
+      await expect(icon.querySelectorAll("svg")).toHaveLength(1);
+      // offsetWidth is unavailable on SVG and the rect grows while rotating.
+      await expect(getComputedStyle(icon.querySelector("svg")!).width).toBe(
+        `${width}px`
+      );
+    }
   },
 };
 export const LongThai: Story = {
@@ -348,11 +385,9 @@ export const LoadingButtons: Story = {
               key={size}
               variant={variant}
               size={size}
-              disabled
-              aria-busy
+              loading
               data-case={`${variant}|${size}`}
             >
-              <Spinner />
               Label
             </Button>
           ))}

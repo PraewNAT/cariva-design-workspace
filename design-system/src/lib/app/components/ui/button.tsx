@@ -2,6 +2,7 @@ import { Button as ButtonPrimitive } from "@base-ui/react/button";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "cn";
 import "./button-motion.css";
+import { Spinner } from "./spinner";
 
 /**
  * Figma ↔ code (docs/components/FIGMA-NAMING.md):
@@ -9,6 +10,9 @@ import "./button-motion.css";
  * (primary | destructive | secondary); `size` sm | default | lg. The other
  * variants (secondary, destructive, link, decorative)
  * are shadcn's own and ignore `color`.
+ *
+ * `loading` (Figma `button-loading`) disables the button, sets `aria-busy` and shows a
+ * `Spinner` in place of the icons; icon sizes show the spinner only.
  */
 const buttonVariants = cva(
   "group/button inline-flex shrink-0 items-center justify-center rounded-[var(--button-radius,12px)] border-0 bg-clip-padding text-base leading-6 font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none aria-invalid:border-destructive aria-invalid:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-6 [&_[data-slot=spinner]]:size-6",
@@ -47,15 +51,15 @@ const buttonVariants = cva(
       },
       size: {
         default: "gap-2 px-4 py-2",
-        xs: "gap-1 px-2 py-1 text-xs leading-4 [&_svg:not([class*='size-'])]:size-4",
+        xs: "gap-1 px-2 py-1 text-xs leading-4 [&_svg:not([class*='size-'])]:size-4 [&_[data-slot=spinner]]:size-4",
         // Figma small: 12/16 label, 16px icon, gap 4, padding 8/12 = 32px tall
         sm: "gap-1 px-3 py-2 text-xs leading-4 [&_svg:not([class*='size-'])]:size-4 [&_[data-slot=spinner]]:size-4",
         // Figma large: gap 12, padding 12/24 = 48px tall
         lg: "gap-3 px-6 py-3",
         icon: "p-2",
-        "icon-xs": "p-1 [&_svg:not([class*='size-'])]:size-4",
+        "icon-xs": "p-1 [&_svg:not([class*='size-'])]:size-4 [&_[data-slot=spinner]]:size-4",
         // Figma button-icon small: 16px icon + padding 8 = 32px
-        "icon-sm": "p-2 [&_svg:not([class*='size-'])]:size-4",
+        "icon-sm": "p-2 [&_svg:not([class*='size-'])]:size-4 [&_[data-slot=spinner]]:size-4",
         "icon-lg": "p-3",
       },
     },
@@ -160,8 +164,14 @@ function Button({
   variant = "default",
   color = "primary",
   size = "default",
+  loading = false,
+  disabled,
+  children,
+  "aria-busy": ariaBusy,
   ...props
-}: Omit<ButtonPrimitive.Props, "color"> & VariantProps<typeof buttonVariants>) {
+}: Omit<ButtonPrimitive.Props, "color"> &
+  VariantProps<typeof buttonVariants> & { loading?: boolean }) {
+  const iconOnly = size?.startsWith("icon");
   return (
     <ButtonPrimitive
       data-slot="button"
@@ -169,9 +179,17 @@ function Button({
       data-size={size}
       data-variant={variant}
       data-color={color}
-      className={cn(buttonVariants({ variant, color, size, className }))}
+      className={cn(
+        buttonVariants({ variant, color, size, className }),
+        loading && "[&>svg:not([data-slot=spinner])]:hidden"
+      )}
+      disabled={disabled || loading}
+      aria-busy={loading || ariaBusy}
       {...props}
-    />
+    >
+      {loading && <Spinner />}
+      {loading && iconOnly ? null : children}
+    </ButtonPrimitive>
   );
 }
 

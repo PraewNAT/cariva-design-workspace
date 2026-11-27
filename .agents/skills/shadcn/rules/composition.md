@@ -164,13 +164,10 @@ Use full composition — don't dump everything into `CardContent`:
 
 ## Button has no isPending or isLoading prop
 
-Compose with `Spinner` + `data-icon` + `disabled`:
+Upstream shadcn composes `Spinner` by hand. The Cariva Button has its own `loading` prop, which adds `disabled`, `aria-busy` and `Spinner`:
 
 ```tsx
-<Button disabled>
-  <Spinner data-icon="inline-start" />
-  Saving...
-</Button>
+<Button loading>Saving...</Button>
 ```
 
 ---

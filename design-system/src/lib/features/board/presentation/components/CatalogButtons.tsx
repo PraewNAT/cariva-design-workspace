@@ -14,7 +14,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/lib/app/components/ui/dropdown-menu";
-import { Spinner } from "@/lib/app/components/ui/spinner";
 import { toast } from "@/lib/app/components/ui/toast";
 import { Toggle } from "@/lib/app/components/ui/toggle";
 import {
@@ -55,8 +54,7 @@ export function CatalogButtons() {
         <Button>กลาง</Button>
         <Button size="lg">ใหญ่</Button>
         <Button disabled>ปิดใช้งาน</Button>
-        <Button disabled aria-busy="true">
-          <Spinner />
+        <Button loading>
           กำลังบันทึก
         </Button>
         <Button size="icon" aria-label="ดาวน์โหลด">
