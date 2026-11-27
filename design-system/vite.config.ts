@@ -14,7 +14,7 @@ const dirname = import.meta.dirname;
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   resolve: {
-    alias: { "storybook/test": fileURLToPath(import.meta.resolve("storybook/test")), "@": path.resolve(dirname, "src"), ...Object.fromEntries(["react", "react-dom", "lucide-react", "@fontsource"].map(name => [name, path.resolve(dirname, "node_modules", name)])) },
+    alias: { "storybook/test": fileURLToPath(import.meta.resolve("storybook/test")), "@": path.resolve(dirname, "src"), ...Object.fromEntries(["react", "react-dom", "lucide-react", "@fontsource", "@material-symbols"].map(name => [name, path.resolve(dirname, "node_modules", name)])) },
     dedupe: ["react", "react-dom"],
   },
   test: {

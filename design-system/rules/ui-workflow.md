@@ -39,6 +39,8 @@ Read `rules/agent-rules.md` for the project rules, `DESIGN.md` for visual guidan
 - If Figma variables are changed, follow `rules/figma-variable-change-flow.md` for reading/comparing/updating, then continue with this workflow's check and report steps without re-running the same audit
 - Use Figma output only for the destination and direction that are part of the task. The default when a sync is requested is code → Figma, but a UI code change does not mean Figma must be written every time. Figma-first work does not force writing code unless asked. Check the relevant Figma skill before using the tools
 
+**Screens come with their Canvas (user decided 2026-11-27):** when this step creates or changes a screen, page or flow, create or update the Canvas in the same step, one Canvas page per flow with frames in step order (details and exceptions: `.agents/skills/create-project/SKILL.md`, "Canvas is built together with the screens"). Run `npm run canvas:check` in step 6.
+
 ## 5. Update stories and docs
 
 - After changing a component, always check the related docs. Use `document` to update the contract/examples/limitations that changed. Do not create new Markdown for every component when a suitable destination already exists

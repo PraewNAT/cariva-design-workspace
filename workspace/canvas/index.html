@@ -19,6 +19,9 @@
     background-image: radial-gradient(var(--dot) 1px, transparent 1px); }
   #viewport.panning { cursor: grabbing; }
   #world { position: absolute; left: 0; top: 0; transform-origin: 0 0; }
+  /* Only while panning or zooming: move the board as one GPU layer, then drop it so screens repaint sharp. */
+  #world.moving { will-change: transform; }
+  .overlay { position: absolute; left: 0; top: 0; width: 0; height: 0; z-index: 2; }
   .frame { position: absolute; }
   .frame .title { position: absolute; left: 0; bottom: 100%; padding: 0 0 4px; white-space: nowrap;
     color: var(--muted); cursor: grab; user-select: none; display: flex; gap: 8px; align-items: center; }
@@ -27,8 +30,9 @@
   .frame:hover .title button, .frame.sel .title button { opacity: 1; }
   .frame .box { width: 100%; height: 100%; background: #fff; box-shadow: 0 0 0 1px var(--line), 0 8px 24px rgba(0,0,0,.08); overflow: hidden; }
   .frame.sel .box { box-shadow: 0 0 0 2px var(--accent); }
-  .frame iframe { width: 100%; height: 100%; border: 0; display: block; }
-  .dragging iframe { pointer-events: none; }
+  .frame iframe { pointer-events: none; width: 100%; height: 100%; border: 0; display: block; }
+  .frame.mobile iframe { pointer-events: auto; }
+  .dragging .frame iframe { pointer-events: none; }
   .grip { position: absolute; right: -6px; bottom: -6px; width: 14px; height: 14px; background: var(--accent);
     border-radius: 3px; cursor: nwse-resize; opacity: 0; }
   .frame.sel .grip { opacity: 1; }
@@ -51,6 +55,19 @@
   #status { position: fixed; top: 76px; left: 12px; color: var(--muted); }
   body.panels-hidden #modes, body.panels-hidden #bar, body.panels-hidden #status, body.panels-hidden #notice { display: none; }
   body.panels-hidden #preview { inset: 0; width: 100%; height: 100%; }
+  /* Flow map: connector lines, link labels and flow tags. Labels keep a readable on-screen size at any zoom (--inv). */
+  #links { position: absolute; left: 0; top: 0; width: 1px; height: 1px; overflow: visible; pointer-events: none; z-index: 2; }
+  #links path { fill: none; stroke-width: calc(2px * var(--inv)); stroke-linejoin: round; }
+  #links > path.is-related { stroke-width: calc(3px * var(--inv)); }
+  .k-main { stroke: #059669; color: #059669; } .k-alt { stroke: #2563eb; color: #2563eb; } .k-error { stroke: #dc2626; color: #dc2626; }
+  #links path.k-alt { stroke-dasharray: calc(6px * var(--inv)) calc(4px * var(--inv)); }
+  .link-label, .flow-tag, .board-banner { position: absolute; z-index: 3; white-space: nowrap; pointer-events: none; transform-origin: center; }
+  .link-label { transform: translate(-50%, -50%) scale(var(--inv)); padding: 2px 8px; border-radius: 999px; font-size: 12px; font-weight: 600; color: #fff; }
+  .link-label.k-main { background: #047857; } .link-label.k-alt { background: #1d4ed8; } .link-label.k-error { background: #b91c1c; }
+  .flow-tag { transform: translate(-100%, 0) scale(var(--inv)); transform-origin: right top; padding: 8px 12px; border-radius: 4px; background: #f59e0b; color: #0f172a; font-size: 14px; font-weight: 700; }
+  .board-banner { transform: translate(0, -100%) scale(var(--inv)); transform-origin: left bottom; padding: 8px 16px; border-radius: 4px; background: #1d4ed8; color: #fff; font-size: 16px; font-weight: 700; }
+  #links-toggle[hidden], #mobile-toggle[hidden] { display: none; }
+  #bar [hidden] { display: none; }
 </style>
 </head>
 <body>
@@ -58,32 +75,54 @@
 <iframe id="preview" title="Preview เคสที่เลือก" hidden></iframe>
 <nav id="modes" aria-label="มุมมอง prototype">
   <button id="canvas-mode" aria-pressed="true">Canvas</button>
-  <button id="preview-mode" aria-pressed="false">Preview</button>
+  <button id="preview-mode" aria-pressed="false">▶ เล่น Preview</button>
   <label for="page">Page</label>
   <select id="page" aria-label="เลือก Page"></select>
+  <button id="links-toggle" aria-pressed="true" hidden>เส้นโยง</button>
+  <button id="mobile-toggle" aria-pressed="true" title="แสดงจอมือถือข้างจอหลักของแต่ละสถานะ กดเพื่อซ่อนจอมือถือ" hidden>จอมือถือ</button>
   <button id="fullscreen" hidden>ขยายเต็มจอ</button>
   <a id="open-preview" target="_blank" rel="noopener noreferrer">เปิดเต็มหน้า ↗</a>
   <button id="hide-panels" title="Cmd / Ctrl + \\ · ซ่อนหรือแสดงแผงควบคุม">ซ่อนแผงควบคุม</button>
 </nav>
 <div id="notice" role="status" style="position:fixed;bottom:16px;left:16px;background:var(--panel);color:var(--ink)"></div>
 <div id="status">Cariva Canvas · space/ลากพื้นหลัง = เลื่อน · ⌘/ctrl+ล้อ = ซูม</div>
-<div id="bar">
+<div id="bar" aria-label="ซูมและจัดบอร์ด">
   <input id="story" list="stories" placeholder="story id เช่น form-crvinput--default" autocomplete="off">
   <datalist id="stories"></datalist>
   <button id="add" class="primary">+ Frame</button>
-  <button id="out">−</button><span id="zoom">100%</span><button id="in">+</button>
-  <button id="fit">Fit</button>
+  <button id="out" title="ซูมออก" aria-label="ซูมออก">−</button><span id="zoom" title="ระดับซูมตอนนี้">100%</span><button id="in" title="ซูมเข้า" aria-label="ซูมเข้า">+</button>
+  <button id="fit" title="ย่อหรือขยายให้เห็นครบทุกจอ">พอดีจอ</button>
 </div>
 <script>
 const $ = (s) => document.querySelector(s);
 const vp = $('#viewport'), world = $('#world');
+let overlay = world;
 new ResizeObserver(([entry]) => document.documentElement.style.setProperty('--toolbar-height', entry.target.getBoundingClientRect().height + 'px')).observe($('#modes'));
 let doc = { storybook: 'http://localhost:6006', view: { x: 0, y: 0, zoom: 1 }, frames: [] };
 const params = new URLSearchParams(location.search);
 let sel = params.get('case'), saveTimer = null;
 let pageId = params.get('page');
 const pageSelections = new Map();
-const activeFrames = () => doc.frames.filter(f => f.page === pageId);
+const MAP = 'map';
+let showLinks = true;
+// Show the primary viewport and Mobile together; users can hide Mobile when needed.
+let showMobile = true;
+// The flow map stacks every flow page as one row, using each page's own layout, so links can cross flows.
+function mapFrames() {
+  const out = []; let top = 0;
+  for (const page of doc.pages.filter(p => p.id !== MAP)) {
+    const frames = doc.frames.filter(f => f.page === page.id);
+    if (!frames.length) continue;
+    const x0 = Math.min(...frames.map(f => f.x)), y0 = Math.min(...frames.map(f => f.y)), y1 = Math.max(...frames.map(f => f.y + f.h));
+    for (const f of frames) {
+      if (!showMobile && / · Mobile$/.test(f.title)) continue;
+      out.push({ ...f, x: f.x - x0, y: f.y - y0 + top, flow: page.id, page: MAP });
+    }
+    top += y1 - y0 + 1200;
+  }
+  return out;
+}
+const activeFrames = () => pageId === MAP ? mapFrames() : doc.frames.filter(f => f.page === pageId);
 function selectPage(id) {
   const next = doc.pages.find(p => p.id === id);
   if (!next || id === pageId) return;
@@ -93,6 +132,7 @@ function selectPage(id) {
   pageId = id; sel = pageSelections.get(id) || null;
   doc.view = { ...(next.view || { x: 24, y: 140, zoom: .3 }) };
   applyView(); render();
+  if (id === MAP && !next.view) $('#fit').click();
 }
 let mode = params.get('mode') === 'preview' ? 'preview' : 'canvas';
 let panelsHidden = false;
@@ -117,14 +157,15 @@ function bindPanelShortcut(frame) {
   });
 }
 bindPanelShortcut($('#preview'));
-function storyUrl(story) {
+function storyUrl(story, still = false) {
   const base = doc.storybook ? new URL(doc.storybook + '/') : new URL('../', location.href);
   const url = new URL('iframe.html', base);
+  if (still) url.searchParams.set('canvasStill', '1');
   url.searchParams.set('id', story); url.searchParams.set('viewMode', 'story');
   return url.href;
 }
 function selectCase(id) {
-  sel = id; updateMode();
+  sel = id; updateMode(); refreshLinks();
   document.querySelectorAll('.frame').forEach(el => el.classList.toggle('sel', el.dataset.id === sel));
 }
 function updateMode() {
@@ -140,6 +181,7 @@ function updateMode() {
     const url = storyUrl(frame.story);
     $('#open-preview').href = frame.previewUrl || url;
     if (mode === 'preview' && $('#preview').src !== url) $('#preview').src = url;
+    if (mode !== 'preview') $('#preview').removeAttribute('src');
   }
   $('#open-preview').hidden = !frame;
   const url = new URL(location.href);
@@ -155,33 +197,206 @@ $('#fullscreen').onclick = () => $('#preview').requestFullscreen().catch(() => {
 const FRAMES = (new URLSearchParams(location.search).get('frames') || 'frames').replace(/[^A-Za-z0-9_.-]/g, '');
 
 const save = () => { const page = doc.pages?.find(p => p.id === pageId); if (page) page.view = { ...doc.view }; if (location.port !== '6019') return; clearTimeout(saveTimer); saveTimer = setTimeout(() =>
-  fetch('/canvas/frames?name=' + FRAMES, { method: 'POST', body: JSON.stringify(doc, null, 2) }).catch(() => {}), 300); };
+  fetch('/canvas/frames?name=' + FRAMES, { method: 'POST', body: JSON.stringify({ ...doc, pages: doc.pages.filter(p => p.id !== MAP) }, null, 2) }).catch(() => {}), 300); };
 
+let viewQueued = false, drawnZoom = 0;
 function applyView() {
+  // Wheel and pointer events arrive faster than the screen refreshes; paint once per frame.
+  if (viewQueued) return;
+  viewQueued = true;
+  requestAnimationFrame(() => { viewQueued = false; paintView(); });
+}
+function paintView() {
   const { x, y, zoom } = doc.view;
+  if (zoom !== drawnZoom) {
+    drawnZoom = zoom;
+    const inv = Math.min(8, 1 / zoom);
+    // set on the overlay only, so zooming does not restyle every frame
+    overlay.style.setProperty('--inv', inv);
+    overlay.querySelectorAll('#links marker').forEach(m => { m.setAttribute('markerWidth', 10 * inv); m.setAttribute('markerHeight', 10 * inv); });
+
+  }
   world.style.transform = `translate(${x}px,${y}px) scale(${zoom})`;
   vp.style.backgroundSize = `${24 * zoom}px ${24 * zoom}px`;
   vp.style.backgroundPosition = `${x}px ${y}px`;
   $('#zoom').textContent = Math.round(zoom * 100) + '%';
 }
+let movingTimer = null;
+function markMoving() {
+  world.classList.add('moving');
+  clearTimeout(movingTimer);
+  movingTimer = setTimeout(() => world.classList.remove('moving'), 200);
+}
 function zoomAt(cx, cy, factor) {
+  markMoving();
   const v = doc.view, z = Math.min(4, Math.max(0.1, v.zoom * factor)), k = z / v.zoom;
   v.x = cx - (cx - v.x) * k; v.y = cy - (cy - v.y) * k; v.zoom = z; applyView(); save();
 }
 
+// A "step" is the desktop + mobile pair that shares a frame title without its viewport.
+const stepKey = f => (f.flow || f.page) + '|' + f.title.replace(/ · (Desktop|Tablet|Mobile)$/, '');
+function drawLinks(frames) {
+  const steps = new Map();
+  for (const f of frames) {
+    const key = stepKey(f), box = steps.get(key) || { x0: Infinity, y0: Infinity, x1: -Infinity, y1: -Infinity, flow: f.flow || f.page };
+    box.x0 = Math.min(box.x0, f.x); box.y0 = Math.min(box.y0, f.y); box.x1 = Math.max(box.x1, f.x + f.w); box.y1 = Math.max(box.y1, f.y + f.h);
+    steps.set(key, box);
+  }
+  const rows = new Map();
+  for (const box of steps.values()) {
+    const row = rows.get(box.flow) || { y0: Infinity, y1: -Infinity, x0: Infinity };
+    row.y0 = Math.min(row.y0, box.y0); row.y1 = Math.max(row.y1, box.y1); row.x0 = Math.min(row.x0, box.x0); rows.set(box.flow, row);
+  }
+  const add = (className, text, x, y) => {
+    const el = document.createElement('div'); el.className = className; el.textContent = text; el.style.left = x + 'px'; el.style.top = y + 'px'; overlay.appendChild(el);
+  };
+  for (const [flow, row] of rows) add('flow-tag', doc.pages.find(p => p.id === flow)?.title || flow, row.x0 - 80, row.y0);
+  if (doc.title && rows.size) add('board-banner', doc.title, 0, Math.min(...[...rows.values()].map(r => r.y0)) - 1000);
+  if (!showLinks) return;
+  const byId = id => { const f = frames.find(x => x.id === id); return f && { x0:f.x,y0:f.y,x1:f.x+f.w,y1:f.y+f.h,flow:f.flow||f.page }; };
+  const NS = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(NS, 'svg'); svg.id = 'links'; svg.setAttribute('aria-hidden', 'true');
+  svg.innerHTML = `<defs>${['main', 'alt', 'error'].map(k => `<marker id="arrow-${k}" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="k-${k}" style="fill:currentColor;stroke:none"/></marker>`).join('')}</defs>`;
+  overlay.appendChild(svg);
+  const lanes = new Map(), nextLane = key => { const n = lanes.get(key) || 0; lanes.set(key, n + 1); return n; };
+  for (const link of doc.links || []) {
+    const related = link.from === sel || link.to === sel;
+    const a = byId(link.from), b = byId(link.to);
+    if (!a || !b || a === b) continue;
+    const kind = ['alt', 'error'].includes(link.kind) ? link.kind : 'main';
+    const sameRow = a.flow === b.flow && Math.abs(a.y0 - b.y0) < 1;
+    const blocked = sameRow && [...steps.values()].some(s => s !== a && s !== b && Math.abs(s.y0 - a.y0) < 1 && s.x0 > Math.min(a.x0, b.x0) && s.x0 < Math.max(a.x0, b.x0));
+    let points, label;
+    if (sameRow && b.x0 > a.x0 && !blocked) {
+      // next step to the right: straight across the gap
+      const y = a.y0 + 220 + nextLane('side' + a.x0 + a.flow) * 170;
+      points = [[a.x1, y], [b.x0, y]]; label = [(a.x1 + b.x0) / 2, y];
+    } else if (sameRow) {
+      // going back runs above the row, skipping ahead runs below it
+      const back = b.x0 < a.x0, n = nextLane((back ? 'up' : 'down') + a.flow);
+      const lane = back ? rows.get(a.flow).y0 - 160 - n * 180 : rows.get(a.flow).y1 + 140 + n * 180;
+      const ax = a.x0 + (a.x1 - a.x0) * (back ? .3 : .7) + n * 40, bx = b.x0 + (b.x1 - b.x0) * (back ? .7 : .3) - n * 40;
+      points = [[ax, back ? a.y0 : a.y1], [ax, lane], [bx, lane], [bx, back ? b.y0 : b.y1]]; label = [(ax + bx) / 2, lane];
+    } else {
+      // to another flow: leave through the gap next to the source row and enter the target from that side
+      const down = b.y0 > a.y0, n = nextLane((down ? 'cross-down' : 'cross-up') + a.flow);
+      const lane = down ? rows.get(a.flow).y1 + 300 + n * 220 : rows.get(a.flow).y0 - 340 - n * 220;
+      const ax = a.x0 + (a.x1 - a.x0) * .5 + n * 60, bx = b.x0 + (b.x1 - b.x0) * (.2 + (n % 3) * .12);
+      const between = [...rows.values()].filter(r => r.y0 > Math.min(a.y0, b.y0) && r.y0 < Math.max(a.y0, b.y0));
+      if (!between.length) {
+        points = [[ax, down ? a.y1 : a.y0], [ax, lane], [bx, lane], [bx, down ? b.y0 : b.y1]]; label = [(ax + bx) / 2, lane];
+      } else {
+        // rows in between: travel down or up in a channel to the right of every frame, so no screen is crossed
+        const m = nextLane('far'), channel = Math.max(...[...steps.values()].map(s => s.x1)) + 320 + m * 220;
+        const entry = down ? rows.get(b.flow).y0 - 440 - m * 120 : rows.get(b.flow).y1 + 520 + m * 120;
+        points = [[ax, down ? a.y1 : a.y0], [ax, lane], [channel, lane], [channel, entry], [bx, entry], [bx, down ? b.y0 : b.y1]];
+        label = [Math.min(ax + 900, (ax + channel) / 2), lane];
+      }
+    }
+    const sourceFrame = frames.find(f => f.id === link.from);
+    const iframe = [...world.querySelectorAll('.frame')].find(el => el.dataset.id === link.from)?.querySelector('iframe');
+    let anchored = false;
+    if (link.sourceLabel && iframe) {
+      try {
+        const controls = [...iframe.contentDocument.querySelectorAll('button, [role="button"]')];
+        const normalize = value => value.replace(/\s+/g, ' ').trim();
+        const control = controls.find(el => normalize(el.getAttribute('aria-label') || el.textContent) === normalize(link.sourceLabel) && el.getBoundingClientRect().width > 0);
+        if (control) {
+          const rect = control.getBoundingClientRect();
+          const start = [sourceFrame.x + rect.right, sourceFrame.y + rect.top + rect.height / 2];
+          const exitX = start[0] + 16;
+          const first = points[0];
+          points.unshift(start, [exitX, start[1]], [exitX, first[1]]);
+          const dot = document.createElementNS(NS, 'circle');
+          dot.setAttribute('cx', start[0]); dot.setAttribute('cy', start[1]); dot.setAttribute('r', '6'); dot.setAttribute('fill', '#0f70e6'); svg.appendChild(dot);
+          anchored = true;
+        }
+      } catch {}
+    }
+    if (link.sourceLabel && !anchored) {
+      add('link-label k-' + kind, link.label + ' · รอตำแหน่งปุ่ม', label[0], label[1]);
+      continue; // Never depict a frame-edge fallback as a verified action anchor.
+    }
+    const path = document.createElementNS(NS, 'path');
+    path.setAttribute('d', 'M' + points.map(p => p.join(',')).join(' L'));
+    path.setAttribute('class', 'k-' + kind + (related ? ' is-related' : '')); path.setAttribute('marker-end', `url(#arrow-${kind})`);
+    path.dataset.from = link.from; path.dataset.to = link.to;
+    svg.appendChild(path);
+    add('link-label k-' + kind, link.label + (link.sourceLabel && !anchored ? ' · ยังระบุตำแหน่งปุ่มไม่ได้' : ''), label[0], label[1]);
+  }
+}
+// Board frames are inspection surfaces; interactive playback lives in Preview.
+function refreshLinks() {
+  overlay.replaceChildren();
+  if (doc.links?.length) drawLinks(activeFrames());
+  drawnZoom = 0; applyView();
+}
+let linkRefreshTimer;
+const frameCleanups = new Map();
+function scheduleLinks() {
+  clearTimeout(linkRefreshTimer);
+  linkRefreshTimer = setTimeout(refreshLinks, 80);
+}
+function watchFrame(iframe) {
+  iframe.addEventListener('load', () => {
+    frameCleanups.get(iframe)?.();
+    try {
+      const content = iframe.contentDocument;
+      const observer = new MutationObserver(scheduleLinks);
+      observer.observe(content.documentElement, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ['aria-label', 'hidden', 'data-state'] });
+      const resize = new ResizeObserver(scheduleLinks);
+      resize.observe(content.documentElement);
+      const scroll = () => scheduleLinks();
+      content.addEventListener('scroll', scroll, true);
+      content.addEventListener('load', scroll, true);
+      content.addEventListener('pointerdown', event => {
+        if (event.target.closest?.('button,input,select,textarea,a,[role=button]')) {
+          event.preventDefault(); event.stopImmediatePropagation();
+        }
+      }, true);
+      content.addEventListener('click', event => { event.preventDefault(); event.stopImmediatePropagation(); }, true);
+      content.addEventListener('wheel', event => {
+        if (!event.ctrlKey && !event.metaKey) return; // Native scrolling inside Mobile.
+        event.preventDefault();
+        const box = iframe.getBoundingClientRect();
+        zoomAt(box.left + event.clientX * doc.view.zoom, box.top + event.clientY * doc.view.zoom, Math.exp(-event.deltaY * .01));
+      }, { passive: false });
+      content.fonts.ready.then(() => { if (iframe.isConnected) scheduleLinks(); });
+      frameCleanups.set(iframe, () => { observer.disconnect(); resize.disconnect(); content.removeEventListener('scroll', scroll, true); content.removeEventListener('load', scroll, true); });
+      const sheet = content.createElement('style');
+      sheet.textContent = '*,*::before,*::after{transition:none!important;caret-color:transparent!important}';
+      const freeze = () => {
+        for (const animation of iframe.contentDocument.getAnimations()) {
+          if (animation.effect?.getComputedTiming().iterations === Infinity) animation.pause();
+          else { try { animation.finish(); } catch {} }
+        }
+      };
+      iframe.contentDocument.addEventListener('animationstart', freeze, true);
+      for (const wait of [300, 1500]) setTimeout(() => { if (iframe.isConnected) freeze(); }, wait);
+      iframe.contentDocument.head.appendChild(sheet);
+    } catch {}
+    for (const wait of [300, 1500]) setTimeout(() => { if (iframe.isConnected) refreshLinks(); }, wait);
+  });
+}
 function render() {
+  for (const cleanup of frameCleanups.values()) cleanup();
+  frameCleanups.clear();
+  clearTimeout(linkRefreshTimer);
   world.innerHTML = '';
+  overlay = document.createElement('div'); overlay.className = 'overlay'; world.appendChild(overlay); drawnZoom = 0;
   $('#page').replaceChildren(...doc.pages.map(p => { const option = document.createElement('option'); option.value = p.id; option.textContent = p.title; return option; }));
-  for (const f of activeFrames()) {
+  const shown = activeFrames();
+  for (const f of shown) {
     const el = document.createElement('div');
     el.dataset.id = f.id;
-    el.className = 'frame' + (f.id === sel ? ' sel' : '');
+    el.className = 'frame' + (/ · Mobile$/.test(f.title) ? ' mobile' : '') + (f.id === sel ? ' sel' : '');
     el.style.cssText = `left:${f.x}px;top:${f.y}px;width:${f.w}px;height:${f.h}px`;
     el.innerHTML = `<div class="title"><span role="button" tabindex="0" aria-label="เลือก ${f.title}">${f.title}</span><button title="reload">↻</button><button title="ลบ">✕</button></div>
-      <div class="box"><iframe loading="lazy" title="${f.title}" src="${storyUrl(f.story)}"></iframe></div>
+      <div class="box"><iframe loading="lazy" title="${f.title}" tabindex="-1" src="${storyUrl(f.story, true)}"></iframe></div>
       <div class="grip"></div>`;
     const [reload, del] = el.querySelectorAll('.title button');
     bindPanelShortcut(el.querySelector('iframe'));
+    watchFrame(el.querySelector('iframe'));
     reload.onclick = () => { const i = el.querySelector('iframe'); i.src = i.src; };
     del.onclick = () => { doc.frames = doc.frames.filter((x) => x !== f); render(); save(); };
     el.querySelector('.title span').onpointerdown = (e) => startDrag(e, f, el, 'move');
@@ -190,10 +405,17 @@ function render() {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); selectCase(f.id); }
     };
     el.querySelector('.grip').onpointerdown = (e) => startDrag(e, f, el, 'resize');
+    if (pageId === MAP) {
+      // positions on the map are derived from the flow pages, so frames are not edited here
+      el.querySelector('.title span').onpointerdown = null; el.querySelector('.grip').remove(); del.remove();
+    }
     el.addEventListener('pointerdown', () => { if (sel !== f.id) { selectCase(f.id); } });
     world.appendChild(el);
   }
-  updateMode();
+  $('#links-toggle').hidden = !doc.links?.length;
+  $('#mobile-toggle').hidden = pageId !== MAP;
+  if (doc.links?.length) drawLinks(shown);
+  applyView(); updateMode();
 }
 
 function startDrag(e, f, el, mode) {
@@ -205,7 +427,7 @@ function startDrag(e, f, el, mode) {
     if (mode === 'move') { f.x = Math.round(ox + dx); f.y = Math.round(oy + dy); el.style.left = f.x + 'px'; el.style.top = f.y + 'px'; }
     else { f.w = Math.max(120, Math.round(ow + dx)); f.h = Math.max(120, Math.round(oh + dy)); el.style.width = f.w + 'px'; el.style.height = f.h + 'px'; }
   };
-  const up = () => { world.classList.remove('dragging'); removeEventListener('pointermove', mv); removeEventListener('pointerup', up); save(); };
+  const up = () => { world.classList.remove('dragging'); removeEventListener('pointermove', mv); removeEventListener('pointerup', up); refreshLinks(); save(); };
   addEventListener('pointermove', mv); addEventListener('pointerup', up);
 }
 
@@ -214,29 +436,33 @@ let space = false;
 addEventListener('keydown', (e) => { if (e.code === 'Space' && !['INPUT', 'SELECT', 'BUTTON', 'TEXTAREA', 'A'].includes(e.target.tagName)) { space = true; e.preventDefault(); } });
 addEventListener('keyup', (e) => { if (e.code === 'Space') space = false; });
 vp.addEventListener('pointerdown', (e) => {
-  if (e.target !== vp && !space) return;
+  if (e.target.closest('.title, .grip') && !space) return;
   // Panning preserves the selected case for Preview.
   const sx = e.clientX, sy = e.clientY, ox = doc.view.x, oy = doc.view.y;
   vp.classList.add('panning'); world.classList.add('dragging');
-  const mv = (m) => { doc.view.x = ox + m.clientX - sx; doc.view.y = oy + m.clientY - sy; applyView(); };
-  const up = () => { vp.classList.remove('panning'); world.classList.remove('dragging'); removeEventListener('pointermove', mv); removeEventListener('pointerup', up); save(); };
+  const mv = (m) => { markMoving(); doc.view.x = ox + m.clientX - sx; doc.view.y = oy + m.clientY - sy; applyView(); };
+  const up = () => { vp.classList.remove('panning'); world.classList.remove('dragging'); removeEventListener('pointermove', mv); removeEventListener('pointerup', up); refreshLinks(); save(); };
   addEventListener('pointermove', mv); addEventListener('pointerup', up);
 });
 vp.addEventListener('wheel', (e) => {
   e.preventDefault();
   if (e.ctrlKey || e.metaKey) zoomAt(e.clientX, e.clientY, Math.exp(-e.deltaY * 0.01));
-  else { doc.view.x -= e.deltaX; doc.view.y -= e.deltaY; applyView(); save(); }
+  else { markMoving(); doc.view.x -= e.deltaX; doc.view.y -= e.deltaY; applyView(); save(); }
 }, { passive: false });
 
 $('#in').onclick = () => zoomAt(innerWidth / 2, innerHeight / 2, 1.25);
 $('#out').onclick = () => zoomAt(innerWidth / 2, innerHeight / 2, 0.8);
+$('#links-toggle').onclick = () => { showLinks = !showLinks; $('#links-toggle').setAttribute('aria-pressed', String(showLinks)); refreshLinks(); };
+$('#mobile-toggle').onclick = () => { showMobile = !showMobile; $('#mobile-toggle').setAttribute('aria-pressed', String(showMobile)); render(); };
 $('#fit').onclick = () => {
   const frames = activeFrames();
   if (!frames.length) return;
   const x0 = Math.min(...frames.map((f) => f.x)), y0 = Math.min(...frames.map((f) => f.y - 24));
   const x1 = Math.max(...frames.map((f) => f.x + f.w)), y1 = Math.max(...frames.map((f) => f.y + f.h));
-  const z = Math.min(2, Math.min((innerWidth - 80) / (x1 - x0), (innerHeight - 140) / (y1 - y0)));
-  doc.view = { zoom: z, x: (innerWidth - (x1 - x0) * z) / 2 - x0 * z, y: (innerHeight - 80 - (y1 - y0) * z) / 2 - y0 * z };
+  // leave room on screen for the flow tags on the left and the banner and return lines above
+  const left = doc.links?.length ? 150 : 0, top = doc.links?.length ? 190 : 0;
+  const z = Math.min(2, Math.min((innerWidth - 80 - left) / (x1 - x0), (innerHeight - 140 - top) / (y1 - y0)));
+  doc.view = { zoom: z, x: left + (innerWidth - left - (x1 - x0) * z) / 2 - x0 * z, y: top + (innerHeight - 80 - top - (y1 - y0) * z) / 2 - y0 * z };
   applyView(); save();
 };
 $('#add').onclick = () => {
@@ -251,6 +477,8 @@ $('#add').onclick = () => {
   // On the sync server: absolute Storybook URL + saving. Inside Storybook (dev or static build): same origin, read-only.
   const onSync = location.port === '6019';
   try { doc = await (await fetch(onSync ? '/canvas/frames?name=' + FRAMES : './' + FRAMES + '.json')).json(); } catch {}
+  // Inside Storybook the board is read-only: a typed-in frame would vanish on reload, so the add controls are hidden.
+  if (!onSync) { $('#story').hidden = true; $('#add').hidden = true; }
   if (!onSync) { doc.storybook = ''; $('#status').textContent = 'Cariva Canvas · ดูอย่างเดียว (แก้เลย์เอาต์ใน sync/canvas/' + FRAMES + '.json)'; }
   try {
     const idx = await (await fetch(new URL('index.json', doc.storybook ? doc.storybook + '/' : new URL('../', location.href)))).json();
@@ -261,9 +489,13 @@ $('#add').onclick = () => {
   // Legacy flat boards become one page without changing their frames.
   if (!doc.pages?.length) doc.pages = [{ id: 'all', title: 'ทุกโฟลว', view: { ...doc.view } }];
   for (const frame of doc.frames) if (!doc.pages.some(p => p.id === frame.page)) frame.page = doc.pages[0].id;
+  // A board with links gets a first page that shows every flow and how they connect.
+  if (doc.links?.length && !doc.pages.some(p => p.id === MAP)) doc.pages.unshift({ id: MAP, title: 'ผังรวมทุก flow' });
   pageId = doc.pages.find(p => p.id === pageId)?.id || doc.frames.find(f => f.id === sel)?.page || doc.pages[0].id;
-  doc.view = { ...(doc.pages.find(p => p.id === pageId).view || doc.view) };
+  const saved = doc.pages.find(p => p.id === pageId).view;
+  doc.view = { ...(saved || doc.view) };
   applyView(); render();
+  if (pageId === MAP && !saved) $('#fit').click();
 })();
 </script>
 </body>

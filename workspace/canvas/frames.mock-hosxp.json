@@ -40,7 +40,7 @@
       "title": "02 · Recording · Desktop",
       "story": "products-mock-hosxp-prototypes-home--recording",
       "previewUrl": "http://localhost:5174/?case=hosxp-recording",
-      "x": 1952,
+      "x": 2272,
       "y": 0,
       "w": 1280,
       "h": 800,
@@ -55,7 +55,7 @@
       "title": "02 · Recording · Mobile",
       "story": "products-mock-hosxp-prototypes-home--recording",
       "previewUrl": "http://localhost:5174/?case=hosxp-mobile-recording",
-      "x": 3264,
+      "x": 3584,
       "y": 0,
       "w": 320,
       "h": 1120,
@@ -70,8 +70,8 @@
       "title": "03 · Paused · Desktop",
       "story": "products-mock-hosxp-prototypes-home--paused",
       "previewUrl": "http://localhost:5174/?case=hosxp-paused",
-      "x": 0,
-      "y": 1440,
+      "x": 4544,
+      "y": 0,
       "w": 1280,
       "h": 800,
       "props": {
@@ -85,8 +85,8 @@
       "title": "03 · Paused · Mobile",
       "story": "products-mock-hosxp-prototypes-home--paused",
       "previewUrl": "http://localhost:5174/?case=hosxp-paused-mobile",
-      "x": 1312,
-      "y": 1440,
+      "x": 5856,
+      "y": 0,
       "w": 320,
       "h": 1120,
       "props": {
@@ -97,10 +97,10 @@
     },
     {
       "id": "hosxp-stopped",
-      "title": "04 · Stopped / note editing · Desktop",
+      "title": "04 · Ready to transcribe · Desktop",
       "story": "products-mock-hosxp-prototypes-home--stopped",
       "previewUrl": "http://localhost:5174/?case=hosxp-stopped",
-      "x": 0,
+      "x": 6816,
       "y": 0,
       "w": 1280,
       "h": 800,
@@ -108,14 +108,14 @@
         "initialState": "stopped",
         "initialElapsedSeconds": 30
       },
-      "page": "review-notes"
+      "page": "recording"
     },
     {
       "id": "hosxp-stopped-mobile",
-      "title": "04 · Stopped / note editing · Mobile",
+      "title": "04 · Ready to transcribe · Mobile",
       "story": "products-mock-hosxp-prototypes-home--stopped",
       "previewUrl": "http://localhost:5174/?case=hosxp-stopped-mobile",
-      "x": 1312,
+      "x": 8128,
       "y": 0,
       "w": 320,
       "h": 1120,
@@ -123,14 +123,14 @@
         "initialState": "stopped",
         "initialElapsedSeconds": 30
       },
-      "page": "review-notes"
+      "page": "recording"
     },
     {
       "id": "hosxp-playback",
       "title": "05 · Playback · Desktop",
       "story": "products-mock-hosxp-prototypes-home--playback",
       "previewUrl": "http://localhost:5174/?case=hosxp-playback",
-      "x": 1952,
+      "x": 9088,
       "y": 0,
       "w": 1280,
       "h": 800,
@@ -138,14 +138,14 @@
         "initialState": "playback",
         "initialElapsedSeconds": 30
       },
-      "page": "review-notes"
+      "page": "recording"
     },
     {
       "id": "hosxp-playback-mobile",
       "title": "05 · Playback · Mobile",
       "story": "products-mock-hosxp-prototypes-home--playback",
       "previewUrl": "http://localhost:5174/?case=hosxp-playback-mobile",
-      "x": 3264,
+      "x": 10400,
       "y": 0,
       "w": 320,
       "h": 1120,
@@ -153,7 +153,207 @@
         "initialState": "playback",
         "initialElapsedSeconds": 30
       },
-      "page": "review-notes"
+      "page": "recording"
+    },
+    {
+      "id": "hosxp-generating",
+      "title": "06 · Generating note · Desktop",
+      "story": "products-mock-hosxp-prototypes-home--generating",
+      "previewUrl": "http://localhost:5174/?case=hosxp-generating",
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 800,
+      "props": {
+        "initialState": "generating"
+      },
+      "page": "generate"
+    },
+    {
+      "id": "hosxp-generating-mobile",
+      "title": "06 · Generating note · Mobile",
+      "story": "products-mock-hosxp-prototypes-home--generating",
+      "previewUrl": "http://localhost:5174/?case=hosxp-generating-mobile",
+      "x": 1312,
+      "y": 0,
+      "w": 320,
+      "h": 1120,
+      "props": {
+        "initialState": "generating"
+      },
+      "page": "generate"
+    },
+    {
+      "id": "hosxp-result",
+      "title": "07 · Note ready · Desktop",
+      "story": "products-mock-hosxp-prototypes-home--note-ready",
+      "previewUrl": "http://localhost:5174/?case=hosxp-result",
+      "x": 2272,
+      "y": 0,
+      "w": 1280,
+      "h": 800,
+      "props": {
+        "initialState": "result"
+      },
+      "page": "generate"
+    },
+    {
+      "id": "hosxp-result-mobile",
+      "title": "07 · Note ready · Mobile",
+      "story": "products-mock-hosxp-prototypes-home--note-ready",
+      "previewUrl": "http://localhost:5174/?case=hosxp-result-mobile",
+      "x": 3584,
+      "y": 0,
+      "w": 320,
+      "h": 1120,
+      "props": {
+        "initialState": "result"
+      },
+      "page": "generate"
+    },
+    {
+      "id": "hosxp-saving",
+      "title": "08 · Saving to HIS · Desktop",
+      "story": "products-mock-hosxp-prototypes-home--saving",
+      "previewUrl": "http://localhost:5174/?case=hosxp-saving",
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 800,
+      "props": {
+        "initialState": "saving"
+      },
+      "page": "save"
+    },
+    {
+      "id": "hosxp-saving-mobile",
+      "title": "08 · Saving to HIS · Mobile",
+      "story": "products-mock-hosxp-prototypes-home--saving",
+      "previewUrl": "http://localhost:5174/?case=hosxp-saving-mobile",
+      "x": 1312,
+      "y": 0,
+      "w": 320,
+      "h": 1120,
+      "props": {
+        "initialState": "saving"
+      },
+      "page": "save"
+    },
+    {
+      "id": "hosxp-saved",
+      "title": "09 · Note saved · Desktop",
+      "story": "products-mock-hosxp-prototypes-home--saved",
+      "previewUrl": "http://localhost:5174/?case=hosxp-saved",
+      "x": 2272,
+      "y": 0,
+      "w": 1280,
+      "h": 800,
+      "props": {
+        "initialState": "saved"
+      },
+      "page": "save"
+    },
+    {
+      "id": "hosxp-saved-mobile",
+      "title": "09 · Note saved · Mobile",
+      "story": "products-mock-hosxp-prototypes-home--saved",
+      "previewUrl": "http://localhost:5174/?case=hosxp-saved-mobile",
+      "x": 3584,
+      "y": 0,
+      "w": 320,
+      "h": 1120,
+      "props": {
+        "initialState": "saved"
+      },
+      "page": "save"
+    },
+    {
+      "id": "hosxp-closing",
+      "title": "10 · Closing session · Desktop",
+      "story": "products-mock-hosxp-prototypes-home--closing",
+      "previewUrl": "http://localhost:5174/?case=hosxp-closing",
+      "x": 4544,
+      "y": 0,
+      "w": 1280,
+      "h": 800,
+      "props": {
+        "initialState": "closing"
+      },
+      "page": "save"
+    },
+    {
+      "id": "hosxp-closing-mobile",
+      "title": "10 · Closing session · Mobile",
+      "story": "products-mock-hosxp-prototypes-home--closing",
+      "previewUrl": "http://localhost:5174/?case=hosxp-closing-mobile",
+      "x": 5856,
+      "y": 0,
+      "w": 320,
+      "h": 1120,
+      "props": {
+        "initialState": "closing"
+      },
+      "page": "save"
+    },
+    {
+      "id": "hosxp-feedback",
+      "title": "11 · Good feedback · Desktop",
+      "story": "products-mock-hosxp-prototypes-home--feedback-form",
+      "previewUrl": "http://localhost:5174/?case=hosxp-feedback",
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 800,
+      "props": {
+        "initialState": "result",
+        "initialFeedback": "open"
+      },
+      "page": "rating"
+    },
+    {
+      "id": "hosxp-feedback-mobile",
+      "title": "11 · Good feedback · Mobile",
+      "story": "products-mock-hosxp-prototypes-home--feedback-form",
+      "previewUrl": "http://localhost:5174/?case=hosxp-feedback-mobile",
+      "x": 1312,
+      "y": 0,
+      "w": 320,
+      "h": 1120,
+      "props": {
+        "initialState": "result",
+        "initialFeedback": "open"
+      },
+      "page": "rating"
+    },
+    {
+      "id": "hosxp-feedback-sent",
+      "title": "12 · Feedback sent · Desktop",
+      "story": "products-mock-hosxp-prototypes-home--feedback-sent",
+      "previewUrl": "http://localhost:5174/?case=hosxp-feedback-sent",
+      "x": 2272,
+      "y": 0,
+      "w": 1280,
+      "h": 800,
+      "props": {
+        "initialState": "result",
+        "initialFeedback": "sent"
+      },
+      "page": "rating"
+    },
+    {
+      "id": "hosxp-feedback-sent-mobile",
+      "title": "12 · Feedback sent · Mobile",
+      "story": "products-mock-hosxp-prototypes-home--feedback-sent",
+      "previewUrl": "http://localhost:5174/?case=hosxp-feedback-sent-mobile",
+      "x": 3584,
+      "y": 0,
+      "w": 320,
+      "h": 1120,
+      "props": {
+        "initialState": "result",
+        "initialFeedback": "sent"
+      },
+      "page": "rating"
     }
   ],
   "pages": [
@@ -161,19 +361,156 @@
       "id": "recording",
       "title": "อัดเสียง",
       "view": {
-        "x": 24,
-        "y": 140,
-        "zoom": 0.3
+        "x": 200,
+        "y": 220,
+        "zoom": 0.12
       }
     },
     {
-      "id": "review-notes",
-      "title": "ตรวจทานโน้ต",
+      "id": "generate",
+      "title": "สร้างโน้ต",
       "view": {
-        "x": 24,
-        "y": 140,
-        "zoom": 0.3
+        "x": 200,
+        "y": 220,
+        "zoom": 0.12
       }
+    },
+    {
+      "id": "save",
+      "title": "บันทึกเข้า HIS",
+      "view": {
+        "x": 200,
+        "y": 220,
+        "zoom": 0.12
+      }
+    },
+    {
+      "id": "rating",
+      "title": "ให้คะแนน",
+      "view": {
+        "x": 200,
+        "y": 220,
+        "zoom": 0.12
+      }
+    }
+  ],
+  "title": "Mock HosXP · อัดเสียง → สร้างโน้ต → บันทึกเข้า HIS → ให้คะแนน",
+  "links": [
+    {
+      "from": "mock-hosxp-home",
+      "to": "hosxp-recording",
+      "label": "กด Start Record",
+      "kind": "main",
+      "sourceLabel": "Start Record"
+    },
+    {
+      "from": "hosxp-recording",
+      "to": "hosxp-paused",
+      "label": "กดปุ่มพัก",
+      "kind": "main",
+      "sourceLabel": "พักบันทึก"
+    },
+    {
+      "from": "hosxp-paused",
+      "to": "hosxp-recording",
+      "label": "กดอัดต่อ",
+      "kind": "alt",
+      "sourceLabel": "บันทึกต่อ"
+    },
+    {
+      "from": "hosxp-paused",
+      "to": "hosxp-stopped",
+      "label": "กด Stop",
+      "kind": "main",
+      "sourceLabel": "หยุดบันทึก"
+    },
+    {
+      "from": "hosxp-recording",
+      "to": "hosxp-stopped",
+      "label": "กด Stop",
+      "kind": "main",
+      "sourceLabel": "หยุดบันทึก"
+    },
+    {
+      "from": "hosxp-stopped",
+      "to": "hosxp-playback",
+      "label": "กดเล่น",
+      "kind": "main",
+      "sourceLabel": "เล่นเสียง"
+    },
+    {
+      "from": "hosxp-playback",
+      "to": "hosxp-stopped",
+      "label": "กดหยุด หรือเล่นจบ",
+      "kind": "alt",
+      "sourceLabel": "พักการเล่น"
+    },
+    {
+      "from": "hosxp-paused",
+      "to": "mock-hosxp-home",
+      "label": "ลบเสียง แล้วยืนยัน",
+      "kind": "alt",
+      "sourceLabel": "ลบเสียงบันทึก"
+    },
+    {
+      "from": "hosxp-stopped",
+      "to": "hosxp-generating",
+      "label": "กด Transcribe",
+      "kind": "main",
+      "sourceLabel": "Transcribe"
+    },
+    {
+      "from": "hosxp-generating",
+      "to": "hosxp-result",
+      "label": "อัตโนมัติ 3 วิ (จำลอง)",
+      "kind": "main"
+    },
+    {
+      "from": "hosxp-result",
+      "to": "hosxp-saving",
+      "label": "กด Save to HIS",
+      "kind": "main",
+      "sourceLabel": "Save to HIS"
+    },
+    {
+      "from": "hosxp-saving",
+      "to": "hosxp-saved",
+      "label": "อัตโนมัติ 2 วิ (จำลอง)",
+      "kind": "main"
+    },
+    {
+      "from": "hosxp-saved",
+      "to": "hosxp-closing",
+      "label": "อัตโนมัติ 3 วิ",
+      "kind": "main"
+    },
+    {
+      "from": "hosxp-result",
+      "to": "hosxp-feedback",
+      "label": "กด Good",
+      "kind": "main",
+      "sourceLabel": "Good"
+    },
+    {
+      "from": "hosxp-feedback",
+      "to": "hosxp-result",
+      "label": "กด Not now",
+      "kind": "alt",
+      "sourceLabel": "Not now"
+    },
+    {
+      "from": "hosxp-feedback",
+      "to": "hosxp-feedback-sent",
+      "label": "กด Send feedback",
+      "kind": "main",
+      "sourceLabel": "Send feedback"
+    },
+    {
+      "from": "hosxp-feedback-sent",
+      "to": "hosxp-saving",
+      "label": "กด Save to HIS",
+      "kind": "alt",
+      "sourceLabel": "Save to HIS"
     }
   ]
 }

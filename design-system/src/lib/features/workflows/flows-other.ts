@@ -40,7 +40,7 @@ export const otherFlows: Flow[] = [
       { id: "e", lane: "ai", code: "S4", label: "เตรียมเท่าที่จำเป็น + สรุปความพร้อม", detail: "เตรียมโครงสร้างที่อนุญาต ไม่สร้างทั้งชุด component และไม่สร้าง repo/push/deploy เอง" },
       { id: "f", lane: "you", label: "เลือกหน้าหรือ flow แรก", kind: "ask", code: "S5", detail: "AI ถามตอนท้ายหลังสรุปความพร้อม ถ้าเคยตอบแล้วใช้คำตอบเดิม" },
       { id: "g", lane: "ai", label: "บันทึก Product + ทางเข้า", detail: "เขียน `docs/products/<id>/PRODUCT.md` และอัปเดต `products/README.md` (path, คำสั่งรัน, พอร์ต, Storybook, สถานะ Figma)" },
-      { id: "h", lane: "ai", label: "สร้าง prototype แล้วไป flow 06 หรือ 03", detail: "ถ้ามีดีไซน์ใน Figma ไป flow 06 ถ้ายังไม่มีไป flow 03 สร้างเฉพาะส่วนที่งานแรกต้องใช้" },
+      { id: "h", lane: "ai", label: "สร้าง prototype + Canvas เรียงตาม flow", detail: "สร้างคู่กันเสมอ: 1 flow = 1 หน้าใน Canvas ถ้ามีดีไซน์ใน Figma ทำตาม flow 06 ถ้ายังไม่มี ออกแบบจากความต้องการ (component ที่ขาดไปทาง flow 03) สร้างเฉพาะส่วนที่งานแรกต้องใช้" },
     ],
     outputs: ["บันทึก Product แยกรายตัว", "แถวใน `products/README.md`", "prototype ที่มี dev host, Storybook Canvas / Preview / เต็มหน้า"],
     rules: ["ไม่ต้องถามกฎธุรกิจหรือธีมตอนเริ่ม", "ห้ามสร้าง Product สมมติ", "การตั้งค่า Product ไม่ใช่การอนุญาตให้เขียน Figma", "ไม่เก็บ “Product ที่เลือกอยู่” ร่วมกันหลายคน"],

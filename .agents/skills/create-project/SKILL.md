@@ -45,6 +45,19 @@ Before starting a prototype, check the record by project/prototype id in `worksp
 - Every Product keeps its specific components in the Product area and in the Storybook group Products/<ProductName>/Components/<Component>, with docs/mapping consistent; do not put Product items in Core
 - Use the Product font role/mode and verified semantic tokens; every rendered text is at least 12px
 
+## Canvas is built together with the screens, flow by flow — user decided 2026-11-27
+
+Whenever a task designs or changes a screen, page or flow in code (a new prototype, Figma → code, a new screen or state in an existing prototype, or design from requirements), create or update its Canvas **in the same task**. Do not ask whether to make it and do not leave it as a follow-up: the screen work is not done until the Canvas shows it. Component-only work uses Storybook stories and does not need a board.
+
+- **One Canvas page per flow**, using the viewer's existing pages. Name each page after the flow in the user's words, and order the pages the way a user goes through the product. A flow is the sequence of states that reaches one goal.
+- **Inside a flow**, frames follow the step order, read left to right and then top to bottom, titled `NN · <state> · <Desktop|Tablet|Mobile>` (numbers rise in step order). Each step is a primary-size + Mobile pair, spaced per "Grouping frames on the Canvas" below.
+- **Connector lines (added 2026-11-27 after the user asked for a readable flow map):** the board catalog has a `title` and a `links` list, `{ from, to, label, kind }`, one entry per way of moving between steps. The label names the button pressed or the automatic trigger ("กด Save to HIS", "อัตโนมัติ 3 วิ (จำลอง)"); `kind` is `main` (green, forward), `alt` (blue dashed, back or optional) or `error` (red). Every step except the first needs an incoming line. Write only moves that the prototype really does. The viewer then draws the lines, an orange tag per flow, a board title and a first page **ผังรวมทุก flow** that shows all flows together.
+- List the flows and their states in the case plan before building; if it is unclear which states belong to which flow, propose the list and ask. Do not invent steps to fill a board.
+- When a screen or state changes or is removed, update or remove its frames, stories and fixtures in the same task.
+- This does not remove the "continue in the existing work item or split into a new one" question above.
+- A work item the user has recorded as `claude-artifact` has no local board; say so and ask whether they also want a local Canvas.
+- Before delivery run `npm run canvas:check` (in `design-system/`) and open the board. The check covers catalog entries, flow pages, titles, step order and overlaps; it cannot tell whether a state is missing.
+
 ## Storybook: Canvas / Preview / Full page
 
 Read the stories skill before editing UI/stories. Check the version and CLI help of the target package. Use the real scripts and reuse the correct server; do not use a newer CLI with an older version; do not automatically upgrade/install dependencies to match the skill. Request approval for installs or npx shadcn add per the rules actually in force when necessary
@@ -70,7 +83,7 @@ Every new prototype must have a Storybook entry and a clearly visible view switc
 The user confirmed on 27 November 2026: when creating or arranging a Canvas, pair the **Product's primary size + Mobile of the same page/state** next to each other, and leave space between groups so it is clear they are different pages/states.
 
 - Use the primary size per the agreed design/Product: a Product that starts from Desktop uses Desktop + Mobile; a Product that starts from Tablet uses Tablet + Mobile. Do not automatically add Tablet as an extra size for a Product that is primarily Desktop, and do not assume a primary size when there is no evidence
-- Place the primary size on the left and Mobile on the right, with top edges aligned, **32px** between the pair and **320px** between group edges, both horizontally and vertically, measured from the widest/tallest frame in the group, so groups do not overlap. The number of groups per row adapts to the board's available space
+- Place the primary size on the left and Mobile on the right, with top edges aligned and **32px** between the pair. Each flow reads as **one row**, left to right, with **640px** between step groups so line labels fit (a branch may sit on a second row, at least 640px below); groups never overlap. This replaces the earlier 320px, several-groups-per-row layout (changed 2026-11-27)
 - Put the page/state name and viewport on each frame so the pairing is evident even when zooming or panning the board. Use the same real catalog/fixtures and screen components; do not copy UI to arrange the board
 - If Mobile has no design yet, state that it is a responsive adaptation; if that cannot be done yet, report the gap and do not claim a complete Mobile set. Pairing does not permit inventing extra business cases
 - Separate the Canvas entry from the prototype: use `products/<product-id>/canvas/<prototype-id>/` for the board entry and Storybook `Products/<ProductName>/Canvas/<PrototypeName>`; screen/flow stories stay in the existing Prototypes group, using the central viewer in the workspace without creating a duplicate implementation. Update the table of contents and docs to match

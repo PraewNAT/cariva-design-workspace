@@ -15,7 +15,8 @@
     "tokens:check": "node scripts/generate-tokens.js --check && node scripts/generate-shadcn-theme.js --check",
     "migration:check": "node scripts/check-active-stack.js",
     "storybook:coverage": "node scripts/check-story-coverage.js",
-    "workflows:check": "node scripts/check-workflows.mjs"
+    "workflows:check": "node scripts/check-workflows.mjs",
+    "canvas:check": "node scripts/check-canvas.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",
